@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Identity Protection Platform - Consent-First Monitoring & Aadhaar/PAN Guidance</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="app" class="app-layout">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" role="navigation" aria-label="Main Navigation">
+      <div class="brand">
+        <div class="logo-icon">🛡️</div>
+        <div class="brand-text">
+          <h2>Suraksha</h2>
+          <span class="sub-badge">Identity Protection</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <button class="nav-item active" data-view="overview" aria-current="page">
+          <span class="icon">📊</span> <span class="label" data-i18n="nav_overview">Overview</span>
+        </button>
+        <button class="nav-item" data-view="identities">
+          <span class="icon">🔑</span> <span class="label" data-i18n="nav_identities">Identities</span>
+        </button>
+        <button class="nav-item" data-view="incidents">
+          <span class="icon">⚠️</span> <span class="label" data-i18n="nav_incidents">Incidents</span>
+        </button>
+        <button class="nav-item" data-view="actions">
+          <span class="icon">✅</span> <span class="label" data-i18n="nav_actions">Protection Actions</span>
+        </button>
+        <button class="nav-item" data-view="assistance">
+          <span class="icon">🇮🇳</span> <span class="label" data-i18n="nav_assistance">Aadhaar & PAN Assistance</span>
+        </button>
+        <button class="nav-item" data-view="coverage">
+          <span class="icon">🌐</span> <span class="label" data-i18n="nav_coverage">Coverage Transparency</span>
+        </button>
+        <button class="nav-item" data-view="notifications">
+          <span class="icon">🔔</span> <span class="label" data-i18n="nav_notifications">Notifications</span>
+        </button>
+        <button class="nav-item" data-view="billing">
+          <span class="icon">💳</span> <span class="label" data-i18n="nav_billing">Billing & Plans</span>
+        </button>
+        <button class="nav-item" data-view="privacy">
+          <span class="icon">🔒</span> <span class="label" data-i18n="nav_privacy">Privacy Center</span>
+        </button>
+        <button class="nav-item" data-view="security">
+          <span class="icon">🛡️</span> <span class="label" data-i18n="nav_security">Account Security</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="lang-selector">
+          <label for="lang-select">Language:</label>
+          <select id="lang-select">
+            <option value="en">English</option>
+            <option value="hi">हिंदी (Hindi)</option>
+          </select>
+        </div>
+        <div class="user-pill" id="user-profile-summary">
+          <span class="status-dot online"></span>
+          <span class="email-masked" id="nav-user-email">user@example.com</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content" id="main-content" tabindex="-1">
+      <header class="topbar">
+        <div class="topbar-title">
+          <h1 id="page-title">Overview</h1>
+          <p id="page-subtitle" class="text-muted">Real-time status of your verified identity monitoring and protective actions</p>
+        </div>
+        <div class="topbar-actions">
+          <button id="btn-scan-now" class="btn btn-primary">
+            <span class="icon">🔍</span> Run Scan
+          </button>
+          <button id="btn-step-up" class="btn btn-outline">
+            <span class="icon">🔐</span> Elevate Session (Step-Up)
+          </button>
+        </div>
+      </header>
+
+      <!-- Alert Banner Container -->
+      <div id="banner-container"></div>
+
+      <!-- View Containers -->
+      <div class="content-body" id="view-container">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal / Dialog Container -->
+  <div id="modal-container" class="modal-backdrop hidden" role="dialog" aria-modal="true"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

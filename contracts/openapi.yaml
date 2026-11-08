@@ -1,0 +1,206 @@
+openapi: 3.1.0
+info:
+  title: Identity Protection Platform API
+  description: Consent-first identity monitoring, breach intelligence, and Aadhaar/PAN assistance platform.
+  version: 1.0.0
+servers:
+  - url: /api/v1
+paths:
+  /auth/login:
+    get:
+      summary: Initiate OIDC authentication flow
+      responses:
+        '200':
+          description: OIDC authorization URL and state parameters
+  /auth/callback:
+    get:
+      summary: OIDC callback exchange and session establishment
+      responses:
+        '200':
+          description: Session created with HttpOnly cookie
+  /auth/logout:
+    post:
+      summary: Revoke local session
+      responses:
+        '204':
+          description: Session revoked
+  /auth/step-up:
+    post:
+      summary: Issue or verify recent step-up authentication challenge
+      responses:
+        '200':
+          description: Step-up verification succeeded
+  /me:
+    get:
+      summary: Get account profile
+      responses:
+        '200':
+          description: Current user profile
+  /workspace:
+    get:
+      summary: Get personal workspace
+      responses:
+        '200':
+          description: Active personal workspace details
+    post:
+      summary: Idempotently create personal workspace
+      responses:
+        '201':
+          description: Personal workspace created
+  /processing-notices:
+    get:
+      summary: List published processing notices
+      responses:
+        '200':
+          description: List of active notices
+  /processing-notices/{version}:
+    get:
+      summary: Retrieve immutable versioned notice
+      parameters:
+        - name: version
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Full notice text and metadata
+  /consents:
+    get:
+      summary: List active consents
+      responses:
+        '200':
+          description: Current grants
+    post:
+      summary: Grant consent for a purpose and notice version
+      responses:
+        '201':
+          description: Consent granted
+  /consents/{id}/withdraw:
+    post:
+      summary: Withdraw consent and immediately stop monitoring
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Consent withdrawn and authorization bumped
+  /identifiers:
+    get:
+      summary: List masked identifiers
+      responses:
+        '200':
+          description: Identifier collection
+    post:
+      summary: Register a new identifier for verification
+      responses:
+        '201':
+          description: Identifier created in pending_verification state
+  /identifiers/{id}/verification-challenges:
+    post:
+      summary: Generate and send a verification challenge
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Verification challenge sent
+  /identifier-verifications/complete:
+    post:
+      summary: Confirm verification token
+      responses:
+        '200':
+          description: Identifier verified
+  /scans:
+    get:
+      summary: List scan executions
+      responses:
+        '200':
+          description: Scan history
+    post:
+      summary: Submit on-demand scan for verified identifiers
+      responses:
+        '202':
+          description: Scan queued in outbox
+  /coverage:
+    get:
+      summary: Workspace provider coverage and status
+      responses:
+        '200':
+          description: Coverage transparency matrix
+  /incidents:
+    get:
+      summary: List security incidents
+      responses:
+        '200':
+          description: Grouped incidents
+  /incidents/{id}:
+    get:
+      summary: Get incident details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Incident details
+    patch:
+      summary: Update incident state
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Incident state updated
+  /identity-assistance/guides:
+    get:
+      summary: Retrieve approved protective guides (Aadhaar, PAN, Biometrics)
+      responses:
+        '200':
+          description: Guides and recommended official actions
+  /identity-assistance/reports:
+    get:
+      summary: List user-reported suspicious activities
+      responses:
+        '200':
+          description: Reports list
+    post:
+      summary: File user-reported suspicious activity
+      responses:
+        '201':
+          description: Report recorded
+  /billing/subscription:
+    get:
+      summary: Current billing subscription & entitlements
+      responses:
+        '200':
+          description: Subscription details
+  /webhooks/razorpay:
+    post:
+      summary: Secure inbound webhook handler for Razorpay
+      responses:
+        '200':
+          description: Webhook received and queued
+  /internal/health/live:
+    get:
+      summary: Liveness probe
+      responses:
+        '200':
+          description: Service live
+  /internal/health/ready:
+    get:
+      summary: Readiness probe
+      responses:
+        '200':
+          description: Service ready

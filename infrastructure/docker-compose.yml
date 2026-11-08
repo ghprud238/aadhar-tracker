@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ipp-postgres
+    environment:
+      POSTGRES_USER: ipp_admin
+      POSTGRES_PASSWORD: ipp_secret_password_change_in_prod
+      POSTGRES_DB: identity_protection_platform
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ipp_admin -d identity_protection_platform"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ..
+      dockerfile: infrastructure/Dockerfile
+    container_name: ipp-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://ipp_admin:ipp_secret_password_change_in_prod@postgres:5432/identity_protection_platform
+      APP_MASTER_ENCRYPTION_KEY: "01234567890123456789012345678901"
+      APP_BLIND_INDEX_KEY: "01234567890123456789012345678902"
+      RAZORPAY_WEBHOOK_SECRET: "mock_razorpay_webhook_secret_key_123"
+    ports:
+      - "8000:8000"
+
+volumes:
+  pgdata:

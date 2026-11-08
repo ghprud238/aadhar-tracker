@@ -1,0 +1,16 @@
+{
+  "events": [
+    {
+      "uid": "evt-fl-987654",
+      "source": "darkweb_forum",
+      "source_name": "Underground Intel Exchange",
+      "first_seen_at": "2026-10-12T14:30:00Z",
+      "last_seen_at": "2026-10-12T14:30:00Z",
+      "matched_identifier": "test.user@domain.com",
+      "exposure_type": "stealer_log",
+      "summary": "Credentials and browser auto-fill data listed on forum",
+      "contains_credentials": true
+    }
+  ],
+  "next_cursor": "eyJvZmZzZXQiOjEwfQ=="
+}

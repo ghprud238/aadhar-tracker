@@ -1,0 +1,23 @@
+[
+  {
+    "Name": "ExampleBreach2026",
+    "Title": "Example Telecom Service",
+    "Domain": "exampletelecom.in",
+    "BreachDate": "2026-03-15",
+    "AddedDate": "2026-04-01T12:00:00Z",
+    "ModifiedDate": "2026-04-01T12:00:00Z",
+    "PwnCount": 1500000,
+    "Description": "In March 2026, an exposure occurred compromising customer email addresses and hashed passwords.",
+    "LogoPath": "https://haveibeenpwned.com/Content/Images/PwnedLogos/Example.png",
+    "DataClasses": [
+      "Email addresses",
+      "Passwords"
+    ],
+    "IsVerified": true,
+    "IsFabricated": false,
+    "IsSensitive": false,
+    "IsRetired": false,
+    "IsSpamList": false,
+    "IsMalware": false
+  }
+]
