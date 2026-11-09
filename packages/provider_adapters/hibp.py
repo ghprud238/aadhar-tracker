@@ -18,6 +18,11 @@ from packages.provider_adapters.base import (
     NormalizedObservation,
     ProviderDeletionReceipt,
 )
+from packages.provider_adapters.circuit_breaker import (
+    CircuitBreaker,
+    CircuitState,
+    CircuitBreakerOpenException,
+)
 from packages.redaction.sanitizer import sanitize_provider_html, sanitize_to_plain_text
 
 
@@ -27,13 +32,15 @@ class HibpProvider(IntelligenceProvider):
         api_key: str = "mock_hibp_key",
         base_url: str = "https://haveibeenpwned.com/api/v3",
         user_agent: str = "IdentityProtectionPlatform/1.0",
-        client: Optional[httpx.AsyncClient] = None
+        client: Optional[httpx.AsyncClient] = None,
+        circuit_breaker: Optional[CircuitBreaker] = None
     ):
         self.api_key = api_key
         self.base_url = base_url.rstrip("/")
         self.user_agent = user_agent
         self._client = client
         self.is_enabled = True
+        self.circuit_breaker = circuit_breaker or CircuitBreaker("hibp", failure_threshold=3, recovery_timeout_seconds=30.0)
 
     async def _get_client(self) -> httpx.AsyncClient:
         if self._client is None:
@@ -66,10 +73,17 @@ class HibpProvider(IntelligenceProvider):
                 status_message="Provider disabled by operator kill-switch",
                 latency_ms=0.0
             )
+        if self.circuit_breaker.state == CircuitState.OPEN:
+            return ProviderHealth(
+                provider="hibp",
+                is_healthy=False,
+                status_message=f"Circuit breaker OPEN. Cooldown: {self.circuit_breaker.get_remaining_open_seconds():.1f}s",
+                latency_ms=0.0
+            )
         return ProviderHealth(
             provider="hibp",
             is_healthy=True,
-            status_message="Healthy",
+            status_message=f"Healthy (Circuit: {self.circuit_breaker.state.value})",
             latency_ms=45.0
         )
 
@@ -89,6 +103,13 @@ class HibpProvider(IntelligenceProvider):
         if not self.is_enabled:
             return ProviderPage(provider="hibp", items=[])
 
+        return await self.circuit_breaker.call(self._execute_search, target, checkpoint)
+
+    async def _execute_search(
+        self,
+        target: AuthorizedIdentifier,
+        checkpoint: Optional[str] = None
+    ) -> ProviderPage:
         email = target.decrypted_value.strip().lower()
         encoded_email = urllib.parse.quote(email)
         url = f"{self.base_url}/breachedAccount/{encoded_email}?truncateResponse=false"

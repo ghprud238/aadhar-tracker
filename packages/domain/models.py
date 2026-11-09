@@ -340,7 +340,10 @@ class OutboxEvent(Base):
     resource_id: Mapped[str] = mapped_column(String(36), index=True)
     authorization_version: Mapped[int] = mapped_column(Integer)
     payload: Mapped[dict] = mapped_column(JSON, default=dict)
-    state: Mapped[str] = mapped_column(String(50), default="pending")  # pending, published, failed
+    state: Mapped[str] = mapped_column(String(50), default="pending")  # pending, published, failed, dead_letter
+    retry_count: Mapped[int] = mapped_column(Integer, default=0)
+    last_error: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    dead_lettered_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
     published_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
 

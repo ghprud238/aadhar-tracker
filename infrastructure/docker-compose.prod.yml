@@ -1,0 +1,124 @@
+version: '3.8'
+
+services:
+  # 1. Primary PostgreSQL 16 with Row-Level Security
+  postgres:
+    image: postgres:16-alpine
+    container_name: suraksha-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: aadhar_tracker
+      POSTGRES_USER: suraksha_admin
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me_in_production_secret}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U suraksha_admin -d aadhar_tracker"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 2. Redis 7 for distributed locks, token buckets, and pub/sub
+  redis:
+    image: redis:7-alpine
+    container_name: suraksha-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes", "--requirepass", "${REDIS_PASSWORD:-redis_secure_pass}"]
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-redis_secure_pass}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 3. Main FastAPI Backend & BFF
+  api:
+    build:
+      context: ..
+      dockerfile: infrastructure/Dockerfile
+    container_name: suraksha-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://suraksha_admin:${POSTGRES_PASSWORD:-change_me_in_production_secret}@postgres:5432/aadhar_tracker
+      REDIS_URL: redis://:${REDIS_PASSWORD:-redis_secure_pass}@redis:6379/0
+      APP_MASTER_ENCRYPTION_KEY: ${APP_MASTER_ENCRYPTION_KEY:-0101010101010101010101010101010101010101010101010101010101010101}
+      APP_BLIND_INDEX_KEY: ${APP_BLIND_INDEX_KEY:-0202020202020202020202020202020202020202020202020202020202020202}
+    ports:
+      - "8000:8000"
+    command: ["uv", "run", "uvicorn", "services.api.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/readyz || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  # 4. Asynchronous Intelligence Connector Worker
+  connector-worker:
+    build:
+      context: ..
+      dockerfile: infrastructure/Dockerfile
+    container_name: suraksha-connector-worker
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://suraksha_admin:${POSTGRES_PASSWORD:-change_me_in_production_secret}@postgres:5432/aadhar_tracker
+      APP_MASTER_ENCRYPTION_KEY: ${APP_MASTER_ENCRYPTION_KEY:-0101010101010101010101010101010101010101010101010101010101010101}
+    command: ["uv", "run", "python", "-m", "services.connector_worker.worker"]
+
+  # 5. Outbox Dispatcher
+  outbox-dispatcher:
+    build:
+      context: ..
+      dockerfile: infrastructure/Dockerfile
+    container_name: suraksha-outbox-dispatcher
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://suraksha_admin:${POSTGRES_PASSWORD:-change_me_in_production_secret}@postgres:5432/aadhar_tracker
+    command: ["uv", "run", "python", "-c", "import asyncio; from services.api.database import async_session_factory; from services.api.outbox_dispatcher import OutboxDispatcher; async def loop():\n while True:\n  async with async_session_factory() as s:\n   await OutboxDispatcher(s).dispatch_pending()\n  await asyncio.sleep(2)\nasyncio.run(loop())"]
+
+  # 6. Prometheus Observability
+  prometheus:
+    image: prom/prometheus:v2.50.1
+    container_name: suraksha-prometheus
+    restart: unless-stopped
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    ports:
+      - "9090:9090"
+
+  # 7. Grafana Dashboards
+  grafana:
+    image: grafana/grafana:10.3.3
+    container_name: suraksha-grafana
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_PASSWORD:-admin_secure_pass}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    ports:
+      - "3001:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+volumes:
+  postgres_data:
+  redis_data:
+  prometheus_data:
+  grafana_data:

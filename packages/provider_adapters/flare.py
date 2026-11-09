@@ -17,6 +17,11 @@ from packages.provider_adapters.base import (
     NormalizedObservation,
     ProviderDeletionReceipt,
 )
+from packages.provider_adapters.circuit_breaker import (
+    CircuitBreaker,
+    CircuitState,
+    CircuitBreakerOpenException,
+)
 from packages.redaction.sanitizer import redact_sensitive_secrets
 
 
@@ -25,12 +30,14 @@ class FlareProvider(IntelligenceProvider):
         self,
         api_key: str = "mock_flare_key",
         base_url: str = "https://api.flare.io",
-        client: Optional[httpx.AsyncClient] = None
+        client: Optional[httpx.AsyncClient] = None,
+        circuit_breaker: Optional[CircuitBreaker] = None
     ):
         self.api_key = api_key
         self.base_url = base_url.rstrip("/")
         self._client = client
         self.is_enabled = True
+        self.circuit_breaker = circuit_breaker or CircuitBreaker("flare", failure_threshold=3, recovery_timeout_seconds=30.0)
 
         # Token caching state
         self._token: Optional[str] = None
@@ -91,10 +98,17 @@ class FlareProvider(IntelligenceProvider):
                 status_message="Flare disabled by operator kill-switch",
                 latency_ms=0.0
             )
+        if self.circuit_breaker.state == CircuitState.OPEN:
+            return ProviderHealth(
+                provider="flare",
+                is_healthy=False,
+                status_message=f"Circuit breaker OPEN. Cooldown: {self.circuit_breaker.get_remaining_open_seconds():.1f}s",
+                latency_ms=0.0
+            )
         return ProviderHealth(
             provider="flare",
             is_healthy=True,
-            status_message="Healthy",
+            status_message=f"Healthy (Circuit: {self.circuit_breaker.state.value})",
             latency_ms=65.0
         )
 
@@ -129,6 +143,13 @@ class FlareProvider(IntelligenceProvider):
         if not self.is_enabled:
             return ProviderPage(provider="flare", items=[])
 
+        return await self.circuit_breaker.call(self._execute_search, target, checkpoint)
+
+    async def _execute_search(
+        self,
+        target: AuthorizedIdentifier,
+        checkpoint: Optional[str] = None
+    ) -> ProviderPage:
         email = target.decrypted_value.strip().lower()
 
         if self.api_key == "mock_flare_key" or "mock" in self.base_url:

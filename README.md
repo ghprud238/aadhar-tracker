@@ -2,7 +2,7 @@
 
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg)](https://fastapi.tiangolo.com/)
-[![Tests Passing](https://img.shields.io/badge/tests-34%2F34%20passing-brightgreen.svg)](tests/)
+[![Tests Passing](https://img.shields.io/badge/tests-40%2F40%20passing-brightgreen.svg)](tests/)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Security Zero-Plaintext](https://img.shields.io/badge/security-Zero--Plaintext%20Credentials-success.svg)](docs/threat-model.md)
 
@@ -88,8 +88,11 @@ cd /Users/dpcubed/projects/aadhar-tracker
 # Install virtualenv and all dependencies
 uv sync
 
-# Run the test suite (34 tests passing 100%)
+# Run the test suite (40 tests passing 100%)
 uv run pytest -v
+
+# Run the high-concurrency async load benchmark (400+ RPS)
+PYTHONPATH=. uv run python tests/load/run_benchmark.py
 ```
 
 ### Running the API & Client Frontends
@@ -100,7 +103,25 @@ uv run uvicorn services.api.main:app --host 0.0.0.0 --port 8000 --reload
 Once running:
 - **Web App:** Open `http://localhost:8000/` in any browser or install as a PWA on mobile.
 - **Wearable Client:** Open `http://localhost:8000/wearable` to interact with the 360x360 smartwatch companion and simulate Wear OS/watchOS tiles.
+- **Prometheus Metrics:** Scrape `http://localhost:8000/metrics`.
+- **Health & Readiness Probes:** Query `http://localhost:8000/livez` and `http://localhost:8000/readyz`.
 - **API Documentation:** Interactive OpenAPI Swagger UI is available at `http://localhost:8000/docs`.
+
+---
+
+## Enterprise Robustness Architecture
+
+The platform includes production-grade resilience and reliability capabilities:
+
+1. **⚡ Circuit Breakers (`packages/provider_adapters/circuit_breaker.py`):** Protects against cascading third-party provider failures (HIBP, Flare) with `CLOSED` → `OPEN` → `HALF_OPEN` state transitions and configurable failure thresholds.
+2. **📬 Outbox Dead Letter Queue (DLQ):** Failed background outbox events transition to `dead_letter` after 3 exhausted attempts, preserving error traces, execution context, and supporting operator replay via `/api/v1/internal/dead-letters/{id}/replay`.
+3. **🔁 Idempotency Key Middleware (`services/api/middleware/idempotency.py`):** Guarantees at-most-once execution for mutating requests with `Idempotency-Key` headers, replaying cached responses on network retries.
+4. **🛡️ Sliding Window Rate Limiting (`services/api/middleware/rate_limit.py`):** Prevents OTP verification brute-force attacks (5 attempts / 15 mins) and protects scan quotas without storing PII.
+5. **📊 Prometheus Observability & Probes (`services/api/routes/health.py`):** Native Prometheus metrics exporter (`/metrics`) and Kubernetes `/livez` & `/readyz` probes validating DB connection pools and circuit health.
+6. **🔐 Cryptographic Key Rotation Manager (`packages/security/key_rotation.py`):** Re-encrypts resident data envelopes under a new Master Key without exposing plaintext credentials to persistent storage.
+7. **🗄️ Database Migrations (Alembic):** Versioned schema migrations configured via `alembic upgrade head` for zero-downtime database upgrades.
+8. **🐳 Production Docker Compose (`infrastructure/docker-compose.prod.yml`):** Production stack with PostgreSQL 16 (RLS), Redis 7, API workers, Prometheus, and Grafana.
+
 
 ### Running the Mobile Client (Expo)
 ```bash

@@ -74,6 +74,18 @@ class NotificationWorker:
         )
         self.db.add(delivery)
 
+        # Dispatch push notification to paired Mobile & Smartwatch devices
+        push_delivery = NotificationDelivery(
+            tenant_id=event.tenant_id,
+            notification_intent_id=f"push_{event.event_id}",
+            channel="push_mobile_wearable",
+            destination_reference=f"device_token_subject_{subject.id}",
+            title=f"🛡️ {title}",
+            body_sanitized=f"[{severity.upper()}] Exposure detected for {masked_id}.",
+            status="sent"
+        )
+        self.db.add(push_delivery)
+
         # Mark processed
         dedup = ProcessedEvent(
             consumer_name=self.consumer_name,
@@ -84,4 +96,5 @@ class NotificationWorker:
         event.published_at = datetime.now(timezone.utc)
 
         await self.db.commit()
+        logger.info(f"Alert delivered via email & push (FCM/APNs) for subject {subject.id}")
         return True

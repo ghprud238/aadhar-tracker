@@ -27,6 +27,10 @@ from services.api.routes.billing import router as billing_router
 from services.api.routes.privacy import router as privacy_router
 from services.api.routes.internal import router as internal_router
 from services.api.routes.companion import router as companion_router
+from services.api.routes.health import router as health_router
+
+from services.api.middleware.idempotency import IdempotencyMiddleware
+from services.api.middleware.rate_limit import RateLimitMiddleware
 
 
 @asynccontextmanager
@@ -54,6 +58,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Idempotency and Rate Limiting Middlewares
+app.add_middleware(IdempotencyMiddleware)
+app.add_middleware(RateLimitMiddleware)
+
 
 @app.middleware("http")
 async def security_and_tracing_middleware(request: Request, call_next):
@@ -62,11 +70,21 @@ async def security_and_tracing_middleware(request: Request, call_next):
 
     response = await call_next(request)
 
-    # Security headers
+    # Security headers (CSP, HSTS, X-Frame, X-Content-Type, Permissions)
     response.headers["X-Request-ID"] = req_id
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Strict-Transport-Security"] = "max-age=63072000; includeSubDomains; preload"
+    response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
+    response.headers["Content-Security-Policy"] = (
+        "default-src 'self'; "
+        "script-src 'self' 'unsafe-inline'; "
+        "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+        "font-src 'self' https://fonts.gstatic.com; "
+        "connect-src 'self'; "
+        "img-src 'self' data:;"
+    )
     return response
 
 
@@ -132,6 +150,7 @@ app.include_router(billing_router, prefix="/api/v1")
 app.include_router(privacy_router, prefix="/api/v1")
 app.include_router(internal_router, prefix="/api/v1")
 app.include_router(companion_router, prefix="/api/v1")
+app.include_router(health_router)
 
 # Mount Static Files and Web App Frontend
 static_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "apps", "web", "public")

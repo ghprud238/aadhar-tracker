@@ -77,10 +77,10 @@ async def list_dead_letters(
     request: Request,
     db: AsyncSession = Depends(get_db)
 ):
-    """Metadata-only introspection into failed asynchronous work."""
+    """Metadata-only introspection into failed and dead-lettered asynchronous work."""
     req_id = get_request_id(request)
     res = await db.execute(
-        select(OutboxEvent).where(OutboxEvent.state == "failed")
+        select(OutboxEvent).where(OutboxEvent.state.in_(["failed", "dead_letter"]))
     )
     events = res.scalars().all()
     data = [
@@ -88,6 +88,10 @@ async def list_dead_letters(
             "event_id": e.event_id,
             "event_type": e.event_type,
             "resource_id": e.resource_id,
+            "state": e.state,
+            "retry_count": getattr(e, "retry_count", 0),
+            "last_error": getattr(e, "last_error", None),
+            "dead_lettered_at": e.dead_lettered_at.isoformat() if getattr(e, "dead_lettered_at", None) else None,
             "created_at": e.created_at.isoformat()
         }
         for e in events
@@ -113,6 +117,9 @@ async def replay_dead_letter(
     if not evt:
         raise HTTPException(status_code=404, detail="Dead-letter event not found")
     evt.state = "pending"
+    evt.retry_count = 0
+    evt.last_error = None
+    evt.dead_lettered_at = None
     await db.commit()
     return ApiResponse(
         data={"event_id": evt.event_id, "state": "pending", "replayed": True},

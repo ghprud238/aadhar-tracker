@@ -1,8 +1,59 @@
 """
-Lightweight in-memory telemetry and metric counters for operational observability.
-Complies with PRD Page 53-54. Never records PII or queries as metric labels.
+Telemetry, Prometheus Metrics, and Operational Counters.
+Complies with PRD Page 53-54: Never records resident PII or queries as metric labels.
 """
 from typing import Dict, Any
+from prometheus_client import (
+    Counter,
+    Histogram,
+    Gauge,
+    generate_latest,
+    CONTENT_TYPE_LATEST,
+    CollectorRegistry,
+    REGISTRY
+)
+
+# Standard Prometheus Metrics
+prom_requests_total = Counter(
+    "suraksha_http_requests_total",
+    "Total HTTP requests received",
+    ["method", "status", "endpoint"]
+)
+
+prom_request_duration = Histogram(
+    "suraksha_http_request_duration_seconds",
+    "HTTP request latency in seconds",
+    ["method", "endpoint"],
+    buckets=[0.01, 0.05, 0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0]
+)
+
+prom_scans_total = Counter(
+    "suraksha_scans_total",
+    "Total intelligence scans executed",
+    ["provider", "status"]
+)
+
+prom_incidents_total = Counter(
+    "suraksha_incidents_total",
+    "Total incidents detected across sources",
+    ["severity", "source_type"]
+)
+
+prom_circuit_breaker_trips = Counter(
+    "suraksha_circuit_breaker_trips_total",
+    "Total times provider circuit breakers tripped OPEN",
+    ["provider"]
+)
+
+prom_outbox_queue_depth = Gauge(
+    "suraksha_outbox_queue_depth",
+    "Number of pending outbox events awaiting processing"
+)
+
+prom_dead_letter_depth = Gauge(
+    "suraksha_outbox_dead_letter_depth",
+    "Number of events permanently failed in dead letter queue"
+)
 
 
 class MetricsRegistry:
@@ -33,6 +84,10 @@ class MetricsRegistry:
 
     def get_snapshot(self) -> Dict[str, int]:
         return dict(self.counters)
+
+    def export_prometheus(self) -> bytes:
+        """Generates standard Prometheus scrape output."""
+        return generate_latest(REGISTRY)
 
 
 metrics = MetricsRegistry()

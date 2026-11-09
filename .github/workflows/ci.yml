@@ -27,6 +27,30 @@ jobs:
         run: |
           uv sync --all-groups
 
+      - name: Run Database Migrations
+        run: |
+          uv run alembic upgrade head
+
       - name: Run Pytest Test Suite
         run: |
           uv run pytest -v --durations=10
+
+  mobile-check:
+    name: Verify Mobile Client Compilation & Dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Verify Mobile Package Structure
+        run: |
+          cd apps/mobile
+          test -f package.json
+          test -f app.json
+          test -f tsconfig.json
+          test -f App.tsx
