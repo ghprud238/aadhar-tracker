@@ -156,6 +156,231 @@ Press `Ctrl + C` in the terminal to stop the local server.
 
 ---
 
+## System Architecture
+
+Suraksha Platform is architected as an asynchronous, event-driven, multi-tenant identity protection engine with strict defense-in-depth security, non-bypassable database row-level security (RLS), and zero-plaintext credential invariants.
+
+### Architecture Diagram
+
+```mermaid
+flowchart TD
+    subgraph Clients["1. Multi-Surface Client Tier"]
+        WebClient["Web PWA (Accessible, Hindi/English)<br/>Modern JS • Service Worker • Tokens"]
+        MobileClient["Mobile App (iOS & Android)<br/>React Native • Expo 51 • Biometric Auth"]
+        WearableClient["Wearable Companion<br/>360x360 AMOLED • 1-Tap Biometric Lock"]
+    end
+
+    subgraph Edge["2. Ingress & Security Middleware"]
+        LB["Cloud Load Balancer / Reverse Proxy"]
+        FastAPIBFF["FastAPI BFF & Core API (Port 8000)"]
+        RateLimiter["Rate Limiting Middleware<br/>Sliding Window • OTP Brute Protection"]
+        IdempotencyMW["Idempotency Key Middleware<br/>At-Most-Once Mutating Requests"]
+        SessionMW["Session & Step-Up Auth Guard<br/>Time-Bound Elevation (15 mins)"]
+    end
+
+    subgraph Engine["3. Core Domain & Provider Workers"]
+        OutboxDispatcher["Transactional Outbox Dispatcher<br/>Durable Event Delivery"]
+        ConnectorWorker["Connector Worker<br/>HIBP & Flare Adapters"]
+        CircuitBreaker["Circuit Breaker<br/>CLOSED ⇄ OPEN ⇄ HALF_OPEN"]
+        NotificationWorker["Notification Worker<br/>Privacy-Safe Multi-Channel Alerts"]
+        PrivacyWorker["Privacy Worker<br/>DPDP Erasure & Data Portability"]
+        ScoringEngine["Risk Scoring Engine<br/>Deterministic Severity Matrix"]
+    end
+
+    subgraph SecurityVault["4. Cryptographic Security Vault"]
+        CryptoVault["Envelope Vault (packages/security)<br/>AES-256-GCM Data Envelopes"]
+        BlindIndex["Blind Index Engine<br/>HMAC-SHA256 Exact Lookups"]
+        KeyRotation["Key Rotation Manager<br/>Zero-Plaintext Envelope Re-keying"]
+    end
+
+    subgraph DataTier["5. Storage & Persistence Tier"]
+        PostgresDB[("PostgreSQL 16 (With Row-Level Security)<br/>Multi-Tenant tenant_user_id Isolation")]
+        RedisCache[("Redis 7<br/>Lease Fencing • Distributed Locks • Quotas")]
+        DLQueue[("Outbox Dead Letter Queue (DLQ)<br/>Exhausted Retries • Replay APIs")]
+    end
+
+    subgraph Observability["6. Observability & Probes"]
+        Prometheus["Prometheus Metrics (/metrics)"]
+        HealthProbes["Kubernetes Probes (/livez, /readyz)"]
+        AuditLogs["Structured Security Audit Logs"]
+    end
+
+    %% Connections
+    Clients --> LB
+    LB --> FastAPIBFF
+    FastAPIBFF --> RateLimiter
+    FastAPIBFF --> IdempotencyMW
+    FastAPIBFF --> SessionMW
+
+    SessionMW --> ScoringEngine
+    SessionMW --> OutboxDispatcher
+    FastAPIBFF --> CryptoVault
+
+    OutboxDispatcher --> PostgresDB
+    OutboxDispatcher --> DLQueue
+    OutboxDispatcher --> ConnectorWorker
+    OutboxDispatcher --> NotificationWorker
+    OutboxDispatcher --> PrivacyWorker
+
+    ConnectorWorker --> CircuitBreaker
+    CircuitBreaker -->|"External API (HIBP / Flare)"| ExternalProviders["Licensed Dark Web & Breach Feeds"]
+
+    FastAPIBFF --> PostgresDB
+    PostgresDB -.->|"Enforces RLS"| PostgresDB
+    FastAPIBFF --> RedisCache
+    ConnectorWorker --> RedisCache
+
+    CryptoVault --> BlindIndex
+    CryptoVault --> KeyRotation
+
+    FastAPIBFF --> Observability
+```
+
+### Architectural Components
+
+| Component | Path | Responsibility |
+| :--- | :--- | :--- |
+| **BFF & API Gateway** | [`services/api/`](file:///Users/dpcubed/projects/aadhar-tracker/services/api/) | Manages client sessions, REST endpoints, OpenAPI v3 contracts, rate limits, and idempotency guarantees. |
+| **Cryptographic Vault** | [`packages/security/`](file:///Users/dpcubed/projects/aadhar-tracker/packages/security/) | AES-256-GCM envelope encryption and blind indexing. Prevents plaintext storage of sensitive identifiers. |
+| **Provider Adapters & Circuit Breaker** | [`packages/provider_adapters/`](file:///Users/dpcubed/projects/aadhar-tracker/packages/provider_adapters/) | External integration with HaveIBeenPwned and Flare dark web feeds protected by fail-fast circuit breakers. |
+| **Transactional Outbox & DLQ** | [`services/api/outbox_dispatcher.py`](file:///Users/dpcubed/projects/aadhar-tracker/services/api/outbox_dispatcher.py) | Guaranteed at-least-once message delivery. Unrecoverable failures move to Dead Letter Queue for operator replay. |
+| **Connector Worker** | [`services/connector_worker/`](file:///Users/dpcubed/projects/aadhar-tracker/services/connector_worker/) | Asynchronous scheduled and on-demand scan processing with lease fencing tokens. |
+| **Notification Worker** | [`services/notification_worker/`](file:///Users/dpcubed/projects/aadhar-tracker/services/notification_worker/) | Privacy-safe alerting that strips credentials before sending emails or webhooks. |
+| **Privacy Worker** | [`services/privacy_worker/`](file:///Users/dpcubed/projects/aadhar-tracker/services/privacy_worker/) | Enforces Indian DPDP Act right-to-erasure and machine-readable data portability export. |
+| **Risk Scoring Engine** | [`packages/domain/scoring.py`](file:///Users/dpcubed/projects/aadhar-tracker/packages/domain/scoring.py) | Deterministic severity scoring (Critical, High, Medium, Low) based on exposed data classes and credential sensitivity. |
+
+---
+
+## ☁️ Universal Cloud Docker Deployment Guide
+
+The container is built with a production-grade **multi-stage Docker build** that strips compiler dependencies, runs as an unprivileged user (`appuser` UID 10001), honors dynamic `$PORT` environments, and includes built-in Kubernetes/cloud health checks (`/livez`).
+
+### 1. Build Container Image Locally
+```bash
+docker build -t aadhar-tracker:latest .
+```
+
+### 2. Run Container Locally
+```bash
+docker run -d \
+  -p 8000:8000 \
+  -e PORT=8000 \
+  -e WORKERS=2 \
+  -e ENVIRONMENT=production \
+  --name suraksha-api \
+  aadhar-tracker:latest
+```
+Verify the container health:
+```bash
+curl -f http://localhost:8000/livez
+# {"status":"ok","timestamp":"..."}
+```
+
+---
+
+### 3. Deploy to Major Cloud Platforms
+
+#### A. Google Cloud Run (Fully Managed Serverless Container)
+Cloud Run automatically injects `$PORT` and scales from zero.
+```bash
+# 1. Authenticate & Configure Project
+gcloud auth login
+gcloud config set project YOUR_GCP_PROJECT_ID
+
+# 2. Build and Submit Image to Google Artifact Registry
+gcloud builds submit --tag gcr.io/YOUR_GCP_PROJECT_ID/aadhar-tracker:latest .
+
+# 3. Deploy to Cloud Run
+gcloud run deploy aadhar-tracker \
+  --image gcr.io/YOUR_GCP_PROJECT_ID/aadhar-tracker:latest \
+  --platform managed \
+  --region asia-south1 \
+  --allow-unauthenticated \
+  --set-env-vars ENVIRONMENT=production,DATABASE_URL="postgresql://user:pass@/dbname?host=/cloudsql/INSTANCE_CONNECTION_NAME" \
+  --cpu 1 \
+  --memory 1Gi \
+  --min-instances 1 \
+  --max-instances 10
+```
+
+#### B. AWS App Runner & Amazon ECS (Fargate)
+AWS App Runner offers zero-ops container deployments connected to AWS ECR.
+```bash
+# 1. Login to Amazon ECR
+aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin YOUR_ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com
+
+# 2. Tag and Push Image
+docker tag aadhar-tracker:latest YOUR_ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/aadhar-tracker:latest
+docker push YOUR_ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/aadhar-tracker:latest
+
+# 3. Create App Runner Service (or use AWS ECS Fargate Task Definition)
+aws apprunner create-service \
+  --service-name aadhar-tracker-service \
+  --source-configuration '{
+    "ImageRepository": {
+      "ImageIdentifier": "YOUR_ACCOUNT_ID.dkr.ecr.ap-south-1.amazonaws.com/aadhar-tracker:latest",
+      "ImageConfiguration": { "Port": "8000" },
+      "ImageRepositoryType": "ECR"
+    },
+    "AutoDeploymentsEnabled": true
+  }'
+```
+
+#### C. Azure Container Apps
+```bash
+# 1. Create Azure Resource Group & Container Environment
+az group create --name SurakshaGroup --location centralindia
+az containerapp env create --name SurakshaEnv --resource-group SurakshaGroup --location centralindia
+
+# 2. Build and Deploy Container App
+az containerapp up \
+  --name aadhar-tracker \
+  --resource-group SurakshaGroup \
+  --environment SurakshaEnv \
+  --source . \
+  --target-port 8000 \
+  --ingress external
+```
+
+#### D. Fly.io / Render / DigitalOcean App Platform
+Because the image respects dynamic `$PORT` and provides `/livez` health probes, simply deploy directly:
+- **Fly.io:**
+  ```bash
+  fly launch
+  fly deploy
+  ```
+- **Render:** Connect GitHub repository, select **Docker Runtime**, and Render will automatically detect the `Dockerfile` and inject `$PORT`.
+
+#### E. On-Premise / Virtual Machine (Full Docker Compose Stack)
+To run the full production ecosystem (PostgreSQL with RLS, Redis 7, API Workers, Outbox Dispatcher, Prometheus, and Grafana):
+```bash
+cd infrastructure
+docker compose -f docker-compose.prod.yml up -d
+```
+Inspect stack status:
+```bash
+docker compose -f docker-compose.prod.yml ps
+```
+
+---
+
+## Environment Variables Reference
+
+| Variable | Default | Description |
+| :--- | :--- | :--- |
+| `PORT` | `8000` | HTTP port for Uvicorn server (automatically set on Cloud Run/App Runner/Render) |
+| `WORKERS` | `2` | Number of Uvicorn worker processes |
+| `ENVIRONMENT` | `production` | Environment profile (`development`, `staging`, `production`) |
+| `DATABASE_URL` | `sqlite:///:memory:` | PostgreSQL or SQLite database connection URI (must support RLS in production) |
+| `REDIS_URL` | `redis://localhost:6379/0` | Redis instance for rate limiting, locking, and outbox leasing |
+| `RUN_MIGRATIONS` | `false` | When set to `true` or `1`, automatically runs `alembic upgrade head` on container boot |
+| `MASTER_ENCRYPTION_KEY` | *(auto-generated)* | 32-byte hex/base64 key for AES-256-GCM envelope vault encryption |
+| `JWT_SECRET_KEY` | *(auto-generated)* | Secret for signing session cookies and step-up auth elevation tokens |
+| `HIBP_API_KEY` | `""` | Optional API key for live HaveIBeenPwned enterprise feed (mock mode used if empty) |
+| `FLARE_API_KEY` | `""` | Optional API key for Flare Dark Web intelligence (mock mode used if empty) |
+
+---
+
 ## Enterprise Robustness Architecture
 
 The platform includes production-grade resilience and reliability capabilities:
@@ -168,7 +393,6 @@ The platform includes production-grade resilience and reliability capabilities:
 6. **🔐 Cryptographic Key Rotation Manager (`packages/security/key_rotation.py`):** Re-encrypts resident data envelopes under a new Master Key without exposing plaintext credentials to persistent storage.
 7. **🗄️ Database Migrations (Alembic):** Versioned schema migrations configured via `alembic upgrade head` for zero-downtime database upgrades.
 8. **🐳 Production Docker Compose (`infrastructure/docker-compose.prod.yml`):** Production stack with PostgreSQL 16 (RLS), Redis 7, API workers, Prometheus, and Grafana.
-
 
 ### Running the Mobile Client (Expo)
 ```bash

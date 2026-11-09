@@ -1,0 +1,36 @@
+# Git and IDE
+.git
+.gitignore
+.github
+.vscode
+.idea
+
+# Python caches and virtual environments
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.venv
+venv
+ENV
+env
+.pytest_cache
+.hypothesis
+*.egg-info
+dist
+build
+
+# Node / Frontend caches
+node_modules
+apps/mobile/node_modules
+apps/mobile/.expo
+.npm
+
+# SQLite local test databases
+*.db
+*.sqlite
+*.sqlite3
+
+# OS files
+.DS_Store
+Thumbs.db
