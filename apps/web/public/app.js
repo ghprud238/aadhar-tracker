@@ -612,8 +612,217 @@ async function renderAssistanceView(container) {
         </table>
       `}
     </div>
+
+    <!-- Canary Sandbox Section -->
+    <div class="card" style="margin-top: 2rem; border: 1px solid rgba(59, 130, 246, 0.4); background: rgba(30, 58, 138, 0.08);">
+      <div class="card-header">
+        <div>
+          <h3 style="font-size: 1.15rem; color: #60a5fa;">🧪 Aadhaar & PAN Exposure Sandbox (Live Test Pipeline)</h3>
+          <p class="text-muted" style="font-size: 0.85rem; margin-top: 0.25rem;">
+            Test the complete end-to-end monitoring pipeline with valid test Aadhaar and PAN numbers. Runs Verhoeff validation, AES-256-GCM envelope encryption, HMAC blind indexing, synthetic dark web match, outbox event generation, and remediation checklists.
+          </p>
+        </div>
+        <span class="badge badge-medium">CANARY PIPELINE</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem;">
+        <div>
+          <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">Select Valid Test Identity Preset:</label>
+          <select id="canary-preset" class="form-input" onchange="onCanaryPresetChange()">
+            <option value="aadhaar_sandbox_1">UIDAI Test Aadhaar #1: 9999 4105 7058 (Biometric Auth Enabled)</option>
+            <option value="aadhaar_sandbox_2">UIDAI Test Aadhaar #2: 9999 0000 0016 (Dark Web Dump Match)</option>
+            <option value="aadhaar_sandbox_3">UIDAI Test Aadhaar #3: 2345 6789 0124 (Insecure WhatsApp Forward)</option>
+            <option value="aadhaar_sandbox_4">UIDAI Test Aadhaar #4: 5432 1098 7652 (Infostealer Malware Log)</option>
+            <option value="pan_sandbox_1">Income Tax Test PAN #1: ABCDE1234F (Banking Leak)</option>
+            <option value="pan_sandbox_2">Income Tax Test PAN #2: XYZPK9876M (Credit Card Dump)</option>
+            <option value="custom">-- Custom 12-Digit Aadhaar or 10-Char PAN --</option>
+          </select>
+          <div id="canary-custom-container" style="display: none; margin-top: 0.75rem;">
+            <input type="text" id="canary-custom-input" class="form-input" placeholder="e.g. 9999 9999 9999 (Must pass Verhoeff checksum)" />
+          </div>
+        </div>
+
+        <div>
+          <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">Simulated Threat Scenario:</label>
+          <select id="canary-scenario" class="form-input">
+            <option value="darkweb_market">Dark Web Underground Market (Critical 95)</option>
+            <option value="infostealer_log">Infostealer Malware Exfiltration (Critical 92)</option>
+            <option value="whatsapp_leak">Insecure WhatsApp Forward / Dump (High 88)</option>
+            <option value="telecom_breach">Enterprise Telecom KYC Breach (High 85)</option>
+          </select>
+          <button class="btn btn-primary" style="margin-top: 1rem; width: 100%;" onclick="executeCanaryTestLive()">
+            🚀 Execute Live Exposure Test
+          </button>
+        </div>
+      </div>
+
+      <div id="canary-results" style="margin-top: 1.5rem; display: none;"></div>
+    </div>
+
+    <!-- WhatsApp DLP Scanner Section -->
+    <div class="card" style="margin-top: 2rem; border: 1px solid rgba(16, 185, 129, 0.4); background: rgba(6, 78, 59, 0.08);">
+      <div class="card-header">
+        <div>
+          <h3 style="font-size: 1.15rem; color: #34d399;">💬 WhatsApp Messaging DLP & Alert Simulator</h3>
+          <p class="text-muted" style="font-size: 0.85rem; margin-top: 0.25rem;">
+            Simulates what happens when an unmasked Aadhaar or PAN is shared on WhatsApp. Our on-device and webhook DLP scanner detects the transmission, flags the incident, and dispatches an automated WhatsApp security advisory.
+          </p>
+        </div>
+        <span class="badge badge-low">WHATSAPP DLP</span>
+      </div>
+
+      <div style="margin-top: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+          <label style="font-size: 0.85rem; font-weight: 600;">Simulated WhatsApp Message Content:</label>
+          <button class="btn btn-outline" style="font-size: 0.75rem; padding: 0.25rem 0.5rem;" onclick="prefillWhatsAppSample()">
+            📋 Load Sample Aadhaar & PAN Chat
+          </button>
+        </div>
+        <textarea id="wa-message-input" class="form-input" rows="3" placeholder="Type or paste a message containing an Aadhaar or PAN..."></textarea>
+
+        <div style="display: flex; gap: 1rem; margin-top: 0.75rem; align-items: center;">
+          <input type="text" id="wa-phone-input" class="form-input" style="max-width: 220px;" value="+91 98765 43210" placeholder="Sender Phone Number" />
+          <button class="btn btn-primary" onclick="simulateWhatsAppShareLive()">
+            📲 Scan & Send Simulated WhatsApp Message
+          </button>
+        </div>
+      </div>
+
+      <div id="wa-results" style="margin-top: 1.5rem; display: none;"></div>
+    </div>
   `;
 }
+
+window.onCanaryPresetChange = function() {
+  const sel = document.getElementById("canary-preset").value;
+  const customBox = document.getElementById("canary-custom-container");
+  if (sel === "custom") {
+    customBox.style.display = "block";
+  } else {
+    customBox.style.display = "none";
+  }
+};
+
+window.executeCanaryTestLive = async function() {
+  const preset = document.getElementById("canary-preset").value;
+  const scenario = document.getElementById("canary-scenario").value;
+  const customInput = document.getElementById("canary-custom-input") ? document.getElementById("canary-custom-input").value : "";
+  const resultsDiv = document.getElementById("canary-results");
+
+  resultsDiv.style.display = "block";
+  resultsDiv.innerHTML = `<div style="padding: 1rem; color: #93c5fd;">⏳ Running live exposure pipeline...</div>`;
+
+  try {
+    const payload = { leak_scenario: scenario };
+    if (preset === "custom") {
+      if (!customInput) return alert("Please enter a custom 12-digit Aadhaar or 10-char PAN.");
+      payload.custom_identifier = customInput;
+    } else {
+      payload.preset_id = preset;
+    }
+
+    const res = await apiCall("/identity-assistance/canary-test", "POST", payload);
+    const d = res.data;
+
+    resultsDiv.innerHTML = `
+      <div style="background: rgba(17, 24, 39, 0.9); border: 1px solid #3b82f6; border-radius: 8px; padding: 1.25rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <span style="font-size: 1rem; font-weight: 700; color: #60a5fa;">✅ Exposure Simulation Successfully Completed</span>
+          <span class="badge badge-high" style="font-size: 0.85rem;">Priority Score: ${d.priority_score} / 100 (${d.severity.toUpperCase()})</span>
+        </div>
+        <div style="font-size: 0.85rem; margin-bottom: 1rem; color: #e5e7eb;">
+          <strong>Target Identifier:</strong> <code style="background: #1f2937; padding: 2px 6px; border-radius: 4px;">${d.masked_identifier}</code> | 
+          <strong>Incident ID:</strong> <code>${d.incident_id}</code>
+        </div>
+
+        <h4 style="font-size: 0.85rem; color: #9ca3af; text-transform: uppercase; margin-bottom: 0.5rem;">Pipeline Trace:</h4>
+        <div style="display: flex; flex-direction: column; gap: 0.4rem; font-size: 0.8rem; margin-bottom: 1rem;">
+          ${d.pipeline_trace.map(p => `
+            <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(31, 41, 55, 0.6); padding: 6px 10px; border-radius: 4px;">
+              <span style="font-weight: 600; color: #d1d5db;">${p.stage}</span>
+              <span style="color: #93c5fd;">${p.details}</span>
+              <span class="badge badge-low" style="font-size: 0.7rem;">${p.status}</span>
+            </div>
+          `).join('')}
+        </div>
+
+        <h4 style="font-size: 0.85rem; color: #f59e0b; text-transform: uppercase; margin-bottom: 0.5rem;">Recommended Remediation Actions:</h4>
+        <ul style="padding-left: 1.25rem; font-size: 0.85rem; color: #d1d5db; display: flex; flex-direction: column; gap: 0.3rem;">
+          ${d.remediation_checklist.map(r => `<li>${r}</li>`).join('')}
+        </ul>
+
+        <div style="margin-top: 1rem; display: flex; gap: 0.75rem;">
+          <a href="#incidents" class="btn btn-primary" style="font-size: 0.8rem;">
+            View Incident in Dashboard ↗
+          </a>
+          <button class="btn btn-outline" style="font-size: 0.8rem;" onclick="resultsDiv.style.display='none'">
+            Close Simulation Results
+          </button>
+        </div>
+      </div>
+    `;
+  } catch (err) {
+    resultsDiv.innerHTML = `<div style="padding: 1rem; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; border-radius: 8px; color: #fca5a5;">❌ Error: ${err.message}</div>`;
+  }
+};
+
+window.prefillWhatsAppSample = function() {
+  document.getElementById("wa-message-input").value = "Hi Sharma Ji, please find my Aadhaar 9999 4105 7058 and PAN ABCDE1234F for hotel checkin and flight passes.";
+};
+
+window.simulateWhatsAppShareLive = async function() {
+  const text = document.getElementById("wa-message-input").value;
+  const phone = document.getElementById("wa-phone-input").value;
+  const resultsDiv = document.getElementById("wa-results");
+
+  if (!text) return alert("Please enter message text.");
+  resultsDiv.style.display = "block";
+  resultsDiv.innerHTML = `<div style="padding: 1rem; color: #6ee7b7;">⏳ Scanning message via DLP engine...</div>`;
+
+  try {
+    const res = await apiCall("/integrations/whatsapp/simulate-share", "POST", {
+      message_text: text,
+      sender_phone: phone,
+      channel: "whatsapp_group"
+    });
+    const d = res.data;
+
+    if (!d.detected) {
+      resultsDiv.innerHTML = `
+        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid #10b981; border-radius: 8px; padding: 1rem; color: #6ee7b7;">
+          ✅ <strong>Clean Message:</strong> No unmasked Aadhaar or PAN numbers detected in this transmission.
+        </div>
+      `;
+      return;
+    }
+
+    resultsDiv.innerHTML = `
+      <div style="background: rgba(17, 24, 39, 0.95); border: 1px solid #10b981; border-radius: 8px; padding: 1.25rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+          <span style="font-size: 1rem; font-weight: 700; color: #34d399;">🚨 Unmasked Identity Detected on WhatsApp!</span>
+          <span class="badge badge-high">DLP TRIGGERED</span>
+        </div>
+        <p style="font-size: 0.85rem; color: #d1d5db; margin-bottom: 1rem;">
+          ${d.summary} An Incident has been registered in your security log and an automated security advisory was dispatched.
+        </p>
+
+        <h4 style="font-size: 0.8rem; color: #a7f3d0; text-transform: uppercase; margin-bottom: 0.4rem;">Automated WhatsApp Advisory Dispatched to Sender:</h4>
+        <pre style="background: #064e3b; color: #ecfdf5; padding: 1rem; border-radius: 6px; font-size: 0.8rem; white-space: pre-wrap; font-family: monospace; border: 1px solid #059669;">${d.automated_whatsapp_alert}</pre>
+
+        <div style="margin-top: 1rem; display: flex; gap: 0.75rem;">
+          <a href="#incidents" class="btn btn-primary" style="font-size: 0.8rem;">
+            View Incident Record (#${d.incident_id}) ↗
+          </a>
+          <button class="btn btn-outline" style="font-size: 0.8rem;" onclick="resultsDiv.style.display='none'">
+            Dismiss
+          </button>
+        </div>
+      </div>
+    `;
+  } catch (err) {
+    resultsDiv.innerHTML = `<div style="padding: 1rem; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; border-radius: 8px; color: #fca5a5;">❌ Error: ${err.message}</div>`;
+  }
+};
 
 window.confirmAssistanceAction = async function(id) {
   await apiCall(`/identity-assistance/actions/${id}/confirm`, "POST");

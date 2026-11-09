@@ -248,6 +248,196 @@ flowchart TD
 | **Notification Worker** | [`services/notification_worker/`](file:///Users/dpcubed/projects/aadhar-tracker/services/notification_worker/) | Privacy-safe alerting that strips credentials before sending emails or webhooks. |
 | **Privacy Worker** | [`services/privacy_worker/`](file:///Users/dpcubed/projects/aadhar-tracker/services/privacy_worker/) | Enforces Indian DPDP Act right-to-erasure and machine-readable data portability export. |
 | **Risk Scoring Engine** | [`packages/domain/scoring.py`](file:///Users/dpcubed/projects/aadhar-tracker/packages/domain/scoring.py) | Deterministic severity scoring (Critical, High, Medium, Low) based on exposed data classes and credential sensitivity. |
+| **Verhoeff & Identity DLP Engine** | [`packages/domain/verhoeff.py`](file:///Users/dpcubed/projects/aadhar-tracker/packages/domain/verhoeff.py) | Mathematical Verhoeff dihedral D5 checksum validation for Aadhaar, PAN regex validation, and message text DLP scanning. |
+| **WhatsApp DLP & Webhook Gateway** | [`services/api/routes/whatsapp.py`](file:///Users/dpcubed/projects/aadhar-tracker/services/api/routes/whatsapp.py) | Inbound Meta Cloud API webhook processor and real-time automated WhatsApp security advisory dispatcher. |
+
+---
+
+## 🔍 End-to-End Tracking Use Cases & Data Flows (User ➔ Backend ➔ User)
+
+The platform handles identity exposures across seven distinct architectural flows, ensuring that sensitive credentials never touch the database in plaintext, that users are notified within seconds, and that actionable legal guidance is provided.
+
+```mermaid
+flowchart TD
+    subgraph UseCases["Real-World Exposure Channels"]
+        UC1["1. Dark Web & Stealer Logs (Infostealer Malware)"]
+        UC2["2. Mass Enterprise & Telecom Breach Dumps"]
+        UC3["3. Insecure WhatsApp / Social Messaging Sharing"]
+        UC4["4. Interactive Aadhaar/PAN Canary Sandbox"]
+        UC5["5. Unauthorized UIDAI Authentication History Anomaly"]
+        UC6["6. Public GitHub / Open Cloud S3 Bucket Leak"]
+        UC7["7. Phishing / Fraudulent KYC Traps"]
+    end
+
+    subgraph BackendEngine["Suraksha Zero-Plaintext Processing Engine"]
+        VAlgorithm["Verhoeff Dihedral Checksum & PAN Syntax Parser"]
+        AESVault["AES-256-GCM Envelope Vault & Blind Index"]
+        CTIScanner["Licensed CTI Feed Matching (Flare / HIBP)"]
+        ScoringMatrix["Deterministic Severity & Priority Scoring"]
+        OutboxQueue["Durable Transactional Outbox & Lease Token"]
+    end
+
+    subgraph UserAction["Multi-Channel Alerts & Guided Remediation"]
+        MultiAlerts["Real-Time Notifications<br/>• Automated WhatsApp Alert<br/>• Mobile Push (Expo)<br/>• Smartwatch Haptic Buzz"]
+        UIDAIActions["Actionable Defense Workflows<br/>• 1-Tap Biometric Lock on myAadhaar<br/>• 16-Digit Virtual ID (VID) Generation<br/>• Cybercrime Portal (1930) Dispute"]
+    end
+
+    UseCases --> VAlgorithm
+    VAlgorithm --> AESVault
+    AESVault --> CTIScanner
+    CTIScanner --> ScoringMatrix
+    ScoringMatrix --> OutboxQueue
+    OutboxQueue --> MultiAlerts
+    MultiAlerts --> UIDAIActions
+```
+
+---
+
+### Detailed Architectural Flows
+
+#### 1. Insecure WhatsApp / Social Messaging Transmission (DLP & Real-Time Alert)
+* **Problem:** Residents frequently forward unmasked photocopies or text of their 12-digit Aadhaar or PAN on WhatsApp for hotel check-ins, job applications, or flight bookings, where it is permanently indexed in cloud backups and exposed to spyware.
+* **End-to-End Flow:**
+  ```mermaid
+  sequenceDiagram
+      autonumber
+      actor User as Resident / Sender
+      participant WA as WhatsApp App / Webhook
+      participant API as Suraksha API (/whatsapp/simulate-share)
+      participant DLP as Verhoeff & DLP Engine
+      participant Vault as AES-256-GCM Vault
+      participant Outbox as Transactional Outbox
+      participant DB as PostgreSQL (RLS)
+      actor Recipient as WhatsApp User
+
+      User->>WA: Sends message: "My Aadhaar is 9999 4105 7058 for checkin"
+      WA->>API: Inbound Webhook / Mobile Share Intent payload
+      API->>DLP: detect_identifiers_in_text(message_text)
+      DLP->>DLP: Validates 12-digit Verhoeff Dihedral Checksum
+      DLP-->>API: Match Confirmed: Aadhaar XXXX-XXXX-7058
+      API->>Vault: Encrypt identifier & compute HMAC-SHA256 blind index
+      API->>DB: Insert Incident (Severity: High, State: New)
+      API->>Outbox: Enqueue OutboxEvent (event_type: incident.detected)
+      API->>WA: Dispatches Automated WhatsApp Security Advisory
+      WA-->>User: ⚠️ "SURAKSHA ALERT: Unmasked Aadhaar detected! Delete for everyone immediately and lock biometrics."
+      User->>DB: Confirms Biometric Lock via Suraksha Dashboard
+  ```
+* **Backend Handling:**
+  - `packages/domain/verhoeff.py` parses arbitrary message text and validates the check digit via Dihedral Group $D_5$ permutations.
+  - Automatically creates an in-app Incident, logs an immutable Audit Event, and sends a formatted WhatsApp security alert to the sender advising them to "Delete for Everyone" and switch to a 16-digit Virtual ID.
+
+---
+
+#### 2. Dark Web & Infostealer Malware Exfiltration
+* **Problem:** A resident's PC or laptop is infected by infostealer malware (Lumma, RedLine, Vidar) distributed through malicious email attachments. The malware harvests saved passwords, browser autofill records, session cookies, and local identity PDFs (e-Aadhaar scans).
+* **End-to-End Flow:**
+  1. Malware compiles stolen records into a ZIP archive and uploads it to an underground Telegram channel or Tor forum.
+  2. Licensed threat intelligence provider (**Flare Systems**) indexes the stealer log.
+  3. Connector Worker (`services/connector_worker/`) executes scheduled queries using the verified resident's blind index.
+  4. Flare reports a match indicating `exposure_type: stealer_log` and `contains_credentials: true`.
+  5. The redaction engine (`packages/redaction/masking.py`) strips any raw passwords or cookies, recording only the exposure class.
+  6. The Scoring Engine assigns a **Critical (Score 95)** priority rating.
+  7. Outbox Dispatcher fires real-time mobile push notifications and smartwatch haptic alerts.
+  8. User checklist: Run malware scanner, terminate active web sessions, and enable UIDAI Biometric Lock.
+
+---
+
+#### 3. Mass Enterprise / Telecom KYC Database Dump
+* **Problem:** An Indian telecom service provider, payment gateway, or insurance firm suffers an unauthenticated database dump exposing millions of KYC records containing names, emails, phone numbers, PAN cards, and Aadhaar numbers.
+* **End-to-End Flow:**
+  1. Threat actor leaks the database on a dark-web leak forum.
+  2. Provider (**HaveIBeenPwned** / **Flare**) ingests the breach metadata and catalogues compromised data classes (`["Email addresses", "Phone numbers", "Aadhaar numbers", "PAN"]`).
+  3. Platform correlates the breach with the resident's verified email.
+  4. Backend creates an Incident and groups related observations under a deterministic grouping key (`grouping_key = provider:breach_name`).
+  5. User is alerted with an explanation of which third party was breached and what data classes were exposed.
+  6. Remediation workflow guides the resident to check their **Annual Information Statement (AIS)** on the Income Tax portal and review **CIBIL credit files** for fraudulent loan accounts opened in their name.
+
+---
+
+#### 4. Interactive Canary Sandbox Testing (Testing with Real Aadhaar & PAN Numbers)
+* **Goal:** Allow security engineers, auditors, and developers to test the live end-to-end detection, encryption, and alert pipeline using official test Aadhaar and PAN numbers without violating privacy laws.
+* **Available Test Sandbox Presets:**
+  | Preset ID | Type | Test Number | Masked View | Verhoeff Checksum | Simulated Scenario |
+  | :--- | :--- | :--- | :--- | :--- | :--- |
+  | `aadhaar_sandbox_1` | Aadhaar | `9999 4105 7058` | `XXXX-XXXX-7058` | **VALID (c = 0)** | Dark Web Underground Market (Score 95) |
+  | `aadhaar_sandbox_2` | Aadhaar | `9999 0000 0016` | `XXXX-XXXX-0016` | **VALID (c = 0)** | Telecom KYC Database Breach (Score 85) |
+  | `aadhaar_sandbox_3` | Aadhaar | `2345 6789 0124` | `XXXX-XXXX-0124` | **VALID (c = 0)** | Insecure WhatsApp Group Forward (Score 88) |
+  | `aadhaar_sandbox_4` | Aadhaar | `5432 1098 7652` | `XXXX-XXXX-7652` | **VALID (c = 0)** | Infostealer Malware Exfiltration (Score 92) |
+  | `pan_sandbox_1` | PAN | `ABCDE1234F` | `AB***12*F` | **VALID (IT Format)** | Financial Banking Breach (Score 85) |
+  | `pan_sandbox_2` | PAN | `XYZPK9876M` | `XY***98*M` | **VALID (IT Format)** | Credit Card Dump (Score 80) |
+
+* **How to Test in the Web UI:**
+  1. Open the Web App: 👉 **[http://localhost:8000/app#assistance](http://localhost:8000/app#assistance)**
+  2. Scroll down to **"🧪 Aadhaar & PAN Exposure Sandbox"**.
+  3. Select any preset (or type a custom 12-digit number) and select a threat scenario.
+  4. Click **"🚀 Execute Live Exposure Test"**.
+  5. Observe the live 6-stage pipeline trace (`Validation` ➔ `Envelope Encryption` ➔ `Blind Index` ➔ `CTI Synthesis` ➔ `Outbox Queue` ➔ `Incident Created`).
+  6. Click **"View Incident in Dashboard"** to see the newly generated incident with its remediation checklist.
+
+* **How to Test via Terminal (cURL):**
+  ```bash
+  # 1. Obtain a demo session token
+  TOKEN=$(curl -s "http://localhost:8000/api/v1/auth/callback?email=tester@example.in&full_name=Test+User" | grep -o '"session_id":"[^"]*' | cut -d'"' -f4)
+
+  # 2. Execute Canary Test with UIDAI Sandbox Aadhaar
+  curl -X POST "http://localhost:8000/api/v1/identity-assistance/canary-test" \
+    -H "Authorization: Bearer $TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "preset_id": "aadhaar_sandbox_1",
+      "leak_scenario": "darkweb_market"
+    }'
+  ```
+
+* **How to Test the WhatsApp DLP Scanner via Terminal (cURL):**
+  ```bash
+  curl -X POST "http://localhost:8000/api/v1/integrations/whatsapp/simulate-share" \
+    -H "Authorization: Bearer $TOKEN" \
+    -H "Content-Type: application/json" \
+    -d '{
+      "message_text": "Hi, please find my Aadhaar 9999 4105 7058 for room checkin.",
+      "sender_phone": "+919876543210",
+      "channel": "whatsapp_direct"
+    }'
+  ```
+
+---
+
+#### 5. Unauthorized UIDAI Authentication History Anomaly
+* **Problem:** A resident checks their UIDAI auth log and spots an unauthorized OTP or biometric auth event from an unfamiliar Requesting Entity (AUA) or telecom circle.
+* **End-to-End Flow:**
+  1. Resident reviews the official 50-event authentication history following our in-app guide (`/identity-assistance/guides`).
+  2. Resident files a structured incident via `POST /identity-assistance/reports` selecting `"suspicious_auth_history"`.
+  3. The platform sanitizes and redacts all free-text fields (`packages/redaction/sanitizer.py`).
+  4. The platform generates an immediate official dispute dossier:
+     - Direct escalation to UIDAI Grievance Helpline (**1947** / `help@uidai.gov.in`).
+     - Prefilled cybercrime complaint format for the **National Cyber Crime Reporting Portal** (`cybercrime.gov.in` / **1930**).
+
+---
+
+#### 6. Public GitHub / Open Cloud S3 Bucket Leak
+* **Problem:** A developer or merchant accidentally commits a `.csv` file, `.env` file, or client KYC folder containing unmasked customer Aadhaar and PAN numbers to a public GitHub repository or unauthenticated Amazon S3 bucket.
+* **End-to-End Flow:**
+  1. Secret scanning engines detect sensitive regex patterns (`[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}`).
+  2. Platform receives public repository webhook or Flare external intelligence alert.
+  3. Platform matches the resident's blind index.
+  4. Immediate alert dispatches with recommended steps:
+     - Issue immediate git history purge (`git-filter-repo` / BFG Repo-Cleaner).
+     - Invalidate any API tokens committed alongside the file.
+     - Advise impacted residents to activate UIDAI biometric lock.
+
+---
+
+#### 7. Phishing & Vishing Trap (Fake KYC Update Calls)
+* **Problem:** Fraudsters call residents claiming to be from the State Bank of India (SBI) or the Income Tax Department, threatening account freezing unless the resident shares an incoming Aadhaar OTP.
+* **End-to-End Flow:**
+  1. Resident receives suspicious SMS or call.
+  2. Resident opens the **Suraksha Web or Mobile App** and checks **Coverage Transparency**.
+  3. Platform prominently reinforces: *"UIDAI and Income Tax officials NEVER call citizens demanding OTPs over the phone."*
+  4. Resident logs the scam call in the **Assistance Center**.
+  5. Platform reinforces that having biometric lock enabled renders OTP theft ineffective for physical identity impersonation.
+
+---
 
 ---
 

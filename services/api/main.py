@@ -27,6 +27,7 @@ from services.api.routes.billing import router as billing_router
 from services.api.routes.privacy import router as privacy_router
 from services.api.routes.internal import router as internal_router
 from services.api.routes.companion import router as companion_router
+from services.api.routes.whatsapp import router as whatsapp_router
 from services.api.routes.health import router as health_router
 
 from services.api.middleware.idempotency import IdempotencyMiddleware
@@ -150,6 +151,7 @@ app.include_router(billing_router, prefix="/api/v1")
 app.include_router(privacy_router, prefix="/api/v1")
 app.include_router(internal_router, prefix="/api/v1")
 app.include_router(companion_router, prefix="/api/v1")
+app.include_router(whatsapp_router, prefix="/api/v1")
 app.include_router(health_router)
 
 # Mount Static Files and Web App Frontend
