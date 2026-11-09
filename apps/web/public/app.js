@@ -999,9 +999,39 @@ document.getElementById("btn-step-up").addEventListener("click", () => {
   elevateSession();
 });
 
+// Mobile menu toggle
+const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+const sidebar = document.querySelector(".sidebar");
+if (mobileMenuBtn && sidebar) {
+  mobileMenuBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    sidebar.classList.toggle("open");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (sidebar.classList.contains("open") && !sidebar.contains(e.target) && e.target !== mobileMenuBtn) {
+      sidebar.classList.remove("open");
+    }
+  });
+}
+
+// Service worker registration
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/static/sw.js")
+      .then((reg) => console.log("Service Worker registered with scope:", reg.scope))
+      .catch((err) => console.warn("Service Worker registration failed:", err));
+  });
+}
+
 // Event listeners
 document.querySelectorAll(".nav-item").forEach(btn => {
-  btn.addEventListener("click", () => switchView(btn.dataset.view));
+  btn.addEventListener("click", () => {
+    switchView(btn.dataset.view);
+    if (sidebar && sidebar.classList.contains("open")) {
+      sidebar.classList.remove("open");
+    }
+  });
 });
 
 document.getElementById("lang-select").addEventListener("change", (e) => {

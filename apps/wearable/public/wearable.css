@@ -1,0 +1,496 @@
+/* Suraksha Wearable Client - Smartwatch High-Contrast AMOLED Stylesheet */
+:root {
+  --color-bg: #000000;
+  --color-surface: #111827;
+  --color-text: #ffffff;
+  --color-text-dim: #9ca3af;
+  --color-safe: #10b981;
+  --color-warn: #f59e0b;
+  --color-danger: #ef4444;
+  --color-brand: #3b82f6;
+  --watch-size: 360px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  background-color: #0b0f19;
+  color: var(--color-text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.watch-device-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 48px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Watch Hardware Bezel */
+.watch-bezel {
+  width: 410px;
+  height: 410px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #374151 0%, #111827 70%, #030712 100%);
+  padding: 25px;
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.7),
+    inset 0 2px 4px rgba(255, 255, 255, 0.15),
+    inset 0 -4px 8px rgba(0, 0, 0, 0.8);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Digital Crown Button on right */
+.watch-bezel::after {
+  content: '';
+  position: absolute;
+  right: -10px;
+  top: 40%;
+  width: 14px;
+  height: 46px;
+  background: linear-gradient(to right, #4b5563, #9ca3af, #374151);
+  border-radius: 4px;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+/* 360x360 Circular Display Screen */
+.watch-screen {
+  width: var(--watch-size);
+  height: var(--watch-size);
+  border-radius: 50%;
+  background-color: var(--color-bg);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border: 1px solid #1f2937;
+}
+
+/* Top Bar (Time & Status) */
+.watch-top-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  z-index: 10;
+}
+
+.watch-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.5px;
+}
+
+.sync-indicator {
+  font-size: 10px;
+}
+
+/* Tile Slider Container */
+.tile-slider {
+  width: 100%;
+  height: 250px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.watch-tile {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.92);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  text-align: center;
+}
+
+.watch-tile.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+/* Tile 1: Dial & Ring */
+.dial-container {
+  position: relative;
+  width: 170px;
+  height: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+}
+
+.progress-ring {
+  position: absolute;
+  transform: rotate(-90deg);
+}
+
+.ring-bg {
+  stroke: #1f2937;
+}
+
+.ring-progress {
+  transition: stroke-dashoffset 0.6s ease, stroke 0.4s ease;
+}
+
+.dial-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shield-glyph {
+  font-size: 32px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.shield-state-label {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  color: var(--color-safe);
+}
+
+/* Stats Row */
+.tile-stats-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 4px;
+  margin-bottom: 6px;
+}
+
+.tile-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-value {
+  font-size: 16px;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.stat-title {
+  font-size: 9px;
+  color: var(--color-text-dim);
+  letter-spacing: 0.5px;
+}
+
+.tile-stat-divider {
+  width: 1px;
+  height: 20px;
+  background-color: #374151;
+}
+
+/* Biometric Pill */
+.biometric-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: #111827;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 10px;
+  border: 1px solid #1f2937;
+}
+
+.bio-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-safe);
+}
+
+.bio-text {
+  color: var(--color-text-dim);
+  font-weight: 600;
+}
+
+/* Tile 2: Urgent Alert Card */
+.urgent-banner {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(239, 68, 68, 0.2);
+  border: 1px solid var(--color-danger);
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.urgent-icon {
+  font-size: 14px;
+}
+
+.urgent-tag {
+  color: #fca5a5;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.urgent-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+  max-width: 260px;
+  line-height: 1.2;
+}
+
+.urgent-desc {
+  font-size: 11px;
+  color: var(--color-text-dim);
+  max-width: 250px;
+  line-height: 1.3;
+  margin-bottom: 14px;
+}
+
+/* Buttons for Watch Screen */
+.watch-btn {
+  background-color: #1f2937;
+  color: #fff;
+  border: 1px solid #374151;
+  padding: 10px 16px;
+  border-radius: 24px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 230px;
+  transition: transform 0.1s, background-color 0.2s;
+}
+
+.watch-btn:active {
+  transform: scale(0.95);
+}
+
+.watch-btn-primary {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  border: none;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+.watch-btn-ack {
+  background-color: rgba(239, 68, 68, 0.2);
+  border-color: var(--color-danger);
+  color: #fca5a5;
+}
+
+/* Tile 3: Quick Action */
+.action-icon-circle {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.action-tile-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.action-tile-sub {
+  font-size: 11px;
+  color: var(--color-text-dim);
+  max-width: 230px;
+  line-height: 1.3;
+  margin-bottom: 14px;
+}
+
+.action-result {
+  margin-top: 8px;
+  font-size: 11px;
+  color: var(--color-safe);
+  font-weight: 700;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Pagination Dots */
+.tile-dots {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 2px;
+  z-index: 10;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #374151;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background-color 0.2s, width 0.2s;
+}
+
+.dot.active {
+  background-color: var(--color-brand);
+  width: 14px;
+  border-radius: 3px;
+}
+
+/* Ambient Always-On Display Overlay */
+.ambient-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  cursor: pointer;
+}
+
+.ambient-clock {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 42px;
+  font-weight: 700;
+  color: #4b5563;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.ambient-shield {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.ambient-hint {
+  font-size: 10px;
+  color: #1f2937;
+  margin-top: 18px;
+}
+
+/* Simulator Side Controls */
+.simulator-controls {
+  max-width: 360px;
+  background-color: #111827;
+  border: 1px solid #1f2937;
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.simulator-controls h3 {
+  font-size: 18px;
+  margin-bottom: 4px;
+  color: #f8fafc;
+}
+
+.sim-sub {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-bottom: 20px;
+}
+
+.control-group {
+  margin-bottom: 18px;
+}
+
+.control-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #cbd5e1;
+  margin-bottom: 8px;
+}
+
+.button-row {
+  display: flex;
+  gap: 8px;
+}
+
+.sim-btn {
+  flex: 1;
+  background-color: #1f2937;
+  border: 1px solid #374151;
+  color: #cbd5e1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sim-btn.active, .sim-btn:hover {
+  background-color: #2563eb;
+  border-color: #3b82f6;
+  color: #ffffff;
+}
+
+.sim-btn-danger {
+  width: 100%;
+  background-color: #7f1d1d;
+  border-color: #ef4444;
+  color: #fca5a5;
+  padding: 10px;
+}
+
+.sim-btn-danger:hover {
+  background-color: #991b1b;
+  color: #ffffff;
+}
+
+.spec-list {
+  list-style: none;
+  font-size: 11px;
+  color: #94a3b8;
+  line-height: 1.8;
+}
+
+.spec-list strong {
+  color: #cbd5e1;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 12px;
+  color: #38bdf8;
+  font-size: 12px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}

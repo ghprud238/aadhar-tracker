@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Suraksha Watch Companion - Wearable Shield Glance</title>
+  <link rel="stylesheet" href="/wearable/static/wearable.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="watch-device-wrapper">
+    <!-- Physical Smartwatch Bezel & Chassis Simulation -->
+    <div class="watch-bezel">
+      <!-- 360x360 Circular AMOLED Display -->
+      <main class="watch-screen" id="watch-screen" role="region" aria-label="Smartwatch Screen">
+
+        <!-- Top Watch Header with Time & Battery -->
+        <header class="watch-top-bar">
+          <span class="watch-time" id="watch-time">10:42</span>
+          <span class="sync-indicator" id="sync-indicator" title="Connected to phone">🟢</span>
+        </header>
+
+        <!-- Carousel / Tile Container -->
+        <div class="tile-slider" id="tile-slider">
+          <!-- TILE 1: Primary Shield Glance Tile -->
+          <section class="watch-tile active" id="tile-glance" aria-label="Identity Shield Glance">
+            <div class="dial-container">
+              <svg class="progress-ring" width="170" height="170">
+                <circle class="ring-bg" stroke="#1f2937" stroke-width="8" fill="transparent" r="76" cx="85" cy="85" />
+                <circle class="ring-progress" id="ring-progress" stroke="#10b981" stroke-width="8" stroke-dasharray="477.5" stroke-dashoffset="0" stroke-linecap="round" fill="transparent" r="76" cx="85" cy="85" />
+              </svg>
+              <div class="dial-center">
+                <span class="shield-glyph" id="shield-glyph">🛡️</span>
+                <span class="shield-state-label" id="shield-state-label">SECURE</span>
+              </div>
+            </div>
+
+            <div class="tile-stats-row">
+              <div class="tile-stat">
+                <span class="stat-value" id="val-incidents">0</span>
+                <span class="stat-title">THREATS</span>
+              </div>
+              <div class="tile-stat-divider"></div>
+              <div class="tile-stat">
+                <span class="stat-value" id="val-monitored">0</span>
+                <span class="stat-title">MONITORED</span>
+              </div>
+            </div>
+
+            <div class="biometric-pill" id="biometric-pill">
+              <span class="bio-dot" id="bio-dot"></span>
+              <span class="bio-text" id="bio-text">Biometrics: Checking...</span>
+            </div>
+          </section>
+
+          <!-- TILE 2: Urgent Breach Alert Card -->
+          <section class="watch-tile" id="tile-urgent" aria-label="Urgent Breach Alert">
+            <div class="urgent-banner">
+              <span class="urgent-icon">🚨</span>
+              <span class="urgent-tag" id="urgent-severity">CRITICAL ALERT</span>
+            </div>
+            <h3 class="urgent-title" id="urgent-title">No Urgent Threats</h3>
+            <p class="urgent-desc" id="urgent-desc">All verified accounts are clean.</p>
+            <button class="watch-btn watch-btn-ack" id="btn-ack-alert">
+              Dismiss Notification
+            </button>
+          </section>
+
+          <!-- TILE 3: Quick Action - 1-Tap Biometric Lock -->
+          <section class="watch-tile" id="tile-action" aria-label="Quick Actions">
+            <div class="action-icon-circle">🇮🇳</div>
+            <h3 class="action-tile-title">Aadhaar Biometric Lock</h3>
+            <p class="action-tile-sub">Record locked status to enhance your protection score.</p>
+            <button class="watch-btn watch-btn-primary" id="btn-watch-lock">
+              🔒 Confirm Biometrics Locked
+            </button>
+            <div class="action-result hidden" id="action-result">
+              ✓ Logged to Immutable Audit Trail
+            </div>
+          </section>
+        </div>
+
+        <!-- Tile Pagination Dots -->
+        <nav class="tile-dots" aria-label="Tile selector">
+          <button class="dot active" data-index="0" aria-label="Tile 1: Shield Glance"></button>
+          <button class="dot" data-index="1" aria-label="Tile 2: Urgent Alerts"></button>
+          <button class="dot" data-index="2" aria-label="Tile 3: Quick Biometrics Action"></button>
+        </nav>
+
+        <!-- Ambient Mode Floating Indicator -->
+        <div class="ambient-overlay hidden" id="ambient-overlay">
+          <div class="ambient-clock" id="ambient-clock">10:42</div>
+          <div class="ambient-shield" id="ambient-shield">🛡️ SECURE</div>
+          <span class="ambient-hint">Tap to wake</span>
+        </div>
+      </main>
+    </div>
+
+    <!-- External Wearable Simulator Controls -->
+    <aside class="simulator-controls" aria-label="Simulator Controls">
+      <h3>⌚ Smartwatch Companion Simulator</h3>
+      <p class="sim-sub">Emulates Wear OS 4.0+ Tile & Apple Watch Smart Stack Glance</p>
+      
+      <div class="control-group">
+        <label>Display Mode:</label>
+        <div class="button-row">
+          <button class="sim-btn active" id="btn-mode-active">Active AMOLED</button>
+          <button class="sim-btn" id="btn-mode-ambient">Ambient AOD</button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label>Simulate Urgent Threat:</label>
+        <button class="sim-btn sim-btn-danger" id="btn-sim-breach">Trigger Watch Haptic Buzz & Red Alert</button>
+      </div>
+
+      <div class="control-group">
+        <label>Device Specs:</label>
+        <ul class="spec-list">
+          <li><strong>Resolution:</strong> 360 x 360 px (circular)</li>
+          <li><strong>Platform:</strong> Wear OS Tiles & watchOS Complications</li>
+          <li><strong>Payload:</strong> Ultra-compact /api/v1/companion/glance (<1 KB)</li>
+          <li><strong>Battery Efficiency:</strong> Low-power AOD with sub-second wakeup</li>
+        </ul>
+      </div>
+
+      <a href="/" class="back-link">← Return to Full Desktop / Web Client</a>
+    </aside>
+  </div>
+
+  <script src="/wearable/static/wearable.js"></script>
+</body>
+</html>

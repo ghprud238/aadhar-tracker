@@ -26,6 +26,7 @@ from services.api.routes.identity_assistance import router as assistance_router
 from services.api.routes.billing import router as billing_router
 from services.api.routes.privacy import router as privacy_router
 from services.api.routes.internal import router as internal_router
+from services.api.routes.companion import router as companion_router
 
 
 @asynccontextmanager
@@ -130,6 +131,7 @@ app.include_router(assistance_router, prefix="/api/v1")
 app.include_router(billing_router, prefix="/api/v1")
 app.include_router(privacy_router, prefix="/api/v1")
 app.include_router(internal_router, prefix="/api/v1")
+app.include_router(companion_router, prefix="/api/v1")
 
 # Mount Static Files and Web App Frontend
 static_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "apps", "web", "public")
@@ -140,3 +142,12 @@ if os.path.exists(static_dir):
     @app.get("/app", include_in_schema=False)
     async def serve_index():
         return FileResponse(os.path.join(static_dir, "index.html"))
+
+# Mount Wearable Client Frontend
+wearable_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "apps", "wearable", "public")
+if os.path.exists(wearable_dir):
+    app.mount("/wearable/static", StaticFiles(directory=wearable_dir), name="wearable_static")
+
+    @app.get("/wearable", include_in_schema=False)
+    async def serve_wearable():
+        return FileResponse(os.path.join(wearable_dir, "index.html"))

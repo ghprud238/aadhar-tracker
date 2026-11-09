@@ -2,7 +2,7 @@
 
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg)](https://fastapi.tiangolo.com/)
-[![Tests Passing](https://img.shields.io/badge/tests-32%2F32%20passing-brightgreen.svg)](tests/)
+[![Tests Passing](https://img.shields.io/badge/tests-34%2F34%20passing-brightgreen.svg)](tests/)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Security Zero-Plaintext](https://img.shields.io/badge/security-Zero--Plaintext%20Credentials-success.svg)](docs/threat-model.md)
 
@@ -52,10 +52,24 @@ Production-grade, consent-first identity protection platform with verified email
 │   ├── notification_worker/   # Privacy-safe alert dispatcher
 │   └── privacy_worker/        # Account deletion & data export lifecycle worker
 ├── apps/
-│   └── web/                   # Responsive web application with accessible UI & Hindi i18n
+│   ├── web/                   # Responsive web app + PWA with accessible UI & Hindi i18n
+│   ├── mobile/                # React Native / Expo cross-platform mobile app (iOS & Android)
+│   └── wearable/              # Smartwatch companion client (Wear OS Tile & watchOS Glance)
 ├── tests/                     # Unit, property, integration, contract, security, and E2E tests
 └── infrastructure/            # Docker compose & configuration
 ```
+
+---
+
+## Client Applications
+
+The platform provides unified multi-surface clients connected to the core engine:
+
+| Client Surface | Technology Stack | Features | Access / Run Command |
+| :--- | :--- | :--- | :--- |
+| **Web Client** | Modern Vanilla JS + PWA Service Worker + CSS Tokens | 10 PRD views, English/Hindi i18n, offline caching, accessible high-contrast navigation | Served at `http://localhost:8000/` |
+| **Mobile Client** | React Native 0.74 + Expo 51 + TypeScript | Bottom tab navigation, Face ID/Fingerprint app lock, step-up elevation, scan trigger, dispute modal | `cd apps/mobile && npx expo start` |
+| **Wearable Client** | Smartwatch 360x360 AMOLED UI + Haptic Feedback | 1-second Shield Glance dial, urgent breach card with haptic buzz, 1-tap "Lock Biometrics" quick action, AOD ambient mode | Served at `http://localhost:8000/wearable` |
 
 ---
 
@@ -64,7 +78,7 @@ Production-grade, consent-first identity protection platform with verified email
 ### Prerequisites
 - Python 3.11+
 - `uv` package manager (`curl -LsSf https://astral.sh/uv/install.sh | sh`)
-- Node.js 18+ (for frontend web application)
+- Node.js 18+ (tested on Node v24.15)
 
 ### Setup & Installation
 ```bash
@@ -74,12 +88,25 @@ cd /Users/dpcubed/projects/aadhar-tracker
 # Install virtualenv and all dependencies
 uv sync
 
-# Run the test suite
-uv run pytest
+# Run the test suite (34 tests passing 100%)
+uv run pytest -v
 ```
 
-### Running the API & Workers
+### Running the API & Client Frontends
 ```bash
-# Start the FastAPI server
+# Start the FastAPI server (serves API, Web App, and Wearable Simulator)
 uv run uvicorn services.api.main:app --host 0.0.0.0 --port 8000 --reload
 ```
+Once running:
+- **Web App:** Open `http://localhost:8000/` in any browser or install as a PWA on mobile.
+- **Wearable Client:** Open `http://localhost:8000/wearable` to interact with the 360x360 smartwatch companion and simulate Wear OS/watchOS tiles.
+- **API Documentation:** Interactive OpenAPI Swagger UI is available at `http://localhost:8000/docs`.
+
+### Running the Mobile Client (Expo)
+```bash
+cd apps/mobile
+npm install
+npx expo start
+```
+From the Expo terminal, press `i` to open the iOS simulator, `a` for Android emulator, or `w` for Web.
+

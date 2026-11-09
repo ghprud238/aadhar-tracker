@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Identity Protection Platform - Consent-First Monitoring & Aadhaar/PAN Guidance</title>
   <link rel="stylesheet" href="/static/style.css">
+  <link rel="manifest" href="/static/manifest.json">
+  <meta name="theme-color" content="#3b82f6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -71,9 +75,14 @@
     <!-- Main Content Area -->
     <main class="main-content" id="main-content" tabindex="-1">
       <header class="topbar">
-        <div class="topbar-title">
-          <h1 id="page-title">Overview</h1>
-          <p id="page-subtitle" class="text-muted">Real-time status of your verified identity monitoring and protective actions</p>
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <button id="mobile-menu-btn" class="btn btn-outline mobile-only" aria-label="Toggle navigation menu">
+            ☰
+          </button>
+          <div class="topbar-title">
+            <h1 id="page-title">Overview</h1>
+            <p id="page-subtitle" class="text-muted">Real-time status of your verified identity monitoring and protective actions</p>
+          </div>
         </div>
         <div class="topbar-actions">
           <button id="btn-scan-now" class="btn btn-primary">

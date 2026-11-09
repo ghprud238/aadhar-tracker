@@ -1,0 +1,21 @@
+{
+  "name": "Suraksha - Identity Protection Platform",
+  "short_name": "Suraksha",
+  "description": "Consent-first identity monitoring, breach intelligence, and Aadhaar/PAN assistance platform",
+  "start_url": "/app",
+  "display": "standalone",
+  "background_color": "#0b0f19",
+  "theme_color": "#3b82f6",
+  "icons": [
+    {
+      "src": "/static/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
