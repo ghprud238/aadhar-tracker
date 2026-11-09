@@ -37,3 +37,13 @@ COMMIT;
 ```
 
 A resilient outbox dispatcher polls committed unhandled events, publishes them to the worker queue, and marks them processed. Workers maintain idempotency tables (`processed_events`) with leasing and fencing tokens.
+
+---
+
+## 4. Deployment & Cloud Emulation Architecture
+
+The platform supports cloud-native serverless deployment (Google Cloud Run, AWS App Runner, Fly.io) as well as full on-premise container stacks:
+
+- **Universal Multi-Stage Container**: Hardened non-root image (`python:3.11-slim`, UID 10001 `appuser`), dynamic `$PORT` binding, and `/livez` health probes.
+- **Inter-Process Session Sharing**: Persistent SQLite session store (`user_sessions`) in [`packages/security/sessions.py`](file:///Users/dpcubed/projects/aadhar-tracker/packages/security/sessions.py) providing cross-worker state replication for multi-worker application servers.
+- **Local GCP Emulation via MiniSky**: Complete local offline mimicking of Google Cloud Run (`run.googleapis.com`), Secret Manager (`secretmanager.googleapis.com`), and Cloud Storage (`storage.googleapis.com`) using MiniSky on ports `:8080` / `:8081`. Full operational runbook documented in [`docs/minisky-local-cloud.md`](file:///Users/dpcubed/projects/aadhar-tracker/docs/minisky-local-cloud.md).

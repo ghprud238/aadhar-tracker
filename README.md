@@ -27,6 +27,8 @@ Production-grade, consent-first identity protection platform with verified email
 ├── AGENTS.md                  # Project rules & non-negotiable invariants
 ├── docs/                      # PRD, Architecture, Threat Model, Policies & Runbooks
 │   ├── daily-notes/           # Daily progress logs & interaction notes (e.g. 2026-11-09)
+│   ├── cases/                 # Comprehensive data flow specs (case-01 to case-07)
+│   ├── minisky-local-cloud.md # Local GCP cloud emulation & hosting guide
 │   ├── prd.md
 │   ├── architecture.md
 │   ├── threat-model.md
@@ -554,7 +556,7 @@ docker compose -f docker-compose.prod.yml ps
 
 #### F. Local Cloud Hosting & Emulation (Testing Locally with MiniSky)
 
-You can mimic full Google Cloud Platform (GCP) serverless deployment, Secret Manager, and Cloud Storage on your local laptop without incurring cloud billing or requiring cloud IAM credentials using **MiniSky** (`/Users/dpcubed/projects/minisky-fork`).
+You can mimic full Google Cloud Platform (GCP) serverless deployment, Secret Manager, and Cloud Storage on your local laptop without incurring cloud billing or requiring cloud IAM credentials using **MiniSky** (`/Users/dpcubed/projects/minisky-fork`). For the full operational runbook, see [docs/minisky-local-cloud.md](docs/minisky-local-cloud.md).
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
