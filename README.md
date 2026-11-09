@@ -26,6 +26,7 @@ Production-grade, consent-first identity protection platform with verified email
 .
 ├── AGENTS.md                  # Project rules & non-negotiable invariants
 ├── docs/                      # PRD, Architecture, Threat Model, Policies & Runbooks
+│   ├── daily-notes/           # Daily progress logs & interaction notes (e.g. 2026-11-09)
 │   ├── prd.md
 │   ├── architecture.md
 │   ├── threat-model.md
