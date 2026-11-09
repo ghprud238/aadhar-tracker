@@ -96,17 +96,63 @@ uv run pytest -v
 PYTHONPATH=. uv run python tests/load/run_benchmark.py
 ```
 
-### Running the API & Client Frontends
+## 🌐 Running the Web Version Locally (Step-by-Step)
+
+The Web Client is a modern, responsive **Progressive Web App (PWA)** hosted directly by the FastAPI backend at `http://localhost:8000/`.
+
+### 1. Open Terminal & Navigate to the Project
 ```bash
-# Start the FastAPI server (serves API, Web App, and Wearable Simulator)
+cd /Users/dpcubed/projects/aadhar-tracker
+```
+
+### 2. Ensure Dependencies Are Installed
+```bash
+uv sync
+```
+
+### 3. Start the Server
+```bash
+uv run python main.py
+# or
 uv run uvicorn services.api.main:app --host 0.0.0.0 --port 8000 --reload
 ```
-Once running:
-- **Web App:** Open `http://localhost:8000/` in any browser or install as a PWA on mobile.
-- **Wearable Client:** Open `http://localhost:8000/wearable` to interact with the 360x360 smartwatch companion and simulate Wear OS/watchOS tiles.
-- **Prometheus Metrics:** Scrape `http://localhost:8000/metrics`.
-- **Health & Readiness Probes:** Query `http://localhost:8000/livez` and `http://localhost:8000/readyz`.
-- **API Documentation:** Interactive OpenAPI Swagger UI is available at `http://localhost:8000/docs`.
+*Expected terminal output:*
+```
+INFO:     Started server process [85123]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+```
+
+### 4. Open in Your Browser
+Open your browser and navigate to:  
+👉 **[http://localhost:8000/](http://localhost:8000/)** (or `/app`)
+
+### 5. What You Can See & Test
+* **Automatic Session Bootstrap:** Initializes a demo resident profile (`resident@example.in` / `Aarav Sharma`) and displays masked telemetry.
+* **10 Dedicated PRD Views:**
+  1. **📊 Overview:** Live shield status indicator (Secure / Warning / Critical) and quick scan trigger.
+  2. **🔑 Identities:** Add an email, receive a 6-digit verification challenge token, verify ownership, pause, or remove.
+  3. **⚠️ Incidents:** Review simulated breaches from HIBP and Flare, inspect exposed data classes (passwords, PII), complete remediation checklists, or log false-positive disputes.
+  4. **✅ Protection Actions:** Active and completed remediation task trackers.
+  5. **🇮🇳 Aadhaar & PAN Assistance:** Interactive offline-ready Aadhaar Biometric Lock guide (direct links to official UIDAI `myaadhaar.uidai.gov.in` & mAadhaar), PAN-Aadhaar linkage check, and fraud reporting form.
+  6. **🌐 Coverage Transparency:** Full breakdown of monitored sources vs. non-monitored government portals, with clear zero-scraping guarantees.
+  7. **🔔 Notifications:** Alerts and digest preferences.
+  8. **💳 Billing & Plans:** Tiered subscription management (Basic / Pro) with server-side Razorpay amount enforcement.
+  9. **🔒 Privacy Center:** Generate a machine-readable JSON data export and submit DPDP Act account erasure requests.
+  10. **🛡️ Account Security:** Step-up authentication elevation (use password `SecretMaster123!`).
+* **Bilingual Switcher:** Toggle between **English** and **हिंदी (Hindi)** in the bottom-left sidebar.
+* **PWA Installable:** In Chrome, Edge, or Brave, click the **Install** icon in the URL bar to test the offline-capable standalone PWA experience.
+
+### 6. Complementary Local Endpoints
+While the server is running on port 8000:
+* **Smartwatch Companion (Wearable Simulator):** [http://localhost:8000/wearable](http://localhost:8000/wearable) (360x360 circular AMOLED display, haptic buzz, 1-tap Biometric Lock confirmation).
+* **Interactive API Documentation:** [http://localhost:8000/docs](http://localhost:8000/docs) (Swagger UI).
+* **Prometheus Metrics:** [http://localhost:8000/metrics](http://localhost:8000/metrics)
+* **Kubernetes Probes:** [http://localhost:8000/readyz](http://localhost:8000/readyz) and [http://localhost:8000/livez](http://localhost:8000/livez)
+
+### 7. Stopping the Server
+Press `Ctrl + C` in the terminal to stop the local server.
 
 ---
 
