@@ -2,6 +2,7 @@
 
 **Version:** 1.0 | **Date:** 8 November 2026
 **Document Status:** Implementation specification
+**Original Authoritative PDF:** [`identity_protection_completion_PRD.pdf`](identity_protection_completion_PRD.pdf)
 
 ---
 
