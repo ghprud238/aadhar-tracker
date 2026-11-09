@@ -1,0 +1,25 @@
+name: Hello World Demo
+
+# This workflow triggers on any push to the repository
+on: [push]
+
+jobs:
+  say-hello:
+    # Runs on a fresh, GitHub-hosted Linux server
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Standard action to clone your code onto the server
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Running a raw custom shell command
+      - name: Run a simple script
+        run: echo "The workflow has started successfully!"
+
+      # Step 3: Using a third-party Action from the Marketplace to print styled text
+      - name: Print Custom Message
+        uses: actions/github-script@v7
+        with:
+          script: |
+            core.notice("👋 Hello World! Your first GitHub Action executed successfully.");
