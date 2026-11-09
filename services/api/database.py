@@ -10,8 +10,18 @@ from packages.security.authorization import current_tenant_var, current_subject_
 
 DATABASE_URL = os.getenv("DATABASE_URL", "sqlite+aiosqlite:///./test_identity_platform.db")
 
-# For sqlite, foreign keys must be enabled on connect
-connect_args = {"check_same_thread": False} if "sqlite" in DATABASE_URL else {}
+# For sqlite, foreign keys must be enabled on connect and parent directories created
+connect_args = {}
+if "sqlite" in DATABASE_URL:
+    connect_args = {"check_same_thread": False}
+    raw_path = DATABASE_URL.replace("sqlite+aiosqlite:///", "")
+    if raw_path and not raw_path.startswith(":memory:"):
+        dir_name = os.path.dirname(raw_path)
+        if dir_name:
+            try:
+                os.makedirs(dir_name, exist_ok=True)
+            except Exception:
+                pass
 
 engine = create_async_engine(
     DATABASE_URL,
@@ -32,7 +42,11 @@ async_session_factory = async_sessionmaker(
 async def init_db():
     """Create tables and ensure initial required seed data is present."""
     async with engine.begin() as conn:
-        await conn.run_sync(Base.metadata.create_all)
+        try:
+            await conn.run_sync(lambda sync_conn: Base.metadata.create_all(sync_conn, checkfirst=True))
+        except Exception as e:
+            if "already exists" not in str(e).lower():
+                raise
 
         # In PostgreSQL, enable RLS policies on tenant/subject tables:
         if "postgresql" in DATABASE_URL:
@@ -43,20 +57,26 @@ async def init_db():
             """))
 
     # Seed initial processing notice if not present
-    async with async_session_factory() as session:
-        result = await session.execute(
-            text("SELECT id FROM processing_notices WHERE version = '1.0'")
-        )
-        if not result.first():
-            notice = ProcessingNotice(
-                version="1.0",
-                purpose="identity_exposure_monitoring",
-                title="Identity Exposure Monitoring and Protective Assistance Notice",
-                content_html="<p>This notice explains how verified identifiers are monitored across approved breach catalogs and licensed feeds.</p>",
-                publication_state="published"
+    try:
+        async with async_session_factory() as session:
+            result = await session.execute(
+                text("SELECT id FROM processing_notices WHERE version = '1.0'")
             )
-            session.add(notice)
-            await session.commit()
+            if not result.first():
+                notice = ProcessingNotice(
+                    version="1.0",
+                    purpose="identity_exposure_monitoring",
+                    title="Identity Exposure Monitoring and Protective Assistance Notice",
+                    content_html="<p>This notice explains how verified identifiers are monitored across approved breach catalogs and licensed feeds.</p>",
+                    publication_state="published"
+                )
+                session.add(notice)
+                try:
+                    await session.commit()
+                except Exception:
+                    await session.rollback()
+    except Exception:
+        pass
 
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:

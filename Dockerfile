@@ -58,7 +58,8 @@ COPY migrations/ ./migrations/
 COPY docker-entrypoint.sh ./
 
 # Adjust ownership to non-root appuser
-RUN chmod +x /app/docker-entrypoint.sh && \
+RUN mkdir -p /app/data && \
+    chmod +x /app/docker-entrypoint.sh && \
     chown -R appuser:appgroup /app
 
 USER appuser

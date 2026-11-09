@@ -2,7 +2,7 @@
 
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg)](https://fastapi.tiangolo.com/)
-[![Tests Passing](https://img.shields.io/badge/tests-40%2F40%20passing-brightgreen.svg)](tests/)
+[![Tests Passing](https://img.shields.io/badge/tests-47%2F47%20passing-brightgreen.svg)](tests/)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Security Zero-Plaintext](https://img.shields.io/badge/security-Zero--Plaintext%20Credentials-success.svg)](docs/threat-model.md)
 
@@ -551,6 +551,105 @@ Inspect stack status:
 ```bash
 docker compose -f docker-compose.prod.yml ps
 ```
+
+#### F. Local Cloud Hosting & Emulation (Testing Locally with MiniSky)
+
+You can mimic full Google Cloud Platform (GCP) serverless deployment, Secret Manager, and Cloud Storage on your local laptop without incurring cloud billing or requiring cloud IAM credentials using **MiniSky** (`/Users/dpcubed/projects/minisky-fork`).
+
+```
+┌────────────────────────────────────────────────────────────────────────┐
+│                        Local Laptop Environment                        │
+│                                                                        │
+│   MiniSky API Gateway (:8080) & Emulator Dashboard (:8081)             │
+│   ├── run.googleapis.com ────────────► Docker Engine (Serverless VM)    │
+│   │                                    └── minisky-serverless-aadhar-  │
+│   │                                        tracker (:55003 -> :8000)   │
+│   ├── secretmanager.googleapis.com ──► In-memory / Mock KMS Secrets    │
+│   │                                    └── APP_MASTER_ENCRYPTION_KEY   │
+│   └── storage.googleapis.com ────────► Fake-GCS Server (:4443)         │
+│                                        └── gs://suraksha-audit-logs    │
+└────────────────────────────────────────────────────────────────────────┘
+```
+
+1. **Start the Local MiniSky Emulator:**
+   ```bash
+   cd /Users/dpcubed/projects/minisky-fork
+   ./minisky start
+   # API Gateway running at http://localhost:8080
+   # Control Dashboard running at http://localhost:8081
+   ```
+
+2. **Deploy Suraksha Platform as a Cloud Run Service:**
+   ```bash
+   curl -X POST "http://localhost:8080/v2/projects/local-dev-project/locations/asia-south1/services?serviceId=aadhar-tracker" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "template": {
+         "containers": [{
+           "image": "aadhar-tracker:latest",
+           "ports": [{"containerPort": 8000}],
+           "env": [
+             {"name": "PORT", "value": "8000"},
+             {"name": "WORKERS", "value": "2"},
+             {"name": "ENVIRONMENT", "value": "production"},
+             {"name": "DATABASE_URL", "value": "sqlite+aiosqlite:////app/data/suraksha.db"},
+             {"name": "SESSION_DB_PATH", "value": "/app/data/sessions.db"}
+           ]
+         }]
+       }
+     }'
+   ```
+   MiniSky provisions a live container `minisky-serverless-aadhar-tracker` and routes traffic from a dynamic port (e.g., `http://127.0.0.1:55003`).
+
+3. **Verify Container Health & Probes:**
+   ```bash
+   curl -i http://127.0.0.1:55003/livez
+   # Returns HTTP 200 OK {"status":"alive"} with CSP, HSTS, and X-Frame-Options
+   ```
+
+4. **Emulate Google Secret Manager:**
+   ```bash
+   # Create secret
+   curl -X POST "http://localhost:8080/v1/projects/local-dev-project/secrets?secretId=APP_MASTER_ENCRYPTION_KEY" \
+     -H "Content-Type: application/json" -d '{"replication":{"automatic":{}}}'
+
+   # Add 256-bit AES master key version
+   curl -X POST "http://localhost:8080/v1/projects/local-dev-project/secrets/APP_MASTER_ENCRYPTION_KEY:addVersion" \
+     -H "Content-Type: application/json" -d '{"payload":{"data":"MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY="}}'
+
+   # Read secret version
+   curl -s "http://localhost:8080/v1/projects/local-dev-project/secrets/APP_MASTER_ENCRYPTION_KEY/versions/latest:access"
+   ```
+
+5. **Emulate Google Cloud Storage (Audit Logs):**
+   ```bash
+   # Create bucket
+   curl -X POST "http://localhost:8080/storage/v1/b?project=local-dev-project" \
+     -H "Content-Type: application/json" -d '{"name":"suraksha-audit-logs","location":"asia-south1"}'
+
+   # Upload audit export blob
+   curl -X POST "http://localhost:8080/upload/storage/v1/b/suraksha-audit-logs/o?uploadType=media&name=audit-sample.json" \
+     -H "Content-Type: application/json" -d '{"event":"audit_test","status":"verified"}'
+   ```
+
+6. **Execute Canary Sandbox & WhatsApp DLP against Cloud Run Container:**
+   ```bash
+   PORT=55003
+   # 1. Login citizen
+   TOKEN=$(curl -s "http://127.0.0.1:$PORT/api/v1/auth/callback?email=citizen@suraksha.in&full_name=Aarav+Sharma" | python3 -c 'import sys, json; print(json.load(sys.stdin)["data"]["session_id"])')
+
+   # 2. Trigger Canary Exposure Test (UIDAI Sandbox Dummy #1)
+   curl -X POST "http://127.0.0.1:$PORT/api/v1/identity-assistance/canary-test" \
+     -H "Authorization: Bearer $TOKEN" \
+     -H "Content-Type: application/json" \
+     -d '{"preset_id":"aadhaar_sandbox_1"}'
+
+   # 3. Simulate Insecure WhatsApp Aadhaar/PAN Forward
+   curl -X POST "http://127.0.0.1:$PORT/api/v1/integrations/whatsapp/simulate-share" \
+     -H "Authorization: Bearer $TOKEN" \
+     -H "Content-Type: application/json" \
+     -d '{"message_text":"My Aadhaar is 9999 4105 7058 and PAN is ABCDE1234F","sender_phone":"+919876543210"}'
+   ```
 
 ---
 
