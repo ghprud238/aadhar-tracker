@@ -163,3 +163,60 @@ async def test_canary_test_presets_and_execution():
         )
         assert invalid_res.status_code == 422
         assert "Verhoeff checksum" in invalid_res.json()["error"]["message"]
+
+
+@pytest.mark.asyncio
+async def test_whatsapp_media_share_simulation():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as client:
+        res_auth = await client.get("/api/v1/auth/callback?email=citizen@suraksha.in&full_name=Aarav+Sharma")
+        token = res_auth.json()["data"]["session_id"]
+        auth_headers = {"Authorization": f"Bearer {token}"}
+
+        # 1. Media with no sensitive ID
+        clean_res = await client.post(
+            "/api/v1/integrations/whatsapp/simulate-media-share",
+            headers=auth_headers,
+            json={
+                "file_name": "vacation_photo.jpg",
+                "media_type": "image/jpeg",
+                "ocr_text_sample": "Family holiday at Goa beach 2026",
+            }
+        )
+        assert clean_res.status_code == 200
+        clean_data = clean_res.json()["data"]
+        assert clean_data["detected"] is False
+        assert len(clean_data["redaction_coordinates"]) == 0
+
+        # 2. Media with Aadhaar Card photo / scan
+        media_res = await client.post(
+            "/api/v1/integrations/whatsapp/simulate-media-share",
+            headers=auth_headers,
+            json={
+                "file_name": "aadhaar_front_scan.png",
+                "media_type": "image/png",
+                "ocr_text_sample": "GOVERNMENT OF INDIA\nUnique Identification Authority of India\nEnrollment No: 1234/56789/12345\n9999 4105 7058\nMera Aadhaar Meri Pehchan",
+                "sender_phone": "+919876543210"
+            }
+        )
+        assert media_res.status_code == 200
+        media_data = media_res.json()["data"]
+        assert media_data["detected"] is True
+        assert media_data["document_type"] == "aadhaar_card"
+        assert len(media_data["redaction_coordinates"]) == 2
+        # Check first 8 digits redaction box
+        digits_box = media_data["redaction_coordinates"][0]
+        assert "Mask First 8 Digits" in digits_box["redaction_label"]
+        assert digits_box["x"] == 140
+        assert digits_box["y"] == 380
+        # Check QR code redaction box
+        qr_box = media_data["redaction_coordinates"][1]
+        assert "Biometric QR Code" in qr_box["redaction_label"]
+        assert qr_box["width"] == 160
+        assert qr_box["height"] == 160
+        # Check critical incident and multi-surface notifications
+        assert "SURAKSHA SECURITY ALERT" in media_data["automated_whatsapp_alert"]
+        assert "Aadhaar Card" in media_data["automated_whatsapp_alert"]
+        assert media_data["incident_id"].startswith("inc_img_")
+        assert len(media_data["remediation_checklist"]) >= 3
+
