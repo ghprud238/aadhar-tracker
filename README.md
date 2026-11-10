@@ -63,6 +63,10 @@ Production-grade, consent-first identity protection platform with verified email
 │   ├── seed_db.py             # Database seeder & fixture exporter
 │   ├── synthetic_bundle.json  # Complete exported test fixture bundle
 │   └── README.md              # Documentation for dummy data generation
+├── minisky_fork/              # Local GCP emulator (Cloud Run, Secret Manager, GCS)
+│   ├── minisky                # Pre-built binary executable (:8080 Gateway & :8081 Web Console)
+│   ├── docs/                  # MiniSky service emulation specifications
+│   └── ui/                    # React Web Console dashboard source
 ├── tests/                     # Unit, property, integration, contract, security, and E2E tests
 └── infrastructure/            # Docker compose & configuration
 ```
@@ -602,7 +606,7 @@ docker compose -f docker-compose.prod.yml ps
 
 #### F. Local Cloud Hosting & Emulation (Testing Locally with MiniSky)
 
-You can mimic full Google Cloud Platform (GCP) serverless deployment, Secret Manager, and Cloud Storage on your local laptop without incurring cloud billing or requiring cloud IAM credentials using **MiniSky** (`/Users/dpcubed/projects/minisky-fork`). For the full operational runbook, see [docs/minisky-local-cloud.md](docs/minisky-local-cloud.md).
+You can mimic full Google Cloud Platform (GCP) serverless deployment, Secret Manager, and Cloud Storage on your local laptop without incurring cloud billing or requiring cloud IAM credentials using **MiniSky**, conveniently bundled directly in [`minisky_fork/`](minisky_fork/). For the full operational runbook, see [docs/minisky-local-cloud.md](docs/minisky-local-cloud.md).
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -620,14 +624,33 @@ You can mimic full Google Cloud Platform (GCP) serverless deployment, Secret Man
 ```
 
 1. **Start the Local MiniSky Emulator:**
+   Launch the daemon directly from the root of the repository:
    ```bash
-   cd /Users/dpcubed/projects/minisky-fork
-   ./minisky start
-   # API Gateway running at http://localhost:8080
-   # Control Dashboard running at http://localhost:8081
+   ./minisky_fork/minisky start
+   # Or navigate into the folder:
+   # cd minisky_fork && ./minisky start
+   ```
+   *Expected Output:*
+   ```text
+   MiniSky Daemon started successfully.
+   API Gateway: http://localhost:8080
+   Dashboard:   http://localhost:8081
    ```
 
-2. **Deploy Suraksha Platform as a Cloud Run Service:**
+2. **Verify That MiniSky is Running:**
+   - **Visual Control Console:** Open [http://localhost:8081](http://localhost:8081) in your browser.
+   - **Terminal Port Check:** Run `lsof -i :8080 -i :8081` (confirm ports 8080 and 8081 are in `LISTEN` state).
+   - **CLI Resource Inspection:**
+     ```bash
+     ./minisky_fork/minisky list
+     ```
+
+3. **Deploy Suraksha Platform as a Cloud Run Service:**
+   First, build the production container image:
+   ```bash
+   docker build -t aadhar-tracker:latest -f infrastructure/Dockerfile.prod .
+   ```
+   Deploy to the emulated Cloud Run API Gateway:
    ```bash
    curl -X POST "http://localhost:8080/v2/projects/local-dev-project/locations/asia-south1/services?serviceId=aadhar-tracker" \
      -H "Content-Type: application/json" \
@@ -649,13 +672,13 @@ You can mimic full Google Cloud Platform (GCP) serverless deployment, Secret Man
    ```
    MiniSky provisions a live container `minisky-serverless-aadhar-tracker` and routes traffic from a dynamic port (e.g., `http://127.0.0.1:55003`).
 
-3. **Verify Container Health & Probes:**
+4. **Verify Container Health & Probes:**
    ```bash
    curl -i http://127.0.0.1:55003/livez
    # Returns HTTP 200 OK {"status":"alive"} with CSP, HSTS, and X-Frame-Options
    ```
 
-4. **Emulate Google Secret Manager:**
+5. **Emulate Google Secret Manager:**
    ```bash
    # Create secret
    curl -X POST "http://localhost:8080/v1/projects/local-dev-project/secrets?secretId=APP_MASTER_ENCRYPTION_KEY" \
@@ -669,7 +692,7 @@ You can mimic full Google Cloud Platform (GCP) serverless deployment, Secret Man
    curl -s "http://localhost:8080/v1/projects/local-dev-project/secrets/APP_MASTER_ENCRYPTION_KEY/versions/latest:access"
    ```
 
-5. **Emulate Google Cloud Storage (Audit Logs):**
+6. **Emulate Google Cloud Storage (Audit Logs):**
    ```bash
    # Create bucket
    curl -X POST "http://localhost:8080/storage/v1/b?project=local-dev-project" \
@@ -680,7 +703,7 @@ You can mimic full Google Cloud Platform (GCP) serverless deployment, Secret Man
      -H "Content-Type: application/json" -d '{"event":"audit_test","status":"verified"}'
    ```
 
-6. **Execute Canary Sandbox & WhatsApp DLP against Cloud Run Container:**
+7. **Execute Canary Sandbox & WhatsApp DLP against Cloud Run Container:**
    ```bash
    PORT=55003
    # 1. Login citizen
@@ -697,6 +720,12 @@ You can mimic full Google Cloud Platform (GCP) serverless deployment, Secret Man
      -H "Authorization: Bearer $TOKEN" \
      -H "Content-Type: application/json" \
      -d '{"message_text":"My Aadhaar is 9999 4105 7058 and PAN is ABCDE1234F","sender_phone":"+919876543210"}'
+   ```
+
+8. **Stopping the MiniSky Daemon:**
+   When testing is complete, stop the background daemon:
+   ```bash
+   ./minisky_fork/minisky stop
    ```
 
 ---

@@ -1,6 +1,6 @@
 # Local Cloud Hosting & Emulation Guide (MiniSky GCP)
 
-This document provides a comprehensive operational and architectural guide to running and testing the **Suraksha Identity Protection Platform** (`aadhar-tracker`) locally against an emulated Google Cloud Platform (GCP) stack using **MiniSky** (`/Users/dpcubed/projects/minisky-fork`).
+This document provides a comprehensive operational and architectural guide to running and testing the **Suraksha Identity Protection Platform** (`aadhar-tracker`) locally against an emulated Google Cloud Platform (GCP) stack using **MiniSky** (vendored in [`minisky_fork/`](../minisky_fork/)).
 
 ---
 
@@ -55,18 +55,12 @@ Traditional cloud testing requires GCP billing accounts, IAM credentials, Intern
 - **Python 3.11+** with `uv`
 - **cURL** and **jq** (or Python `json.tool`)
 
-### MiniSky Installation
-The MiniSky binary can be downloaded or built from source in `/Users/dpcubed/projects/minisky-fork`:
+### MiniSky Installation & Availability
+The MiniSky binary and source are pre-bundled directly within the repository in [`minisky_fork/`](../minisky_fork/):
 
 ```bash
-cd /Users/dpcubed/projects/minisky-fork
-
-# If binary is not yet installed:
-# curl -L https://github.com/minisky-fork/minisky/releases/download/v1.5.0/minisky_darwin_arm64.tar.gz | tar -xz
-# chmod +x minisky && cp minisky ~/.local/bin/
-
-# Verify installation
-./minisky version
+# Verify pre-built binary
+./minisky_fork/minisky version
 ```
 
 ---
@@ -77,8 +71,9 @@ cd /Users/dpcubed/projects/minisky-fork
 
 Launch the daemon in background mode:
 ```bash
-cd /Users/dpcubed/projects/minisky-fork
-./minisky start
+./minisky_fork/minisky start
+# Or from the directory:
+# cd minisky_fork && ./minisky start
 ```
 *Expected Output:*
 ```
@@ -281,6 +276,6 @@ To cleanly remove the emulated Cloud Run container and stop MiniSky:
 docker rm -f minisky-serverless-aadhar-tracker
 
 # Stop MiniSky daemon
-cd /Users/dpcubed/projects/minisky-fork
-./minisky stop
+./minisky_fork/minisky stop
+# Or: cd minisky_fork && ./minisky stop
 ```
