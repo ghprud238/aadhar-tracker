@@ -94,13 +94,17 @@ The platform provides unified multi-surface clients connected to the core engine
 
 ### Setup & Installation
 ```bash
-# Clone and enter the repository
-cd /Users/dpcubed/projects/aadhar-tracker
+# Clone and enter the repository (with submodules for MiniSky)
+git clone --recurse-submodules git@github.com:ghprud238/aadhar-tracker.git
+cd aadhar-tracker
+
+# If already cloned, initialize the minisky_fork submodule:
+git submodule update --init --recursive
 
 # Install virtualenv and all dependencies
 uv sync
 
-# Run the test suite (40 tests passing 100%)
+# Run the test suite (54 tests passing 100%)
 uv run pytest -v
 
 # Run the high-concurrency async load benchmark (400+ RPS)

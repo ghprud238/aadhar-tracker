@@ -1,0 +1,3 @@
+[submodule "minisky_fork"]
+	path = minisky_fork
+	url = https://github.com/ghprud238/minisky-fork.git
