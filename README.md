@@ -58,6 +58,11 @@ Production-grade, consent-first identity protection platform with verified email
 │   ├── web/                   # Responsive web app + PWA with accessible UI & Hindi i18n
 │   ├── mobile/                # React Native / Expo cross-platform mobile app (iOS & Android)
 │   └── wearable/              # Smartwatch companion client (Wear OS Tile & watchOS Glance)
+├── dummy_data_to_test/        # Synthetic test data generators, DB seeder & JSON fixtures
+│   ├── generator.py           # Core Verhoeff Aadhaar, PAN, and profile generator
+│   ├── seed_db.py             # Database seeder & fixture exporter
+│   ├── synthetic_bundle.json  # Complete exported test fixture bundle
+│   └── README.md              # Documentation for dummy data generation
 ├── tests/                     # Unit, property, integration, contract, security, and E2E tests
 └── infrastructure/            # Docker compose & configuration
 ```
@@ -441,9 +446,13 @@ flowchart TD
 
 ---
 
-## 🧪 Synthetic Test Data & Fixture Generation
+## 🧪 Synthetic Test Data & Fixture Generation (`dummy_data_to_test`)
 
-To ensure thorough, reproducible testing and developer onboarding without exposing real citizen PII, the platform includes a **deterministic Synthetic Data Engine** ([`packages/domain/synthetic.py`](file:///Users/dpcubed/projects/aadhar-tracker/packages/domain/synthetic.py)) and a seeding tool ([`services/tools/seed_synthetic.py`](file:///Users/dpcubed/projects/aadhar-tracker/services/tools/seed_synthetic.py)):
+To ensure thorough, reproducible testing and developer onboarding without exposing real citizen PII, all synthetic generators, seeders, and exported fixtures are housed in the dedicated [`dummy_data_to_test/`](dummy_data_to_test/) directory:
+
+- **Core Generator:** [`dummy_data_to_test/generator.py`](dummy_data_to_test/generator.py) (re-exported via [`packages/domain/synthetic.py`](packages/domain/synthetic.py))
+- **Database Seeder & Fixture Exporter:** [`dummy_data_to_test/seed_db.py`](dummy_data_to_test/seed_db.py)
+- **Directory Guide:** [`dummy_data_to_test/README.md`](dummy_data_to_test/README.md)
 
 ### 1. Generated Data Assets
 - **Mathematically Valid Aadhaar Numbers**: 12 digits calculated using the official **Verhoeff Dihedral $D_5$ algorithm** with developer test prefix `9999...` to prevent collision with real resident identifiers.
@@ -452,24 +461,25 @@ To ensure thorough, reproducible testing and developer onboarding without exposi
 - **Simulated Dark Web Breach Dumps**: Multi-record mock dumps for Telecom KYC leaks, Fintech applicant breaches, Lumma Stealer botnet archives, and hospital diagnostic records.
 - **WhatsApp DLP Sample Threads**: English and Hinglish multi-turn chat threads containing unmasked IDs to test DLP interception.
 
-### 2. Export Static Test Fixtures
+### 2. Run Directly from `dummy_data_to_test`
 ```bash
-# Export static JSON fixtures to tests/fixtures/
-uv run python -m services.tools.seed_synthetic --export-fixtures
+# 1. Print a sample synthetic citizen profile to terminal
+python dummy_data_to_test/generator.py
+
+# 2. Export / Refresh JSON fixtures
+python dummy_data_to_test/seed_db.py --export-fixtures
+
+# 3. Seed local database with 10 synthetic residents, encrypted identifiers & incidents
+python dummy_data_to_test/seed_db.py --seed-db --residents 10
 ```
-*Generated Files in [`tests/fixtures/`](file:///Users/dpcubed/projects/aadhar-tracker/tests/fixtures/):*
+
+*Generated Files in [`dummy_data_to_test/`](dummy_data_to_test/) and [`tests/fixtures/`](tests/fixtures/):*
 - `synthetic_identities.json`: 50 valid synthetic Indian citizen profiles
 - `synthetic_breach_catalog.json`: Simulated dark web database dumps with magnet hashes
 - `synthetic_whatsapp_messages.json`: Realistic chat conversations for DLP verification
 - `synthetic_bundle.json`: Unified fixture dataset for automated testing
 
-### 3. Seed Database with Synthetic Test Data
-```bash
-# Populate local SQLite or PostgreSQL database with 10 synthetic residents, identifiers, and active incidents
-uv run python -m services.tools.seed_synthetic --seed-db --residents 10
-```
-
-### 4. On-Demand Synthetic API Endpoint
+### 3. On-Demand Synthetic API Endpoint
 ```bash
 # Fetch on-demand synthetic test identities and breach scenarios via API
 TOKEN=$(curl -s "http://localhost:8000/api/v1/auth/callback?email=citizen@suraksha.in&full_name=Aarav+Sharma" | python3 -c 'import sys, json; print(json.load(sys.stdin)["data"]["session_id"])')

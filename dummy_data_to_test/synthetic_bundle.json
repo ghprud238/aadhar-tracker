@@ -1,0 +1,1114 @@
+{
+  "metadata": {
+    "generated_at": "2026-11-10T03:39:19.507344+00:00",
+    "generator_version": "1.0.0",
+    "seed": 42,
+    "profile_count": 10,
+    "breach_catalog_count": 5,
+    "whatsapp_thread_count": 6,
+    "compliance_note": "All data generated using synthetic generators and Verhoeff test ranges (9999...). Zero real resident PII."
+  },
+  "identities": [
+    {
+      "full_name": "Deepa Iyer",
+      "first_name": "Deepa",
+      "last_name": "Iyer",
+      "email": "deepa.iyer45@example.in",
+      "phone": "+919842868828",
+      "aadhaar_raw": "999918617230",
+      "aadhaar_formatted": "9999 1861 7230",
+      "aadhaar_masked": "XXXX-XXXX-7230",
+      "pan_raw": "EWUPI6835A",
+      "pan_masked": "EW***68*A",
+      "vid_number": "4770-6629-6713-3179",
+      "address": {
+        "street": "Flat 859, Surya Enclave",
+        "city": "Hyderabad",
+        "state": "Telangana",
+        "pincode": "500242",
+        "country": "India"
+      },
+      "created_at": "2026-11-10T03:39:19.503915+00:00"
+    },
+    {
+      "full_name": "Diya Singh",
+      "first_name": "Diya",
+      "last_name": "Singh",
+      "email": "diya.singh69@testmail.co.in",
+      "phone": "+919859644073",
+      "aadhaar_raw": "999906398127",
+      "aadhaar_formatted": "9999 0639 8127",
+      "aadhaar_masked": "XXXX-XXXX-8127",
+      "pan_raw": "EMHPS2331D",
+      "pan_masked": "EM***23*D",
+      "vid_number": "4745-2471-5019-6342",
+      "address": {
+        "street": "Flat 611, Surya Enclave",
+        "city": "Lucknow",
+        "state": "Uttar Pradesh",
+        "pincode": "226815",
+        "country": "India"
+      },
+      "created_at": "2026-11-10T03:39:19.503983+00:00"
+    },
+    {
+      "full_name": "Ishaan Rao",
+      "first_name": "Ishaan",
+      "last_name": "Rao",
+      "email": "ishaan.rao32@example.in",
+      "phone": "+919860944870",
+      "aadhaar_raw": "999903509964",
+      "aadhaar_formatted": "9999 0350 9964",
+      "aadhaar_masked": "XXXX-XXXX-9964",
+      "pan_raw": "JDNPR2297L",
+      "pan_masked": "JD***22*L",
+      "vid_number": "4051-0394-4057-2081",
+      "address": {
+        "street": "Flat 683, Surya Enclave",
+        "city": "Hyderabad",
+        "state": "Telangana",
+        "pincode": "500396",
+        "country": "India"
+      },
+      "created_at": "2026-11-10T03:39:19.504033+00:00"
+    },
+    {
+      "full_name": "Arjun Bose",
+      "first_name": "Arjun",
+      "last_name": "Bose",
+      "email": "arjun.bose42@demo-resident.in",
+      "phone": "+919820989659",
+      "aadhaar_raw": "999970432003",
+      "aadhaar_formatted": "9999 7043 2003",
+      "aadhaar_masked": "XXXX-XXXX-2003",
+      "pan_raw": "UMPPB5365N",
+      "pan_masked": "UM***53*N",
+      "vid_number": "7416-5097-5861-1186",
+      "address": {
+        "street": "Flat 112, Surya Enclave",
+        "city": "Chennai",
+        "state": "Tamil Nadu",
+        "pincode": "600446",
+        "country": "India"
+      },
+      "created_at": "2026-11-10T03:39:19.504088+00:00"
+    },
+    {
+      "full_name": "Rohan Joshi",
+      "first_name": "Rohan",
+      "last_name": "Joshi",
+      "email": "rohan.joshi85@example.in",
+      "phone": "+919888772676",
+      "aadhaar_raw": "999925615430",
+      "aadhaar_formatted": "9999 2561 5430",
+      "aadhaar_masked": "XXXX-XXXX-5430",
+      "pan_raw": "JULPJ1347L",
+      "pan_masked": "JU***13*L",
+      "vid_number": "4237-8875-0792-5642",
+      "address": {
+        "street": "Flat 651, Surya Enclave",
+        "city": "Hyderabad",
+        "state": "Telangana",
+        "pincode": "500749",
+        "country": "India"
+      },
+      "created_at": "2026-11-10T03:39:19.504210+00:00"
+    },
+    {
+      "full_name": "Meera Patel",
+      "first_name": "Meera",
+      "last_name": "Patel",
+      "email": "meera.patel80@demo-resident.in",
+      "phone": "+919870890672",
+      "aadhaar_raw": "999949431361",
+      "aadhaar_formatted": "9999 4943 1361",
+      "aadhaar_masked": "XXXX-XXXX-1361",
+      "pan_raw": "YQLPP1847G",
+      "pan_masked": "YQ***18*G",
+      "vid_number": "1517-4180-5153-1071",
+      "address": {
+        "street": "Flat 502, Surya Enclave",
+        "city": "Kochi",
+        "state": "Kerala",
+        "pincode": "682451",
+        "country": "India"
+      },
+      "created_at": "2026-11-10T03:39:19.504268+00:00"
+    },
+    {
+      "full_name": "Nikhil Das",
+      "first_name": "Nikhil",
+      "last_name": "Das",
+      "email": "nikhil.das81@testmail.co.in",
+      "phone": "+919881778112",
+      "aadhaar_raw": "999984941849",
+      "aadhaar_formatted": "9999 8494 1849",
+      "aadhaar_masked": "XXXX-XXXX-1849",
+      "pan_raw": "PGDPD8489Y",
+      "pan_masked": "PG***84*Y",
+      "vid_number": "6395-6905-2932-1541",
+      "address": {
+        "street": "Flat 881, Surya Enclave",
+        "city": "Chennai",
+        "state": "Tamil Nadu",
+        "pincode": "600912",
+        "country": "India"
+      },
+      "created_at": "2026-11-10T03:39:19.504314+00:00"
+    },
+    {
+      "full_name": "Rohan Menon",
+      "first_name": "Rohan",
+      "last_name": "Menon",
+      "email": "rohan.menon24@demo-resident.in",
+      "phone": "+919853418792",
+      "aadhaar_raw": "999927033004",
+      "aadhaar_formatted": "9999 2703 3004",
+      "aadhaar_masked": "XXXX-XXXX-3004",
+      "pan_raw": "UTDPM1039Q",
+      "pan_masked": "UT***10*Q",
+      "vid_number": "3892-9946-2250-6030",
+      "address": {
+        "street": "Flat 877, Surya Enclave",
+        "city": "Jaipur",
+        "state": "Rajasthan",
+        "pincode": "302623",
+        "country": "India"
+      },
+      "created_at": "2026-11-10T03:39:19.504373+00:00"
+    },
+    {
+      "full_name": "Aditya Kulkarni",
+      "first_name": "Aditya",
+      "last_name": "Kulkarni",
+      "email": "aditya.kulkarni91@suraksha-test.org",
+      "phone": "+919842545081",
+      "aadhaar_raw": "999952050682",
+      "aadhaar_formatted": "9999 5205 0682",
+      "aadhaar_masked": "XXXX-XXXX-0682",
+      "pan_raw": "JHYPK2735S",
+      "pan_masked": "JH***27*S",
+      "vid_number": "4817-6901-4323-7627",
+      "address": {
+        "street": "Flat 425, Surya Enclave",
+        "city": "Chandigarh",
+        "state": "Punjab",
+        "pincode": "160584",
+        "country": "India"
+      },
+      "created_at": "2026-11-10T03:39:19.504421+00:00"
+    },
+    {
+      "full_name": "Sneha Rao",
+      "first_name": "Sneha",
+      "last_name": "Rao",
+      "email": "sneha.rao41@testmail.co.in",
+      "phone": "+919841057916",
+      "aadhaar_raw": "999971061501",
+      "aadhaar_formatted": "9999 7106 1501",
+      "aadhaar_masked": "XXXX-XXXX-1501",
+      "pan_raw": "HDYPR9312Q",
+      "pan_masked": "HD***93*Q",
+      "vid_number": "8932-5630-8402-8008",
+      "address": {
+        "street": "Flat 850, Surya Enclave",
+        "city": "Jaipur",
+        "state": "Rajasthan",
+        "pincode": "302361",
+        "country": "India"
+      },
+      "created_at": "2026-11-10T03:39:19.504469+00:00"
+    }
+  ],
+  "breach_catalog": [
+    {
+      "dump_id": "leak_telecom_breach_20261110_399",
+      "breach_name": "Bharat Telecom KYC Leak 2026",
+      "source": "BreachForums v3 (Tor)",
+      "source_type": "telecom_breach",
+      "severity": "critical",
+      "compromised_data_classes": [
+        "email",
+        "phone",
+        "aadhaar",
+        "pan",
+        "address"
+      ],
+      "description": "Exfiltrated customer onboarding KYC database dump containing verified Aadhaar and PAN documents.",
+      "total_records_in_dump": 40000,
+      "sampled_records": [
+        {
+          "record_id": "rec_0001",
+          "name": "Ananya Mehta",
+          "email": "ananya.mehta71@demo-resident.in",
+          "phone": "+919872876349",
+          "aadhaar_number": "9999 5441 7922",
+          "pan_number": "NEJPM6048N",
+          "state": "Gujarat",
+          "pincode": "380113"
+        },
+        {
+          "record_id": "rec_0002",
+          "name": "Nikhil Nair",
+          "email": "nikhil.nair21@testmail.co.in",
+          "phone": "+919885983937",
+          "aadhaar_number": "9999 3099 0788",
+          "pan_number": "BQVPN1409G",
+          "state": "Rajasthan",
+          "pincode": "302810"
+        },
+        {
+          "record_id": "rec_0003",
+          "name": "Lakshmi Singh",
+          "email": "lakshmi.singh86@demo-resident.in",
+          "phone": "+919839391871",
+          "aadhaar_number": "9999 2669 6265",
+          "pan_number": "TJWPS1665T",
+          "state": "Rajasthan",
+          "pincode": "302356"
+        },
+        {
+          "record_id": "rec_0004",
+          "name": "Nikhil Kulkarni",
+          "email": "nikhil.kulkarni65@example.in",
+          "phone": "+919840795128",
+          "aadhaar_number": "9999 1087 5116",
+          "pan_number": "JUYPK9104P",
+          "state": "Karnataka",
+          "pincode": "560242"
+        },
+        {
+          "record_id": "rec_0005",
+          "name": "Lakshmi Rao",
+          "email": "lakshmi.rao71@testmail.co.in",
+          "phone": "+919882978392",
+          "aadhaar_number": "9999 3053 8788",
+          "pan_number": "UTMPR2403W",
+          "state": "Maharashtra",
+          "pincode": "400405"
+        },
+        {
+          "record_id": "rec_0006",
+          "name": "Ananya Kulkarni",
+          "email": "ananya.kulkarni31@demo-resident.in",
+          "phone": "+919847819001",
+          "aadhaar_number": "9999 2253 1170",
+          "pan_number": "CBPPK3288K",
+          "state": "Maharashtra",
+          "pincode": "400485"
+        },
+        {
+          "record_id": "rec_0007",
+          "name": "Deepa Das",
+          "email": "deepa.das38@demo-resident.in",
+          "phone": "+919833782444",
+          "aadhaar_number": "9999 0837 9049",
+          "pan_number": "UKDPD1924R",
+          "state": "West Bengal",
+          "pincode": "700247"
+        },
+        {
+          "record_id": "rec_0008",
+          "name": "Vikram Deshmukh",
+          "email": "vikram.deshmukh39@demo-resident.in",
+          "phone": "+919874565340",
+          "aadhaar_number": "9999 4367 5147",
+          "pan_number": "WPMPD5550A",
+          "state": "Karnataka",
+          "pincode": "560214"
+        },
+        {
+          "record_id": "rec_0009",
+          "name": "Ritu Rao",
+          "email": "ritu.rao15@example.in",
+          "phone": "+919873603405",
+          "aadhaar_number": "9999 3654 9449",
+          "pan_number": "WSKPR8052X",
+          "state": "Maharashtra",
+          "pincode": "411328"
+        },
+        {
+          "record_id": "rec_0010",
+          "name": "Rajesh Verma",
+          "email": "rajesh.verma68@suraksha-test.org",
+          "phone": "+919859366532",
+          "aadhaar_number": "9999 1118 6916",
+          "pan_number": "EMRPV3970Z",
+          "state": "Tamil Nadu",
+          "pincode": "600895"
+        }
+      ],
+      "dump_discovered_at": "2026-11-10T03:39:19.504973+00:00",
+      "magnet_hash": "urn:btih:561f73aa22f3840ec7ac398b0075a3a159945067",
+      "raw_evidence_sha256": "861779442fa6b5520ddd9f1f214312e64a6fec0a7f6888728c7f9f007de2a954"
+    },
+    {
+      "dump_id": "leak_fintech_leak_20261110_685",
+      "breach_name": "QuickRupee Microfinance Applicant Archive",
+      "source": "Exploit.in (Darknet)",
+      "source_type": "fintech_leak",
+      "severity": "critical",
+      "compromised_data_classes": [
+        "email",
+        "phone",
+        "pan",
+        "bank_account",
+        "salary_slip"
+      ],
+      "description": "SQL injection exploit dumping loan applicant records and unmasked PAN identifiers.",
+      "total_records_in_dump": 40000,
+      "sampled_records": [
+        {
+          "record_id": "rec_0001",
+          "name": "Ishaan Patel",
+          "email": "ishaan.patel29@example.in",
+          "phone": "+919851987220",
+          "aadhaar_number": "9999 3642 9868",
+          "pan_number": "WSXPP4050T",
+          "state": "Uttar Pradesh",
+          "pincode": "226885"
+        },
+        {
+          "record_id": "rec_0002",
+          "name": "Siddharth Sharma",
+          "email": "siddharth.sharma32@suraksha-test.org",
+          "phone": "+919844044551",
+          "aadhaar_number": "9999 2365 6337",
+          "pan_number": "ZYCPS1968D",
+          "state": "Uttar Pradesh",
+          "pincode": "226336"
+        },
+        {
+          "record_id": "rec_0003",
+          "name": "Lakshmi Choudhury",
+          "email": "lakshmi.choudhury28@example.in",
+          "phone": "+919849394202",
+          "aadhaar_number": "9999 1549 3225",
+          "pan_number": "MPDPC4326Q",
+          "state": "Tamil Nadu",
+          "pincode": "600832"
+        },
+        {
+          "record_id": "rec_0004",
+          "name": "Suresh Deshmukh",
+          "email": "suresh.deshmukh74@demo-resident.in",
+          "phone": "+919898129292",
+          "aadhaar_number": "9999 3103 5272",
+          "pan_number": "AQXPD9229N",
+          "state": "Telangana",
+          "pincode": "500683"
+        },
+        {
+          "record_id": "rec_0005",
+          "name": "Meera Das",
+          "email": "meera.das53@demo-resident.in",
+          "phone": "+919895993852",
+          "aadhaar_number": "9999 4430 7174",
+          "pan_number": "FYMPD4254T",
+          "state": "Rajasthan",
+          "pincode": "302187"
+        },
+        {
+          "record_id": "rec_0006",
+          "name": "Ritu Verma",
+          "email": "ritu.verma78@testmail.co.in",
+          "phone": "+919869735812",
+          "aadhaar_number": "9999 5701 2483",
+          "pan_number": "LRPPV8728Q",
+          "state": "Tamil Nadu",
+          "pincode": "600939"
+        },
+        {
+          "record_id": "rec_0007",
+          "name": "Meera Das",
+          "email": "meera.das62@demo-resident.in",
+          "phone": "+919820774191",
+          "aadhaar_number": "9999 8635 2296",
+          "pan_number": "DMJPD4963E",
+          "state": "Uttar Pradesh",
+          "pincode": "226263"
+        },
+        {
+          "record_id": "rec_0008",
+          "name": "Rohan Sharma",
+          "email": "rohan.sharma67@testmail.co.in",
+          "phone": "+919877524113",
+          "aadhaar_number": "9999 1731 2852",
+          "pan_number": "JZVPS9195S",
+          "state": "West Bengal",
+          "pincode": "700430"
+        },
+        {
+          "record_id": "rec_0009",
+          "name": "Sneha Chatterjee",
+          "email": "sneha.chatterjee10@suraksha-test.org",
+          "phone": "+919890960844",
+          "aadhaar_number": "9999 1486 8274",
+          "pan_number": "BUZPC9330X",
+          "state": "Maharashtra",
+          "pincode": "400228"
+        },
+        {
+          "record_id": "rec_0010",
+          "name": "Siddharth Joshi",
+          "email": "siddharth.joshi58@demo-resident.in",
+          "phone": "+919823663301",
+          "aadhaar_number": "9999 2585 1277",
+          "pan_number": "NFSPJ4607H",
+          "state": "Karnataka",
+          "pincode": "560351"
+        }
+      ],
+      "dump_discovered_at": "2026-11-10T03:39:19.505470+00:00",
+      "magnet_hash": "urn:btih:429d38fc399be5d927a6f671f6b88cb4234e04e5",
+      "raw_evidence_sha256": "bb0910ef0e65e04ff0287e04a2d73d5692974abb3b915a594df8a96ca3e55226"
+    },
+    {
+      "dump_id": "leak_stealer_log_20261110_782",
+      "breach_name": "Lumma Stealer Botnet Campaign #812",
+      "source": "Telegram Private Stealer Channel",
+      "source_type": "stealer_log",
+      "severity": "critical",
+      "compromised_data_classes": [
+        "email",
+        "password_hash",
+        "browser_autofill",
+        "aadhaar_pdf",
+        "session_cookies"
+      ],
+      "description": "Infostealer log bundle dumped from infected Windows workstations with cached government documents.",
+      "total_records_in_dump": 40000,
+      "sampled_records": [
+        {
+          "record_id": "rec_0001",
+          "name": "Varun Pandey",
+          "email": "varun.pandey13@suraksha-test.org",
+          "phone": "+919843272214",
+          "aadhaar_number": "9999 9641 8265",
+          "pan_number": "SZXPP7451B",
+          "state": "Karnataka",
+          "pincode": "560687",
+          "password_hash": "$2b$12$e6kvYl0/E7rC1e7pEGEHfZkSAE0l43ywYMsHm5YhPIGTEB/aOZvzW",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0002",
+          "name": "Ritu Singh",
+          "email": "ritu.singh77@demo-resident.in",
+          "phone": "+919878296460",
+          "aadhaar_number": "9999 8381 2265",
+          "pan_number": "ZLJPS7007N",
+          "state": "Uttar Pradesh",
+          "pincode": "226292",
+          "password_hash": "$2b$12$yt4ijt69phS8.fGsBSwfG36kbUR7xm/ZLMqwDeuiGrlNij4N6vaYt",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0003",
+          "name": "Karthik Patel",
+          "email": "karthik.patel64@testmail.co.in",
+          "phone": "+919832940025",
+          "aadhaar_number": "9999 0797 7655",
+          "pan_number": "XDMPP9459H",
+          "state": "Tamil Nadu",
+          "pincode": "600705",
+          "password_hash": "$2b$12$SgvBZSOEDzDJ4AliWUHd5rTWCacLOEwj9zDj2pBuYZC/mTVpeqfCJ",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0004",
+          "name": "Siddharth Gupta",
+          "email": "siddharth.gupta66@suraksha-test.org",
+          "phone": "+919896204076",
+          "aadhaar_number": "9999 2067 2591",
+          "pan_number": "AVKPG2087W",
+          "state": "Tamil Nadu",
+          "pincode": "600119",
+          "password_hash": "$2b$12$uEuDTRGl3rMleUuINo2VAooySeXcBPBVgDgfYT5yB5X6qlnqSo/QD",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0005",
+          "name": "Varun Joshi",
+          "email": "varun.joshi41@testmail.co.in",
+          "phone": "+919836967259",
+          "aadhaar_number": "9999 0289 3025",
+          "pan_number": "UZEPJ1688H",
+          "state": "Delhi",
+          "pincode": "110306",
+          "password_hash": "$2b$12$5R/FGB165k79acUerJ1CPLf1lXOBniibTOz16nYCNDJ1G1cvn1O2/",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0006",
+          "name": "Deepa Joshi",
+          "email": "deepa.joshi20@testmail.co.in",
+          "phone": "+919888488388",
+          "aadhaar_number": "9999 2579 4354",
+          "pan_number": "HYGPJ4289Q",
+          "state": "Kerala",
+          "pincode": "682653",
+          "password_hash": "$2b$12$dL.qO9Jb0KDbZilBCHJDtIkqFwRgA2swJ1Qt5CHWlPHwYFX0lYjcq",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0007",
+          "name": "Ananya Agarwal",
+          "email": "ananya.agarwal27@testmail.co.in",
+          "phone": "+919820356624",
+          "aadhaar_number": "9999 9648 1854",
+          "pan_number": "XLSPA8246S",
+          "state": "Gujarat",
+          "pincode": "380428",
+          "password_hash": "$2b$12$p9wQv.ncqNIrUGx396.2tURtVp89VGB4nd.P2hUSCDkTDFhNRDg2H",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0008",
+          "name": "Pooja Deshmukh",
+          "email": "pooja.deshmukh38@example.in",
+          "phone": "+919822977267",
+          "aadhaar_number": "9999 1350 5816",
+          "pan_number": "UXRPD6462Y",
+          "state": "Tamil Nadu",
+          "pincode": "600574",
+          "password_hash": "$2b$12$0kj1MEf9hwkShKRdYR/3o8J5wNbXv0LG95GxUzr8bOfs12FYRKBQK",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0009",
+          "name": "Arjun Choudhury",
+          "email": "arjun.choudhury31@example.in",
+          "phone": "+919847954719",
+          "aadhaar_number": "9999 7730 3059",
+          "pan_number": "GABPC4585M",
+          "state": "Telangana",
+          "pincode": "500572",
+          "password_hash": "$2b$12$CDgWVLuToAUtOzeOKbtg18WjmABLBZkCWSg/Rm/PFJ/fktMcckkv6",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0010",
+          "name": "Varun Bose",
+          "email": "varun.bose85@example.in",
+          "phone": "+919873396191",
+          "aadhaar_number": "9999 7757 2919",
+          "pan_number": "CCNPB6398Y",
+          "state": "Tamil Nadu",
+          "pincode": "600586",
+          "password_hash": "$2b$12$hJMYzSXdouDqgRmHTYGqxtASu0IEsjxmIMI82bFD3uJbaOSPRA0DX",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        }
+      ],
+      "dump_discovered_at": "2026-11-10T03:39:19.506054+00:00",
+      "magnet_hash": "urn:btih:a7b678748a4343d4554725ff84724fabbdb7de8e",
+      "raw_evidence_sha256": "a115b0bbdf89f35c52f1d5a73404a7a746c5a69bc317889bb8eff68d4698bb29"
+    },
+    {
+      "dump_id": "leak_healthcare_leak_20261110_215",
+      "breach_name": "Metro Diagnostics Health Records Leak",
+      "source": "Dark Web Pastebin / I2P",
+      "source_type": "healthcare_leak",
+      "severity": "high",
+      "compromised_data_classes": [
+        "name",
+        "phone",
+        "aadhaar",
+        "medical_reports"
+      ],
+      "description": "Unprotected Amazon S3 cloud bucket containing patient registration files and Aadhaar photocopies.",
+      "total_records_in_dump": 40000,
+      "sampled_records": [
+        {
+          "record_id": "rec_0001",
+          "name": "Ritu Iyer",
+          "email": "ritu.iyer38@suraksha-test.org",
+          "phone": "+919899842814",
+          "aadhaar_number": "9999 2081 8264",
+          "pan_number": "DKFPI2943R",
+          "state": "Maharashtra",
+          "pincode": "400761"
+        },
+        {
+          "record_id": "rec_0002",
+          "name": "Kavya Ghosh",
+          "email": "kavya.ghosh40@example.in",
+          "phone": "+919823457899",
+          "aadhaar_number": "9999 3358 7549",
+          "pan_number": "HYSPG3016A",
+          "state": "Tamil Nadu",
+          "pincode": "600989"
+        },
+        {
+          "record_id": "rec_0003",
+          "name": "Suresh Agarwal",
+          "email": "suresh.agarwal85@testmail.co.in",
+          "phone": "+919846577225",
+          "aadhaar_number": "9999 3585 6707",
+          "pan_number": "YVSPA7508V",
+          "state": "Punjab",
+          "pincode": "160811"
+        },
+        {
+          "record_id": "rec_0004",
+          "name": "Ishaan Singh",
+          "email": "ishaan.singh96@example.in",
+          "phone": "+919833218343",
+          "aadhaar_number": "9999 5928 0513",
+          "pan_number": "TNSPS6234L",
+          "state": "Telangana",
+          "pincode": "500696"
+        },
+        {
+          "record_id": "rec_0005",
+          "name": "Ananya Pillai",
+          "email": "ananya.pillai45@demo-resident.in",
+          "phone": "+919838846268",
+          "aadhaar_number": "9999 0888 8499",
+          "pan_number": "RDBPP5775G",
+          "state": "Gujarat",
+          "pincode": "380752"
+        },
+        {
+          "record_id": "rec_0006",
+          "name": "Aarav Pillai",
+          "email": "aarav.pillai58@testmail.co.in",
+          "phone": "+919811140776",
+          "aadhaar_number": "9999 4971 3075",
+          "pan_number": "XAXPP8727J",
+          "state": "Telangana",
+          "pincode": "500721"
+        },
+        {
+          "record_id": "rec_0007",
+          "name": "Siddharth Iyer",
+          "email": "siddharth.iyer49@example.in",
+          "phone": "+919838731609",
+          "aadhaar_number": "9999 3520 0153",
+          "pan_number": "VVFPI4315K",
+          "state": "Karnataka",
+          "pincode": "560382"
+        },
+        {
+          "record_id": "rec_0008",
+          "name": "Tanvi Nair",
+          "email": "tanvi.nair90@suraksha-test.org",
+          "phone": "+919850506444",
+          "aadhaar_number": "9999 8853 2014",
+          "pan_number": "FVTPN4579D",
+          "state": "Kerala",
+          "pincode": "682244"
+        },
+        {
+          "record_id": "rec_0009",
+          "name": "Priya Mukherjee",
+          "email": "priya.mukherjee79@suraksha-test.org",
+          "phone": "+919830204457",
+          "aadhaar_number": "9999 8949 2822",
+          "pan_number": "QRKPM6961G",
+          "state": "Uttar Pradesh",
+          "pincode": "226756"
+        },
+        {
+          "record_id": "rec_0010",
+          "name": "Lakshmi Pillai",
+          "email": "lakshmi.pillai71@example.in",
+          "phone": "+919853289384",
+          "aadhaar_number": "9999 5538 1517",
+          "pan_number": "PRBPP4989Y",
+          "state": "Gujarat",
+          "pincode": "380538"
+        }
+      ],
+      "dump_discovered_at": "2026-11-10T03:39:19.506537+00:00",
+      "magnet_hash": "urn:btih:851ae1888c5a0f15161ede9dbc04c9d79781cc72",
+      "raw_evidence_sha256": "7ded905f6a82d71100b6c2737a77e2d2d55c90a40ff03b281eb6ec3a237780b7"
+    },
+    {
+      "dump_id": "leak_hospitality_leak_20261110_319",
+      "breach_name": "HotelEase Guest Registry Exposure",
+      "source": "Ransomware Data Leak Site (LockBit)",
+      "source_type": "hospitality_leak",
+      "severity": "medium",
+      "compromised_data_classes": [
+        "name",
+        "phone",
+        "id_proof_masked",
+        "stay_history"
+      ],
+      "description": "Hospitality booking database exposing guest identity proofs submitted during check-in.",
+      "total_records_in_dump": 40000,
+      "sampled_records": [
+        {
+          "record_id": "rec_0001",
+          "name": "Varun Mehta",
+          "email": "varun.mehta32@demo-resident.in",
+          "phone": "+919828053536",
+          "aadhaar_number": "9999 6742 8340",
+          "pan_number": "CHEPM4827C",
+          "state": "West Bengal",
+          "pincode": "700176"
+        },
+        {
+          "record_id": "rec_0002",
+          "name": "Deepa Menon",
+          "email": "deepa.menon12@example.in",
+          "phone": "+919850318544",
+          "aadhaar_number": "9999 4170 4360",
+          "pan_number": "UCEPM1704M",
+          "state": "Karnataka",
+          "pincode": "560532"
+        },
+        {
+          "record_id": "rec_0003",
+          "name": "Ishaan Mukherjee",
+          "email": "ishaan.mukherjee33@demo-resident.in",
+          "phone": "+919833786021",
+          "aadhaar_number": "9999 3074 9298",
+          "pan_number": "DAZPM5141W",
+          "state": "Kerala",
+          "pincode": "682585"
+        },
+        {
+          "record_id": "rec_0004",
+          "name": "Karthik Menon",
+          "email": "karthik.menon20@suraksha-test.org",
+          "phone": "+919852224181",
+          "aadhaar_number": "9999 7581 6925",
+          "pan_number": "QGVPM6488L",
+          "state": "Uttar Pradesh",
+          "pincode": "226317"
+        },
+        {
+          "record_id": "rec_0005",
+          "name": "Sneha Bhat",
+          "email": "sneha.bhat15@suraksha-test.org",
+          "phone": "+919817885443",
+          "aadhaar_number": "9999 0586 1911",
+          "pan_number": "XXNPB8010L",
+          "state": "Kerala",
+          "pincode": "682180"
+        },
+        {
+          "record_id": "rec_0006",
+          "name": "Amit Mukherjee",
+          "email": "amit.mukherjee52@demo-resident.in",
+          "phone": "+919839161538",
+          "aadhaar_number": "9999 8219 5858",
+          "pan_number": "YJKPM3079Z",
+          "state": "West Bengal",
+          "pincode": "700961"
+        },
+        {
+          "record_id": "rec_0007",
+          "name": "Ananya Kulkarni",
+          "email": "ananya.kulkarni25@demo-resident.in",
+          "phone": "+919883167440",
+          "aadhaar_number": "9999 1233 5329",
+          "pan_number": "NNDPK7618Z",
+          "state": "Telangana",
+          "pincode": "500998"
+        },
+        {
+          "record_id": "rec_0008",
+          "name": "Ritu Bose",
+          "email": "ritu.bose14@demo-resident.in",
+          "phone": "+919835351643",
+          "aadhaar_number": "9999 9786 0444",
+          "pan_number": "HHYPB4598T",
+          "state": "West Bengal",
+          "pincode": "700928"
+        },
+        {
+          "record_id": "rec_0009",
+          "name": "Varun Rao",
+          "email": "varun.rao51@testmail.co.in",
+          "phone": "+919889001692",
+          "aadhaar_number": "9999 8985 0983",
+          "pan_number": "KTLPR8381H",
+          "state": "Uttar Pradesh",
+          "pincode": "226503"
+        },
+        {
+          "record_id": "rec_0010",
+          "name": "Varun Singh",
+          "email": "varun.singh16@suraksha-test.org",
+          "phone": "+919841106607",
+          "aadhaar_number": "9999 8879 9812",
+          "pan_number": "PPLPS8706V",
+          "state": "Delhi",
+          "pincode": "110316"
+        }
+      ],
+      "dump_discovered_at": "2026-11-10T03:39:19.507025+00:00",
+      "magnet_hash": "urn:btih:d9d49a210e1c4e6e7ccaeefbf4a37505aebf4da0",
+      "raw_evidence_sha256": "4bd9224e8eaf3392fdf5fe1974d3b866eb7d816fcd73441110fe0452675a115a"
+    }
+  ],
+  "whatsapp_dlp_samples": [
+    {
+      "thread_id": "wa_thread_001",
+      "title": "HR Onboarding Verification",
+      "channel": "office_hr",
+      "sender_name": "Nikhil Bhat",
+      "sender_phone": "+919819884139",
+      "contains_sensitive_id": true,
+      "sample_profile": {
+        "full_name": "Nikhil Bhat",
+        "first_name": "Nikhil",
+        "last_name": "Bhat",
+        "email": "nikhil.bhat21@example.in",
+        "phone": "+919819884139",
+        "aadhaar_raw": "999932795821",
+        "aadhaar_formatted": "9999 3279 5821",
+        "aadhaar_masked": "XXXX-XXXX-5821",
+        "pan_raw": "YFJPB2173P",
+        "pan_masked": "YF***21*P",
+        "vid_number": "3568-9875-8915-5912",
+        "address": {
+          "street": "Flat 287, Surya Enclave",
+          "city": "Jaipur",
+          "state": "Rajasthan",
+          "pincode": "302128",
+          "country": "India"
+        },
+        "created_at": "2026-11-10T03:39:19.507100+00:00"
+      },
+      "messages": [
+        {
+          "from": "recipient",
+          "text": "Hi, please share your ID proof and PAN card so we can finalize the registration."
+        },
+        {
+          "from": "sender",
+          "text": "Sure, sending here. My Aadhaar number is 9999 3279 5821 and PAN is YFJPB2173P. Please verify."
+        },
+        {
+          "from": "recipient",
+          "text": "Received, thank you!"
+        }
+      ],
+      "last_message_text": "Sure, sending here. My Aadhaar number is 9999 3279 5821 and PAN is YFJPB2173P. Please verify."
+    },
+    {
+      "thread_id": "wa_thread_002",
+      "title": "Hotel Room Booking KYC Proof",
+      "channel": "hotel_agent",
+      "sender_name": "Tanvi Mehta",
+      "sender_phone": "+919881935574",
+      "contains_sensitive_id": true,
+      "sample_profile": {
+        "full_name": "Tanvi Mehta",
+        "first_name": "Tanvi",
+        "last_name": "Mehta",
+        "email": "tanvi.mehta82@suraksha-test.org",
+        "phone": "+919881935574",
+        "aadhaar_raw": "999997239644",
+        "aadhaar_formatted": "9999 9723 9644",
+        "aadhaar_masked": "XXXX-XXXX-9644",
+        "pan_raw": "SEAPM6061A",
+        "pan_masked": "SE***60*A",
+        "vid_number": "9837-0599-2779-7614",
+        "address": {
+          "street": "Flat 449, Surya Enclave",
+          "city": "Jaipur",
+          "state": "Rajasthan",
+          "pincode": "302650",
+          "country": "India"
+        },
+        "created_at": "2026-11-10T03:39:19.507152+00:00"
+      },
+      "messages": [
+        {
+          "from": "recipient",
+          "text": "Sir, room booking requires government ID proof copy."
+        },
+        {
+          "from": "sender",
+          "text": "Here is my Aadhaar card details: 9999 9723 9644 (Name: Tanvi Mehta)"
+        },
+        {
+          "from": "recipient",
+          "text": "Noted. Your booking is confirmed."
+        }
+      ],
+      "last_message_text": "Here is my Aadhaar card details: 9999 9723 9644 (Name: Tanvi Mehta)"
+    },
+    {
+      "thread_id": "wa_thread_003",
+      "title": "Personal Loan Executive Chat",
+      "channel": "loan_rep",
+      "sender_name": "Deepa Singh",
+      "sender_phone": "+919832293867",
+      "contains_sensitive_id": true,
+      "sample_profile": {
+        "full_name": "Deepa Singh",
+        "first_name": "Deepa",
+        "last_name": "Singh",
+        "email": "deepa.singh28@testmail.co.in",
+        "phone": "+919832293867",
+        "aadhaar_raw": "999961352098",
+        "aadhaar_formatted": "9999 6135 2098",
+        "aadhaar_masked": "XXXX-XXXX-2098",
+        "pan_raw": "EERPS3114Q",
+        "pan_masked": "EE***31*Q",
+        "vid_number": "2735-2596-5556-7222",
+        "address": {
+          "street": "Flat 679, Surya Enclave",
+          "city": "New Delhi",
+          "state": "Delhi",
+          "pincode": "110356",
+          "country": "India"
+        },
+        "created_at": "2026-11-10T03:39:19.507200+00:00"
+      },
+      "messages": [
+        {
+          "from": "recipient",
+          "text": "Hi, please share your ID proof and PAN card so we can finalize the registration."
+        },
+        {
+          "from": "sender",
+          "text": "Sure, sending here. My Aadhaar number is 9999 6135 2098 and PAN is EERPS3114Q. Please verify."
+        },
+        {
+          "from": "recipient",
+          "text": "Received, thank you!"
+        }
+      ],
+      "last_message_text": "Sure, sending here. My Aadhaar number is 9999 6135 2098 and PAN is EERPS3114Q. Please verify."
+    },
+    {
+      "thread_id": "wa_thread_004",
+      "title": "Family Vacation Flight Details",
+      "channel": "family_group",
+      "sender_name": "Priya Verma",
+      "sender_phone": "+919861415712",
+      "contains_sensitive_id": false,
+      "sample_profile": {
+        "full_name": "Priya Verma",
+        "first_name": "Priya",
+        "last_name": "Verma",
+        "email": "priya.verma31@suraksha-test.org",
+        "phone": "+919861415712",
+        "aadhaar_raw": "999995227183",
+        "aadhaar_formatted": "9999 9522 7183",
+        "aadhaar_masked": "XXXX-XXXX-7183",
+        "pan_raw": "MDUPV2941W",
+        "pan_masked": "MD***29*W",
+        "vid_number": "1161-1407-1101-6219",
+        "address": {
+          "street": "Flat 273, Surya Enclave",
+          "city": "Ahmedabad",
+          "state": "Gujarat",
+          "pincode": "380870",
+          "country": "India"
+        },
+        "created_at": "2026-11-10T03:39:19.507247+00:00"
+      },
+      "messages": [
+        {
+          "from": "sender",
+          "text": "Flight tickets have been booked for Saturday morning."
+        },
+        {
+          "from": "recipient",
+          "text": "Great! Did you use the Masked Aadhaar or VID for airport entry?"
+        },
+        {
+          "from": "sender",
+          "text": "Yes, using official VID 1161-1407-1101-6219. No full Aadhaar shared."
+        }
+      ],
+      "last_message_text": "Great! Did you use the Masked Aadhaar or VID for airport entry?"
+    },
+    {
+      "thread_id": "wa_thread_005",
+      "title": "Society Maintenance Discussion",
+      "channel": "apartment_rwa",
+      "sender_name": "Diya Nair",
+      "sender_phone": "+919831001707",
+      "contains_sensitive_id": false,
+      "sample_profile": {
+        "full_name": "Diya Nair",
+        "first_name": "Diya",
+        "last_name": "Nair",
+        "email": "diya.nair18@example.in",
+        "phone": "+919831001707",
+        "aadhaar_raw": "999939261517",
+        "aadhaar_formatted": "9999 3926 1517",
+        "aadhaar_masked": "XXXX-XXXX-1517",
+        "pan_raw": "JYEPN9646K",
+        "pan_masked": "JY***96*K",
+        "vid_number": "0726-3480-3603-9468",
+        "address": {
+          "street": "Flat 584, Surya Enclave",
+          "city": "New Delhi",
+          "state": "Delhi",
+          "pincode": "110143",
+          "country": "India"
+        },
+        "created_at": "2026-11-10T03:39:19.507295+00:00"
+      },
+      "messages": [
+        {
+          "from": "sender",
+          "text": "Flight tickets have been booked for Saturday morning."
+        },
+        {
+          "from": "recipient",
+          "text": "Great! Did you use the Masked Aadhaar or VID for airport entry?"
+        },
+        {
+          "from": "sender",
+          "text": "Yes, using official VID 0726-3480-3603-9468. No full Aadhaar shared."
+        }
+      ],
+      "last_message_text": "Great! Did you use the Masked Aadhaar or VID for airport entry?"
+    },
+    {
+      "thread_id": "wa_thread_006",
+      "title": "HR Onboarding Verification",
+      "channel": "office_hr",
+      "sender_name": "Sneha Sharma",
+      "sender_phone": "+919881285543",
+      "contains_sensitive_id": true,
+      "sample_profile": {
+        "full_name": "Sneha Sharma",
+        "first_name": "Sneha",
+        "last_name": "Sharma",
+        "email": "sneha.sharma26@demo-resident.in",
+        "phone": "+919881285543",
+        "aadhaar_raw": "999976499688",
+        "aadhaar_formatted": "9999 7649 9688",
+        "aadhaar_masked": "XXXX-XXXX-9688",
+        "pan_raw": "GMRPS8279W",
+        "pan_masked": "GM***82*W",
+        "vid_number": "8994-5897-1419-6062",
+        "address": {
+          "street": "Flat 459, Surya Enclave",
+          "city": "Mumbai",
+          "state": "Maharashtra",
+          "pincode": "400152",
+          "country": "India"
+        },
+        "created_at": "2026-11-10T03:39:19.507342+00:00"
+      },
+      "messages": [
+        {
+          "from": "recipient",
+          "text": "Sir, room booking requires government ID proof copy."
+        },
+        {
+          "from": "sender",
+          "text": "Here is my Aadhaar card details: 9999 7649 9688 (Name: Sneha Sharma)"
+        },
+        {
+          "from": "recipient",
+          "text": "Noted. Your booking is confirmed."
+        }
+      ],
+      "last_message_text": "Here is my Aadhaar card details: 9999 7649 9688 (Name: Sneha Sharma)"
+    }
+  ]
+}
