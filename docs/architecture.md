@@ -47,3 +47,40 @@ The platform supports cloud-native serverless deployment (Google Cloud Run, AWS 
 - **Universal Multi-Stage Container**: Hardened non-root image (`python:3.11-slim`, UID 10001 `appuser`), dynamic `$PORT` binding, and `/livez` health probes.
 - **Inter-Process Session Sharing**: Persistent SQLite session store (`user_sessions`) in [`packages/security/sessions.py`](file:///Users/dpcubed/projects/aadhar-tracker/packages/security/sessions.py) providing cross-worker state replication for multi-worker application servers.
 - **Local GCP Emulation via MiniSky**: Complete local offline mimicking of Google Cloud Run (`run.googleapis.com`), Secret Manager (`secretmanager.googleapis.com`), and Cloud Storage (`storage.googleapis.com`) using MiniSky on ports `:8080` / `:8081`. Full operational runbook documented in [`docs/minisky-local-cloud.md`](file:///Users/dpcubed/projects/aadhar-tracker/docs/minisky-local-cloud.md).
+
+---
+
+## 5. Local-First / Zero-Backend Architecture (Client-Only Mode)
+
+To strictly eliminate server-side liability under India's **Digital Personal Data Protection (DPDP) Act 2023**, the platform supports an autonomous, zero-backend operational mode where **no central compute server processes citizen identity data**:
+
+```mermaid
+flowchart TD
+    subgraph MobileDevice["Citizen Smartphone (Local-First Sandbox)"]
+        Vault["Hardware Keystore / Secure Enclave<br>(AES-256 Storage & Master PIN)"]
+        DLP["Edge DLP: Accessibility / Canvas / OCR<br>(Verhoeff D₅ Math + YOLOv8 Keypoint)"]
+        LocalDB["Local State (SQLCipher / AsyncStorage)<br>(Incidents, Remediations, Audit Trail)"]
+        LocalNotif["OS Native Notification Engine<br>(Instant Local Alerts, 0ms Network Latency)"]
+    end
+
+    subgraph StaticCDN["Static CDN / Object Storage ($0 Compute Backend)"]
+        Bloom["Compressed Bloom Filter (15-20 MB)<br>(Encodes 100M+ Compromised Hashes)"]
+        KAnon["K-Anonymity Range Buckets<br>(SHA-256 Prefix Files, e.g. /range/a1b2c.bin)"]
+    end
+
+    subgraph GovtPortal["Government of India (Official Public Services)"]
+        UIDAI["UIDAI myAadhaar Official Portal<br>(Direct HTTPS Authentication History)"]
+    end
+
+    Vault --> LocalDB
+    DLP --> LocalDB
+    LocalDB --> LocalNotif
+    StaticCDN -. "Periodic Wi-Fi Sync" .-> LocalDB
+    MobileDevice <--> |"Direct Citizen OTP Auth (Zero Intermediary)"| UIDAI
+```
+
+### The Three Pillars of Serverless Tracking:
+1. **Outbound Transmission Tracking (Edge DLP)**: Intercepts active typing, clipboard pasting, and media sharing across messaging apps (WhatsApp, Telegram, SMS) directly on device via pure Verhoeff $D_5$ matrix math ($<0.01$ms) and on-device OCR ($<30$ms).
+2. **Inbound Breach & Dark Web Leak Tracking (Static K-Anonymity / Bloom Filters)**: Eliminates dynamic database servers by downloading a pre-compiled, static 15 MB Bloom filter or querying 5-character K-anonymity ranges over static CDN storage. The phone matches hashes locally without leaking identity queries to anyone.
+3. **Live Authentication & Fraud Tracking (Direct Citizen-to-UIDAI)**: The mobile client connects directly to official government portals (`myaadhaar.uidai.gov.in`) using official citizen OTP login to audit recent biometric and OTP authentication transactions, completely bypassing any intermediary third-party server.
+
