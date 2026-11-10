@@ -69,6 +69,8 @@ export interface AadhaarStep {
   step: number;
   title: string;
   description: string;
+  instruction?: string;
+  portal_url?: string;
   action_label?: string;
   action_url?: string;
 }
@@ -80,7 +82,4 @@ export interface NotificationItem {
   channel: string;
   status: 'sent' | 'read' | 'delivered';
   created_at: string;
-}
-  instruction: string;
-  portal_url?: string;
 }
