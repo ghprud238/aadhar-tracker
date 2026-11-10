@@ -457,3 +457,52 @@ async def execute_canary_test(
         },
         meta=ResponseMeta(request_id=req_id)
     )
+
+
+@router.get("/synthetic-dataset", response_model=ApiResponse)
+async def get_synthetic_dataset(
+    count: int = 5,
+    include_breaches: bool = True,
+    seed: Optional[int] = None,
+    request: Request = None,
+    ctx: AuthContext = Depends(get_auth_context)
+):
+    """
+    Returns an on-demand batch of mathematically valid, privacy-safe synthetic Indian identities,
+    dark web breach records, and WhatsApp DLP samples for testing and developer sandbox evaluation.
+    """
+    req_id = get_request_id(request)
+    from packages.domain.synthetic import (
+        generate_synthetic_resident_profile,
+        generate_synthetic_breach_dump,
+        generate_synthetic_whatsapp_conversations,
+        BREACH_TEMPLATES
+    )
+
+    actual_count = min(max(count, 1), 50)
+    base_seed = seed if seed is not None else int(datetime.now(timezone.utc).timestamp())
+
+    profiles = [generate_synthetic_resident_profile(seed=base_seed + i) for i in range(actual_count)]
+    breaches = []
+    if include_breaches:
+        breaches = [
+            generate_synthetic_breach_dump(num_records=min(actual_count, 10), template_idx=i, seed=base_seed + 100 + i)
+            for i in range(min(len(BREACH_TEMPLATES), 3))
+        ]
+
+    chats = generate_synthetic_whatsapp_conversations(num_threads=min(actual_count, 5), seed=base_seed + 200)
+
+    return ApiResponse(
+        data={
+            "metadata": {
+                "generated_count": actual_count,
+                "seed": base_seed,
+                "compliance": "Zero real PII. Synthetic Verhoeff D5 Aadhaar test ranges (9999...).",
+                "timestamp": datetime.now(timezone.utc).isoformat()
+            },
+            "identities": profiles,
+            "breaches": breaches,
+            "whatsapp_dlp_samples": chats
+        },
+        meta=ResponseMeta(request_id=req_id)
+    )

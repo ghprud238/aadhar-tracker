@@ -2,7 +2,7 @@
 
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg)](https://fastapi.tiangolo.com/)
-[![Tests Passing](https://img.shields.io/badge/tests-47%2F47%20passing-brightgreen.svg)](tests/)
+[![Tests Passing](https://img.shields.io/badge/tests-54%2F54%20passing-brightgreen.svg)](tests/)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Security Zero-Plaintext](https://img.shields.io/badge/security-Zero--Plaintext%20Credentials-success.svg)](docs/threat-model.md)
 
@@ -440,6 +440,42 @@ flowchart TD
   5. Platform reinforces that having biometric lock enabled renders OTP theft ineffective for physical identity impersonation.
 
 ---
+
+## 🧪 Synthetic Test Data & Fixture Generation
+
+To ensure thorough, reproducible testing and developer onboarding without exposing real citizen PII, the platform includes a **deterministic Synthetic Data Engine** ([`packages/domain/synthetic.py`](file:///Users/dpcubed/projects/aadhar-tracker/packages/domain/synthetic.py)) and a seeding tool ([`services/tools/seed_synthetic.py`](file:///Users/dpcubed/projects/aadhar-tracker/services/tools/seed_synthetic.py)):
+
+### 1. Generated Data Assets
+- **Mathematically Valid Aadhaar Numbers**: 12 digits calculated using the official **Verhoeff Dihedral $D_5$ algorithm** with developer test prefix `9999...` to prevent collision with real resident identifiers.
+- **Valid PAN Identifiers**: 10 characters conforming to Income Tax syntax (`[A-Z]{3}P[SurnameInitial][0-9]{4}[A-Z]`).
+- **Complete Indian Resident Profiles**: Full synthetic records (First Name, Last Name, Email, Phone, Aadhaar, PAN, VID, Address across 12 Indian states).
+- **Simulated Dark Web Breach Dumps**: Multi-record mock dumps for Telecom KYC leaks, Fintech applicant breaches, Lumma Stealer botnet archives, and hospital diagnostic records.
+- **WhatsApp DLP Sample Threads**: English and Hinglish multi-turn chat threads containing unmasked IDs to test DLP interception.
+
+### 2. Export Static Test Fixtures
+```bash
+# Export static JSON fixtures to tests/fixtures/
+uv run python -m services.tools.seed_synthetic --export-fixtures
+```
+*Generated Files in [`tests/fixtures/`](file:///Users/dpcubed/projects/aadhar-tracker/tests/fixtures/):*
+- `synthetic_identities.json`: 50 valid synthetic Indian citizen profiles
+- `synthetic_breach_catalog.json`: Simulated dark web database dumps with magnet hashes
+- `synthetic_whatsapp_messages.json`: Realistic chat conversations for DLP verification
+- `synthetic_bundle.json`: Unified fixture dataset for automated testing
+
+### 3. Seed Database with Synthetic Test Data
+```bash
+# Populate local SQLite or PostgreSQL database with 10 synthetic residents, identifiers, and active incidents
+uv run python -m services.tools.seed_synthetic --seed-db --residents 10
+```
+
+### 4. On-Demand Synthetic API Endpoint
+```bash
+# Fetch on-demand synthetic test identities and breach scenarios via API
+TOKEN=$(curl -s "http://localhost:8000/api/v1/auth/callback?email=citizen@suraksha.in&full_name=Aarav+Sharma" | python3 -c 'import sys, json; print(json.load(sys.stdin)["data"]["session_id"])')
+
+curl -s -H "Authorization: Bearer $TOKEN" "http://localhost:8000/api/v1/identity-assistance/synthetic-dataset?count=5&include_breaches=true" | python3 -m json.tool
+```
 
 ---
 

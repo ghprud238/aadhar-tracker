@@ -1,0 +1,266 @@
+[
+  {
+    "thread_id": "wa_thread_001",
+    "title": "HR Onboarding Verification",
+    "channel": "office_hr",
+    "sender_name": "Nikhil Bhat",
+    "sender_phone": "+919819884139",
+    "contains_sensitive_id": true,
+    "sample_profile": {
+      "full_name": "Nikhil Bhat",
+      "first_name": "Nikhil",
+      "last_name": "Bhat",
+      "email": "nikhil.bhat21@example.in",
+      "phone": "+919819884139",
+      "aadhaar_raw": "999932795821",
+      "aadhaar_formatted": "9999 3279 5821",
+      "aadhaar_masked": "XXXX-XXXX-5821",
+      "pan_raw": "YFJPB2173P",
+      "pan_masked": "YF***21*P",
+      "vid_number": "3568-9875-8915-5912",
+      "address": {
+        "street": "Flat 287, Surya Enclave",
+        "city": "Jaipur",
+        "state": "Rajasthan",
+        "pincode": "302128",
+        "country": "India"
+      },
+      "created_at": "2026-11-09T17:58:12.019203+00:00"
+    },
+    "messages": [
+      {
+        "from": "recipient",
+        "text": "Hi, please share your ID proof and PAN card so we can finalize the registration."
+      },
+      {
+        "from": "sender",
+        "text": "Sure, sending here. My Aadhaar number is 9999 3279 5821 and PAN is YFJPB2173P. Please verify."
+      },
+      {
+        "from": "recipient",
+        "text": "Received, thank you!"
+      }
+    ],
+    "last_message_text": "Sure, sending here. My Aadhaar number is 9999 3279 5821 and PAN is YFJPB2173P. Please verify."
+  },
+  {
+    "thread_id": "wa_thread_002",
+    "title": "Hotel Room Booking KYC Proof",
+    "channel": "hotel_agent",
+    "sender_name": "Tanvi Mehta",
+    "sender_phone": "+919881935574",
+    "contains_sensitive_id": true,
+    "sample_profile": {
+      "full_name": "Tanvi Mehta",
+      "first_name": "Tanvi",
+      "last_name": "Mehta",
+      "email": "tanvi.mehta82@suraksha-test.org",
+      "phone": "+919881935574",
+      "aadhaar_raw": "999997239644",
+      "aadhaar_formatted": "9999 9723 9644",
+      "aadhaar_masked": "XXXX-XXXX-9644",
+      "pan_raw": "SEAPM6061A",
+      "pan_masked": "SE***60*A",
+      "vid_number": "9837-0599-2779-7614",
+      "address": {
+        "street": "Flat 449, Surya Enclave",
+        "city": "Jaipur",
+        "state": "Rajasthan",
+        "pincode": "302650",
+        "country": "India"
+      },
+      "created_at": "2026-11-09T17:58:12.019250+00:00"
+    },
+    "messages": [
+      {
+        "from": "recipient",
+        "text": "Sir, room booking requires government ID proof copy."
+      },
+      {
+        "from": "sender",
+        "text": "Here is my Aadhaar card details: 9999 9723 9644 (Name: Tanvi Mehta)"
+      },
+      {
+        "from": "recipient",
+        "text": "Noted. Your booking is confirmed."
+      }
+    ],
+    "last_message_text": "Here is my Aadhaar card details: 9999 9723 9644 (Name: Tanvi Mehta)"
+  },
+  {
+    "thread_id": "wa_thread_003",
+    "title": "Personal Loan Executive Chat",
+    "channel": "loan_rep",
+    "sender_name": "Deepa Singh",
+    "sender_phone": "+919832293867",
+    "contains_sensitive_id": true,
+    "sample_profile": {
+      "full_name": "Deepa Singh",
+      "first_name": "Deepa",
+      "last_name": "Singh",
+      "email": "deepa.singh28@testmail.co.in",
+      "phone": "+919832293867",
+      "aadhaar_raw": "999961352098",
+      "aadhaar_formatted": "9999 6135 2098",
+      "aadhaar_masked": "XXXX-XXXX-2098",
+      "pan_raw": "EERPS3114Q",
+      "pan_masked": "EE***31*Q",
+      "vid_number": "2735-2596-5556-7222",
+      "address": {
+        "street": "Flat 679, Surya Enclave",
+        "city": "New Delhi",
+        "state": "Delhi",
+        "pincode": "110356",
+        "country": "India"
+      },
+      "created_at": "2026-11-09T17:58:12.019295+00:00"
+    },
+    "messages": [
+      {
+        "from": "recipient",
+        "text": "Hi, please share your ID proof and PAN card so we can finalize the registration."
+      },
+      {
+        "from": "sender",
+        "text": "Sure, sending here. My Aadhaar number is 9999 6135 2098 and PAN is EERPS3114Q. Please verify."
+      },
+      {
+        "from": "recipient",
+        "text": "Received, thank you!"
+      }
+    ],
+    "last_message_text": "Sure, sending here. My Aadhaar number is 9999 6135 2098 and PAN is EERPS3114Q. Please verify."
+  },
+  {
+    "thread_id": "wa_thread_004",
+    "title": "Family Vacation Flight Details",
+    "channel": "family_group",
+    "sender_name": "Priya Verma",
+    "sender_phone": "+919861415712",
+    "contains_sensitive_id": false,
+    "sample_profile": {
+      "full_name": "Priya Verma",
+      "first_name": "Priya",
+      "last_name": "Verma",
+      "email": "priya.verma31@suraksha-test.org",
+      "phone": "+919861415712",
+      "aadhaar_raw": "999995227183",
+      "aadhaar_formatted": "9999 9522 7183",
+      "aadhaar_masked": "XXXX-XXXX-7183",
+      "pan_raw": "MDUPV2941W",
+      "pan_masked": "MD***29*W",
+      "vid_number": "1161-1407-1101-6219",
+      "address": {
+        "street": "Flat 273, Surya Enclave",
+        "city": "Ahmedabad",
+        "state": "Gujarat",
+        "pincode": "380870",
+        "country": "India"
+      },
+      "created_at": "2026-11-09T17:58:12.019340+00:00"
+    },
+    "messages": [
+      {
+        "from": "sender",
+        "text": "Flight tickets have been booked for Saturday morning."
+      },
+      {
+        "from": "recipient",
+        "text": "Great! Did you use the Masked Aadhaar or VID for airport entry?"
+      },
+      {
+        "from": "sender",
+        "text": "Yes, using official VID 1161-1407-1101-6219. No full Aadhaar shared."
+      }
+    ],
+    "last_message_text": "Great! Did you use the Masked Aadhaar or VID for airport entry?"
+  },
+  {
+    "thread_id": "wa_thread_005",
+    "title": "Society Maintenance Discussion",
+    "channel": "apartment_rwa",
+    "sender_name": "Diya Nair",
+    "sender_phone": "+919831001707",
+    "contains_sensitive_id": false,
+    "sample_profile": {
+      "full_name": "Diya Nair",
+      "first_name": "Diya",
+      "last_name": "Nair",
+      "email": "diya.nair18@example.in",
+      "phone": "+919831001707",
+      "aadhaar_raw": "999939261517",
+      "aadhaar_formatted": "9999 3926 1517",
+      "aadhaar_masked": "XXXX-XXXX-1517",
+      "pan_raw": "JYEPN9646K",
+      "pan_masked": "JY***96*K",
+      "vid_number": "0726-3480-3603-9468",
+      "address": {
+        "street": "Flat 584, Surya Enclave",
+        "city": "New Delhi",
+        "state": "Delhi",
+        "pincode": "110143",
+        "country": "India"
+      },
+      "created_at": "2026-11-09T17:58:12.019385+00:00"
+    },
+    "messages": [
+      {
+        "from": "sender",
+        "text": "Flight tickets have been booked for Saturday morning."
+      },
+      {
+        "from": "recipient",
+        "text": "Great! Did you use the Masked Aadhaar or VID for airport entry?"
+      },
+      {
+        "from": "sender",
+        "text": "Yes, using official VID 0726-3480-3603-9468. No full Aadhaar shared."
+      }
+    ],
+    "last_message_text": "Great! Did you use the Masked Aadhaar or VID for airport entry?"
+  },
+  {
+    "thread_id": "wa_thread_006",
+    "title": "HR Onboarding Verification",
+    "channel": "office_hr",
+    "sender_name": "Sneha Sharma",
+    "sender_phone": "+919881285543",
+    "contains_sensitive_id": true,
+    "sample_profile": {
+      "full_name": "Sneha Sharma",
+      "first_name": "Sneha",
+      "last_name": "Sharma",
+      "email": "sneha.sharma26@demo-resident.in",
+      "phone": "+919881285543",
+      "aadhaar_raw": "999976499688",
+      "aadhaar_formatted": "9999 7649 9688",
+      "aadhaar_masked": "XXXX-XXXX-9688",
+      "pan_raw": "GMRPS8279W",
+      "pan_masked": "GM***82*W",
+      "vid_number": "8994-5897-1419-6062",
+      "address": {
+        "street": "Flat 459, Surya Enclave",
+        "city": "Mumbai",
+        "state": "Maharashtra",
+        "pincode": "400152",
+        "country": "India"
+      },
+      "created_at": "2026-11-09T17:58:12.019430+00:00"
+    },
+    "messages": [
+      {
+        "from": "recipient",
+        "text": "Sir, room booking requires government ID proof copy."
+      },
+      {
+        "from": "sender",
+        "text": "Here is my Aadhaar card details: 9999 7649 9688 (Name: Sneha Sharma)"
+      },
+      {
+        "from": "recipient",
+        "text": "Noted. Your booking is confirmed."
+      }
+    ],
+    "last_message_text": "Here is my Aadhaar card details: 9999 7649 9688 (Name: Sneha Sharma)"
+  }
+]
