@@ -40,6 +40,11 @@ htmlcov/
 .idea/
 .vscode/
 
+# Node.js & Mobile Client
+node_modules/
+.expo/
+npm-debug.log*
+
 # Local runner logs & pids
 .*.log
 .*.pid
