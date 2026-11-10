@@ -68,6 +68,19 @@ export interface UserSession {
 export interface AadhaarStep {
   step: number;
   title: string;
+  description: string;
+  action_label?: string;
+  action_url?: string;
+}
+
+export interface NotificationItem {
+  id: string;
+  title: string;
+  body: string;
+  channel: string;
+  status: 'sent' | 'read' | 'delivered';
+  created_at: string;
+}
   instruction: string;
   portal_url?: string;
 }

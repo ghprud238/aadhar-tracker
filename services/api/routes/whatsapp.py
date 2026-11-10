@@ -13,7 +13,7 @@ from sqlalchemy import select
 
 from services.api.database import get_db
 from services.api.dependencies import get_request_id, get_auth_context
-from packages.domain.models import Incident, OutboxEvent, AuditEvent, Identifier, RemediationAction
+from packages.domain.models import Incident, OutboxEvent, AuditEvent, Identifier, RemediationAction, NotificationDelivery
 from packages.security.authorization import AuthContext
 from packages.security.crypto import vault
 from packages.domain.verhoeff import detect_identifiers_in_text, validate_aadhaar, validate_pan
@@ -195,6 +195,28 @@ async def simulate_whatsapp_share(
         retry_count=0
     )
     db.add(outbox_event)
+
+    # Record immediate citizen notifications for mobile app and WhatsApp channel
+    delivery_wa = NotificationDelivery(
+        tenant_id=ctx.tenant_id,
+        notification_intent_id=outbox_event.event_id,
+        channel="whatsapp_dlp",
+        destination_reference=payload.sender_phone or "+919876543210",
+        title=f"⚠️ WhatsApp Alert: Unmasked {', '.join(masked_summaries)} Detected",
+        body_sanitized=f"Unmasked government identifier detected in WhatsApp transmission ({', '.join(masked_summaries)}). Delete for everyone and lock biometrics immediately.",
+        status="sent"
+    )
+    delivery_push = NotificationDelivery(
+        tenant_id=ctx.tenant_id,
+        notification_intent_id=f"push_{outbox_event.event_id}",
+        channel="push_mobile_wearable",
+        destination_reference=f"device_token_subject_{ctx.subject_id}",
+        title=f"🛡️ [HIGH] WhatsApp Sharing Alert ({', '.join(masked_summaries)})",
+        body_sanitized=f"Unmasked government identifier shared via WhatsApp message. Review recommended remediation in dashboard.",
+        status="sent"
+    )
+    db.add(delivery_wa)
+    db.add(delivery_push)
 
     # Log immutable audit event
     audit = AuditEvent(

@@ -15,13 +15,25 @@ import { IdentitiesScreen } from './src/screens/IdentitiesScreen';
 import { IncidentsScreen } from './src/screens/IncidentsScreen';
 import { AadhaarPanScreen } from './src/screens/AadhaarPanScreen';
 import { SecurityScreen } from './src/screens/SecurityScreen';
+import { AlertsScreen } from './src/screens/AlertsScreen';
 
-type ScreenKey = 'dashboard' | 'identities' | 'incidents' | 'aadhaar' | 'security';
+type ScreenKey = 'dashboard' | 'identities' | 'incidents' | 'alerts' | 'aadhaar' | 'security';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<ScreenKey>('dashboard');
   const [session, setSession] = useState<UserSession | null>(null);
   const [initializing, setInitializing] = useState(true);
+  const [unreadAlertsCount, setUnreadAlertsCount] = useState(0);
+
+  const fetchUnreadCount = async () => {
+    try {
+      const items = await api.getNotifications();
+      const unread = items.filter((n) => n.status !== 'read').length;
+      setUnreadAlertsCount(unread);
+    } catch {
+      // Ignore background sync errors
+    }
+  };
 
   const initApp = async () => {
     try {
@@ -32,6 +44,7 @@ export default function App() {
         current = await api.authenticate('resident@example.in', 'Aarav Sharma');
       }
       setSession(current);
+      await fetchUnreadCount();
     } catch (err) {
       console.warn('Initial session lookup fallback:', err);
     } finally {
@@ -41,6 +54,8 @@ export default function App() {
 
   useEffect(() => {
     initApp();
+    const interval = setInterval(fetchUnreadCount, 5000);
+    return () => clearInterval(interval);
   }, []);
 
   if (initializing) {
@@ -76,10 +91,33 @@ export default function App() {
         </View>
       </View>
 
+      {/* Urgent Alert Banner */}
+      {unreadAlertsCount > 0 && currentScreen !== 'alerts' && (
+        <TouchableOpacity
+          style={styles.alertBanner}
+          onPress={() => setCurrentScreen('alerts')}
+          activeOpacity={0.85}
+        >
+          <View style={styles.alertBannerLeft}>
+            <Text style={styles.alertBannerIcon}>🚨</Text>
+            <Text style={styles.alertBannerText}>
+              {unreadAlertsCount} unread exposure alert{unreadAlertsCount > 1 ? 's' : ''}!
+            </Text>
+          </View>
+          <Text style={styles.alertBannerArrow}>Review →</Text>
+        </TouchableOpacity>
+      )}
+
       {/* Main Screen Content */}
       <View style={styles.screenContainer}>
         {currentScreen === 'dashboard' && (
           <DashboardScreen session={session} onNavigate={(scr) => setCurrentScreen(scr as ScreenKey)} />
+        )}
+        {currentScreen === 'alerts' && (
+          <AlertsScreen
+            onNavigate={(scr) => setCurrentScreen(scr as ScreenKey)}
+            onRefreshAlertsCount={fetchUnreadCount}
+          />
         )}
         {currentScreen === 'identities' && <IdentitiesScreen />}
         {currentScreen === 'incidents' && <IncidentsScreen />}
@@ -93,8 +131,9 @@ export default function App() {
       <View style={styles.bottomNav}>
         {[
           { key: 'dashboard', label: 'Shield', icon: '📊' },
-          { key: 'identities', label: 'Identities', icon: '🔑' },
+          { key: 'alerts', label: 'Alerts', icon: '🔔', badge: unreadAlertsCount },
           { key: 'incidents', label: 'Incidents', icon: '⚠️' },
+          { key: 'identities', label: 'Identities', icon: '🔑' },
           { key: 'aadhaar', label: 'Aadhaar', icon: '🇮🇳' },
           { key: 'security', label: 'Security', icon: '🛡️' },
         ].map((tab) => {
@@ -106,7 +145,14 @@ export default function App() {
               onPress={() => setCurrentScreen(tab.key as ScreenKey)}
               activeOpacity={0.7}
             >
-              <Text style={[styles.navIcon, isActive && styles.navIconActive]}>{tab.icon}</Text>
+              <View style={styles.tabIconWrap}>
+                <Text style={[styles.navIcon, isActive && styles.navIconActive]}>{tab.icon}</Text>
+                {tab.badge && tab.badge > 0 ? (
+                  <View style={styles.badgeIndicator}>
+                    <Text style={styles.badgeText}>{tab.badge > 9 ? '9+' : tab.badge}</Text>
+                  </View>
+                ) : null}
+              </View>
               <Text style={[styles.navLabel, isActive && styles.navLabelActive]}>{tab.label}</Text>
               {isActive && <View style={styles.navIndicator} />}
             </TouchableOpacity>
@@ -235,5 +281,54 @@ const styles = StyleSheet.create({
     height: 2,
     backgroundColor: '#38bdf8',
     borderRadius: 1,
+  },
+  alertBanner: {
+    backgroundColor: '#991b1b',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ef4444',
+  },
+  alertBannerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    flex: 1,
+  },
+  alertBannerIcon: {
+    fontSize: 16,
+  },
+  alertBannerText: {
+    color: '#ffffff',
+    fontSize: 13,
+    fontWeight: '700',
+  },
+  alertBannerArrow: {
+    color: '#fecaca',
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  tabIconWrap: {
+    position: 'relative',
+  },
+  badgeIndicator: {
+    position: 'absolute',
+    top: -4,
+    right: -8,
+    backgroundColor: '#ef4444',
+    borderRadius: 8,
+    minWidth: 16,
+    height: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 3,
+  },
+  badgeText: {
+    color: '#ffffff',
+    fontSize: 9,
+    fontWeight: '800',
   },
 });

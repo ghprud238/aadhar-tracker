@@ -80,7 +80,7 @@ The platform provides unified multi-surface clients connected to the core engine
 | Client Surface | Technology Stack | Features | Access / Run Command |
 | :--- | :--- | :--- | :--- |
 | **Web Client** | Modern Vanilla JS + PWA Service Worker + CSS Tokens | 10 PRD views, English/Hindi i18n, offline caching, accessible high-contrast navigation | Served at `http://localhost:8000/` |
-| **Mobile Client** | React Native 0.74 + Expo 51 + TypeScript | Bottom tab navigation, Face ID/Fingerprint app lock, step-up elevation, scan trigger, dispute modal | `cd apps/mobile && npx expo start` |
+| **Mobile Client** | React Native 0.74 + Expo 51 + TypeScript | Bottom tab navigation, live alert feed with unread badge, urgent exposure banner, biometric auth | `cd apps/mobile && npm run web` (or `npx expo start`) |
 | **Wearable Client** | Smartwatch 360x360 AMOLED UI + Haptic Feedback | 1-second Shield Glance dial, urgent breach card with haptic buzz, 1-tap "Lock Biometrics" quick action, AOD ambient mode | Served at `http://localhost:8000/wearable` |
 
 ---
@@ -110,6 +110,23 @@ uv run pytest -v
 # Run the high-concurrency async load benchmark (400+ RPS)
 PYTHONPATH=. uv run python tests/load/run_benchmark.py
 ```
+
+### 🕹️ Interactive Local Stack & E2E Testing Console
+
+The fastest way to run the entire platform locally, launch the React Native mobile client, and test with synthetic Indian identity data is using the interactive controller:
+
+```bash
+# Launch interactive terminal controller menu
+./scripts/run_local_stack.sh
+
+# Or run the automated first-principles test suite:
+./scripts/run_local_stack.sh --test
+
+# Or run the interactive first-principles walkthrough console directly:
+uv run python scripts/interactive_test.py
+```
+
+---
 
 ## 🌐 Running the Web Version Locally (Step-by-Step)
 

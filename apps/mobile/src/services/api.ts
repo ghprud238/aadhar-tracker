@@ -8,6 +8,7 @@ import {
   Incident,
   RemediationAction,
   UserSession,
+  NotificationItem,
 } from '../types';
 
 let API_BASE_URL = 'http://localhost:8000/api/v1';
@@ -174,6 +175,38 @@ export const api = {
   async requestAccountErasure(): Promise<any> {
     return request('/privacy/erasure', {
       method: 'POST',
+    });
+  },
+
+  // Notifications & Alerts
+  async getNotifications(): Promise<NotificationItem[]> {
+    return request<NotificationItem[]>('/notifications');
+  },
+
+  async markNotificationRead(id: string): Promise<any> {
+    return request(`/notifications/${id}/read`, {
+      method: 'POST',
+    });
+  },
+
+  async markAllNotificationsRead(): Promise<any> {
+    return request('/notifications/read-all', {
+      method: 'POST',
+    });
+  },
+
+  // Interactive Live Alert Simulation Triggers
+  async simulateWhatsAppDLP(messageText: string, senderPhone = '+919876543210'): Promise<any> {
+    return request('/integrations/whatsapp/simulate-share', {
+      method: 'POST',
+      body: JSON.stringify({ message_text: messageText, sender_phone: senderPhone }),
+    });
+  },
+
+  async triggerCanaryTest(presetId = 'aadhaar_sandbox_1'): Promise<any> {
+    return request('/identity-assistance/canary-test', {
+      method: 'POST',
+      body: JSON.stringify({ preset_id: presetId }),
     });
   },
 };

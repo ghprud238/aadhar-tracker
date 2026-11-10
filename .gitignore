@@ -39,3 +39,9 @@ htmlcov/
 .DS_Store
 .idea/
 .vscode/
+
+# Local runner logs & pids
+.*.log
+.*.pid
+*.log
+*.pid

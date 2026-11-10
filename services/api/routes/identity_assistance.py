@@ -20,6 +20,7 @@ from packages.domain.models import (
     OutboxEvent,
     Identifier,
     RemediationAction,
+    NotificationDelivery,
 )
 from packages.security.authorization import AuthContext
 from packages.security.crypto import vault
@@ -420,6 +421,18 @@ async def execute_canary_test(
         retry_count=0
     )
     db.add(outbox_event)
+
+    # Record immediate citizen notification for mobile push and dashboard
+    delivery_push = NotificationDelivery(
+        tenant_id=ctx.tenant_id,
+        notification_intent_id=outbox_event.event_id,
+        channel="push_mobile_wearable",
+        destination_reference=f"device_token_subject_{ctx.subject_id}",
+        title=f"🛡️ [{severity.upper()}] Exposure Alert: {masked_val}",
+        body_sanitized=f"A potential exposure of monitored identifier {masked_val} was detected on {src_name}. Priority Score: {prio}/100.",
+        status="sent"
+    )
+    db.add(delivery_push)
 
     # 7. Immutable Audit Trail
     audit = AuditEvent(
