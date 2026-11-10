@@ -1,0 +1,117 @@
+{
+  "clean_aadhaar": {
+    "card_type": "aadhaar",
+    "corners": [
+      [
+        10,
+        10
+      ],
+      [
+        846,
+        10
+      ],
+      [
+        846,
+        530
+      ],
+      [
+        10,
+        530
+      ]
+    ],
+    "first_8_digits_bbox": {
+      "x": 245,
+      "y": 335,
+      "width": 260,
+      "height": 45,
+      "label": "mask_first_8_digits"
+    },
+    "qr_code_bbox": {
+      "x": 620,
+      "y": 130,
+      "width": 180,
+      "height": 180,
+      "label": "mask_biometric_qr"
+    },
+    "raw_aadhaar": "9999 5149 3796",
+    "masked_aadhaar": "XXXX-XXXX-3796"
+  },
+  "clean_pan": {
+    "card_type": "pan",
+    "corners": [
+      [
+        10,
+        10
+      ],
+      [
+        846,
+        10
+      ],
+      [
+        846,
+        530
+      ],
+      [
+        10,
+        530
+      ]
+    ],
+    "pan_number_bbox": {
+      "x": 245,
+      "y": 125,
+      "width": 380,
+      "height": 40,
+      "label": "pan_identifier"
+    },
+    "raw_pan": "RXCPD1885P",
+    "masked_pan": "RX***18*P"
+  },
+  "randomized_scene": {
+    "scene_dimensions": [
+      1024,
+      768
+    ],
+    "rotation_angle": -12.174443789353887,
+    "offset": [
+      45,
+      48
+    ],
+    "original_annotations": {
+      "card_type": "aadhaar",
+      "corners": [
+        [
+          10,
+          10
+        ],
+        [
+          846,
+          10
+        ],
+        [
+          846,
+          530
+        ],
+        [
+          10,
+          530
+        ]
+      ],
+      "first_8_digits_bbox": {
+        "x": 245,
+        "y": 335,
+        "width": 260,
+        "height": 45,
+        "label": "mask_first_8_digits"
+      },
+      "qr_code_bbox": {
+        "x": 620,
+        "y": 130,
+        "width": 180,
+        "height": 180,
+        "label": "mask_biometric_qr"
+      },
+      "raw_aadhaar": "9999 5149 3796",
+      "masked_aadhaar": "XXXX-XXXX-3796"
+    }
+  }
+}

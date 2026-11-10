@@ -178,3 +178,39 @@ async def test_synthetic_dataset_api_endpoint():
         assert valid_a is True
         valid_p, _, _ = validate_pan(id0["pan_raw"])
         assert valid_p is True
+
+
+def test_synthetic_card_image_generation_and_annotations():
+    """Verify programmatic rendering of synthetic card images with pixel-accurate bounding boxes."""
+    from dummy_data_to_test.generate_card_images import (
+        create_synthetic_card_image,
+        apply_domain_randomization,
+    )
+    profile = generate_synthetic_resident_profile(seed=999)
+    
+    # 1. Aadhaar Card Rendering
+    aadhaar_img, aadhaar_ann = create_synthetic_card_image(profile, card_type="aadhaar")
+    assert aadhaar_img.size == (856, 540)
+    assert aadhaar_ann["card_type"] == "aadhaar"
+    assert len(aadhaar_ann["corners"]) == 4
+    # Digits 1-8 bounding box
+    bbox_digits = aadhaar_ann["first_8_digits_bbox"]
+    assert bbox_digits["width"] == 260
+    assert bbox_digits["label"] == "mask_first_8_digits"
+    # QR code bounding box
+    bbox_qr = aadhaar_ann["qr_code_bbox"]
+    assert bbox_qr["width"] == 180
+    assert bbox_qr["label"] == "mask_biometric_qr"
+
+    # 2. PAN Card Rendering
+    pan_img, pan_ann = create_synthetic_card_image(profile, card_type="pan")
+    assert pan_img.size == (856, 540)
+    assert pan_ann["card_type"] == "pan"
+    assert "pan_number_bbox" in pan_ann
+
+    # 3. Domain Randomization (perspective rotation & background composite)
+    scene_img, scene_meta = apply_domain_randomization(aadhaar_img, aadhaar_ann, canvas_size=(640, 480))
+    assert scene_img.size == (640, 480)
+    assert "rotation_angle" in scene_meta
+    assert "offset" in scene_meta
+
