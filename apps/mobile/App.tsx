@@ -16,6 +16,7 @@ import { IncidentsScreen } from './src/screens/IncidentsScreen';
 import { AadhaarPanScreen } from './src/screens/AadhaarPanScreen';
 import { SecurityScreen } from './src/screens/SecurityScreen';
 import { AlertsScreen } from './src/screens/AlertsScreen';
+import { LoginScreen } from './src/screens/LoginScreen';
 
 type ScreenKey = 'dashboard' | 'identities' | 'incidents' | 'alerts' | 'aadhaar' | 'security';
 
@@ -37,14 +38,11 @@ export default function App() {
 
   const initApp = async () => {
     try {
-      let current: UserSession;
-      try {
-        current = await api.getSession();
-      } catch {
-        current = await api.authenticate('resident@example.in', 'Aarav Sharma');
-      }
+      const current = await api.getSession();
       setSession(current);
-      await fetchUnreadCount();
+      if (current) {
+        await fetchUnreadCount();
+      }
     } catch (err) {
       console.warn('Initial session lookup fallback:', err);
     } finally {
@@ -70,6 +68,21 @@ export default function App() {
     );
   }
 
+  // If no user session, show the dedicated Google Login Screen
+  if (!session) {
+    return (
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="light-content" backgroundColor="#090d16" />
+        <LoginScreen
+          onLoginSuccess={(newSession) => {
+            setSession(newSession);
+            fetchUnreadCount();
+          }}
+        />
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#090d16" />
@@ -83,11 +96,22 @@ export default function App() {
             <Text style={styles.brandSub}>Consent-First Identity Shield</Text>
           </View>
         </View>
-        <View style={styles.userBadge}>
-          <View style={styles.activeDot} />
-          <Text style={styles.userEmail} numberOfLines={1}>
-            {session?.email || 'resident'}
-          </Text>
+        <View style={styles.userSection}>
+          <View style={styles.userBadge}>
+            <View style={styles.activeDot} />
+            <Text style={styles.userEmail} numberOfLines={1}>
+              {session?.email || 'resident'}
+            </Text>
+          </View>
+          <TouchableOpacity
+            style={styles.logoutBtn}
+            onPress={async () => {
+              await api.logout();
+              setSession(null);
+            }}
+          >
+            <Text style={styles.logoutBtnText}>Sign Out</Text>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -123,7 +147,11 @@ export default function App() {
         {currentScreen === 'incidents' && <IncidentsScreen />}
         {currentScreen === 'aadhaar' && <AadhaarPanScreen />}
         {currentScreen === 'security' && (
-          <SecurityScreen session={session} onRefreshSession={initApp} />
+          <SecurityScreen
+            session={session}
+            onRefreshSession={initApp}
+            onLogout={() => setSession(null)}
+          />
         )}
       </View>
 
@@ -216,6 +244,11 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: '#64748b',
   },
+  userSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
   userBadge: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -225,7 +258,20 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     borderColor: '#1f2937',
-    maxWidth: 160,
+    maxWidth: 140,
+  },
+  logoutBtn: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    borderWidth: 1,
+    borderColor: 'rgba(239, 68, 68, 0.3)',
+  },
+  logoutBtnText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: '#f87171',
   },
   activeDot: {
     width: 6,

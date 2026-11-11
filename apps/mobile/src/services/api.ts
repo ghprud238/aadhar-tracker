@@ -66,28 +66,46 @@ async function request<T>(endpoint: string, options: RequestInit = {}): Promise<
 export const api = {
   async authenticate(email = 'resident@example.in', fullName = 'Aarav Sharma'): Promise<UserSession> {
     if (useLocalStandalone) {
-      return localEngine.getSession();
+      return localEngine.loginWithGoogle(email, fullName);
     }
     try {
       const session = await request<UserSession>(
         `/auth/callback?email=${encodeURIComponent(email)}&full_name=${encodeURIComponent(fullName)}`
       );
       authToken = session.session_id;
+      localEngine.setSession(session);
       return session;
     } catch (e) {
       console.warn('Backend unavailable, falling back to on-device zero-backend session:', e);
-      return localEngine.getSession();
+      return localEngine.loginWithGoogle(email, fullName);
     }
   },
 
-  async getSession(): Promise<UserSession> {
+  async loginWithGoogle(email: string, fullName: string): Promise<UserSession> {
+    return this.authenticate(email, fullName);
+  },
+
+  async getSession(): Promise<UserSession | null> {
     if (useLocalStandalone) {
       return localEngine.getSession();
     }
     try {
-      return await request<UserSession>('/session');
+      const sess = await request<UserSession>('/session');
+      authToken = sess.session_id;
+      localEngine.setSession(sess);
+      return sess;
     } catch {
       return localEngine.getSession();
+    }
+  },
+
+  async logout(): Promise<void> {
+    authToken = null;
+    localEngine.logout();
+    if (!useLocalStandalone) {
+      try {
+        await request('/auth/logout', { method: 'POST' });
+      } catch {}
     }
   },
 

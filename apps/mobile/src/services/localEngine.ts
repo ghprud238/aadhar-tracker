@@ -45,14 +45,7 @@ const EMBEDDED_BREACH_CATALOG = [
 ];
 
 class LocalEngine {
-  private session: UserSession = {
-    subject_id: 'subj_local_device_001',
-    tenant_id: 'tenant_resident_local',
-    email: 'citizen@suraksha.local',
-    full_name: 'Aarav Sharma',
-    role: 'resident',
-    session_id: 'sess_local_hw_' + Math.random().toString(36).substring(2, 10),
-  };
+  private session: UserSession | null = null;
 
   private identifiers: Identifier[] = [
     {
@@ -106,8 +99,29 @@ class LocalEngine {
     });
   }
 
-  public getSession(): UserSession {
+  public getSession(): UserSession | null {
     return this.session;
+  }
+
+  public setSession(session: UserSession | null): void {
+    this.session = session;
+  }
+
+  public loginWithGoogle(email: string, fullName: string): UserSession {
+    const newSession: UserSession = {
+      subject_id: 'subj_google_' + Math.random().toString(36).substring(2, 10),
+      tenant_id: 'tenant_' + email.replace(/[^a-zA-Z0-9]/g, '_'),
+      email,
+      full_name: fullName,
+      role: 'resident',
+      session_id: 'sess_gauth_' + Math.random().toString(36).substring(2, 10),
+    };
+    this.session = newSession;
+    return newSession;
+  }
+
+  public logout(): void {
+    this.session = null;
   }
 
   public getCompanionGlance(): CompanionGlance {

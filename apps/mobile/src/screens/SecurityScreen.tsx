@@ -16,15 +16,34 @@ import { UserSession } from '../types';
 interface SecurityScreenProps {
   session: UserSession | null;
   onRefreshSession: () => void;
+  onLogout?: () => void;
 }
 
-export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefreshSession }) => {
+export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefreshSession, onLogout }) => {
   const [biometricsEnabled, setBiometricsEnabled] = useState(true);
   const [stepUpElevated, setStepUpElevated] = useState(false);
   const [elevating, setElevating] = useState(false);
   const [passwordInput, setPasswordInput] = useState('');
   const [exporting, setExporting] = useState(false);
   const [erasing, setErasing] = useState(false);
+
+  const handleLogout = async () => {
+    Alert.alert(
+      'Sign Out',
+      'Are you sure you want to sign out of Suraksha Identity Shield?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Sign Out',
+          style: 'destructive',
+          onPress: async () => {
+            await api.logout();
+            if (onLogout) onLogout();
+          },
+        },
+      ]
+    );
+  };
 
   const handleStepUpElevate = async () => {
     if (!passwordInput.trim()) {
@@ -190,6 +209,13 @@ export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefre
             ) : (
               <Text style={styles.btnDangerText}>🗑️ Request Account Erasure</Text>
             )}
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.btnOutline, { borderColor: '#ef4444', backgroundColor: 'rgba(239, 68, 68, 0.08)' }]}
+            onPress={handleLogout}
+          >
+            <Text style={[styles.btnOutlineText, { color: '#f87171' }]}>🚪 Sign Out of Google Session</Text>
           </TouchableOpacity>
         </View>
       </View>
