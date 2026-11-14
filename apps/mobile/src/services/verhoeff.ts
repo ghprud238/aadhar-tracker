@@ -1,6 +1,7 @@
 /**
- * Verhoeff Dihedral (D5) Algorithm & Government Identifier Detector (Client-Side)
- * 100% on-device mathematical verification.
+ * Verhoeff Dihedral (D5) Algorithm & Multi-Document Government Identifier Detector
+ * 100% on-device mathematical verification & pattern matching.
+ * Covers Aadhaar, PAN, Driving License, Voter ID (EPIC), and Passport.
  * Zero cloud dependency.
  */
 
@@ -69,10 +70,6 @@ export interface ValidationResult {
 
 /**
  * Validates a 12-digit Indian Aadhaar number.
- * Enforces:
- * 1. Exactly 12 digits.
- * 2. Cannot start with 0 or 1.
- * 3. Verhoeff dihedral D5 checksum verification.
  */
 export function validateAadhaar(rawInput: string): ValidationResult {
   const clean = rawInput.replace(/[\s-]/g, '');
@@ -94,8 +91,7 @@ export function validateAadhaar(rawInput: string): ValidationResult {
 
 /**
  * Validates an Indian Permanent Account Number (PAN).
- * Format: 5 uppercase letters + 4 digits + 1 uppercase letter (e.g. ABCDE1234F).
- * Fourth character must be one of: P, C, H, F, A, T, B, L, J, G.
+ * Format: 5 uppercase letters + 4 digits + 1 uppercase letter.
  */
 export function validatePan(rawInput: string): ValidationResult {
   const clean = rawInput.trim().toUpperCase();
@@ -111,50 +107,141 @@ export function validatePan(rawInput: string): ValidationResult {
   return { valid: true, error: '', masked };
 }
 
-export interface DetectedIdentifier {
-  raw: string;
-  masked: string;
-  type: 'aadhaar' | 'pan';
+/**
+ * Validates an Indian Driving License (DL).
+ * Format: 2-letter state code + 2-digit RTO code + 4-digit issue year + 7 sequential digits.
+ * e.g. MH-1220150012345 or DL1420110012345.
+ */
+export function validateDrivingLicense(rawInput: string): ValidationResult {
+  const clean = rawInput.replace(/[\s-]/g, '').toUpperCase();
+  const dlRegex = /^[A-Z]{2}[0-9]{2}(19[0-9]{2}|20[0-2][0-9])[0-9]{7}$/;
+  if (!dlRegex.test(clean)) {
+    return {
+      valid: false,
+      error: 'Invalid Driving License format. Expected State (2) + RTO (2) + Year (4) + Digits (7).',
+      masked: '',
+    };
+  }
+  const masked = `${clean.slice(0, 4)}****${clean.slice(-4)}`;
+  return { valid: true, error: '', masked };
 }
 
 /**
- * Scans an arbitrary block of text for unmasked Aadhaar and PAN numbers.
- * Validates each match using Verhoeff checksum to eliminate false positives.
+ * Validates an Indian Voter ID (EPIC - Electors Photo Identity Card).
+ * Format: 3 uppercase letters followed by 7 digits (e.g. ABC1234567).
+ */
+export function validateVoterId(rawInput: string): ValidationResult {
+  const clean = rawInput.trim().toUpperCase();
+  const epicRegex = /^[A-Z]{3}[0-9]{7}$/;
+  if (!epicRegex.test(clean)) {
+    return {
+      valid: false,
+      error: 'Invalid Voter ID (EPIC) format. Must be 3 letters followed by 7 digits.',
+      masked: '',
+    };
+  }
+  const masked = `${clean.slice(0, 3)}****${clean.slice(-3)}`;
+  return { valid: true, error: '', masked };
+}
+
+/**
+ * Validates an Indian Passport Number.
+ * Format: 1 uppercase letter followed by 7 digits (e.g. A1234567).
+ */
+export function validatePassport(rawInput: string): ValidationResult {
+  const clean = rawInput.trim().toUpperCase();
+  const passportRegex = /^[A-Z][0-9]{7}$/;
+  if (!passportRegex.test(clean)) {
+    return {
+      valid: false,
+      error: 'Invalid Passport format. Must be 1 letter followed by 7 digits.',
+      masked: '',
+    };
+  }
+  const masked = `${clean.slice(0, 1)}****${clean.slice(-2)}`;
+  return { valid: true, error: '', masked };
+}
+
+export type DocumentType = 'aadhaar' | 'pan' | 'driving_license' | 'voter_id' | 'passport';
+
+export interface DetectedIdentifier {
+  raw: string;
+  masked: string;
+  type: DocumentType;
+}
+
+/**
+ * Scans an arbitrary block of text for unmasked government identifiers:
+ * Aadhaar, PAN, Driving License, Voter ID, and Passport.
  */
 export function detectIdentifiersInText(text: string): {
   aadhaar: DetectedIdentifier[];
   pan: DetectedIdentifier[];
+  driving_license: DetectedIdentifier[];
+  voter_id: DetectedIdentifier[];
+  passport: DetectedIdentifier[];
 } {
-  const findings: { aadhaar: DetectedIdentifier[]; pan: DetectedIdentifier[] } = {
+  const findings: {
+    aadhaar: DetectedIdentifier[];
+    pan: DetectedIdentifier[];
+    driving_license: DetectedIdentifier[];
+    voter_id: DetectedIdentifier[];
+    passport: DetectedIdentifier[];
+  } = {
     aadhaar: [],
     pan: [],
+    driving_license: [],
+    voter_id: [],
+    passport: [],
   };
 
-  // 1. Scan for Aadhaar candidate tokens (12 consecutive digits, or 4-4-4 groupings)
+  // 1. Aadhaar (12 digits, Verhoeff validated)
   const aadhaarRegex = /\b[2-9]\d{3}[-\s]?\d{4}[-\s]?\d{4}\b/g;
-  const matches = text.match(aadhaarRegex) || [];
-  for (const m of matches) {
+  const aadhaarMatches = text.match(aadhaarRegex) || [];
+  for (const m of aadhaarMatches) {
     const val = validateAadhaar(m);
     if (val.valid) {
-      findings.aadhaar.push({
-        raw: m,
-        masked: val.masked,
-        type: 'aadhaar',
-      });
+      findings.aadhaar.push({ raw: m, masked: val.masked, type: 'aadhaar' });
     }
   }
 
-  // 2. Scan for PAN candidates
+  // 2. PAN (5 letters + 4 digits + 1 letter)
   const panRegex = /\b[A-Z]{5}[0-9]{4}[A-Z]\b/g;
   const panMatches = text.match(panRegex) || [];
   for (const p of panMatches) {
     const val = validatePan(p);
     if (val.valid) {
-      findings.pan.push({
-        raw: p,
-        masked: val.masked,
-        type: 'pan',
-      });
+      findings.pan.push({ raw: p, masked: val.masked, type: 'pan' });
+    }
+  }
+
+  // 3. Driving License (e.g. MH-12-2015-0012345 or DL1420110012345)
+  const dlRegex = /\b[A-Z]{2}[-\s]?[0-9]{2}[-\s]?(?:19|20)[0-9]{2}[-\s]?[0-9]{7}\b/gi;
+  const dlMatches = text.match(dlRegex) || [];
+  for (const dl of dlMatches) {
+    const val = validateDrivingLicense(dl);
+    if (val.valid) {
+      findings.driving_license.push({ raw: dl, masked: val.masked, type: 'driving_license' });
+    }
+  }
+
+  // 4. Voter ID / EPIC (3 letters + 7 digits)
+  const epicRegex = /\b[A-Z]{3}[0-9]{7}\b/g;
+  const epicMatches = text.match(epicRegex) || [];
+  for (const e of epicMatches) {
+    const val = validateVoterId(e);
+    if (val.valid) {
+      findings.voter_id.push({ raw: e, masked: val.masked, type: 'voter_id' });
+    }
+  }
+
+  // 5. Passport (1 letter + 7 digits, preceded by word boundary / context)
+  const passportRegex = /\b[A-PR-WYa-pr-wy][1-9][0-9]{6}\b/g;
+  const passportMatches = text.match(passportRegex) || [];
+  for (const pass of passportMatches) {
+    const val = validatePassport(pass);
+    if (val.valid) {
+      findings.passport.push({ raw: pass, masked: val.masked, type: 'passport' });
     }
   }
 
