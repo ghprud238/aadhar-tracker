@@ -132,7 +132,7 @@ export const api = {
     }
   },
 
-  async addIdentifier(type: 'email' | 'phone', value: string): Promise<Identifier> {
+  async addIdentifier(type: Identifier['type'], value: string): Promise<Identifier> {
     if (useLocalStandalone) {
       return localEngine.addIdentifier(type, value);
     }
@@ -144,6 +144,26 @@ export const api = {
     } catch {
       return localEngine.addIdentifier(type, value);
     }
+  },
+
+  async importFromDigiLocker(): Promise<Identifier[]> {
+    return localEngine.importFromDigiLocker();
+  },
+
+  async getFamilyMembers(): Promise<import('../types').FamilyMember[]> {
+    return localEngine.getFamilyMembers();
+  },
+
+  async addFamilyMember(name: string, relationship: import('../types').FamilyMember['relationship']): Promise<import('../types').FamilyMember> {
+    return localEngine.addFamilyMember(name, relationship);
+  },
+
+  async toggleFamilyMemberBiometrics(memberId: string): Promise<import('../types').FamilyMember | null> {
+    return localEngine.toggleFamilyMemberBiometrics(memberId);
+  },
+
+  async generateVirtualId(): Promise<{ vid: string; formatted: string; validUntil: string }> {
+    return localEngine.generateVirtualId();
   },
 
   async requestVerification(identifierId: string): Promise<{ demo_token: string }> {

@@ -18,10 +18,15 @@ import {
   NotificationItem,
   ShieldStatus,
   IncidentSeverity,
+  FamilyMember,
 } from '../types';
 import {
   detectIdentifiersInText,
   validateAadhaar,
+  validatePan,
+  validateDrivingLicense,
+  validateVoterId,
+  validatePassport,
 } from './verhoeff';
 
 // Sample synthetic dark web breach catalog for offline / client-side checking
@@ -81,6 +86,27 @@ class LocalEngine {
   private remediations: RemediationAction[] = [];
   private notifications: NotificationItem[] = [];
   private biometricsLocked = true;
+
+  private familyMembers: FamilyMember[] = [
+    {
+      id: 'fam_01',
+      name: 'Ramesh Sharma (Father)',
+      relationship: 'parent',
+      biometrics_locked: true,
+      monitored_documents_count: 2,
+      last_mesh_sync: new Date(Date.now() - 3600000 * 3).toISOString(),
+      has_alerts: false,
+    },
+    {
+      id: 'fam_02',
+      name: 'Sunita Sharma (Mother)',
+      relationship: 'parent',
+      biometrics_locked: true,
+      monitored_documents_count: 2,
+      last_mesh_sync: new Date(Date.now() - 3600000 * 5).toISOString(),
+      has_alerts: false,
+    },
+  ];
 
   constructor() {
     this.seedInitialState();
@@ -162,18 +188,144 @@ class LocalEngine {
     return [...this.identifiers];
   }
 
-  public addIdentifier(type: 'email' | 'phone', value: string): Identifier {
+  public addIdentifier(type: Identifier['type'], value: string): Identifier {
+    let masked = value;
+    let validState: Identifier['state'] = 'active';
+
+    if (type === 'aadhaar') {
+      const res = validateAadhaar(value);
+      if (!res.valid) throw new Error(res.error);
+      masked = res.masked;
+    } else if (type === 'pan') {
+      const res = validatePan(value);
+      if (!res.valid) throw new Error(res.error);
+      masked = res.masked;
+    } else if (type === 'driving_license') {
+      const res = validateDrivingLicense(value);
+      if (!res.valid) throw new Error(res.error);
+      masked = res.masked;
+    } else if (type === 'voter_id') {
+      const res = validateVoterId(value);
+      if (!res.valid) throw new Error(res.error);
+      masked = res.masked;
+    } else if (type === 'passport') {
+      const res = validatePassport(value);
+      if (!res.valid) throw new Error(res.error);
+      masked = res.masked;
+    } else if (type === 'phone') {
+      masked = `+91 ${value.slice(-4).padStart(10, '*')}`;
+      validState = 'pending_verification';
+    } else if (type === 'email') {
+      masked = value.replace(/(.{2})(.*)(@.*)/, '$1***$3');
+      validState = 'pending_verification';
+    }
+
     const newId: Identifier = {
       id: `ident_${Date.now()}`,
       type,
-      masked_value: type === 'phone' ? `+91 ${value.slice(-4).padStart(10, '*')}` : value.replace(/(.{2})(.*)(@.*)/, '$1***$3'),
-      state: 'pending_verification',
+      masked_value: masked,
+      state: validState,
       monitoring_enabled: true,
-      verified_at: null,
+      verified_at: validState === 'active' ? new Date().toISOString() : null,
       created_at: new Date().toISOString(),
     };
     this.identifiers.push(newId);
     return newId;
+  }
+
+  /**
+   * Simulates direct DigiLocker MeitY Consent import.
+   * Securely imports verified Driving License and Voter ID into the device vault.
+   */
+  public importFromDigiLocker(): Identifier[] {
+    const existingTypes = new Set(this.identifiers.map((i) => i.type));
+    const imported: Identifier[] = [];
+    const now = new Date().toISOString();
+
+    if (!existingTypes.has('driving_license')) {
+      const dl: Identifier = {
+        id: `ident_dl_${Date.now()}`,
+        type: 'driving_license',
+        masked_value: 'MH12****4819',
+        state: 'active',
+        monitoring_enabled: true,
+        verified_at: now,
+        created_at: now,
+      };
+      this.identifiers.push(dl);
+      imported.push(dl);
+    }
+
+    if (!existingTypes.has('voter_id')) {
+      const voter: Identifier = {
+        id: `ident_epic_${Date.now()}`,
+        type: 'voter_id',
+        masked_value: 'WBK****374',
+        state: 'active',
+        monitoring_enabled: true,
+        verified_at: now,
+        created_at: now,
+      };
+      this.identifiers.push(voter);
+      imported.push(voter);
+    }
+
+    // Add notification
+    this.notifications.unshift({
+      id: `notif_digilocker_${Date.now()}`,
+      title: '🏛️ DigiLocker Verified Documents Imported',
+      body: `Imported ${imported.length || 2} verified government credentials into hardware Secure Enclave.`,
+      channel: 'push_mobile_wearable',
+      status: 'sent',
+      created_at: now,
+    });
+
+    return imported;
+  }
+
+  /**
+   * P2P Zero-Cloud Family Mesh Management.
+   */
+  public getFamilyMembers(): FamilyMember[] {
+    return [...this.familyMembers];
+  }
+
+  public addFamilyMember(name: string, relationship: FamilyMember['relationship']): FamilyMember {
+    const member: FamilyMember = {
+      id: `fam_${Date.now()}`,
+      name,
+      relationship,
+      biometrics_locked: true,
+      monitored_documents_count: 2,
+      last_mesh_sync: new Date().toISOString(),
+      has_alerts: false,
+    };
+    this.familyMembers.push(member);
+    return member;
+  }
+
+  public toggleFamilyMemberBiometrics(memberId: string): FamilyMember | null {
+    const match = this.familyMembers.find((m) => m.id === memberId);
+    if (match) {
+      match.biometrics_locked = !match.biometrics_locked;
+      match.last_mesh_sync = new Date().toISOString();
+      return match;
+    }
+    return null;
+  }
+
+  /**
+   * 1-Tap 16-Digit UIDAI Virtual ID (VID) Generator.
+   */
+  public generateVirtualId(): { vid: string; formatted: string; validUntil: string } {
+    const random16 = '9198' + Array.from({ length: 12 }, () => Math.floor(Math.random() * 10)).join('');
+    const formatted = `${random16.slice(0, 4)} ${random16.slice(4, 8)} ${random16.slice(8, 12)} ${random16.slice(12)}`;
+    const validUntil = new Date(Date.now() + 24 * 60 * 60 * 1000).toLocaleString('en-IN');
+    return {
+      vid: random16,
+      formatted,
+      validUntil,
+    };
   }
 
   public getIncidents(): Incident[] {

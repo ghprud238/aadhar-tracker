@@ -6,12 +6,22 @@ export type IncidentState = 'new' | 'acknowledged' | 'action_in_progress' | 'res
 
 export interface Identifier {
   id: string;
-  type: 'email' | 'phone' | 'aadhaar' | 'pan';
+  type: 'email' | 'phone' | 'aadhaar' | 'pan' | 'driving_license' | 'voter_id' | 'passport';
   masked_value: string;
   state: 'pending_verification' | 'active' | 'paused' | 'revoked';
   monitoring_enabled: boolean;
   verified_at: string | null;
   created_at: string;
+}
+
+export interface FamilyMember {
+  id: string;
+  name: string;
+  relationship: 'parent' | 'spouse' | 'child' | 'other';
+  biometrics_locked: boolean;
+  monitored_documents_count: number;
+  last_mesh_sync: string;
+  has_alerts: boolean;
 }
 
 export interface Incident {
