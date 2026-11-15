@@ -42,6 +42,36 @@ import { antiTamperShield, DeviceIntegrityReport } from './antiTamperShield';
 import { HomoglyphSanitizer } from './homoglyphSanitizer';
 import { ThreatFeedEngine, KAnonymityCheckResult } from './bloomFilter';
 import { BackupRecoveryEngine, VaultBackupData, EncryptedBackupPackage } from './backupRecovery';
+import {
+  TelecomCreditShieldService,
+  SimConnectionInfo,
+  CreditInquiryAlert,
+} from './telecomCreditShield';
+import {
+  UniversalQrScannerService,
+  UniversalScanResult,
+  QrCodeType,
+} from './universalQrScanner';
+import {
+  BhashiniService,
+  SupportedLanguage,
+  SUPPORTED_LANGUAGES,
+  VernacularPhrases,
+} from './bhashiniLocalization';
+import {
+  ImageRedactorService,
+  RedactionResult,
+  BoundingBox,
+} from './imageRedactor';
+import {
+  EvidenceDossierService,
+  ForensicEvidenceCertificate,
+  EvidenceItem,
+} from './evidenceDossier';
+import {
+  MeshHandshakeService,
+  MeshHandshakePayload,
+} from './meshHandshake';
 
 export interface ShieldSdkConfig {
   organizationName?: string;
@@ -174,6 +204,62 @@ export class SurakshaShield {
     return localEngine.generateVirtualId();
   }
 
+  /**
+   * Retrieves active SIM connections registered against the citizen's documents via DoT TAFCOP.
+   */
+  public static getMonitoredSimConnections(): SimConnectionInfo[] {
+    return TelecomCreditShieldService.getMonitoredSimConnections();
+  }
+
+  /**
+   * Retrieves credit inquiries across CIBIL/Experian to detect fraudulent loan attempts.
+   */
+  public static getCreditInquiries(): CreditInquiryAlert[] {
+    return TelecomCreditShieldService.getCreditInquiries();
+  }
+
+  /**
+   * Decodes and cryptographically verifies an identity QR code (Suraksha Pass or UIDAI QR).
+   */
+  public static parseAndVerifyQr(rawString: string): UniversalScanResult {
+    return UniversalQrScannerService.parseAndVerifyQr(rawString);
+  }
+
+  /**
+   * Generates localized emergency voice guidance scripts in 7 Indian languages via Bhashini.
+   */
+  public static getLocalizedStrings(lang?: SupportedLanguage): VernacularPhrases {
+    return BhashiniService.getStrings(lang);
+  }
+
+  /**
+   * Executes canvas-level on-device image auto-redaction on Aadhaar cards.
+   */
+  public static redactDocumentImage(documentType: 'aadhaar' | 'pan' | 'driving_license', recipientEntity?: string): RedactionResult {
+    return ImageRedactorService.redactDocumentImage(documentType, recipientEntity);
+  }
+
+  /**
+   * Generates a Section 63 BSA 2023 / 65B IEA court-admissible forensic evidence certificate.
+   */
+  public static generateSection63Certificate(victimName: string, evidenceItems: EvidenceItem[], deviceModel?: string): ForensicEvidenceCertificate {
+    return EvidenceDossierService.generateSection63Certificate(victimName, evidenceItems, deviceModel);
+  }
+
+  /**
+   * Generates an ephemeral QR handshake payload for zero-touch Family Mesh pairing.
+   */
+  public static generatePairingQrPayload(displayName: string, relationship?: import('../types').FamilyMember['relationship']) {
+    return MeshHandshakeService.generatePairingQrPayload(displayName, relationship);
+  }
+
+  /**
+   * Accepts and activates a scanned family mesh pairing handshake.
+   */
+  public static parseAndAcceptPairing(qrString: string) {
+    return MeshHandshakeService.parseAndAcceptPairing(qrString);
+  }
+
   // Instance wrappers for dependency injection
   public validateAadhaar(rawInput: string): ValidationResult {
     return SurakshaShield.validateAadhaar(rawInput);
@@ -211,4 +297,15 @@ export type {
   KAnonymityCheckResult,
   VaultBackupData,
   EncryptedBackupPackage,
+  SimConnectionInfo,
+  CreditInquiryAlert,
+  UniversalScanResult,
+  QrCodeType,
+  SupportedLanguage,
+  VernacularPhrases,
+  RedactionResult,
+  BoundingBox,
+  ForensicEvidenceCertificate,
+  EvidenceItem,
+  MeshHandshakePayload,
 };

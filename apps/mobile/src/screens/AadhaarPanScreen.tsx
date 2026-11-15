@@ -24,6 +24,8 @@ import {
   CybercrimeComplaintRequest,
 } from '../services/cybercrimeToolkit';
 import { antiTamperShield } from '../services/antiTamperShield';
+import { TelecomCreditShieldService, SimConnectionInfo, CreditInquiryAlert } from '../services/telecomCreditShield';
+import { ForensicEvidenceCertificate, EvidenceItem } from '../services/evidenceDossier';
 
 export const AadhaarPanScreen: React.FC = () => {
   const [lockedConfirmed, setLockedConfirmed] = useState(false);
@@ -51,8 +53,20 @@ export const AadhaarPanScreen: React.FC = () => {
   const [suspectNotes, setSuspectNotes] = useState('AePS micro-ATM withdrawal triggered at unknown CSP outlet.');
   const [generatedFIR, setGeneratedFIR] = useState<CybercrimeComplaintDossier | null>(null);
 
+  // Telecom SIM (TAFCOP) & Credit Radar States
+  const [simModalVisible, setSimModalVisible] = useState(false);
+  const [simConnections, setSimConnections] = useState<SimConnectionInfo[]>([]);
+  const [creditModalVisible, setCreditModalVisible] = useState(false);
+  const [creditInquiries, setCreditInquiries] = useState<CreditInquiryAlert[]>([]);
+
+  // Section 63 BSA Forensic Evidence Package State
+  const [evidenceModalVisible, setEvidenceModalVisible] = useState(false);
+  const [generatedEvidence, setGeneratedEvidence] = useState<ForensicEvidenceCertificate | null>(null);
+
   useEffect(() => {
     handleGenerateVid(true);
+    setSimConnections(api.getSimConnections());
+    setCreditInquiries(api.getCreditInquiries());
   }, []);
 
   const handleGenerateVid = async (isInitial = false) => {
@@ -161,6 +175,63 @@ export const AadhaarPanScreen: React.FC = () => {
       suspectDetails: suspectNotes.trim(),
     });
     setGeneratedFIR(dossier);
+  };
+
+  const handleOpenTAFCOP = () => {
+    Linking.openURL(TelecomCreditShieldService.TAFCOP_PORTAL_URL).catch(() => {
+      Alert.alert('Cannot Open URL', 'Please visit tafcop.sancharsaathi.gov.in in your browser.');
+    });
+  };
+
+  const handleOpenCEIR = () => {
+    Linking.openURL(TelecomCreditShieldService.CEIR_PORTAL_URL).catch(() => {
+      Alert.alert('Cannot Open URL', 'Please visit ceir.gov.in in your browser.');
+    });
+  };
+
+  const handleOpenRBI = () => {
+    Linking.openURL(TelecomCreditShieldService.RBI_OMBUDSMAN_URL).catch(() => {
+      Alert.alert('Cannot Open URL', 'Please visit cms.rbi.org.in in your browser.');
+    });
+  };
+
+  const handleCopyDisputeLetter = (inquiry: CreditInquiryAlert) => {
+    const letter = api.generateLoanDisputeLetter(inquiry, 'Aarav Sharma', 'ABC**4819F');
+    copyToClipboard(letter, 'Dispute Letter Copied');
+    Alert.alert(
+      'RBI Dispute Letter Ready',
+      'The formal complaint letter to the lender and Banking Ombudsman has been copied to your clipboard.'
+    );
+  };
+
+  const handleGenerateEvidence = () => {
+    const mockEvidenceItems: EvidenceItem[] = [
+      {
+        type: 'sms_otp',
+        description: 'AePS Transaction OTP received from VM-AADHAR',
+        sourceReference: 'SMS Header: VM-AADHAR-0192',
+        sha256Digest: 'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855',
+        capturedAt: new Date(Date.now() - 3600000).toISOString(),
+      },
+      {
+        type: 'bank_utr',
+        description: 'Unauthorized Micro-ATM CSP Debit IMPS/AePS',
+        sourceReference: 'Bank UTR: SBIN202611029841',
+        sha256Digest: 'a89c02e5b7b1d3f9821a4f5c9e2b1d3f821a4f5c9e2b1d3f821a4f5c9e2b1d3f',
+        capturedAt: new Date(Date.now() - 1800000).toISOString(),
+      },
+      {
+        type: 'screenshot',
+        description: 'Aadhaar Biometric lock status screen capture',
+        sourceReference: 'IMG_SURAKSHA_20261115_001.png',
+        sha256Digest: '7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069',
+        capturedAt: new Date().toISOString(),
+      },
+    ];
+
+    const cert = api.generateSection63Certificate('Aarav Sharma', mockEvidenceItems, 'iPhone 15 Pro / iOS 18.2');
+    setGeneratedEvidence(cert);
+    setEvidenceModalVisible(true);
   };
 
   return (
@@ -335,6 +406,87 @@ export const AadhaarPanScreen: React.FC = () => {
         </Text>
         <TouchableOpacity style={styles.portalBtn} onPress={handleOpenITD}>
           <Text style={styles.portalBtnText}>🔗 Check Status on Income Tax e-Filing Portal</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Feature 4: DoT Sanchar Saathi & TAFCOP SIM Audit Assistant */}
+      <View style={[styles.card, { borderColor: '#0ea5e9' }]}>
+        <View style={styles.cardHeader}>
+          <Text style={[styles.cardBadge, { color: '#38bdf8' }]}>DOT SANCHAR SAATHI TELECOM DEFENSE</Text>
+          <Text style={styles.cardTitle}>DoT TAFCOP SIM Audit & CEIR Radar</Text>
+        </View>
+        <Text style={styles.cardIntro}>
+          Detect unauthorized mobile numbers registered against your Aadhaar/PAN without your consent.
+          Block stolen handsets on all Indian networks via Central Equipment Identity Register (CEIR).
+        </Text>
+
+        <View style={{ flexDirection: 'row', gap: 8, marginBottom: 8 }}>
+          <TouchableOpacity
+            style={[styles.portalBtn, { flex: 1, backgroundColor: '#0369a1', borderColor: '#0ea5e9' }]}
+            onPress={() => setSimModalVisible(true)}
+          >
+            <Text style={[styles.portalBtnText, { color: '#ffffff' }]}>🔍 Audit SIMs ({simConnections.length} Monitored)</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.portalBtn, { flex: 1, backgroundColor: '#1e293b', borderColor: '#475569' }]}
+            onPress={handleOpenTAFCOP}
+          >
+            <Text style={[styles.portalBtnText, { color: '#cbd5e1' }]}>🔗 TAFCOP Portal</Text>
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity style={styles.portalBtn} onPress={handleOpenCEIR}>
+          <Text style={styles.portalBtnText}>📱 CEIR Portal: Block Lost/Stolen Mobile Handset</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Feature 5: RBI Account Aggregator & Credit Bureau Impersonation Radar */}
+      <View style={[styles.card, { borderColor: '#f59e0b' }]}>
+        <View style={styles.cardHeader}>
+          <Text style={[styles.cardBadge, { color: '#fbbf24' }]}>CIBIL / EXPERIAN / CRIF RADAR</Text>
+          <Text style={styles.cardTitle}>Credit Impersonation & Instant Loan Radar</Text>
+        </View>
+        <Text style={styles.cardIntro}>
+          Monitors unauthorized credit inquiries and BNPL loan requests pulled on your PAN. Generate immediate
+          dispute letters addressed to the lender and the RBI Banking Ombudsman (cms.rbi.org.in).
+        </Text>
+
+        <View style={{ flexDirection: 'row', gap: 8 }}>
+          <TouchableOpacity
+            style={[styles.portalBtn, { flex: 1, backgroundColor: '#b45309', borderColor: '#f59e0b' }]}
+            onPress={() => setCreditModalVisible(true)}
+          >
+            <Text style={[styles.portalBtnText, { color: '#ffffff' }]}>
+              💳 Credit Inquiries ({creditInquiries.filter((i) => !i.authorizedByCitizen).length} Suspicious)
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.portalBtn, { flex: 1, backgroundColor: '#1e293b', borderColor: '#475569' }]}
+            onPress={handleOpenRBI}
+          >
+            <Text style={[styles.portalBtnText, { color: '#cbd5e1' }]}>🏦 RBI Ombudsman</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+
+      {/* Feature 6: Court-Admissible Forensic Evidence Package (Section 63 BSA 2023 / 65B IEA) */}
+      <View style={[styles.card, { borderColor: '#8b5cf6' }]}>
+        <View style={styles.cardHeader}>
+          <Text style={[styles.cardBadge, { color: '#c084fc' }]}>BHARATIYA SAKSHYA ADHINIYAM COMPLIANT</Text>
+          <Text style={styles.cardTitle}>Section 63 BSA Forensic Evidence Package</Text>
+        </View>
+        <Text style={styles.cardIntro}>
+          Replaces legacy Section 65B Indian Evidence Act affidavits (effective 1 July 2024). Packages SMS OTP
+          headers, bank transaction UTRs, and screenshot SHA-256 digests into a court-ready electronic affidavit.
+        </Text>
+
+        <TouchableOpacity
+          style={[styles.portalBtn, { backgroundColor: '#6d28d9', borderColor: '#8b5cf6' }]}
+          onPress={handleGenerateEvidence}
+        >
+          <Text style={[styles.portalBtnText, { color: '#ffffff' }]}>📜 Generate Court Affidavit (BSA Sec 63)</Text>
         </TouchableOpacity>
       </View>
 
@@ -602,6 +754,212 @@ export const AadhaarPanScreen: React.FC = () => {
                       onPress={() => copyToClipboard(generatedFIR.formalComplaintBody, 'Complaint Copied')}
                     >
                       <Text style={styles.btnPrimaryText}>📋 Copy Dossier</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
+            </View>
+          </ScrollView>
+        </View>
+      </Modal>
+      {/* Modal 3: TAFCOP SIM Connections Modal */}
+      <Modal visible={simModalVisible} animationType="slide" transparent>
+        <View style={styles.modalBackdrop}>
+          <ScrollView contentContainerStyle={styles.modalScroll}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>DoT TAFCOP SIM Connections Audit</Text>
+              <Text style={styles.modalSub}>
+                Department of Telecommunications active mobile connections linked to your documents.
+              </Text>
+
+              {simConnections.map((sim) => {
+                const isGhost = sim.status === 'unauthorized_ghost';
+                return (
+                  <View
+                    key={sim.id}
+                    style={[
+                      styles.simCard,
+                      isGhost ? { borderColor: '#ef4444', backgroundColor: '#450a0a' } : { borderColor: '#1e293b' },
+                    ]}
+                  >
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                      <Text style={{ fontSize: 15, fontWeight: '700', color: isGhost ? '#fca5a5' : '#f8fafc', fontFamily: 'monospace' }}>
+                        {sim.mobileNumberMasked}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.simBadge,
+                          isGhost ? { backgroundColor: '#7f1d1d', color: '#fca5a5' } : { backgroundColor: '#064e3b', color: '#6ee7b7' },
+                        ]}
+                      >
+                        {isGhost ? '⚠️ GHOST SIM / UNKNOWN' : '✓ AUTHORIZED'}
+                      </Text>
+                    </View>
+                    <Text style={{ fontSize: 12, color: '#94a3b8' }}>
+                      Operator: <Text style={{ color: '#cbd5e1', fontWeight: '600' }}>{sim.telecomOperator}</Text> • Linked to: <Text style={{ color: '#cbd5e1', fontWeight: '600' }}>{sim.linkedDocument.toUpperCase()}</Text>
+                    </Text>
+                    <Text style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>
+                      Registered: {sim.issuedDate}
+                    </Text>
+                    {isGhost && (
+                      <View style={{ marginTop: 8, padding: 8, backgroundColor: '#571010', borderRadius: 6 }}>
+                        <Text style={{ fontSize: 11, color: '#fee2e2', fontWeight: '600' }}>
+                          CRITICAL: This connection was NOT authorized by you. Disconnect immediately on the DoT TAFCOP portal.
+                        </Text>
+                      </View>
+                    )}
+                  </View>
+                );
+              })}
+
+              <View style={styles.modalButtons}>
+                <TouchableOpacity
+                  style={styles.btnSecondary}
+                  onPress={() => setSimModalVisible(false)}
+                >
+                  <Text style={styles.btnSecondaryText}>Close</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.btnPrimary, { backgroundColor: '#0284c7' }]}
+                  onPress={handleOpenTAFCOP}
+                >
+                  <Text style={styles.btnPrimaryText}>Open TAFCOP Portal</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
+        </View>
+      </Modal>
+
+      {/* Modal 4: Credit Inquiries & RBI Dispute Modal */}
+      <Modal visible={creditModalVisible} animationType="slide" transparent>
+        <View style={styles.modalBackdrop}>
+          <ScrollView contentContainerStyle={styles.modalScroll}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Credit Inquiries & Impersonation Radar</Text>
+              <Text style={styles.modalSub}>
+                CIBIL / Experian soft & hard pulls registered on your PAN.
+              </Text>
+
+              {creditInquiries.map((inq) => {
+                const isFraud = !inq.authorizedByCitizen;
+                return (
+                  <View
+                    key={inq.id}
+                    style={[
+                      styles.simCard,
+                      isFraud ? { borderColor: '#ef4444', backgroundColor: '#450a0a' } : { borderColor: '#1e293b' },
+                    ]}
+                  >
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                      <Text style={{ fontSize: 14, fontWeight: '700', color: isFraud ? '#fca5a5' : '#f8fafc' }}>
+                        {inq.lenderName}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.simBadge,
+                          isFraud ? { backgroundColor: '#7f1d1d', color: '#fca5a5' } : { backgroundColor: '#064e3b', color: '#6ee7b7' },
+                        ]}
+                      >
+                        {isFraud ? '🚨 UNAUTHORIZED PULL' : '✓ AUTHORIZED'}
+                      </Text>
+                    </View>
+                    <Text style={{ fontSize: 12, color: '#94a3b8' }}>
+                      Type: <Text style={{ color: '#cbd5e1', fontWeight: '600' }}>{inq.inquiryType.toUpperCase()}</Text> • Bureau: <Text style={{ color: '#cbd5e1', fontWeight: '600' }}>{inq.bureauReported}</Text>
+                    </Text>
+                    {inq.amountRequestedInr && (
+                      <Text style={{ fontSize: 12, color: '#f59e0b', fontWeight: '700', marginTop: 2 }}>
+                        Loan Amount Attempted: ₹{inq.amountRequestedInr.toLocaleString('en-IN')}
+                      </Text>
+                    )}
+                    <Text style={{ fontSize: 11, color: '#64748b', marginTop: 2 }}>
+                      Inquiry Date: {inq.inquiryDate}
+                    </Text>
+                    {isFraud && (
+                      <TouchableOpacity
+                        style={{ marginTop: 8, padding: 8, backgroundColor: '#b45309', borderRadius: 6, alignItems: 'center' }}
+                        onPress={() => handleCopyDisputeLetter(inq)}
+                      >
+                        <Text style={{ fontSize: 12, color: '#ffffff', fontWeight: '700' }}>
+                          ⚖️ Copy RBI & CIBIL Dispute Letter
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+                  </View>
+                );
+              })}
+
+              <View style={styles.modalButtons}>
+                <TouchableOpacity
+                  style={styles.btnSecondary}
+                  onPress={() => setCreditModalVisible(false)}
+                >
+                  <Text style={styles.btnSecondaryText}>Close</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.btnPrimary, { backgroundColor: '#b45309' }]}
+                  onPress={handleOpenRBI}
+                >
+                  <Text style={styles.btnPrimaryText}>RBI Ombudsman</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
+        </View>
+      </Modal>
+
+      {/* Modal 5: Section 63 BSA Forensic Evidence Package Modal */}
+      <Modal visible={evidenceModalVisible} animationType="slide" transparent>
+        <View style={styles.modalBackdrop}>
+          <ScrollView contentContainerStyle={styles.modalScroll}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Section 63 BSA 2023 Electronic Evidence</Text>
+              <Text style={styles.modalSub}>
+                Statutory certificate for Cyber Police Stations & Judicial Magistrate Courts under Bharatiya Sakshya Adhiniyam, 2023.
+              </Text>
+
+              {generatedEvidence && (
+                <View>
+                  <View style={{ backgroundColor: '#1e1b4b', padding: 12, borderRadius: 8, borderWidth: 1, borderColor: '#6366f1', marginBottom: 12 }}>
+                    <Text style={{ fontSize: 11, fontWeight: '800', color: '#c7d2fe', marginBottom: 4 }}>
+                      CERTIFICATE ID: {generatedEvidence.certificateId}
+                    </Text>
+                    <Text style={{ fontSize: 11, color: '#93c5fd', marginBottom: 2 }}>
+                      Citation: {generatedEvidence.statutoryActCitation}
+                    </Text>
+                    <Text style={{ fontSize: 10, color: '#cbd5e1', fontFamily: 'monospace' }}>
+                      Manifest SHA-256: {generatedEvidence.manifestHash}
+                    </Text>
+                  </View>
+
+                  <Text style={styles.inputLabel}>Included Evidence Items ({generatedEvidence.evidenceItems.length}):</Text>
+                  {generatedEvidence.evidenceItems.map((item, idx) => (
+                    <View key={idx} style={{ backgroundColor: '#090d16', padding: 8, borderRadius: 6, borderWidth: 1, borderColor: '#1e293b', marginBottom: 6 }}>
+                      <Text style={{ fontSize: 11, fontWeight: '700', color: '#f8fafc' }}>
+                        [{item.type.toUpperCase()}] {item.description}
+                      </Text>
+                      <Text style={{ fontSize: 10, color: '#94a3b8' }}>Source: {item.sourceReference}</Text>
+                      <Text style={{ fontSize: 9, color: '#64748b', fontFamily: 'monospace' }}>SHA-256: {item.sha256Digest.slice(0, 24)}...</Text>
+                    </View>
+                  ))}
+
+                  <Text style={[styles.inputLabel, { marginTop: 8 }]}>Statutory Affidavit Text:</Text>
+                  <ScrollView style={styles.dossierScrollBox}>
+                    <Text style={styles.dossierText}>{generatedEvidence.affidavitBody}</Text>
+                  </ScrollView>
+
+                  <View style={styles.modalButtons}>
+                    <TouchableOpacity
+                      style={styles.btnSecondary}
+                      onPress={() => setEvidenceModalVisible(false)}
+                    >
+                      <Text style={styles.btnSecondaryText}>Close</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.btnPrimary, { backgroundColor: '#6d28d9' }]}
+                      onPress={() => copyToClipboard(generatedEvidence.affidavitBody, 'Section 63 Affidavit Copied')}
+                    >
+                      <Text style={styles.btnPrimaryText}>📋 Copy Affidavit</Text>
                     </TouchableOpacity>
                   </View>
                 </View>
@@ -1060,5 +1418,20 @@ const styles = StyleSheet.create({
     color: '#cbd5e1',
     fontFamily: 'monospace',
     lineHeight: 14,
+  },
+  simCard: {
+    backgroundColor: '#090d16',
+    borderWidth: 1,
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 8,
+  },
+  simBadge: {
+    fontSize: 10,
+    fontWeight: '800',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 4,
+    overflow: 'hidden',
   },
 });

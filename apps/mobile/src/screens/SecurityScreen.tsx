@@ -51,6 +51,12 @@ export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefre
   const [restorePassphrase, setRestorePassphrase] = useState('');
   const [restoringBackup, setRestoringBackup] = useState(false);
 
+  // 1-Scan Ephemeral QR Handshake Modal State
+  const [pairingModalVisible, setPairingModalVisible] = useState(false);
+  const [pairingQrPayload, setPairingQrPayload] = useState('');
+  const [pairingInputText, setPairingInputText] = useState('');
+  const [pairingProcessing, setPairingProcessing] = useState(false);
+
   const fetchFamilyMembers = async () => {
     try {
       const members = await api.getFamilyMembers();
@@ -163,6 +169,38 @@ export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefre
       Alert.alert('Sync Error', err.message);
     } finally {
       setSyncingThreats(false);
+    }
+  };
+
+  const handleStartPairing = () => {
+    const payload = api.generatePairingQrPayload('Elderly Parent Companion', 'parent');
+    setPairingQrPayload(payload.qrPayload);
+    setPairingInputText('');
+    setPairingModalVisible(true);
+  };
+
+  const handleAcceptPairingPayload = async () => {
+    if (!pairingInputText.trim()) {
+      return Alert.alert('Pairing Code Required', 'Please paste the suraksha://mesh/pair payload.');
+    }
+    setPairingProcessing(true);
+    try {
+      const result = await api.parseAndAcceptPairing(pairingInputText.trim());
+      if (result.success && result.member) {
+        Alert.alert(
+          '✓ Zero-Touch Mesh Paired!',
+          `Successfully paired with ${result.member.name} (${result.member.relationship.toUpperCase()}) over encrypted local Wi-Fi.\n\nEphemeral Session Key established. Biometric sync active.`
+        );
+        setPairingModalVisible(false);
+        setPairingInputText('');
+        await fetchFamilyMembers();
+      } else {
+        Alert.alert('Pairing Failed', result.error || 'Invalid or expired ephemeral QR handshake.');
+      }
+    } catch (err: any) {
+      Alert.alert('Pairing Error', err.message);
+    } finally {
+      setPairingProcessing(false);
     }
   };
 
@@ -313,12 +351,20 @@ export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefre
             <Text style={[styles.cardBadge, { color: '#34d399' }]}>ZERO-CLOUD LOCAL P2P MESH</Text>
             <Text style={styles.cardTitle}>Family Identity Shield</Text>
           </View>
-          <TouchableOpacity
-            style={styles.addMemberBtn}
-            onPress={() => setAddMemberModal(true)}
-          >
-            <Text style={styles.addMemberBtnText}>+ Add Member</Text>
-          </TouchableOpacity>
+          <View style={{ flexDirection: 'row', gap: 6 }}>
+            <TouchableOpacity
+              style={[styles.addMemberBtn, { backgroundColor: '#065f46', borderColor: '#10b981' }]}
+              onPress={handleStartPairing}
+            >
+              <Text style={styles.addMemberBtnText}>📲 1-Scan Pair</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.addMemberBtn}
+              onPress={() => setAddMemberModal(true)}
+            >
+              <Text style={styles.addMemberBtnText}>+ Add</Text>
+            </TouchableOpacity>
+          </View>
         </View>
 
         <Text style={styles.cardDesc}>
@@ -737,6 +783,72 @@ export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefre
                     <ActivityIndicator color="#fff" size="small" />
                   ) : (
                     <Text style={[styles.btnPrimaryText, { color: '#090d16' }]}>Decrypt & Restore</Text>
+                  )}
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
+        </View>
+      </Modal>
+      {/* Modal 4: 1-Scan Ephemeral QR Handshake Modal */}
+      <Modal visible={pairingModalVisible} animationType="slide" transparent>
+        <View style={styles.modalBackdrop}>
+          <ScrollView contentContainerStyle={styles.modalScroll}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>1-Scan Ephemeral QR Mesh Pairing</Text>
+              <Text style={styles.modalSub}>
+                Zero-touch pairing for elderly parents. Uses 15-minute ephemeral URI tokens over local Wi-Fi.
+              </Text>
+
+              <Text style={styles.inputLabel}>Pairing Token (Active for 15 minutes):</Text>
+              <View style={{ backgroundColor: '#064e3b', padding: 12, borderRadius: 8, borderWidth: 1, borderColor: '#10b981', marginBottom: 10 }}>
+                <Text style={{ fontSize: 11, fontWeight: '800', color: '#6ee7b7', marginBottom: 4 }}>
+                  📶 LOCAL WI-FI PAIRING PAYLOAD
+                </Text>
+                <Text style={{ fontSize: 10, color: '#d1fae5', fontFamily: 'monospace', lineHeight: 14 }}>
+                  {pairingQrPayload}
+                </Text>
+              </View>
+
+              <TouchableOpacity
+                style={[styles.btnOutline, { borderColor: '#10b981', backgroundColor: '#064e3b', marginBottom: 16 }]}
+                onPress={() => {
+                  antiTamperShield.safeCopyToClipboard(pairingQrPayload, 'Pairing URI');
+                  Alert.alert('Pairing URI Copied', 'Token copied to clipboard. Share with parent via AirDrop/Local Share or scan QR.');
+                }}
+              >
+                <Text style={[styles.btnOutlineText, { color: '#6ee7b7' }]}>📋 Copy Pairing URI</Text>
+              </TouchableOpacity>
+
+              <View style={{ borderTopWidth: 1, borderTopColor: '#1e293b', paddingTop: 14, marginBottom: 12 }}>
+                <Text style={[styles.inputLabel, { color: '#38bdf8' }]}>Or Join Existing Family Mesh (Enter Parent's Code):</Text>
+                <TextInput
+                  style={[styles.input, { height: 70, textAlignVertical: 'top', fontFamily: 'monospace', fontSize: 11 }]}
+                  multiline
+                  placeholder="Paste suraksha://mesh/pair?data=... payload"
+                  placeholderTextColor="#64748b"
+                  value={pairingInputText}
+                  onChangeText={setPairingInputText}
+                />
+              </View>
+
+              <View style={styles.modalButtons}>
+                <TouchableOpacity
+                  style={styles.btnSecondary}
+                  onPress={() => setPairingModalVisible(false)}
+                  disabled={pairingProcessing}
+                >
+                  <Text style={styles.btnSecondaryText}>Close</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.btnPrimary, { backgroundColor: '#10b981' }]}
+                  onPress={handleAcceptPairingPayload}
+                  disabled={pairingProcessing}
+                >
+                  {pairingProcessing ? (
+                    <ActivityIndicator color="#fff" size="small" />
+                  ) : (
+                    <Text style={styles.btnPrimaryText}>✓ Connect & Pair Mesh</Text>
                   )}
                 </TouchableOpacity>
               </View>

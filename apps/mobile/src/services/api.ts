@@ -15,6 +15,12 @@ import {
   NotificationItem,
 } from '../types';
 import { localEngine } from './localEngine';
+import { TelecomCreditShieldService } from './telecomCreditShield';
+import { UniversalQrScannerService } from './universalQrScanner';
+import { BhashiniService, SupportedLanguage } from './bhashiniLocalization';
+import { ImageRedactorService } from './imageRedactor';
+import { EvidenceDossierService, EvidenceItem } from './evidenceDossier';
+import { MeshHandshakeService } from './meshHandshake';
 
 let API_BASE_URL = 'http://localhost:8000/api/v1';
 let authToken: string | null = null;
@@ -458,5 +464,59 @@ export const api = {
     } catch {
       return localEngine.triggerCanaryTest(presetId);
     }
+  },
+
+  // DoT TAFCOP Telecom & RBI Credit Shield
+  getSimConnections() {
+    return TelecomCreditShieldService.getMonitoredSimConnections();
+  },
+
+  getCreditInquiries() {
+    return TelecomCreditShieldService.getCreditInquiries();
+  },
+
+  generateLoanDisputeLetter(inquiry: import('./telecomCreditShield').CreditInquiryAlert, victimName: string, panMasked: string) {
+    return TelecomCreditShieldService.generateLoanDisputeLetter(inquiry, victimName, panMasked);
+  },
+
+  // Universal Offline QR Scanner
+  parseAndVerifyQr(rawString: string) {
+    return UniversalQrScannerService.parseAndVerifyQr(rawString);
+  },
+
+  // Bhashini Vernacular Localization
+  getLocalizedStrings(lang?: SupportedLanguage) {
+    return BhashiniService.getStrings(lang);
+  },
+
+  setLanguage(lang: SupportedLanguage) {
+    BhashiniService.setLanguage(lang);
+  },
+
+  getLanguage(): SupportedLanguage {
+    return BhashiniService.getLanguage();
+  },
+
+  // Image Canvas Auto-Redactor
+  redactDocumentImage(docType: 'aadhaar' | 'pan' | 'driving_license', recipientEntity?: string) {
+    return ImageRedactorService.redactDocumentImage(docType, recipientEntity);
+  },
+
+  // Section 63 BSA Forensic Evidence Package
+  generateSection63Certificate(victimName: string, evidenceItems: EvidenceItem[], deviceModel?: string) {
+    return EvidenceDossierService.generateSection63Certificate(victimName, evidenceItems, deviceModel);
+  },
+
+  // Family Mesh Ephemeral Handshake
+  generatePairingQrPayload(displayName: string, relationship?: import('../types').FamilyMember['relationship']) {
+    return MeshHandshakeService.generatePairingQrPayload(displayName, relationship);
+  },
+
+  async parseAndAcceptPairing(qrString: string) {
+    const res = MeshHandshakeService.parseAndAcceptPairing(qrString);
+    if (res.success && res.member) {
+      await localEngine.addFamilyMember(res.member.name, res.member.relationship);
+    }
+    return res;
   },
 };
