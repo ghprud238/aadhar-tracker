@@ -14,6 +14,7 @@ import {
 import { api } from '../services/api';
 import {
   generateCertifiedIdentityPass,
+  verifyCertifiedIdentityPass,
   CertifiedIdentityPass,
   PassRequest,
 } from '../services/passGenerator';
@@ -22,6 +23,7 @@ import {
   CybercrimeComplaintDossier,
   CybercrimeComplaintRequest,
 } from '../services/cybercrimeToolkit';
+import { antiTamperShield } from '../services/antiTamperShield';
 
 export const AadhaarPanScreen: React.FC = () => {
   const [lockedConfirmed, setLockedConfirmed] = useState(false);
@@ -95,11 +97,21 @@ export const AadhaarPanScreen: React.FC = () => {
     });
   };
 
-  const copyToClipboard = (text: string, title = 'Copied') => {
-    if (typeof navigator !== 'undefined' && navigator.clipboard) {
-      navigator.clipboard.writeText(text);
+  const copyToClipboard = (text: string, title = 'Credential') => {
+    antiTamperShield.safeCopyToClipboard(text, title);
+  };
+
+  const handleVerifyPass = () => {
+    if (!generatedPass) return;
+    const res = verifyCertifiedIdentityPass(generatedPass);
+    if (res.verified) {
+      Alert.alert(
+        '✓ Cryptographic Signature Valid',
+        `Ed25519 asymmetric signature verified offline!\n\nSigner Public Key:\n${generatedPass.signerPublicKey.slice(0, 32)}...\n\nSignature:\n${generatedPass.signatureHex.slice(0, 32)}...\n\nValid Until: ${generatedPass.validUntil}\n\nTamper Check: PASS (Zero-Knowledge Offline Signature)`
+      );
+    } else {
+      Alert.alert('Verification Failed', res.error || 'Signature mismatch or pass expired.');
     }
-    Alert.alert(title, 'Content copied to clipboard successfully.');
   };
 
   const handleConfirmLock = async () => {
@@ -419,8 +431,19 @@ export const AadhaarPanScreen: React.FC = () => {
                     <Text style={styles.passPurposeText}>PURPOSE: {generatedPass.purposeText.toUpperCase()}</Text>
 
                     <View style={styles.qrMockBox}>
-                      <Text style={styles.qrMockIcon}>🏁</Text>
-                      <Text style={styles.qrMockText}>Tamper-Proof QR Checksum: SHA256-ED25519 Verified</Text>
+                      <Text style={styles.qrMockIcon}>🔐</Text>
+                      <View style={{ flex: 1 }}>
+                        <Text style={styles.qrMockText}>Ed25519 Asymmetric Signature Attached</Text>
+                        <Text style={{ fontSize: 9, color: '#93c5fd', fontFamily: 'monospace' }}>
+                          Pubkey: {generatedPass.signerPublicKey.slice(0, 16)}... • Sig: {generatedPass.signatureHex.slice(0, 16)}...
+                        </Text>
+                      </View>
+                      <TouchableOpacity
+                        style={{ backgroundColor: '#0284c7', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 4 }}
+                        onPress={handleVerifyPass}
+                      >
+                        <Text style={{ color: '#fff', fontSize: 10, fontWeight: '700' }}>Verify</Text>
+                      </TouchableOpacity>
                     </View>
                   </View>
 

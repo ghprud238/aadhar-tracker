@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { api } from './src/services/api';
+import { localEngine } from './src/services/localEngine';
 import { UserSession } from './src/types';
 import { DashboardScreen } from './src/screens/DashboardScreen';
 import { IdentitiesScreen } from './src/screens/IdentitiesScreen';
@@ -38,6 +39,7 @@ export default function App() {
 
   const initApp = async () => {
     try {
+      await localEngine.hydrate();
       const current = await api.getSession();
       setSession(current);
       if (current) {

@@ -26,6 +26,7 @@ import {
 
 import {
   generateCertifiedIdentityPass,
+  verifyCertifiedIdentityPass,
   PassRequest,
   CertifiedIdentityPass,
 } from './passGenerator';
@@ -37,6 +38,10 @@ import {
 } from './cybercrimeToolkit';
 
 import { localEngine } from './localEngine';
+import { antiTamperShield, DeviceIntegrityReport } from './antiTamperShield';
+import { HomoglyphSanitizer } from './homoglyphSanitizer';
+import { ThreatFeedEngine, KAnonymityCheckResult } from './bloomFilter';
+import { BackupRecoveryEngine, VaultBackupData, EncryptedBackupPackage } from './backupRecovery';
 
 export interface ShieldSdkConfig {
   organizationName?: string;
@@ -127,6 +132,42 @@ export class SurakshaShield {
   }
 
   /**
+   * Verifies an offline cryptographic signature on a CertifiedIdentityPass.
+   * Can be executed by verifiers completely offline with zero server dependency.
+   */
+  public static verifyCertifiedIdentityPass(pass: CertifiedIdentityPass): { verified: boolean; error?: string } {
+    return verifyCertifiedIdentityPass(pass);
+  }
+
+  /**
+   * Evaluates the host device for root, jailbreak, debugger, or automated testing environments.
+   */
+  public static checkDeviceIntegrity(): DeviceIntegrityReport {
+    return antiTamperShield.checkDeviceIntegrity();
+  }
+
+  /**
+   * Sanitizes unstructured text by stripping zero-width characters and normalizing homoglyphs.
+   */
+  public static sanitizeText(text: string): string {
+    return HomoglyphSanitizer.sanitize(text);
+  }
+
+  /**
+   * Performs an on-device K-Anonymity dark web breach scan using the local Bloom Filter.
+   */
+  public static checkIdentifierThreat(value: string): KAnonymityCheckResult {
+    return ThreatFeedEngine.checkIdentifier(value);
+  }
+
+  /**
+   * Safely copies sensitive credentials to clipboard and schedules automatic 45-second memory purge.
+   */
+  public static safeCopyToClipboard(text: string, label?: string): void {
+    antiTamperShield.safeCopyToClipboard(text, label);
+  }
+
+  /**
    * Generates a 16-digit disposable UIDAI Virtual ID (VID) with Verhoeff checksum.
    */
   public static generateVirtualId(): { vid: string; formatted: string; validUntil: string } {
@@ -166,4 +207,8 @@ export type {
   CertifiedIdentityPass,
   CybercrimeComplaintRequest,
   CybercrimeComplaintDossier,
+  DeviceIntegrityReport,
+  KAnonymityCheckResult,
+  VaultBackupData,
+  EncryptedBackupPackage,
 };

@@ -232,7 +232,30 @@ export const api = {
   },
 
   async deleteIdentifier(identifierId: string): Promise<{ deleted: boolean }> {
-    return { deleted: true };
+    if (useLocalStandalone) {
+      return localEngine.deleteIdentifier(identifierId);
+    }
+    try {
+      return await request<{ deleted: boolean }>(`/identifiers/${identifierId}`, { method: 'DELETE' });
+    } catch {
+      return localEngine.deleteIdentifier(identifierId);
+    }
+  },
+
+  exportVaultBackup(passphrase: string) {
+    return localEngine.exportVaultBackup(passphrase);
+  },
+
+  async restoreVaultBackup(armored: string, passphrase: string) {
+    return localEngine.restoreVaultBackup(armored, passphrase);
+  },
+
+  checkIdentifierThreat(value: string) {
+    return localEngine.checkIdentifierThreat(value);
+  },
+
+  async syncThreatFeedDeltas() {
+    return localEngine.syncThreatFeedDeltas();
   },
 
   // Scans & Incidents

@@ -28,6 +28,9 @@ import {
   validateVoterId,
   validatePassport,
 } from './verhoeff';
+import { encryptedStorage } from './encryptedStorage';
+import { ThreatFeedEngine, KAnonymityCheckResult } from './bloomFilter';
+import { BackupRecoveryEngine, VaultBackupData, EncryptedBackupPackage } from './backupRecovery';
 
 // Sample synthetic dark web breach catalog for offline / client-side checking
 const EMBEDDED_BREACH_CATALOG = [
@@ -110,6 +113,48 @@ class LocalEngine {
 
   constructor() {
     this.seedInitialState();
+    // Non-blocking background hydration on launch
+    this.hydrate().catch((e) => console.warn('Hydration error:', e));
+  }
+
+  /**
+   * Hydrates vault data from hardware-backed encrypted storage.
+   */
+  public async hydrate(): Promise<void> {
+    try {
+      const savedIdentifiers = await encryptedStorage.loadJson<Identifier[] | null>('suraksha_vault_identifiers', null);
+      if (savedIdentifiers && Array.isArray(savedIdentifiers) && savedIdentifiers.length > 0) {
+        this.identifiers = savedIdentifiers;
+      }
+      const savedFamily = await encryptedStorage.loadJson<FamilyMember[] | null>('suraksha_vault_family', null);
+      if (savedFamily && Array.isArray(savedFamily) && savedFamily.length > 0) {
+        this.familyMembers = savedFamily;
+      }
+      const savedSession = await encryptedStorage.loadJson<UserSession | null>('suraksha_vault_session', null);
+      if (savedSession) {
+        this.session = savedSession;
+      }
+      const savedBioLock = await encryptedStorage.loadJson<boolean | null>('suraksha_vault_biolock', null);
+      if (savedBioLock !== null) {
+        this.biometricsLocked = savedBioLock;
+      }
+    } catch (e) {
+      console.warn('Failed to hydrate from encrypted storage:', e);
+    }
+  }
+
+  /**
+   * Persists mutable vault collections to hardware-backed encrypted storage.
+   */
+  private async persist(): Promise<void> {
+    try {
+      await encryptedStorage.saveJson('suraksha_vault_identifiers', this.identifiers);
+      await encryptedStorage.saveJson('suraksha_vault_family', this.familyMembers);
+      await encryptedStorage.saveJson('suraksha_vault_session', this.session);
+      await encryptedStorage.saveJson('suraksha_vault_biolock', this.biometricsLocked);
+    } catch (e) {
+      console.warn('Failed to persist to encrypted storage:', e);
+    }
   }
 
   private seedInitialState() {
@@ -131,6 +176,7 @@ class LocalEngine {
 
   public setSession(session: UserSession | null): void {
     this.session = session;
+    this.persist();
   }
 
   public loginWithGoogle(email: string, fullName: string): UserSession {
@@ -143,11 +189,13 @@ class LocalEngine {
       session_id: 'sess_gauth_' + Math.random().toString(36).substring(2, 10),
     };
     this.session = newSession;
+    this.persist();
     return newSession;
   }
 
   public logout(): void {
     this.session = null;
+    this.persist();
   }
 
   public getCompanionGlance(): CompanionGlance {
@@ -230,7 +278,14 @@ class LocalEngine {
       created_at: new Date().toISOString(),
     };
     this.identifiers.push(newId);
+    this.persist();
     return newId;
+  }
+
+  public deleteIdentifier(id: string): { deleted: boolean } {
+    this.identifiers = this.identifiers.filter((i) => i.id !== id);
+    this.persist();
+    return { deleted: true };
   }
 
   /**
@@ -270,6 +325,8 @@ class LocalEngine {
       imported.push(voter);
     }
 
+    this.persist();
+
     // Add notification
     this.notifications.unshift({
       id: `notif_digilocker_${Date.now()}`,
@@ -301,6 +358,7 @@ class LocalEngine {
       has_alerts: false,
     };
     this.familyMembers.push(member);
+    this.persist();
     return member;
   }
 
@@ -309,6 +367,7 @@ class LocalEngine {
     if (match) {
       match.biometrics_locked = !match.biometrics_locked;
       match.last_mesh_sync = new Date().toISOString();
+      this.persist();
       return match;
     }
     return null;
@@ -621,6 +680,54 @@ class LocalEngine {
         { stage: '6. On-Device Alert Feed', status: 'PASS', detail: 'Pushed to local alerts view' },
       ],
     };
+  }
+
+  /**
+   * Generates a Zero-Knowledge Encrypted Backup of all local vault items.
+   */
+  public exportVaultBackup(passphrase: string): EncryptedBackupPackage {
+    const backup: VaultBackupData = {
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      identifiers: [...this.identifiers],
+      incidents: [...this.incidents],
+      familyMembers: [...this.familyMembers],
+    };
+    return BackupRecoveryEngine.createEncryptedBackup(backup, passphrase);
+  }
+
+  /**
+   * Restores an encrypted vault backup from armored text.
+   */
+  public async restoreVaultBackup(
+    armoredText: string,
+    passphrase: string
+  ): Promise<{ restoredIdentifiers: number; restoredFamily: number }> {
+    const data = BackupRecoveryEngine.restoreEncryptedBackup(armoredText, passphrase);
+    this.identifiers = data.identifiers;
+    this.familyMembers = data.familyMembers;
+    if (data.incidents && Array.isArray(data.incidents)) {
+      this.incidents = data.incidents;
+    }
+    await this.persist();
+    return {
+      restoredIdentifiers: data.identifiers.length,
+      restoredFamily: data.familyMembers.length,
+    };
+  }
+
+  /**
+   * Runs an on-device K-Anonymity dark web breach scan via the Bloom filter.
+   */
+  public checkIdentifierThreat(value: string): KAnonymityCheckResult {
+    return ThreatFeedEngine.checkIdentifier(value);
+  }
+
+  /**
+   * Synchronizes differential threat feeds into the local Bloom filter.
+   */
+  public async syncThreatFeedDeltas() {
+    return ThreatFeedEngine.syncDeltaFeeds();
   }
 }
 

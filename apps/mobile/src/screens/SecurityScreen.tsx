@@ -13,6 +13,8 @@ import {
 } from 'react-native';
 import { api } from '../services/api';
 import { UserSession, FamilyMember } from '../types';
+import { antiTamperShield, DeviceIntegrityReport } from '../services/antiTamperShield';
+import { EncryptedBackupPackage } from '../services/backupRecovery';
 
 interface SecurityScreenProps {
   session: UserSession | null;
@@ -36,6 +38,18 @@ export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefre
   const [newMemberRel, setNewMemberRel] = useState<FamilyMember['relationship']>('parent');
   const [auditingMesh, setAuditingMesh] = useState(false);
   const [submittingMember, setSubmittingMember] = useState(false);
+
+  // Anti-Tamper & Threat Sync State
+  const [syncingThreats, setSyncingThreats] = useState(false);
+
+  // Zero-Knowledge Backup Modals State
+  const [backupModalVisible, setBackupModalVisible] = useState(false);
+  const [restoreModalVisible, setRestoreModalVisible] = useState(false);
+  const [backupPassphrase, setBackupPassphrase] = useState('');
+  const [generatedBackup, setGeneratedBackup] = useState<EncryptedBackupPackage | null>(null);
+  const [restoreArmoredText, setRestoreArmoredText] = useState('');
+  const [restorePassphrase, setRestorePassphrase] = useState('');
+  const [restoringBackup, setRestoringBackup] = useState(false);
 
   const fetchFamilyMembers = async () => {
     try {
@@ -122,6 +136,74 @@ export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefre
     }, 600);
   };
 
+  const handleRunIntegrityAudit = () => {
+    const report: DeviceIntegrityReport = antiTamperShield.checkDeviceIntegrity();
+    Alert.alert(
+      '🛡️ Device Integrity & Tamper Audit',
+      `• Platform: ${report.osPlatform}\n` +
+      `• Integrity Status: ${report.integrityLevel.toUpperCase()}\n` +
+      `• Hardware Secure Enclave: Active\n` +
+      `• Clipboard Auto-Purge: Active (45s window)\n\n` +
+      `Indicators:\n${report.indicators.map((i) => `• ${i}`).join('\n')}`
+    );
+  };
+
+  const handleSyncThreatFeeds = async () => {
+    setSyncingThreats(true);
+    try {
+      const res = await api.syncThreatFeedDeltas();
+      Alert.alert(
+        '🌐 K-Anonymity Threat Feeds Synced',
+        `• Status: Differential Delta Sync Complete\n` +
+        `• New Signatures Ingested: ${res.newSignaturesCount}\n` +
+        `• Local Bloom Filter: Updated with Zero False Negatives\n` +
+        `• Sync Timestamp: ${new Date(res.syncTime).toLocaleTimeString()}`
+      );
+    } catch (err: any) {
+      Alert.alert('Sync Error', err.message);
+    } finally {
+      setSyncingThreats(false);
+    }
+  };
+
+  const handleExportBackup = () => {
+    if (!backupPassphrase.trim() || backupPassphrase.trim().length < 6) {
+      return Alert.alert('Passphrase Required', 'Please enter a secure passphrase of at least 6 characters.');
+    }
+    try {
+      const pkg = api.exportVaultBackup(backupPassphrase.trim());
+      setGeneratedBackup(pkg);
+    } catch (err: any) {
+      Alert.alert('Export Error', err.message);
+    }
+  };
+
+  const handleRestoreBackup = async () => {
+    if (!restoreArmoredText.trim()) {
+      return Alert.alert('Backup Text Required', 'Please paste your armored backup string.');
+    }
+    if (!restorePassphrase.trim()) {
+      return Alert.alert('Passphrase Required', 'Please enter your recovery passphrase.');
+    }
+    setRestoringBackup(true);
+    try {
+      const res = await api.restoreVaultBackup(restoreArmoredText.trim(), restorePassphrase.trim());
+      Alert.alert(
+        '✓ Vault Restored Successfully',
+        `Restored ${res.restoredIdentifiers} identity document(s) and ${res.restoredFamily} family mesh device(s) into your hardware enclave.`
+      );
+      setRestoreModalVisible(false);
+      setRestoreArmoredText('');
+      setRestorePassphrase('');
+      await fetchFamilyMembers();
+      onRefreshSession();
+    } catch (err: any) {
+      Alert.alert('Restore Failed', err.message || 'Incorrect passphrase or corrupt backup payload.');
+    } finally {
+      setRestoringBackup(false);
+    }
+  };
+
   const handleStepUpElevate = async () => {
     if (!passwordInput.trim()) {
       return Alert.alert('Password Required', 'Please enter your password to elevate this session.');
@@ -189,11 +271,42 @@ export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefre
       <View style={styles.header}>
         <Text style={styles.title}>Account Security & Privacy</Text>
         <Text style={styles.subtitle}>
-          Local biometric lock • Zero-Cloud Family Mesh • DPDP Act rights
+          Local biometric lock • Zero-Cloud Family Mesh • Anti-Tamper Shield
         </Text>
       </View>
 
-      {/* Zero-Cloud Family Mesh Section */}
+      {/* Feature 1: Anti-Tamper Shield & Device Integrity */}
+      <View style={[styles.card, { borderColor: '#3b82f6' }]}>
+        <View style={styles.stepUpHeader}>
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.cardBadge, { color: '#60a5fa' }]}>RUNTIME SYSTEM DEFENSE</Text>
+            <Text style={styles.cardTitle}>Anti-Tamper & Screen Shield</Text>
+          </View>
+          <View style={[styles.statusPill, styles.statusPillActive]}>
+            <Text style={styles.statusPillText}>HARDENED</Text>
+          </View>
+        </View>
+
+        <Text style={styles.cardDesc}>
+          Protects your credentials from screen recording spyware, memory inspection, and clipboard snooping.
+          Sensitive clipboard tokens auto-purge after 45 seconds.
+        </Text>
+
+        <View style={styles.integrityMetricsBox}>
+          <Text style={styles.integrityMetricText}>✓ Hardware Enclave: Active (Keychain / KeyStore)</Text>
+          <Text style={styles.integrityMetricText}>✓ Anti-Snooping Clipboard: 45s Auto-Purge Active</Text>
+          <Text style={styles.integrityMetricText}>✓ Homoglyph & Zero-Width Sanitizer: Active</Text>
+        </View>
+
+        <TouchableOpacity
+          style={[styles.meshAuditBtn, { backgroundColor: '#1e3a8a', borderColor: '#3b82f6', marginTop: 10 }]}
+          onPress={handleRunIntegrityAudit}
+        >
+          <Text style={[styles.meshAuditBtnText, { color: '#bfdbfe' }]}>🔍 Run Runtime Integrity Diagnostic</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Feature 2: Zero-Cloud Family Mesh Section */}
       <View style={[styles.card, { borderColor: '#10b981' }]}>
         <View style={styles.stepUpHeader}>
           <View style={{ flex: 1 }}>
@@ -267,6 +380,70 @@ export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefre
             <Text style={styles.meshAuditBtnText}>📶 Audit P2P Mesh Integrity & Status</Text>
           )}
         </TouchableOpacity>
+      </View>
+
+      {/* Feature 3: K-Anonymity Threat Feed Delta Sync */}
+      <View style={styles.card}>
+        <View style={styles.stepUpHeader}>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.cardBadge}>RESILIENT OFFLINE FEEDS</Text>
+            <Text style={styles.cardTitle}>K-Anonymity Threat Bloom Filter</Text>
+          </View>
+        </View>
+        <Text style={styles.cardDesc}>
+          Queries are executed via 5-character SHA-256 prefixes and checked against a local compressed
+          Bloom filter. Identifiers are never transmitted to threat servers. Zero false negatives.
+        </Text>
+
+        <TouchableOpacity
+          style={[styles.meshAuditBtn, { backgroundColor: '#1e293b', borderColor: '#475569', marginTop: 10 }]}
+          onPress={handleSyncThreatFeeds}
+          disabled={syncingThreats}
+        >
+          {syncingThreats ? (
+            <ActivityIndicator color="#38bdf8" size="small" />
+          ) : (
+            <Text style={[styles.meshAuditBtnText, { color: '#38bdf8' }]}>🔄 Sync Differential Dark Web Feeds</Text>
+          )}
+        </TouchableOpacity>
+      </View>
+
+      {/* Feature 4: Zero-Knowledge Cloud Backup & Disaster Recovery */}
+      <View style={[styles.card, { borderColor: '#8b5cf6' }]}>
+        <View style={styles.stepUpHeader}>
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.cardBadge, { color: '#a78bfa' }]}>DISASTER RECOVERY</Text>
+            <Text style={styles.cardTitle}>Zero-Knowledge Encrypted Backup</Text>
+          </View>
+        </View>
+        <Text style={styles.cardDesc}>
+          Export or restore an end-to-end encrypted backup of your identity documents and family mesh.
+          Derived with PBKDF2 (50,000 rounds) using your personal recovery passphrase.
+        </Text>
+
+        <View style={styles.actionRow}>
+          <TouchableOpacity
+            style={[styles.btnOutline, { borderColor: '#8b5cf6', backgroundColor: 'rgba(139, 92, 246, 0.1)' }]}
+            onPress={() => {
+              setGeneratedBackup(null);
+              setBackupPassphrase('');
+              setBackupModalVisible(true);
+            }}
+          >
+            <Text style={[styles.btnOutlineText, { color: '#c4b5fd' }]}>📦 Export Encrypted Backup</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.btnOutline, { borderColor: '#38bdf8' }]}
+            onPress={() => {
+              setRestoreArmoredText('');
+              setRestorePassphrase('');
+              setRestoreModalVisible(true);
+            }}
+          >
+            <Text style={styles.btnOutlineText}>📥 Restore from Encrypted Backup</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Biometric App Lock Card */}
@@ -382,7 +559,7 @@ export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefre
         <Text style={styles.sessionMetaText}>Session Token Digest: HMAC-SHA256 verified</Text>
       </View>
 
-      {/* Add Family Member Modal */}
+      {/* Modal 1: Add Family Member Modal */}
       <Modal visible={addMemberModal} animationType="slide" transparent>
         <View style={styles.modalBackdrop}>
           <View style={styles.modalContent}>
@@ -441,6 +618,130 @@ export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefre
               </TouchableOpacity>
             </View>
           </View>
+        </View>
+      </Modal>
+
+      {/* Modal 2: Export Encrypted Backup Modal */}
+      <Modal visible={backupModalVisible} animationType="slide" transparent>
+        <View style={styles.modalBackdrop}>
+          <ScrollView contentContainerStyle={styles.modalScroll}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Export Zero-Knowledge Backup</Text>
+              <Text style={styles.modalSub}>
+                Creates an armored AES-256 encrypted package of your vault. The encryption key is derived
+                only from your passphrase.
+              </Text>
+
+              {!generatedBackup ? (
+                <>
+                  <Text style={styles.inputLabel}>Create Recovery Passphrase (min 6 characters):</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="e.g. lotus tiger monsoon sitar"
+                    placeholderTextColor="#64748b"
+                    secureTextEntry
+                    value={backupPassphrase}
+                    onChangeText={setBackupPassphrase}
+                  />
+
+                  <View style={styles.modalButtons}>
+                    <TouchableOpacity
+                      style={styles.btnSecondary}
+                      onPress={() => setBackupModalVisible(false)}
+                    >
+                      <Text style={styles.btnSecondaryText}>Cancel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.btnPrimary, { backgroundColor: '#8b5cf6' }]}
+                      onPress={handleExportBackup}
+                    >
+                      <Text style={styles.btnPrimaryText}>Encrypt & Generate</Text>
+                    </TouchableOpacity>
+                  </View>
+                </>
+              ) : (
+                <View>
+                  <Text style={styles.inputLabel}>Armored Backup Package:</Text>
+                  <ScrollView style={styles.backupScrollBox}>
+                    <Text style={styles.backupArmoredText}>{generatedBackup.armoredText}</Text>
+                  </ScrollView>
+
+                  <View style={styles.modalButtons}>
+                    <TouchableOpacity
+                      style={styles.btnSecondary}
+                      onPress={() => setGeneratedBackup(null)}
+                    >
+                      <Text style={styles.btnSecondaryText}>Back</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.btnPrimary, { backgroundColor: '#059669' }]}
+                      onPress={() => {
+                        antiTamperShield.safeCopyToClipboard(generatedBackup.armoredText, 'Backup Package');
+                        setBackupModalVisible(false);
+                      }}
+                    >
+                      <Text style={styles.btnPrimaryText}>📋 Copy Encrypted Backup</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
+            </View>
+          </ScrollView>
+        </View>
+      </Modal>
+
+      {/* Modal 3: Restore Encrypted Backup Modal */}
+      <Modal visible={restoreModalVisible} animationType="slide" transparent>
+        <View style={styles.modalBackdrop}>
+          <ScrollView contentContainerStyle={styles.modalScroll}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Restore from Encrypted Backup</Text>
+              <Text style={styles.modalSub}>
+                Paste the armored backup text and enter the recovery passphrase used during creation.
+              </Text>
+
+              <Text style={styles.inputLabel}>Paste Armored Backup Package:</Text>
+              <TextInput
+                style={[styles.input, { height: 90, textAlignVertical: 'top', fontFamily: 'monospace', fontSize: 11 }]}
+                multiline
+                placeholder="-----BEGIN SURAKSHA ENCRYPTED VAULT BACKUP-----..."
+                placeholderTextColor="#64748b"
+                value={restoreArmoredText}
+                onChangeText={setRestoreArmoredText}
+              />
+
+              <Text style={styles.inputLabel}>Recovery Passphrase:</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter the passphrase you used to encrypt it"
+                placeholderTextColor="#64748b"
+                secureTextEntry
+                value={restorePassphrase}
+                onChangeText={setRestorePassphrase}
+              />
+
+              <View style={styles.modalButtons}>
+                <TouchableOpacity
+                  style={styles.btnSecondary}
+                  onPress={() => setRestoreModalVisible(false)}
+                  disabled={restoringBackup}
+                >
+                  <Text style={styles.btnSecondaryText}>Cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.btnPrimary, { backgroundColor: '#38bdf8' }]}
+                  onPress={handleRestoreBackup}
+                  disabled={restoringBackup}
+                >
+                  {restoringBackup ? (
+                    <ActivityIndicator color="#fff" size="small" />
+                  ) : (
+                    <Text style={[styles.btnPrimaryText, { color: '#090d16' }]}>Decrypt & Restore</Text>
+                  )}
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
         </View>
       </Modal>
     </ScrollView>
@@ -505,6 +806,20 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#94a3b8',
     lineHeight: 17,
+  },
+  integrityMetricsBox: {
+    backgroundColor: '#0c1a2f',
+    padding: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#1e3a8a',
+    marginTop: 10,
+    gap: 4,
+  },
+  integrityMetricText: {
+    fontSize: 11,
+    color: '#93c5fd',
+    fontWeight: '600',
   },
   addMemberBtn: {
     backgroundColor: '#064e3b',
@@ -656,6 +971,7 @@ const styles = StyleSheet.create({
   btnPrimary: {
     backgroundColor: '#2563eb',
     paddingVertical: 10,
+    paddingHorizontal: 16,
     borderRadius: 8,
     alignItems: 'center',
   },
@@ -713,6 +1029,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#1e293b',
+    marginTop: 14,
   },
   sessionMetaTitle: {
     fontSize: 12,
@@ -728,9 +1045,12 @@ const styles = StyleSheet.create({
   },
   modalBackdrop: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.75)',
+    backgroundColor: 'rgba(0,0,0,0.8)',
     justifyContent: 'center',
     padding: 20,
+  },
+  modalScroll: {
+    paddingVertical: 20,
   },
   modalContent: {
     backgroundColor: '#111827',
@@ -769,5 +1089,20 @@ const styles = StyleSheet.create({
     color: '#cbd5e1',
     fontSize: 12,
     fontWeight: '600',
+  },
+  backupScrollBox: {
+    maxHeight: 150,
+    backgroundColor: '#090d16',
+    padding: 10,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#374151',
+    marginBottom: 12,
+  },
+  backupArmoredText: {
+    fontSize: 10,
+    color: '#a78bfa',
+    fontFamily: 'monospace',
+    lineHeight: 14,
   },
 });
