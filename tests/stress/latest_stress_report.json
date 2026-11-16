@@ -1,0 +1,82 @@
+{
+  "timestamp": 1794820269.718507,
+  "concurrency": 50,
+  "total_requests": 500,
+  "duration_seconds": 4.36,
+  "rps": 114.7,
+  "success_rate_pct": 100.0,
+  "latency_percentiles_ms": {
+    "min": 29.02,
+    "p50": 214.99,
+    "p90": 818.88,
+    "p95": 1228.58,
+    "p99": 3054.52,
+    "max": 3946.21
+  },
+  "breakdown": {
+    "POST /scam-radar": {
+      "total_requests": 125,
+      "success_count": 125,
+      "error_count": 0,
+      "p50_ms": 170.92,
+      "p95_ms": 454.61,
+      "p99_ms": 457.1
+    },
+    "POST /ephemeral-passes": {
+      "total_requests": 70,
+      "success_count": 70,
+      "error_count": 0,
+      "p50_ms": 748.45,
+      "p95_ms": 2589.47,
+      "p99_ms": 3830.71
+    },
+    "GET /ephemeral-passes/{tok}": {
+      "total_requests": 63,
+      "success_count": 63,
+      "error_count": 0,
+      "p50_ms": 94.89,
+      "p95_ms": 278.15,
+      "p99_ms": 444.06
+    },
+    "POST /wallet-pass": {
+      "total_requests": 80,
+      "success_count": 80,
+      "error_count": 0,
+      "p50_ms": 161.34,
+      "p95_ms": 455.5,
+      "p99_ms": 458.43
+    },
+    "POST /panic-pack": {
+      "total_requests": 24,
+      "success_count": 24,
+      "error_count": 0,
+      "p50_ms": 776.49,
+      "p95_ms": 3804.56,
+      "p99_ms": 3946.21
+    },
+    "POST /verify-pass": {
+      "total_requests": 66,
+      "success_count": 66,
+      "error_count": 0,
+      "p50_ms": 178.32,
+      "p95_ms": 453.83,
+      "p99_ms": 458.29
+    },
+    "POST /canary-test": {
+      "total_requests": 21,
+      "success_count": 21,
+      "error_count": 0,
+      "p50_ms": 777.04,
+      "p95_ms": 1816.27,
+      "p99_ms": 1819.86
+    },
+    "GET /companion/glance": {
+      "total_requests": 51,
+      "success_count": 51,
+      "error_count": 0,
+      "p50_ms": 700.79,
+      "p95_ms": 1057.68,
+      "p99_ms": 1279.88
+    }
+  }
+}

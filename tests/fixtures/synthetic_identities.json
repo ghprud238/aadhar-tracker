@@ -1,30 +1,84 @@
 [
   {
-    "full_name": "Deepa Iyer",
-    "first_name": "Deepa",
-    "last_name": "Iyer",
-    "email": "deepa.iyer45@example.in",
-    "phone": "+919842868828",
-    "aadhaar_raw": "999918617230",
-    "aadhaar_formatted": "9999 1861 7230",
-    "aadhaar_masked": "XXXX-XXXX-7230",
-    "pan_raw": "EWUPI6835A",
-    "pan_masked": "EW***68*A",
-    "vid_number": "4770-6629-6713-3179",
+    "full_name": "Sneha Sharma",
+    "first_name": "Sneha",
+    "last_name": "Sharma",
+    "email": "sneha.sharma41@suraksha-test.org",
+    "phone": "+919839958838",
+    "aadhaar_raw": "999929503829",
+    "aadhaar_formatted": "9999 2950 3829",
+    "aadhaar_masked": "XXXX-XXXX-3829",
+    "pan_raw": "YKQPS9048A",
+    "pan_masked": "YK***90*A",
+    "vid_number": "0193-4883-4803-1001",
+    "driving_license_raw": "DL2320186068330",
+    "driving_license_masked": "DL23-****-68330",
+    "voter_id_raw": "PUS6017233",
+    "voter_id_masked": "PU****233",
+    "passport_raw": "S6847884",
+    "passport_masked": "S****884",
+    "bank_details": {
+      "bank_name": "Bank of Baroda",
+      "ifsc_code": "BARB0004850",
+      "account_raw": "37602184031394",
+      "account_masked": "XXXXXXXXXX1394"
+    },
+    "vehicle_rc_raw": "DL34KQ1713",
+    "vehicle_rc_masked": "DL34-**-1713",
+    "telecom_sims": [
+      {
+        "phone_number": "+919839958838",
+        "carrier": "BSNL",
+        "telecom_circle": "Tamil Nadu",
+        "is_primary": true,
+        "is_authorized_by_resident": true,
+        "issued_on": "2023-10-23",
+        "status": "active"
+      },
+      {
+        "phone_number": "+919602231650",
+        "carrier": "Airtel 5G",
+        "telecom_circle": "Delhi NCR",
+        "is_primary": false,
+        "is_authorized_by_resident": true,
+        "flagged_as_ghost_sim": false,
+        "issued_on": "2026-07-20",
+        "status": "active"
+      }
+    ],
+    "credit_profile": {
+      "pan_number": "YKQPS9048A",
+      "cibil_score": 720,
+      "score_band": "Fair",
+      "credit_bureau": "TransUnion CIBIL",
+      "active_credit_cards": 3,
+      "recent_hard_inquiries": [
+        {
+          "institution": "KreditBee",
+          "purpose": "Instant Micro-Credit",
+          "inquiry_type": "Hard Pull",
+          "date": "2026-10-23",
+          "is_authorized": false,
+          "flagged_suspicious": true
+        }
+      ],
+      "has_unauthorized_inquiries": true
+    },
     "address": {
-      "street": "Flat 859, Surya Enclave",
-      "city": "Hyderabad",
-      "state": "Telangana",
-      "pincode": "500242",
+      "street": "Flat 339, Surya Enclave",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "state_code": "DL",
+      "pincode": "110854",
       "country": "India"
     },
-    "created_at": "2026-11-10T03:39:19.503915+00:00"
+    "created_at": "2026-11-16T08:58:18.178985+00:00"
   },
   {
-    "full_name": "Diya Singh",
-    "first_name": "Diya",
+    "full_name": "Rohan Singh",
+    "first_name": "Rohan",
     "last_name": "Singh",
-    "email": "diya.singh69@testmail.co.in",
+    "email": "rohan.singh69@testmail.co.in",
     "phone": "+919859644073",
     "aadhaar_raw": "999906398127",
     "aadhaar_formatted": "9999 0639 8127",
@@ -32,20 +86,92 @@
     "pan_raw": "EMHPS2331D",
     "pan_masked": "EM***23*D",
     "vid_number": "4745-2471-5019-6342",
+    "driving_license_raw": "UP9320247730014",
+    "driving_license_masked": "UP93-****-30014",
+    "voter_id_raw": "DCT2357661",
+    "voter_id_masked": "DC****661",
+    "passport_raw": "Z7710649",
+    "passport_masked": "Z****649",
+    "bank_details": {
+      "bank_name": "State Bank of India",
+      "ifsc_code": "SBIN0007575",
+      "account_raw": "05804015868230",
+      "account_masked": "XXXXXXXXXX8230"
+    },
+    "vehicle_rc_raw": "UP58UN1936",
+    "vehicle_rc_masked": "UP58-**-1936",
+    "telecom_sims": [
+      {
+        "phone_number": "+919859644073",
+        "carrier": "Vodafone Idea (Vi)",
+        "telecom_circle": "Tamil Nadu",
+        "is_primary": true,
+        "is_authorized_by_resident": true,
+        "issued_on": "2025-12-02",
+        "status": "active"
+      },
+      {
+        "phone_number": "+919647802542",
+        "carrier": "Vodafone Idea (Vi)",
+        "telecom_circle": "Karnataka",
+        "is_primary": false,
+        "is_authorized_by_resident": true,
+        "flagged_as_ghost_sim": false,
+        "issued_on": "2026-09-21",
+        "status": "active"
+      },
+      {
+        "phone_number": "+919469155908",
+        "carrier": "Vodafone Idea (Vi)",
+        "telecom_circle": "Mumbai",
+        "is_primary": false,
+        "is_authorized_by_resident": false,
+        "flagged_as_ghost_sim": true,
+        "issued_on": "2026-04-30",
+        "status": "flagged_unauthorized"
+      }
+    ],
+    "credit_profile": {
+      "pan_number": "EMHPS2331D",
+      "cibil_score": 701,
+      "score_band": "Fair",
+      "credit_bureau": "TransUnion CIBIL",
+      "active_credit_cards": 4,
+      "recent_hard_inquiries": [
+        {
+          "institution": "Bajaj Finance",
+          "purpose": "Instant Micro-Credit",
+          "inquiry_type": "Hard Pull",
+          "date": "2026-10-19",
+          "is_authorized": true,
+          "flagged_suspicious": false
+        },
+        {
+          "institution": "HDFC Bank",
+          "purpose": "Personal Loan",
+          "inquiry_type": "Hard Pull",
+          "date": "2026-10-04",
+          "is_authorized": true,
+          "flagged_suspicious": false
+        }
+      ],
+      "has_unauthorized_inquiries": false
+    },
     "address": {
-      "street": "Flat 611, Surya Enclave",
+      "street": "Flat 874, Surya Enclave",
       "city": "Lucknow",
       "state": "Uttar Pradesh",
+      "state_code": "UP",
       "pincode": "226815",
       "country": "India"
     },
-    "created_at": "2026-11-10T03:39:19.503983+00:00"
+    "created_at": "2026-11-16T08:58:18.179124+00:00"
   },
   {
-    "full_name": "Ishaan Rao",
-    "first_name": "Ishaan",
+    "full_name": "Preeti Rao",
+    "first_name": "Preeti",
     "last_name": "Rao",
-    "email": "ishaan.rao32@example.in",
+    "email": "preeti.rao32@example.in",
     "phone": "+919860944870",
     "aadhaar_raw": "999903509964",
     "aadhaar_formatted": "9999 0350 9964",
@@ -53,20 +179,92 @@
     "pan_raw": "JDNPR2297L",
     "pan_masked": "JD***22*L",
     "vid_number": "4051-0394-4057-2081",
+    "driving_license_raw": "TS6620183062077",
+    "driving_license_masked": "TS66-****-62077",
+    "voter_id_raw": "GZZ5815576",
+    "voter_id_masked": "GZ****576",
+    "passport_raw": "W9965799",
+    "passport_masked": "W****799",
+    "bank_details": {
+      "bank_name": "ICICI Bank",
+      "ifsc_code": "ICIC0007480",
+      "account_raw": "95187152353",
+      "account_masked": "XXXXXXX2353"
+    },
+    "vehicle_rc_raw": "TS43YL4638",
+    "vehicle_rc_masked": "TS43-**-4638",
+    "telecom_sims": [
+      {
+        "phone_number": "+919860944870",
+        "carrier": "Airtel 5G",
+        "telecom_circle": "Telangana",
+        "is_primary": true,
+        "is_authorized_by_resident": true,
+        "issued_on": "2024-11-18",
+        "status": "active"
+      },
+      {
+        "phone_number": "+919913768450",
+        "carrier": "Jio 5G",
+        "telecom_circle": "Maharashtra",
+        "is_primary": false,
+        "is_authorized_by_resident": true,
+        "flagged_as_ghost_sim": false,
+        "issued_on": "2026-06-16",
+        "status": "active"
+      },
+      {
+        "phone_number": "+919495616298",
+        "carrier": "Vodafone Idea (Vi)",
+        "telecom_circle": "Mumbai",
+        "is_primary": false,
+        "is_authorized_by_resident": true,
+        "flagged_as_ghost_sim": false,
+        "issued_on": "2026-04-30",
+        "status": "active"
+      }
+    ],
+    "credit_profile": {
+      "pan_number": "JDNPR2297L",
+      "cibil_score": 844,
+      "score_band": "Excellent",
+      "credit_bureau": "TransUnion CIBIL",
+      "active_credit_cards": 1,
+      "recent_hard_inquiries": [
+        {
+          "institution": "Bajaj Finance",
+          "purpose": "Credit Card",
+          "inquiry_type": "Hard Pull",
+          "date": "2026-09-29",
+          "is_authorized": true,
+          "flagged_suspicious": false
+        },
+        {
+          "institution": "Tata Capital",
+          "purpose": "Credit Card",
+          "inquiry_type": "Hard Pull",
+          "date": "2026-10-18",
+          "is_authorized": true,
+          "flagged_suspicious": false
+        }
+      ],
+      "has_unauthorized_inquiries": false
+    },
     "address": {
-      "street": "Flat 683, Surya Enclave",
+      "street": "Flat 488, Surya Enclave",
       "city": "Hyderabad",
       "state": "Telangana",
+      "state_code": "TS",
       "pincode": "500396",
       "country": "India"
     },
-    "created_at": "2026-11-10T03:39:19.504033+00:00"
+    "created_at": "2026-11-16T08:58:18.179253+00:00"
   },
   {
-    "full_name": "Arjun Bose",
-    "first_name": "Arjun",
+    "full_name": "Nikhil Bose",
+    "first_name": "Nikhil",
     "last_name": "Bose",
-    "email": "arjun.bose42@demo-resident.in",
+    "email": "nikhil.bose42@demo-resident.in",
     "phone": "+919820989659",
     "aadhaar_raw": "999970432003",
     "aadhaar_formatted": "9999 7043 2003",
@@ -74,41 +272,158 @@
     "pan_raw": "UMPPB5365N",
     "pan_masked": "UM***53*N",
     "vid_number": "7416-5097-5861-1186",
+    "driving_license_raw": "TN1220247248064",
+    "driving_license_masked": "TN12-****-48064",
+    "voter_id_raw": "JWJ7612163",
+    "voter_id_masked": "JW****163",
+    "passport_raw": "L5535642",
+    "passport_masked": "L****642",
+    "bank_details": {
+      "bank_name": "Bank of Baroda",
+      "ifsc_code": "BARB0006802",
+      "account_raw": "0609900615760340",
+      "account_masked": "XXXXXXXXXXXX0340"
+    },
+    "vehicle_rc_raw": "TN50WJ3077",
+    "vehicle_rc_masked": "TN50-**-3077",
+    "telecom_sims": [
+      {
+        "phone_number": "+919820989659",
+        "carrier": "Airtel 5G",
+        "telecom_circle": "Maharashtra",
+        "is_primary": true,
+        "is_authorized_by_resident": true,
+        "issued_on": "2023-12-03",
+        "status": "active"
+      },
+      {
+        "phone_number": "+919313237764",
+        "carrier": "Jio 5G",
+        "telecom_circle": "Delhi NCR",
+        "is_primary": false,
+        "is_authorized_by_resident": false,
+        "flagged_as_ghost_sim": true,
+        "issued_on": "2026-09-10",
+        "status": "flagged_unauthorized"
+      }
+    ],
+    "credit_profile": {
+      "pan_number": "UMPPB5365N",
+      "cibil_score": 827,
+      "score_band": "Excellent",
+      "credit_bureau": "TransUnion CIBIL",
+      "active_credit_cards": 3,
+      "recent_hard_inquiries": [
+        {
+          "institution": "Tata Capital",
+          "purpose": "Auto Loan",
+          "inquiry_type": "Hard Pull",
+          "date": "2026-09-24",
+          "is_authorized": false,
+          "flagged_suspicious": true
+        },
+        {
+          "institution": "KreditBee",
+          "purpose": "Credit Card",
+          "inquiry_type": "Hard Pull",
+          "date": "2026-11-13",
+          "is_authorized": true,
+          "flagged_suspicious": false
+        }
+      ],
+      "has_unauthorized_inquiries": true
+    },
     "address": {
-      "street": "Flat 112, Surya Enclave",
+      "street": "Flat 239, Surya Enclave",
       "city": "Chennai",
       "state": "Tamil Nadu",
+      "state_code": "TN",
       "pincode": "600446",
       "country": "India"
     },
-    "created_at": "2026-11-10T03:39:19.504088+00:00"
+    "created_at": "2026-11-16T08:58:18.179381+00:00"
   },
   {
-    "full_name": "Rohan Joshi",
-    "first_name": "Rohan",
+    "full_name": "Karthik Joshi",
+    "first_name": "Karthik",
     "last_name": "Joshi",
-    "email": "rohan.joshi85@example.in",
+    "email": "karthik.joshi85@example.in",
     "phone": "+919888772676",
-    "aadhaar_raw": "999925615430",
-    "aadhaar_formatted": "9999 2561 5430",
-    "aadhaar_masked": "XXXX-XXXX-5430",
-    "pan_raw": "JULPJ1347L",
-    "pan_masked": "JU***13*L",
-    "vid_number": "4237-8875-0792-5642",
+    "aadhaar_raw": "999904024897",
+    "aadhaar_formatted": "9999 0402 4897",
+    "aadhaar_masked": "XXXX-XXXX-4897",
+    "pan_raw": "WFMPJ7890D",
+    "pan_masked": "WF***78*D",
+    "vid_number": "4950-5110-0103-3907",
+    "driving_license_raw": "BR9920162262558",
+    "driving_license_masked": "BR99-****-62558",
+    "voter_id_raw": "NJN2698669",
+    "voter_id_masked": "NJ****669",
+    "passport_raw": "J2858872",
+    "passport_masked": "J****872",
+    "bank_details": {
+      "bank_name": "HDFC Bank",
+      "ifsc_code": "HDFC0002896",
+      "account_raw": "6355733688190136",
+      "account_masked": "XXXXXXXXXXXX0136"
+    },
+    "vehicle_rc_raw": "BR73VJ8545",
+    "vehicle_rc_masked": "BR73-**-8545",
+    "telecom_sims": [
+      {
+        "phone_number": "+919888772676",
+        "carrier": "Airtel 5G",
+        "telecom_circle": "Karnataka",
+        "is_primary": true,
+        "is_authorized_by_resident": true,
+        "issued_on": "2025-11-08",
+        "status": "active"
+      },
+      {
+        "phone_number": "+919297036478",
+        "carrier": "Airtel 5G",
+        "telecom_circle": "Mumbai",
+        "is_primary": false,
+        "is_authorized_by_resident": true,
+        "flagged_as_ghost_sim": false,
+        "issued_on": "2026-05-08",
+        "status": "active"
+      },
+      {
+        "phone_number": "+919362935933",
+        "carrier": "Vodafone Idea (Vi)",
+        "telecom_circle": "Delhi NCR",
+        "is_primary": false,
+        "is_authorized_by_resident": true,
+        "flagged_as_ghost_sim": false,
+        "issued_on": "2026-08-18",
+        "status": "active"
+      }
+    ],
+    "credit_profile": {
+      "pan_number": "WFMPJ7890D",
+      "cibil_score": 785,
+      "score_band": "Good",
+      "credit_bureau": "TransUnion CIBIL",
+      "active_credit_cards": 1,
+      "recent_hard_inquiries": [],
+      "has_unauthorized_inquiries": false
+    },
     "address": {
-      "street": "Flat 651, Surya Enclave",
-      "city": "Hyderabad",
-      "state": "Telangana",
-      "pincode": "500749",
+      "street": "Flat 132, Surya Enclave",
+      "city": "Patna",
+      "state": "Bihar",
+      "state_code": "BR",
+      "pincode": "800334",
       "country": "India"
     },
-    "created_at": "2026-11-10T03:39:19.504210+00:00"
+    "created_at": "2026-11-16T08:58:18.179502+00:00"
   },
   {
-    "full_name": "Meera Patel",
-    "first_name": "Meera",
+    "full_name": "Lakshmi Patel",
+    "first_name": "Lakshmi",
     "last_name": "Patel",
-    "email": "meera.patel80@demo-resident.in",
+    "email": "lakshmi.patel80@demo-resident.in",
     "phone": "+919870890672",
     "aadhaar_raw": "999949431361",
     "aadhaar_formatted": "9999 4943 1361",
@@ -116,20 +431,90 @@
     "pan_raw": "YQLPP1847G",
     "pan_masked": "YQ***18*G",
     "vid_number": "1517-4180-5153-1071",
+    "driving_license_raw": "KL0920178762637",
+    "driving_license_masked": "KL09-****-62637",
+    "voter_id_raw": "NDG7132778",
+    "voter_id_masked": "ND****778",
+    "passport_raw": "J9954194",
+    "passport_masked": "J****194",
+    "bank_details": {
+      "bank_name": "Punjab National Bank",
+      "ifsc_code": "PUNB0006244",
+      "account_raw": "896407019347",
+      "account_masked": "XXXXXXXX9347"
+    },
+    "vehicle_rc_raw": "KL17XC5582",
+    "vehicle_rc_masked": "KL17-**-5582",
+    "telecom_sims": [
+      {
+        "phone_number": "+919870890672",
+        "carrier": "Jio 5G",
+        "telecom_circle": "Maharashtra",
+        "is_primary": true,
+        "is_authorized_by_resident": true,
+        "issued_on": "2024-01-12",
+        "status": "active"
+      },
+      {
+        "phone_number": "+919829374468",
+        "carrier": "Airtel 5G",
+        "telecom_circle": "Maharashtra",
+        "is_primary": false,
+        "is_authorized_by_resident": true,
+        "flagged_as_ghost_sim": false,
+        "issued_on": "2026-09-24",
+        "status": "active"
+      }
+    ],
+    "credit_profile": {
+      "pan_number": "YQLPP1847G",
+      "cibil_score": 777,
+      "score_band": "Good",
+      "credit_bureau": "TransUnion CIBIL",
+      "active_credit_cards": 3,
+      "recent_hard_inquiries": [
+        {
+          "institution": "Axis Bank",
+          "purpose": "Personal Loan",
+          "inquiry_type": "Hard Pull",
+          "date": "2026-11-11",
+          "is_authorized": true,
+          "flagged_suspicious": false
+        },
+        {
+          "institution": "Bajaj Finance",
+          "purpose": "Credit Card",
+          "inquiry_type": "Hard Pull",
+          "date": "2026-11-03",
+          "is_authorized": false,
+          "flagged_suspicious": true
+        },
+        {
+          "institution": "HDFC Bank",
+          "purpose": "Auto Loan",
+          "inquiry_type": "Hard Pull",
+          "date": "2026-11-05",
+          "is_authorized": true,
+          "flagged_suspicious": false
+        }
+      ],
+      "has_unauthorized_inquiries": true
+    },
     "address": {
-      "street": "Flat 502, Surya Enclave",
+      "street": "Flat 371, Surya Enclave",
       "city": "Kochi",
       "state": "Kerala",
+      "state_code": "KL",
       "pincode": "682451",
       "country": "India"
     },
-    "created_at": "2026-11-10T03:39:19.504268+00:00"
+    "created_at": "2026-11-16T08:58:18.179624+00:00"
   },
   {
-    "full_name": "Nikhil Das",
-    "first_name": "Nikhil",
+    "full_name": "Pranav Das",
+    "first_name": "Pranav",
     "last_name": "Das",
-    "email": "nikhil.das81@testmail.co.in",
+    "email": "pranav.das81@testmail.co.in",
     "phone": "+919881778112",
     "aadhaar_raw": "999984941849",
     "aadhaar_formatted": "9999 8494 1849",
@@ -137,76 +522,310 @@
     "pan_raw": "PGDPD8489Y",
     "pan_masked": "PG***84*Y",
     "vid_number": "6395-6905-2932-1541",
+    "driving_license_raw": "TN0120220224746",
+    "driving_license_masked": "TN01-****-24746",
+    "voter_id_raw": "LSM5040878",
+    "voter_id_masked": "LS****878",
+    "passport_raw": "N5241421",
+    "passport_masked": "N****421",
+    "bank_details": {
+      "bank_name": "ICICI Bank",
+      "ifsc_code": "ICIC0007011",
+      "account_raw": "79016402934",
+      "account_masked": "XXXXXXX2934"
+    },
+    "vehicle_rc_raw": "TN72TK3989",
+    "vehicle_rc_masked": "TN72-**-3989",
+    "telecom_sims": [
+      {
+        "phone_number": "+919881778112",
+        "carrier": "Airtel 5G",
+        "telecom_circle": "Tamil Nadu",
+        "is_primary": true,
+        "is_authorized_by_resident": true,
+        "issued_on": "2023-07-24",
+        "status": "active"
+      },
+      {
+        "phone_number": "+919622560911",
+        "carrier": "Jio 5G",
+        "telecom_circle": "Maharashtra",
+        "is_primary": false,
+        "is_authorized_by_resident": false,
+        "flagged_as_ghost_sim": true,
+        "issued_on": "2026-09-04",
+        "status": "flagged_unauthorized"
+      }
+    ],
+    "credit_profile": {
+      "pan_number": "PGDPD8489Y",
+      "cibil_score": 716,
+      "score_band": "Fair",
+      "credit_bureau": "TransUnion CIBIL",
+      "active_credit_cards": 4,
+      "recent_hard_inquiries": [],
+      "has_unauthorized_inquiries": false
+    },
     "address": {
-      "street": "Flat 881, Surya Enclave",
+      "street": "Flat 326, Surya Enclave",
       "city": "Chennai",
       "state": "Tamil Nadu",
+      "state_code": "TN",
       "pincode": "600912",
       "country": "India"
     },
-    "created_at": "2026-11-10T03:39:19.504314+00:00"
+    "created_at": "2026-11-16T08:58:18.179739+00:00"
   },
   {
-    "full_name": "Rohan Menon",
-    "first_name": "Rohan",
+    "full_name": "Karthik Menon",
+    "first_name": "Karthik",
     "last_name": "Menon",
-    "email": "rohan.menon24@demo-resident.in",
+    "email": "karthik.menon24@demo-resident.in",
     "phone": "+919853418792",
-    "aadhaar_raw": "999927033004",
-    "aadhaar_formatted": "9999 2703 3004",
-    "aadhaar_masked": "XXXX-XXXX-3004",
-    "pan_raw": "UTDPM1039Q",
-    "pan_masked": "UT***10*Q",
-    "vid_number": "3892-9946-2250-6030",
+    "aadhaar_raw": "999949501898",
+    "aadhaar_formatted": "9999 4950 1898",
+    "aadhaar_masked": "XXXX-XXXX-1898",
+    "pan_raw": "FRAPM4327G",
+    "pan_masked": "FR***43*G",
+    "vid_number": "9810-7295-6813-5348",
+    "driving_license_raw": "MP8120158459989",
+    "driving_license_masked": "MP81-****-59989",
+    "voter_id_raw": "YQX3716526",
+    "voter_id_masked": "YQ****526",
+    "passport_raw": "V3178864",
+    "passport_masked": "V****864",
+    "bank_details": {
+      "bank_name": "State Bank of India",
+      "ifsc_code": "SBIN0002471",
+      "account_raw": "9813697563840314",
+      "account_masked": "XXXXXXXXXXXX0314"
+    },
+    "vehicle_rc_raw": "MP64NV7006",
+    "vehicle_rc_masked": "MP64-**-7006",
+    "telecom_sims": [
+      {
+        "phone_number": "+919853418792",
+        "carrier": "Jio 5G",
+        "telecom_circle": "Tamil Nadu",
+        "is_primary": true,
+        "is_authorized_by_resident": true,
+        "issued_on": "2024-01-31",
+        "status": "active"
+      },
+      {
+        "phone_number": "+919420449385",
+        "carrier": "Vodafone Idea (Vi)",
+        "telecom_circle": "Maharashtra",
+        "is_primary": false,
+        "is_authorized_by_resident": true,
+        "flagged_as_ghost_sim": false,
+        "issued_on": "2026-06-10",
+        "status": "active"
+      },
+      {
+        "phone_number": "+919127457535",
+        "carrier": "Jio 5G",
+        "telecom_circle": "Karnataka",
+        "is_primary": false,
+        "is_authorized_by_resident": true,
+        "flagged_as_ghost_sim": false,
+        "issued_on": "2026-09-20",
+        "status": "active"
+      }
+    ],
+    "credit_profile": {
+      "pan_number": "FRAPM4327G",
+      "cibil_score": 703,
+      "score_band": "Fair",
+      "credit_bureau": "TransUnion CIBIL",
+      "active_credit_cards": 4,
+      "recent_hard_inquiries": [],
+      "has_unauthorized_inquiries": false
+    },
     "address": {
-      "street": "Flat 877, Surya Enclave",
-      "city": "Jaipur",
-      "state": "Rajasthan",
-      "pincode": "302623",
+      "street": "Flat 746, Surya Enclave",
+      "city": "Bhopal",
+      "state": "Madhya Pradesh",
+      "state_code": "MP",
+      "pincode": "462667",
       "country": "India"
     },
-    "created_at": "2026-11-10T03:39:19.504373+00:00"
+    "created_at": "2026-11-16T08:58:18.179875+00:00"
   },
   {
-    "full_name": "Aditya Kulkarni",
+    "full_name": "Sanjay Chauhan",
+    "first_name": "Sanjay",
+    "last_name": "Chauhan",
+    "email": "sanjay.chauhan56@suraksha-test.org",
+    "phone": "+919895551877",
+    "aadhaar_raw": "999980983139",
+    "aadhaar_formatted": "9999 8098 3139",
+    "aadhaar_masked": "XXXX-XXXX-3139",
+    "pan_raw": "KDCPC4946C",
+    "pan_masked": "KD***49*C",
+    "vid_number": "5205-0685-3043-4372",
+    "driving_license_raw": "OD3620151776713",
+    "driving_license_masked": "OD36-****-76713",
+    "voter_id_raw": "KSC8524164",
+    "voter_id_masked": "KS****164",
+    "passport_raw": "V7639991",
+    "passport_masked": "V****991",
+    "bank_details": {
+      "bank_name": "Bank of Baroda",
+      "ifsc_code": "BARB0008002",
+      "account_raw": "8409115601634305",
+      "account_masked": "XXXXXXXXXXXX4305"
+    },
+    "vehicle_rc_raw": "OD84MM5200",
+    "vehicle_rc_masked": "OD84-**-5200",
+    "telecom_sims": [
+      {
+        "phone_number": "+919895551877",
+        "carrier": "Vodafone Idea (Vi)",
+        "telecom_circle": "Delhi NCR",
+        "is_primary": true,
+        "is_authorized_by_resident": true,
+        "issued_on": "2024-01-27",
+        "status": "active"
+      },
+      {
+        "phone_number": "+919669648760",
+        "carrier": "Jio 5G",
+        "telecom_circle": "Delhi NCR",
+        "is_primary": false,
+        "is_authorized_by_resident": true,
+        "flagged_as_ghost_sim": false,
+        "issued_on": "2026-08-31",
+        "status": "active"
+      }
+    ],
+    "credit_profile": {
+      "pan_number": "KDCPC4946C",
+      "cibil_score": 776,
+      "score_band": "Good",
+      "credit_bureau": "TransUnion CIBIL",
+      "active_credit_cards": 3,
+      "recent_hard_inquiries": [
+        {
+          "institution": "Bajaj Finance",
+          "purpose": "Credit Card",
+          "inquiry_type": "Hard Pull",
+          "date": "2026-11-01",
+          "is_authorized": true,
+          "flagged_suspicious": false
+        }
+      ],
+      "has_unauthorized_inquiries": false
+    },
+    "address": {
+      "street": "Flat 201, Surya Enclave",
+      "city": "Bhubaneswar",
+      "state": "Odisha",
+      "state_code": "OD",
+      "pincode": "751348",
+      "country": "India"
+    },
+    "created_at": "2026-11-16T08:58:18.179999+00:00"
+  },
+  {
+    "full_name": "Aditya Sengupta",
     "first_name": "Aditya",
-    "last_name": "Kulkarni",
-    "email": "aditya.kulkarni91@suraksha-test.org",
-    "phone": "+919842545081",
-    "aadhaar_raw": "999952050682",
-    "aadhaar_formatted": "9999 5205 0682",
-    "aadhaar_masked": "XXXX-XXXX-0682",
-    "pan_raw": "JHYPK2735S",
-    "pan_masked": "JH***27*S",
-    "vid_number": "4817-6901-4323-7627",
-    "address": {
-      "street": "Flat 425, Surya Enclave",
-      "city": "Chandigarh",
-      "state": "Punjab",
-      "pincode": "160584",
-      "country": "India"
-    },
-    "created_at": "2026-11-10T03:39:19.504421+00:00"
-  },
-  {
-    "full_name": "Sneha Rao",
-    "first_name": "Sneha",
-    "last_name": "Rao",
-    "email": "sneha.rao41@testmail.co.in",
+    "last_name": "Sengupta",
+    "email": "aditya.sengupta41@testmail.co.in",
     "phone": "+919841057916",
-    "aadhaar_raw": "999971061501",
-    "aadhaar_formatted": "9999 7106 1501",
-    "aadhaar_masked": "XXXX-XXXX-1501",
-    "pan_raw": "HDYPR9312Q",
-    "pan_masked": "HD***93*Q",
-    "vid_number": "8932-5630-8402-8008",
+    "aadhaar_raw": "999957483416",
+    "aadhaar_formatted": "9999 5748 3416",
+    "aadhaar_masked": "XXXX-XXXX-3416",
+    "pan_raw": "XQCPS1425P",
+    "pan_masked": "XQ***14*P",
+    "vid_number": "3187-5741-2739-5694",
+    "driving_license_raw": "BR9220209762749",
+    "driving_license_masked": "BR92-****-62749",
+    "voter_id_raw": "NHF3763756",
+    "voter_id_masked": "NH****756",
+    "passport_raw": "S1322205",
+    "passport_masked": "S****205",
+    "bank_details": {
+      "bank_name": "ICICI Bank",
+      "ifsc_code": "ICIC0007692",
+      "account_raw": "20686680045501",
+      "account_masked": "XXXXXXXXXX5501"
+    },
+    "vehicle_rc_raw": "BR55LH2650",
+    "vehicle_rc_masked": "BR55-**-2650",
+    "telecom_sims": [
+      {
+        "phone_number": "+919841057916",
+        "carrier": "Airtel 5G",
+        "telecom_circle": "Delhi NCR",
+        "is_primary": true,
+        "is_authorized_by_resident": true,
+        "issued_on": "2026-01-13",
+        "status": "active"
+      },
+      {
+        "phone_number": "+919567813767",
+        "carrier": "BSNL",
+        "telecom_circle": "Telangana",
+        "is_primary": false,
+        "is_authorized_by_resident": true,
+        "flagged_as_ghost_sim": false,
+        "issued_on": "2026-07-25",
+        "status": "active"
+      },
+      {
+        "phone_number": "+919617076837",
+        "carrier": "Airtel 5G",
+        "telecom_circle": "Mumbai",
+        "is_primary": false,
+        "is_authorized_by_resident": true,
+        "flagged_as_ghost_sim": false,
+        "issued_on": "2026-05-29",
+        "status": "active"
+      }
+    ],
+    "credit_profile": {
+      "pan_number": "XQCPS1425P",
+      "cibil_score": 723,
+      "score_band": "Fair",
+      "credit_bureau": "TransUnion CIBIL",
+      "active_credit_cards": 2,
+      "recent_hard_inquiries": [
+        {
+          "institution": "Axis Bank",
+          "purpose": "Personal Loan",
+          "inquiry_type": "Hard Pull",
+          "date": "2026-10-26",
+          "is_authorized": true,
+          "flagged_suspicious": false
+        },
+        {
+          "institution": "Bajaj Finance",
+          "purpose": "Auto Loan",
+          "inquiry_type": "Hard Pull",
+          "date": "2026-11-05",
+          "is_authorized": false,
+          "flagged_suspicious": true
+        },
+        {
+          "institution": "Bajaj Finance",
+          "purpose": "Instant Micro-Credit",
+          "inquiry_type": "Hard Pull",
+          "date": "2026-09-24",
+          "is_authorized": true,
+          "flagged_suspicious": false
+        }
+      ],
+      "has_unauthorized_inquiries": true
+    },
     "address": {
-      "street": "Flat 850, Surya Enclave",
-      "city": "Jaipur",
-      "state": "Rajasthan",
-      "pincode": "302361",
+      "street": "Flat 469, Surya Enclave",
+      "city": "Patna",
+      "state": "Bihar",
+      "state_code": "BR",
+      "pincode": "800665",
       "country": "India"
     },
-    "created_at": "2026-11-10T03:39:19.504469+00:00"
+    "created_at": "2026-11-16T08:58:18.180127+00:00"
   }
 ]

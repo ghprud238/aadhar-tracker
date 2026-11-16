@@ -352,7 +352,7 @@ async def execute_canary_test(
     grouping_key = f"canary:{id_type}:{blind_index[:16]}"
     now = datetime.now(timezone.utc)
 
-    # 3. Ensure an identifier exists for this subject
+    # 3. Ensure an identifier exists for this subject (concurrency-safe)
     res = await db.execute(
         select(Identifier).where(
             Identifier.tenant_id == ctx.tenant_id,
@@ -372,29 +372,64 @@ async def execute_canary_test(
             masked_value=masked_val,
             state="verified"
         )
-        db.add(ident)
-        await db.flush()
+        try:
+            async with db.begin_nested():
+                db.add(ident)
+                await db.flush()
+        except Exception:
+            # Concurrent race: another worker already committed the identifier
+            res = await db.execute(
+                select(Identifier).where(
+                    Identifier.tenant_id == ctx.tenant_id,
+                    Identifier.subject_id == ctx.subject_id,
+                    Identifier.blind_index == blind_index
+                )
+            )
+            ident = res.scalar_one_or_none()
 
-    # 4. Create Incident Record
-    incident = Incident(
-        id=incident_id,
-        tenant_id=ctx.tenant_id,
-        subject_id=ctx.subject_id,
-        incident_grouping_key=grouping_key,
-        title=f"Exposed {id_type.upper()} Document Detected ({masked_val})",
-        severity=severity,
-        confidence="confirmed",
-        state="new",
-        identifier_id=ident.id,
-        exposure_categories=["government_id", "identity_document", id_type],
-        priority_score=prio,
-        event_occurred_at=now,
-        first_detected_at=now
+    # 4. Create or Deduplicate Incident Record (concurrency-safe)
+    res_inc = await db.execute(
+        select(Incident).where(
+            Incident.tenant_id == ctx.tenant_id,
+            Incident.subject_id == ctx.subject_id,
+            Incident.incident_grouping_key == grouping_key
+        )
     )
-    db.add(incident)
-    await db.flush()
+    incident = res_inc.scalar_one_or_none()
+    is_new_incident = False
 
-    # 5. Add Remediation Actions
+    if not incident:
+        incident = Incident(
+            id=incident_id,
+            tenant_id=ctx.tenant_id,
+            subject_id=ctx.subject_id,
+            incident_grouping_key=grouping_key,
+            title=f"Exposed {id_type.upper()} Document Detected ({masked_val})",
+            severity=severity,
+            confidence="confirmed",
+            state="new",
+            identifier_id=ident.id,
+            exposure_categories=["government_id", "identity_document", id_type],
+            priority_score=prio,
+            event_occurred_at=now,
+            first_detected_at=now
+        )
+        try:
+            async with db.begin_nested():
+                db.add(incident)
+                await db.flush()
+                is_new_incident = True
+        except Exception:
+            res_inc = await db.execute(
+                select(Incident).where(
+                    Incident.tenant_id == ctx.tenant_id,
+                    Incident.subject_id == ctx.subject_id,
+                    Incident.incident_grouping_key == grouping_key
+                )
+            )
+            incident = res_inc.scalar_one_or_none()
+
+    # 5. Define Remediation Actions (persisted if new incident)
     actions = [
         RemediationAction(
             tenant_id=ctx.tenant_id,
@@ -413,8 +448,9 @@ async def execute_canary_test(
             state="pending"
         )
     ]
-    for act in actions:
-        db.add(act)
+    if is_new_incident:
+        for act in actions:
+            db.add(act)
 
     # 6. Enqueue Transactional Outbox Event
     outbox_event = OutboxEvent(

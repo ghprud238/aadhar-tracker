@@ -1,40 +1,96 @@
 {
   "metadata": {
-    "generated_at": "2026-11-10T03:39:19.507344+00:00",
-    "generator_version": "1.0.0",
+    "generated_at": "2026-11-16T08:58:18.205337+00:00",
+    "generator_version": "2.0.0",
     "seed": 42,
     "profile_count": 10,
-    "breach_catalog_count": 5,
+    "breach_catalog_count": 15,
     "whatsapp_thread_count": 6,
+    "scam_corpus_count": 60,
+    "qr_pass_count": 30,
     "compliance_note": "All data generated using synthetic generators and Verhoeff test ranges (9999...). Zero real resident PII."
   },
   "identities": [
     {
-      "full_name": "Deepa Iyer",
-      "first_name": "Deepa",
-      "last_name": "Iyer",
-      "email": "deepa.iyer45@example.in",
-      "phone": "+919842868828",
-      "aadhaar_raw": "999918617230",
-      "aadhaar_formatted": "9999 1861 7230",
-      "aadhaar_masked": "XXXX-XXXX-7230",
-      "pan_raw": "EWUPI6835A",
-      "pan_masked": "EW***68*A",
-      "vid_number": "4770-6629-6713-3179",
+      "full_name": "Sneha Sharma",
+      "first_name": "Sneha",
+      "last_name": "Sharma",
+      "email": "sneha.sharma41@suraksha-test.org",
+      "phone": "+919839958838",
+      "aadhaar_raw": "999929503829",
+      "aadhaar_formatted": "9999 2950 3829",
+      "aadhaar_masked": "XXXX-XXXX-3829",
+      "pan_raw": "YKQPS9048A",
+      "pan_masked": "YK***90*A",
+      "vid_number": "0193-4883-4803-1001",
+      "driving_license_raw": "DL2320186068330",
+      "driving_license_masked": "DL23-****-68330",
+      "voter_id_raw": "PUS6017233",
+      "voter_id_masked": "PU****233",
+      "passport_raw": "S6847884",
+      "passport_masked": "S****884",
+      "bank_details": {
+        "bank_name": "Bank of Baroda",
+        "ifsc_code": "BARB0004850",
+        "account_raw": "37602184031394",
+        "account_masked": "XXXXXXXXXX1394"
+      },
+      "vehicle_rc_raw": "DL34KQ1713",
+      "vehicle_rc_masked": "DL34-**-1713",
+      "telecom_sims": [
+        {
+          "phone_number": "+919839958838",
+          "carrier": "BSNL",
+          "telecom_circle": "Tamil Nadu",
+          "is_primary": true,
+          "is_authorized_by_resident": true,
+          "issued_on": "2023-10-23",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919602231650",
+          "carrier": "Airtel 5G",
+          "telecom_circle": "Delhi NCR",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-07-20",
+          "status": "active"
+        }
+      ],
+      "credit_profile": {
+        "pan_number": "YKQPS9048A",
+        "cibil_score": 720,
+        "score_band": "Fair",
+        "credit_bureau": "TransUnion CIBIL",
+        "active_credit_cards": 3,
+        "recent_hard_inquiries": [
+          {
+            "institution": "KreditBee",
+            "purpose": "Instant Micro-Credit",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-10-23",
+            "is_authorized": false,
+            "flagged_suspicious": true
+          }
+        ],
+        "has_unauthorized_inquiries": true
+      },
       "address": {
-        "street": "Flat 859, Surya Enclave",
-        "city": "Hyderabad",
-        "state": "Telangana",
-        "pincode": "500242",
+        "street": "Flat 339, Surya Enclave",
+        "city": "New Delhi",
+        "state": "Delhi",
+        "state_code": "DL",
+        "pincode": "110854",
         "country": "India"
       },
-      "created_at": "2026-11-10T03:39:19.503915+00:00"
+      "created_at": "2026-11-16T08:58:18.178985+00:00"
     },
     {
-      "full_name": "Diya Singh",
-      "first_name": "Diya",
+      "full_name": "Rohan Singh",
+      "first_name": "Rohan",
       "last_name": "Singh",
-      "email": "diya.singh69@testmail.co.in",
+      "email": "rohan.singh69@testmail.co.in",
       "phone": "+919859644073",
       "aadhaar_raw": "999906398127",
       "aadhaar_formatted": "9999 0639 8127",
@@ -42,20 +98,92 @@
       "pan_raw": "EMHPS2331D",
       "pan_masked": "EM***23*D",
       "vid_number": "4745-2471-5019-6342",
+      "driving_license_raw": "UP9320247730014",
+      "driving_license_masked": "UP93-****-30014",
+      "voter_id_raw": "DCT2357661",
+      "voter_id_masked": "DC****661",
+      "passport_raw": "Z7710649",
+      "passport_masked": "Z****649",
+      "bank_details": {
+        "bank_name": "State Bank of India",
+        "ifsc_code": "SBIN0007575",
+        "account_raw": "05804015868230",
+        "account_masked": "XXXXXXXXXX8230"
+      },
+      "vehicle_rc_raw": "UP58UN1936",
+      "vehicle_rc_masked": "UP58-**-1936",
+      "telecom_sims": [
+        {
+          "phone_number": "+919859644073",
+          "carrier": "Vodafone Idea (Vi)",
+          "telecom_circle": "Tamil Nadu",
+          "is_primary": true,
+          "is_authorized_by_resident": true,
+          "issued_on": "2025-12-02",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919647802542",
+          "carrier": "Vodafone Idea (Vi)",
+          "telecom_circle": "Karnataka",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-09-21",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919469155908",
+          "carrier": "Vodafone Idea (Vi)",
+          "telecom_circle": "Mumbai",
+          "is_primary": false,
+          "is_authorized_by_resident": false,
+          "flagged_as_ghost_sim": true,
+          "issued_on": "2026-04-30",
+          "status": "flagged_unauthorized"
+        }
+      ],
+      "credit_profile": {
+        "pan_number": "EMHPS2331D",
+        "cibil_score": 701,
+        "score_band": "Fair",
+        "credit_bureau": "TransUnion CIBIL",
+        "active_credit_cards": 4,
+        "recent_hard_inquiries": [
+          {
+            "institution": "Bajaj Finance",
+            "purpose": "Instant Micro-Credit",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-10-19",
+            "is_authorized": true,
+            "flagged_suspicious": false
+          },
+          {
+            "institution": "HDFC Bank",
+            "purpose": "Personal Loan",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-10-04",
+            "is_authorized": true,
+            "flagged_suspicious": false
+          }
+        ],
+        "has_unauthorized_inquiries": false
+      },
       "address": {
-        "street": "Flat 611, Surya Enclave",
+        "street": "Flat 874, Surya Enclave",
         "city": "Lucknow",
         "state": "Uttar Pradesh",
+        "state_code": "UP",
         "pincode": "226815",
         "country": "India"
       },
-      "created_at": "2026-11-10T03:39:19.503983+00:00"
+      "created_at": "2026-11-16T08:58:18.179124+00:00"
     },
     {
-      "full_name": "Ishaan Rao",
-      "first_name": "Ishaan",
+      "full_name": "Preeti Rao",
+      "first_name": "Preeti",
       "last_name": "Rao",
-      "email": "ishaan.rao32@example.in",
+      "email": "preeti.rao32@example.in",
       "phone": "+919860944870",
       "aadhaar_raw": "999903509964",
       "aadhaar_formatted": "9999 0350 9964",
@@ -63,20 +191,92 @@
       "pan_raw": "JDNPR2297L",
       "pan_masked": "JD***22*L",
       "vid_number": "4051-0394-4057-2081",
+      "driving_license_raw": "TS6620183062077",
+      "driving_license_masked": "TS66-****-62077",
+      "voter_id_raw": "GZZ5815576",
+      "voter_id_masked": "GZ****576",
+      "passport_raw": "W9965799",
+      "passport_masked": "W****799",
+      "bank_details": {
+        "bank_name": "ICICI Bank",
+        "ifsc_code": "ICIC0007480",
+        "account_raw": "95187152353",
+        "account_masked": "XXXXXXX2353"
+      },
+      "vehicle_rc_raw": "TS43YL4638",
+      "vehicle_rc_masked": "TS43-**-4638",
+      "telecom_sims": [
+        {
+          "phone_number": "+919860944870",
+          "carrier": "Airtel 5G",
+          "telecom_circle": "Telangana",
+          "is_primary": true,
+          "is_authorized_by_resident": true,
+          "issued_on": "2024-11-18",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919913768450",
+          "carrier": "Jio 5G",
+          "telecom_circle": "Maharashtra",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-06-16",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919495616298",
+          "carrier": "Vodafone Idea (Vi)",
+          "telecom_circle": "Mumbai",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-04-30",
+          "status": "active"
+        }
+      ],
+      "credit_profile": {
+        "pan_number": "JDNPR2297L",
+        "cibil_score": 844,
+        "score_band": "Excellent",
+        "credit_bureau": "TransUnion CIBIL",
+        "active_credit_cards": 1,
+        "recent_hard_inquiries": [
+          {
+            "institution": "Bajaj Finance",
+            "purpose": "Credit Card",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-09-29",
+            "is_authorized": true,
+            "flagged_suspicious": false
+          },
+          {
+            "institution": "Tata Capital",
+            "purpose": "Credit Card",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-10-18",
+            "is_authorized": true,
+            "flagged_suspicious": false
+          }
+        ],
+        "has_unauthorized_inquiries": false
+      },
       "address": {
-        "street": "Flat 683, Surya Enclave",
+        "street": "Flat 488, Surya Enclave",
         "city": "Hyderabad",
         "state": "Telangana",
+        "state_code": "TS",
         "pincode": "500396",
         "country": "India"
       },
-      "created_at": "2026-11-10T03:39:19.504033+00:00"
+      "created_at": "2026-11-16T08:58:18.179253+00:00"
     },
     {
-      "full_name": "Arjun Bose",
-      "first_name": "Arjun",
+      "full_name": "Nikhil Bose",
+      "first_name": "Nikhil",
       "last_name": "Bose",
-      "email": "arjun.bose42@demo-resident.in",
+      "email": "nikhil.bose42@demo-resident.in",
       "phone": "+919820989659",
       "aadhaar_raw": "999970432003",
       "aadhaar_formatted": "9999 7043 2003",
@@ -84,41 +284,158 @@
       "pan_raw": "UMPPB5365N",
       "pan_masked": "UM***53*N",
       "vid_number": "7416-5097-5861-1186",
+      "driving_license_raw": "TN1220247248064",
+      "driving_license_masked": "TN12-****-48064",
+      "voter_id_raw": "JWJ7612163",
+      "voter_id_masked": "JW****163",
+      "passport_raw": "L5535642",
+      "passport_masked": "L****642",
+      "bank_details": {
+        "bank_name": "Bank of Baroda",
+        "ifsc_code": "BARB0006802",
+        "account_raw": "0609900615760340",
+        "account_masked": "XXXXXXXXXXXX0340"
+      },
+      "vehicle_rc_raw": "TN50WJ3077",
+      "vehicle_rc_masked": "TN50-**-3077",
+      "telecom_sims": [
+        {
+          "phone_number": "+919820989659",
+          "carrier": "Airtel 5G",
+          "telecom_circle": "Maharashtra",
+          "is_primary": true,
+          "is_authorized_by_resident": true,
+          "issued_on": "2023-12-03",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919313237764",
+          "carrier": "Jio 5G",
+          "telecom_circle": "Delhi NCR",
+          "is_primary": false,
+          "is_authorized_by_resident": false,
+          "flagged_as_ghost_sim": true,
+          "issued_on": "2026-09-10",
+          "status": "flagged_unauthorized"
+        }
+      ],
+      "credit_profile": {
+        "pan_number": "UMPPB5365N",
+        "cibil_score": 827,
+        "score_band": "Excellent",
+        "credit_bureau": "TransUnion CIBIL",
+        "active_credit_cards": 3,
+        "recent_hard_inquiries": [
+          {
+            "institution": "Tata Capital",
+            "purpose": "Auto Loan",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-09-24",
+            "is_authorized": false,
+            "flagged_suspicious": true
+          },
+          {
+            "institution": "KreditBee",
+            "purpose": "Credit Card",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-11-13",
+            "is_authorized": true,
+            "flagged_suspicious": false
+          }
+        ],
+        "has_unauthorized_inquiries": true
+      },
       "address": {
-        "street": "Flat 112, Surya Enclave",
+        "street": "Flat 239, Surya Enclave",
         "city": "Chennai",
         "state": "Tamil Nadu",
+        "state_code": "TN",
         "pincode": "600446",
         "country": "India"
       },
-      "created_at": "2026-11-10T03:39:19.504088+00:00"
+      "created_at": "2026-11-16T08:58:18.179381+00:00"
     },
     {
-      "full_name": "Rohan Joshi",
-      "first_name": "Rohan",
+      "full_name": "Karthik Joshi",
+      "first_name": "Karthik",
       "last_name": "Joshi",
-      "email": "rohan.joshi85@example.in",
+      "email": "karthik.joshi85@example.in",
       "phone": "+919888772676",
-      "aadhaar_raw": "999925615430",
-      "aadhaar_formatted": "9999 2561 5430",
-      "aadhaar_masked": "XXXX-XXXX-5430",
-      "pan_raw": "JULPJ1347L",
-      "pan_masked": "JU***13*L",
-      "vid_number": "4237-8875-0792-5642",
+      "aadhaar_raw": "999904024897",
+      "aadhaar_formatted": "9999 0402 4897",
+      "aadhaar_masked": "XXXX-XXXX-4897",
+      "pan_raw": "WFMPJ7890D",
+      "pan_masked": "WF***78*D",
+      "vid_number": "4950-5110-0103-3907",
+      "driving_license_raw": "BR9920162262558",
+      "driving_license_masked": "BR99-****-62558",
+      "voter_id_raw": "NJN2698669",
+      "voter_id_masked": "NJ****669",
+      "passport_raw": "J2858872",
+      "passport_masked": "J****872",
+      "bank_details": {
+        "bank_name": "HDFC Bank",
+        "ifsc_code": "HDFC0002896",
+        "account_raw": "6355733688190136",
+        "account_masked": "XXXXXXXXXXXX0136"
+      },
+      "vehicle_rc_raw": "BR73VJ8545",
+      "vehicle_rc_masked": "BR73-**-8545",
+      "telecom_sims": [
+        {
+          "phone_number": "+919888772676",
+          "carrier": "Airtel 5G",
+          "telecom_circle": "Karnataka",
+          "is_primary": true,
+          "is_authorized_by_resident": true,
+          "issued_on": "2025-11-08",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919297036478",
+          "carrier": "Airtel 5G",
+          "telecom_circle": "Mumbai",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-05-08",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919362935933",
+          "carrier": "Vodafone Idea (Vi)",
+          "telecom_circle": "Delhi NCR",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-08-18",
+          "status": "active"
+        }
+      ],
+      "credit_profile": {
+        "pan_number": "WFMPJ7890D",
+        "cibil_score": 785,
+        "score_band": "Good",
+        "credit_bureau": "TransUnion CIBIL",
+        "active_credit_cards": 1,
+        "recent_hard_inquiries": [],
+        "has_unauthorized_inquiries": false
+      },
       "address": {
-        "street": "Flat 651, Surya Enclave",
-        "city": "Hyderabad",
-        "state": "Telangana",
-        "pincode": "500749",
+        "street": "Flat 132, Surya Enclave",
+        "city": "Patna",
+        "state": "Bihar",
+        "state_code": "BR",
+        "pincode": "800334",
         "country": "India"
       },
-      "created_at": "2026-11-10T03:39:19.504210+00:00"
+      "created_at": "2026-11-16T08:58:18.179502+00:00"
     },
     {
-      "full_name": "Meera Patel",
-      "first_name": "Meera",
+      "full_name": "Lakshmi Patel",
+      "first_name": "Lakshmi",
       "last_name": "Patel",
-      "email": "meera.patel80@demo-resident.in",
+      "email": "lakshmi.patel80@demo-resident.in",
       "phone": "+919870890672",
       "aadhaar_raw": "999949431361",
       "aadhaar_formatted": "9999 4943 1361",
@@ -126,20 +443,90 @@
       "pan_raw": "YQLPP1847G",
       "pan_masked": "YQ***18*G",
       "vid_number": "1517-4180-5153-1071",
+      "driving_license_raw": "KL0920178762637",
+      "driving_license_masked": "KL09-****-62637",
+      "voter_id_raw": "NDG7132778",
+      "voter_id_masked": "ND****778",
+      "passport_raw": "J9954194",
+      "passport_masked": "J****194",
+      "bank_details": {
+        "bank_name": "Punjab National Bank",
+        "ifsc_code": "PUNB0006244",
+        "account_raw": "896407019347",
+        "account_masked": "XXXXXXXX9347"
+      },
+      "vehicle_rc_raw": "KL17XC5582",
+      "vehicle_rc_masked": "KL17-**-5582",
+      "telecom_sims": [
+        {
+          "phone_number": "+919870890672",
+          "carrier": "Jio 5G",
+          "telecom_circle": "Maharashtra",
+          "is_primary": true,
+          "is_authorized_by_resident": true,
+          "issued_on": "2024-01-12",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919829374468",
+          "carrier": "Airtel 5G",
+          "telecom_circle": "Maharashtra",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-09-24",
+          "status": "active"
+        }
+      ],
+      "credit_profile": {
+        "pan_number": "YQLPP1847G",
+        "cibil_score": 777,
+        "score_band": "Good",
+        "credit_bureau": "TransUnion CIBIL",
+        "active_credit_cards": 3,
+        "recent_hard_inquiries": [
+          {
+            "institution": "Axis Bank",
+            "purpose": "Personal Loan",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-11-11",
+            "is_authorized": true,
+            "flagged_suspicious": false
+          },
+          {
+            "institution": "Bajaj Finance",
+            "purpose": "Credit Card",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-11-03",
+            "is_authorized": false,
+            "flagged_suspicious": true
+          },
+          {
+            "institution": "HDFC Bank",
+            "purpose": "Auto Loan",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-11-05",
+            "is_authorized": true,
+            "flagged_suspicious": false
+          }
+        ],
+        "has_unauthorized_inquiries": true
+      },
       "address": {
-        "street": "Flat 502, Surya Enclave",
+        "street": "Flat 371, Surya Enclave",
         "city": "Kochi",
         "state": "Kerala",
+        "state_code": "KL",
         "pincode": "682451",
         "country": "India"
       },
-      "created_at": "2026-11-10T03:39:19.504268+00:00"
+      "created_at": "2026-11-16T08:58:18.179624+00:00"
     },
     {
-      "full_name": "Nikhil Das",
-      "first_name": "Nikhil",
+      "full_name": "Pranav Das",
+      "first_name": "Pranav",
       "last_name": "Das",
-      "email": "nikhil.das81@testmail.co.in",
+      "email": "pranav.das81@testmail.co.in",
       "phone": "+919881778112",
       "aadhaar_raw": "999984941849",
       "aadhaar_formatted": "9999 8494 1849",
@@ -147,82 +534,316 @@
       "pan_raw": "PGDPD8489Y",
       "pan_masked": "PG***84*Y",
       "vid_number": "6395-6905-2932-1541",
+      "driving_license_raw": "TN0120220224746",
+      "driving_license_masked": "TN01-****-24746",
+      "voter_id_raw": "LSM5040878",
+      "voter_id_masked": "LS****878",
+      "passport_raw": "N5241421",
+      "passport_masked": "N****421",
+      "bank_details": {
+        "bank_name": "ICICI Bank",
+        "ifsc_code": "ICIC0007011",
+        "account_raw": "79016402934",
+        "account_masked": "XXXXXXX2934"
+      },
+      "vehicle_rc_raw": "TN72TK3989",
+      "vehicle_rc_masked": "TN72-**-3989",
+      "telecom_sims": [
+        {
+          "phone_number": "+919881778112",
+          "carrier": "Airtel 5G",
+          "telecom_circle": "Tamil Nadu",
+          "is_primary": true,
+          "is_authorized_by_resident": true,
+          "issued_on": "2023-07-24",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919622560911",
+          "carrier": "Jio 5G",
+          "telecom_circle": "Maharashtra",
+          "is_primary": false,
+          "is_authorized_by_resident": false,
+          "flagged_as_ghost_sim": true,
+          "issued_on": "2026-09-04",
+          "status": "flagged_unauthorized"
+        }
+      ],
+      "credit_profile": {
+        "pan_number": "PGDPD8489Y",
+        "cibil_score": 716,
+        "score_band": "Fair",
+        "credit_bureau": "TransUnion CIBIL",
+        "active_credit_cards": 4,
+        "recent_hard_inquiries": [],
+        "has_unauthorized_inquiries": false
+      },
       "address": {
-        "street": "Flat 881, Surya Enclave",
+        "street": "Flat 326, Surya Enclave",
         "city": "Chennai",
         "state": "Tamil Nadu",
+        "state_code": "TN",
         "pincode": "600912",
         "country": "India"
       },
-      "created_at": "2026-11-10T03:39:19.504314+00:00"
+      "created_at": "2026-11-16T08:58:18.179739+00:00"
     },
     {
-      "full_name": "Rohan Menon",
-      "first_name": "Rohan",
+      "full_name": "Karthik Menon",
+      "first_name": "Karthik",
       "last_name": "Menon",
-      "email": "rohan.menon24@demo-resident.in",
+      "email": "karthik.menon24@demo-resident.in",
       "phone": "+919853418792",
-      "aadhaar_raw": "999927033004",
-      "aadhaar_formatted": "9999 2703 3004",
-      "aadhaar_masked": "XXXX-XXXX-3004",
-      "pan_raw": "UTDPM1039Q",
-      "pan_masked": "UT***10*Q",
-      "vid_number": "3892-9946-2250-6030",
+      "aadhaar_raw": "999949501898",
+      "aadhaar_formatted": "9999 4950 1898",
+      "aadhaar_masked": "XXXX-XXXX-1898",
+      "pan_raw": "FRAPM4327G",
+      "pan_masked": "FR***43*G",
+      "vid_number": "9810-7295-6813-5348",
+      "driving_license_raw": "MP8120158459989",
+      "driving_license_masked": "MP81-****-59989",
+      "voter_id_raw": "YQX3716526",
+      "voter_id_masked": "YQ****526",
+      "passport_raw": "V3178864",
+      "passport_masked": "V****864",
+      "bank_details": {
+        "bank_name": "State Bank of India",
+        "ifsc_code": "SBIN0002471",
+        "account_raw": "9813697563840314",
+        "account_masked": "XXXXXXXXXXXX0314"
+      },
+      "vehicle_rc_raw": "MP64NV7006",
+      "vehicle_rc_masked": "MP64-**-7006",
+      "telecom_sims": [
+        {
+          "phone_number": "+919853418792",
+          "carrier": "Jio 5G",
+          "telecom_circle": "Tamil Nadu",
+          "is_primary": true,
+          "is_authorized_by_resident": true,
+          "issued_on": "2024-01-31",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919420449385",
+          "carrier": "Vodafone Idea (Vi)",
+          "telecom_circle": "Maharashtra",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-06-10",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919127457535",
+          "carrier": "Jio 5G",
+          "telecom_circle": "Karnataka",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-09-20",
+          "status": "active"
+        }
+      ],
+      "credit_profile": {
+        "pan_number": "FRAPM4327G",
+        "cibil_score": 703,
+        "score_band": "Fair",
+        "credit_bureau": "TransUnion CIBIL",
+        "active_credit_cards": 4,
+        "recent_hard_inquiries": [],
+        "has_unauthorized_inquiries": false
+      },
       "address": {
-        "street": "Flat 877, Surya Enclave",
-        "city": "Jaipur",
-        "state": "Rajasthan",
-        "pincode": "302623",
+        "street": "Flat 746, Surya Enclave",
+        "city": "Bhopal",
+        "state": "Madhya Pradesh",
+        "state_code": "MP",
+        "pincode": "462667",
         "country": "India"
       },
-      "created_at": "2026-11-10T03:39:19.504373+00:00"
+      "created_at": "2026-11-16T08:58:18.179875+00:00"
     },
     {
-      "full_name": "Aditya Kulkarni",
+      "full_name": "Sanjay Chauhan",
+      "first_name": "Sanjay",
+      "last_name": "Chauhan",
+      "email": "sanjay.chauhan56@suraksha-test.org",
+      "phone": "+919895551877",
+      "aadhaar_raw": "999980983139",
+      "aadhaar_formatted": "9999 8098 3139",
+      "aadhaar_masked": "XXXX-XXXX-3139",
+      "pan_raw": "KDCPC4946C",
+      "pan_masked": "KD***49*C",
+      "vid_number": "5205-0685-3043-4372",
+      "driving_license_raw": "OD3620151776713",
+      "driving_license_masked": "OD36-****-76713",
+      "voter_id_raw": "KSC8524164",
+      "voter_id_masked": "KS****164",
+      "passport_raw": "V7639991",
+      "passport_masked": "V****991",
+      "bank_details": {
+        "bank_name": "Bank of Baroda",
+        "ifsc_code": "BARB0008002",
+        "account_raw": "8409115601634305",
+        "account_masked": "XXXXXXXXXXXX4305"
+      },
+      "vehicle_rc_raw": "OD84MM5200",
+      "vehicle_rc_masked": "OD84-**-5200",
+      "telecom_sims": [
+        {
+          "phone_number": "+919895551877",
+          "carrier": "Vodafone Idea (Vi)",
+          "telecom_circle": "Delhi NCR",
+          "is_primary": true,
+          "is_authorized_by_resident": true,
+          "issued_on": "2024-01-27",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919669648760",
+          "carrier": "Jio 5G",
+          "telecom_circle": "Delhi NCR",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-08-31",
+          "status": "active"
+        }
+      ],
+      "credit_profile": {
+        "pan_number": "KDCPC4946C",
+        "cibil_score": 776,
+        "score_band": "Good",
+        "credit_bureau": "TransUnion CIBIL",
+        "active_credit_cards": 3,
+        "recent_hard_inquiries": [
+          {
+            "institution": "Bajaj Finance",
+            "purpose": "Credit Card",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-11-01",
+            "is_authorized": true,
+            "flagged_suspicious": false
+          }
+        ],
+        "has_unauthorized_inquiries": false
+      },
+      "address": {
+        "street": "Flat 201, Surya Enclave",
+        "city": "Bhubaneswar",
+        "state": "Odisha",
+        "state_code": "OD",
+        "pincode": "751348",
+        "country": "India"
+      },
+      "created_at": "2026-11-16T08:58:18.179999+00:00"
+    },
+    {
+      "full_name": "Aditya Sengupta",
       "first_name": "Aditya",
-      "last_name": "Kulkarni",
-      "email": "aditya.kulkarni91@suraksha-test.org",
-      "phone": "+919842545081",
-      "aadhaar_raw": "999952050682",
-      "aadhaar_formatted": "9999 5205 0682",
-      "aadhaar_masked": "XXXX-XXXX-0682",
-      "pan_raw": "JHYPK2735S",
-      "pan_masked": "JH***27*S",
-      "vid_number": "4817-6901-4323-7627",
-      "address": {
-        "street": "Flat 425, Surya Enclave",
-        "city": "Chandigarh",
-        "state": "Punjab",
-        "pincode": "160584",
-        "country": "India"
-      },
-      "created_at": "2026-11-10T03:39:19.504421+00:00"
-    },
-    {
-      "full_name": "Sneha Rao",
-      "first_name": "Sneha",
-      "last_name": "Rao",
-      "email": "sneha.rao41@testmail.co.in",
+      "last_name": "Sengupta",
+      "email": "aditya.sengupta41@testmail.co.in",
       "phone": "+919841057916",
-      "aadhaar_raw": "999971061501",
-      "aadhaar_formatted": "9999 7106 1501",
-      "aadhaar_masked": "XXXX-XXXX-1501",
-      "pan_raw": "HDYPR9312Q",
-      "pan_masked": "HD***93*Q",
-      "vid_number": "8932-5630-8402-8008",
+      "aadhaar_raw": "999957483416",
+      "aadhaar_formatted": "9999 5748 3416",
+      "aadhaar_masked": "XXXX-XXXX-3416",
+      "pan_raw": "XQCPS1425P",
+      "pan_masked": "XQ***14*P",
+      "vid_number": "3187-5741-2739-5694",
+      "driving_license_raw": "BR9220209762749",
+      "driving_license_masked": "BR92-****-62749",
+      "voter_id_raw": "NHF3763756",
+      "voter_id_masked": "NH****756",
+      "passport_raw": "S1322205",
+      "passport_masked": "S****205",
+      "bank_details": {
+        "bank_name": "ICICI Bank",
+        "ifsc_code": "ICIC0007692",
+        "account_raw": "20686680045501",
+        "account_masked": "XXXXXXXXXX5501"
+      },
+      "vehicle_rc_raw": "BR55LH2650",
+      "vehicle_rc_masked": "BR55-**-2650",
+      "telecom_sims": [
+        {
+          "phone_number": "+919841057916",
+          "carrier": "Airtel 5G",
+          "telecom_circle": "Delhi NCR",
+          "is_primary": true,
+          "is_authorized_by_resident": true,
+          "issued_on": "2026-01-13",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919567813767",
+          "carrier": "BSNL",
+          "telecom_circle": "Telangana",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-07-25",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919617076837",
+          "carrier": "Airtel 5G",
+          "telecom_circle": "Mumbai",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-05-29",
+          "status": "active"
+        }
+      ],
+      "credit_profile": {
+        "pan_number": "XQCPS1425P",
+        "cibil_score": 723,
+        "score_band": "Fair",
+        "credit_bureau": "TransUnion CIBIL",
+        "active_credit_cards": 2,
+        "recent_hard_inquiries": [
+          {
+            "institution": "Axis Bank",
+            "purpose": "Personal Loan",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-10-26",
+            "is_authorized": true,
+            "flagged_suspicious": false
+          },
+          {
+            "institution": "Bajaj Finance",
+            "purpose": "Auto Loan",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-11-05",
+            "is_authorized": false,
+            "flagged_suspicious": true
+          },
+          {
+            "institution": "Bajaj Finance",
+            "purpose": "Instant Micro-Credit",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-09-24",
+            "is_authorized": true,
+            "flagged_suspicious": false
+          }
+        ],
+        "has_unauthorized_inquiries": true
+      },
       "address": {
-        "street": "Flat 850, Surya Enclave",
-        "city": "Jaipur",
-        "state": "Rajasthan",
-        "pincode": "302361",
+        "street": "Flat 469, Surya Enclave",
+        "city": "Patna",
+        "state": "Bihar",
+        "state_code": "BR",
+        "pincode": "800665",
         "country": "India"
       },
-      "created_at": "2026-11-10T03:39:19.504469+00:00"
+      "created_at": "2026-11-16T08:58:18.180127+00:00"
     }
   ],
   "breach_catalog": [
     {
-      "dump_id": "leak_telecom_breach_20261110_399",
+      "dump_id": "leak_telecom_breach_20261116_399",
       "breach_name": "Bharat Telecom KYC Leak 2026",
       "source": "BreachForums v3 (Tor)",
       "source_type": "telecom_breach",
@@ -239,111 +860,131 @@
       "sampled_records": [
         {
           "record_id": "rec_0001",
-          "name": "Ananya Mehta",
-          "email": "ananya.mehta71@demo-resident.in",
+          "name": "Rajesh Mehta",
+          "email": "rajesh.mehta71@demo-resident.in",
           "phone": "+919872876349",
           "aadhaar_number": "9999 5441 7922",
           "pan_number": "NEJPM6048N",
+          "driving_license": "GJ8020213128428",
+          "voter_id": "NCN4213756",
           "state": "Gujarat",
           "pincode": "380113"
         },
         {
           "record_id": "rec_0002",
-          "name": "Nikhil Nair",
-          "email": "nikhil.nair21@testmail.co.in",
+          "name": "Pranav Nair",
+          "email": "pranav.nair21@testmail.co.in",
           "phone": "+919885983937",
           "aadhaar_number": "9999 3099 0788",
           "pan_number": "BQVPN1409G",
+          "driving_license": "RJ5620146485070",
+          "voter_id": "TSN5275151",
           "state": "Rajasthan",
           "pincode": "302810"
         },
         {
           "record_id": "rec_0003",
-          "name": "Lakshmi Singh",
-          "email": "lakshmi.singh86@demo-resident.in",
-          "phone": "+919839391871",
-          "aadhaar_number": "9999 2669 6265",
-          "pan_number": "TJWPS1665T",
-          "state": "Rajasthan",
-          "pincode": "302356"
+          "name": "Amit Bose",
+          "email": "amit.bose74@testmail.co.in",
+          "phone": "+919843676257",
+          "aadhaar_number": "9999 4795 2442",
+          "pan_number": "NEVPB8896W",
+          "driving_license": "TS7720238731931",
+          "voter_id": "DKF9695223",
+          "state": "Telangana",
+          "pincode": "500312"
         },
         {
           "record_id": "rec_0004",
-          "name": "Nikhil Kulkarni",
-          "email": "nikhil.kulkarni65@example.in",
+          "name": "Pranav Kulkarni",
+          "email": "pranav.kulkarni65@example.in",
           "phone": "+919840795128",
           "aadhaar_number": "9999 1087 5116",
           "pan_number": "JUYPK9104P",
+          "driving_license": "KA7420179966010",
+          "voter_id": "UXU9807810",
           "state": "Karnataka",
           "pincode": "560242"
         },
         {
           "record_id": "rec_0005",
-          "name": "Lakshmi Rao",
-          "email": "lakshmi.rao71@testmail.co.in",
-          "phone": "+919882978392",
-          "aadhaar_number": "9999 3053 8788",
-          "pan_number": "UTMPR2403W",
-          "state": "Maharashtra",
-          "pincode": "400405"
+          "name": "Venkatesh Gupta",
+          "email": "venkatesh.gupta79@demo-resident.in",
+          "phone": "+919810804528",
+          "aadhaar_number": "9999 9851 0544",
+          "pan_number": "WGTPG2645M",
+          "driving_license": "TN5420211851966",
+          "voter_id": "AHQ9869293",
+          "state": "Tamil Nadu",
+          "pincode": "600701"
         },
         {
           "record_id": "rec_0006",
-          "name": "Ananya Kulkarni",
-          "email": "ananya.kulkarni31@demo-resident.in",
+          "name": "Rajesh Kulkarni",
+          "email": "rajesh.kulkarni31@demo-resident.in",
           "phone": "+919847819001",
           "aadhaar_number": "9999 2253 1170",
           "pan_number": "CBPPK3288K",
+          "driving_license": "MH6420245982903",
+          "voter_id": "SDU5127134",
           "state": "Maharashtra",
           "pincode": "400485"
         },
         {
           "record_id": "rec_0007",
-          "name": "Deepa Das",
-          "email": "deepa.das38@demo-resident.in",
-          "phone": "+919833782444",
-          "aadhaar_number": "9999 0837 9049",
-          "pan_number": "UKDPD1924R",
-          "state": "West Bengal",
-          "pincode": "700247"
+          "name": "Suresh Joshi",
+          "email": "suresh.joshi32@testmail.co.in",
+          "phone": "+919860316088",
+          "aadhaar_number": "9999 9410 7263",
+          "pan_number": "WKDPJ9502G",
+          "driving_license": "DL1020161356716",
+          "voter_id": "VYZ7695374",
+          "state": "Delhi",
+          "pincode": "110320"
         },
         {
           "record_id": "rec_0008",
-          "name": "Vikram Deshmukh",
-          "email": "vikram.deshmukh39@demo-resident.in",
+          "name": "Siddharth Natarajan",
+          "email": "siddharth.natarajan39@demo-resident.in",
           "phone": "+919874565340",
-          "aadhaar_number": "9999 4367 5147",
-          "pan_number": "WPMPD5550A",
-          "state": "Karnataka",
-          "pincode": "560214"
+          "aadhaar_number": "9999 4579 0766",
+          "pan_number": "JHPPN8708L",
+          "driving_license": "BR8020177246365",
+          "voter_id": "BNT2844038",
+          "state": "Bihar",
+          "pincode": "800201"
         },
         {
           "record_id": "rec_0009",
-          "name": "Ritu Rao",
-          "email": "ritu.rao15@example.in",
+          "name": "Abhishek Rao",
+          "email": "abhishek.rao15@example.in",
           "phone": "+919873603405",
           "aadhaar_number": "9999 3654 9449",
           "pan_number": "WSKPR8052X",
+          "driving_license": "MH1420242435131",
+          "voter_id": "VPE5644823",
           "state": "Maharashtra",
           "pincode": "411328"
         },
         {
           "record_id": "rec_0010",
-          "name": "Rajesh Verma",
-          "email": "rajesh.verma68@suraksha-test.org",
-          "phone": "+919859366532",
-          "aadhaar_number": "9999 1118 6916",
-          "pan_number": "EMRPV3970Z",
-          "state": "Tamil Nadu",
-          "pincode": "600895"
+          "name": "Deepa Sengupta",
+          "email": "deepa.sengupta42@example.in",
+          "phone": "+919870985836",
+          "aadhaar_number": "9999 1383 1905",
+          "pan_number": "CDCPS9807W",
+          "driving_license": "MP2920176848183",
+          "voter_id": "GKM2209815",
+          "state": "Madhya Pradesh",
+          "pincode": "462476"
         }
       ],
-      "dump_discovered_at": "2026-11-10T03:39:19.504973+00:00",
+      "dump_discovered_at": "2026-11-16T08:58:18.181372+00:00",
       "magnet_hash": "urn:btih:561f73aa22f3840ec7ac398b0075a3a159945067",
       "raw_evidence_sha256": "861779442fa6b5520ddd9f1f214312e64a6fec0a7f6888728c7f9f007de2a954"
     },
     {
-      "dump_id": "leak_fintech_leak_20261110_685",
+      "dump_id": "leak_fintech_leak_20261116_685",
       "breach_name": "QuickRupee Microfinance Applicant Archive",
       "source": "Exploit.in (Darknet)",
       "source_type": "fintech_leak",
@@ -360,111 +1001,151 @@
       "sampled_records": [
         {
           "record_id": "rec_0001",
-          "name": "Ishaan Patel",
-          "email": "ishaan.patel29@example.in",
+          "name": "Preeti Patel",
+          "email": "preeti.patel29@example.in",
           "phone": "+919851987220",
-          "aadhaar_number": "9999 3642 9868",
-          "pan_number": "WSXPP4050T",
-          "state": "Uttar Pradesh",
-          "pincode": "226885"
+          "aadhaar_number": "9999 8332 7926",
+          "pan_number": "WZHPP8081K",
+          "driving_license": "MP6020231975283",
+          "voter_id": "TKP4290919",
+          "state": "Madhya Pradesh",
+          "pincode": "462964",
+          "bank_account": "8116013785555070",
+          "ifsc": "SBIN0001373"
         },
         {
           "record_id": "rec_0002",
-          "name": "Siddharth Sharma",
-          "email": "siddharth.sharma32@suraksha-test.org",
+          "name": "Sunita Sharma",
+          "email": "sunita.sharma32@suraksha-test.org",
           "phone": "+919844044551",
           "aadhaar_number": "9999 2365 6337",
           "pan_number": "ZYCPS1968D",
+          "driving_license": "UP4820207573056",
+          "voter_id": "GXW5015485",
           "state": "Uttar Pradesh",
-          "pincode": "226336"
+          "pincode": "226336",
+          "bank_account": "584838826994",
+          "ifsc": "PUNB0005915"
         },
         {
           "record_id": "rec_0003",
-          "name": "Lakshmi Choudhury",
-          "email": "lakshmi.choudhury28@example.in",
+          "name": "Manish Sengupta",
+          "email": "manish.sengupta28@example.in",
           "phone": "+919849394202",
           "aadhaar_number": "9999 1549 3225",
-          "pan_number": "MPDPC4326Q",
+          "pan_number": "MPDPS4326Q",
+          "driving_license": "TN7920204949977",
+          "voter_id": "UGD6069066",
           "state": "Tamil Nadu",
-          "pincode": "600832"
+          "pincode": "600832",
+          "bank_account": "83252523675",
+          "ifsc": "ICIC0006522"
         },
         {
           "record_id": "rec_0004",
-          "name": "Suresh Deshmukh",
-          "email": "suresh.deshmukh74@demo-resident.in",
+          "name": "Shruti Bhat",
+          "email": "shruti.bhat74@demo-resident.in",
           "phone": "+919898129292",
           "aadhaar_number": "9999 3103 5272",
-          "pan_number": "AQXPD9229N",
+          "pan_number": "AQXPB9229N",
+          "driving_license": "TS9720137858476",
+          "voter_id": "VRN3589869",
           "state": "Telangana",
-          "pincode": "500683"
+          "pincode": "500683",
+          "bank_account": "4723467430319403",
+          "ifsc": "UTIB0004958"
         },
         {
           "record_id": "rec_0005",
-          "name": "Meera Das",
-          "email": "meera.das53@demo-resident.in",
+          "name": "Varun Das",
+          "email": "varun.das53@demo-resident.in",
           "phone": "+919895993852",
           "aadhaar_number": "9999 4430 7174",
           "pan_number": "FYMPD4254T",
+          "driving_license": "RJ8520130302247",
+          "voter_id": "SHL9905420",
           "state": "Rajasthan",
-          "pincode": "302187"
+          "pincode": "302187",
+          "bank_account": "439194913374",
+          "ifsc": "HDFC0002569"
         },
         {
           "record_id": "rec_0006",
-          "name": "Ritu Verma",
-          "email": "ritu.verma78@testmail.co.in",
+          "name": "Nandini Verma",
+          "email": "nandini.verma78@testmail.co.in",
           "phone": "+919869735812",
           "aadhaar_number": "9999 5701 2483",
           "pan_number": "LRPPV8728Q",
+          "driving_license": "TN2020149681266",
+          "voter_id": "HTM8208233",
           "state": "Tamil Nadu",
-          "pincode": "600939"
+          "pincode": "600939",
+          "bank_account": "80193200925111",
+          "ifsc": "KKBK0002909"
         },
         {
           "record_id": "rec_0007",
-          "name": "Meera Das",
-          "email": "meera.das62@demo-resident.in",
+          "name": "Varun Das",
+          "email": "varun.das62@demo-resident.in",
           "phone": "+919820774191",
-          "aadhaar_number": "9999 8635 2296",
-          "pan_number": "DMJPD4963E",
-          "state": "Uttar Pradesh",
-          "pincode": "226263"
+          "aadhaar_number": "9999 8238 1395",
+          "pan_number": "CMYPD1370F",
+          "driving_license": "MP1520174392951",
+          "voter_id": "VLS1470705",
+          "state": "Madhya Pradesh",
+          "pincode": "462891",
+          "bank_account": "97994781052",
+          "ifsc": "HDFC0009851"
         },
         {
           "record_id": "rec_0008",
-          "name": "Rohan Sharma",
-          "email": "rohan.sharma67@testmail.co.in",
-          "phone": "+919877524113",
-          "aadhaar_number": "9999 1731 2852",
-          "pan_number": "JZVPS9195S",
-          "state": "West Bengal",
-          "pincode": "700430"
+          "name": "Karthik Chauhan",
+          "email": "karthik.chauhan30@example.in",
+          "phone": "+919870153017",
+          "aadhaar_number": "9999 8689 1663",
+          "pan_number": "CYQPC4637D",
+          "driving_license": "RJ2620192978102",
+          "voter_id": "UUU5507558",
+          "state": "Rajasthan",
+          "pincode": "302438",
+          "bank_account": "93508476275370",
+          "ifsc": "UTIB0008508"
         },
         {
           "record_id": "rec_0009",
-          "name": "Sneha Chatterjee",
-          "email": "sneha.chatterjee10@suraksha-test.org",
+          "name": "Aditya Chatterjee",
+          "email": "aditya.chatterjee10@suraksha-test.org",
           "phone": "+919890960844",
           "aadhaar_number": "9999 1486 8274",
           "pan_number": "BUZPC9330X",
+          "driving_license": "MH1520208161501",
+          "voter_id": "AKN1185625",
           "state": "Maharashtra",
-          "pincode": "400228"
+          "pincode": "400228",
+          "bank_account": "8553047467695758",
+          "ifsc": "PUNB0004007"
         },
         {
           "record_id": "rec_0010",
-          "name": "Siddharth Joshi",
-          "email": "siddharth.joshi58@demo-resident.in",
-          "phone": "+919823663301",
-          "aadhaar_number": "9999 2585 1277",
-          "pan_number": "NFSPJ4607H",
-          "state": "Karnataka",
-          "pincode": "560351"
+          "name": "Sunita Natarajan",
+          "email": "sunita.natarajan64@demo-resident.in",
+          "phone": "+919860412804",
+          "aadhaar_number": "9999 7782 7937",
+          "pan_number": "CMZPN5008S",
+          "driving_license": "MP9120242976330",
+          "voter_id": "NFS4694415",
+          "state": "Madhya Pradesh",
+          "pincode": "462805",
+          "bank_account": "97885010675",
+          "ifsc": "HDFC0004656"
         }
       ],
-      "dump_discovered_at": "2026-11-10T03:39:19.505470+00:00",
+      "dump_discovered_at": "2026-11-16T08:58:18.182601+00:00",
       "magnet_hash": "urn:btih:429d38fc399be5d927a6f671f6b88cb4234e04e5",
       "raw_evidence_sha256": "bb0910ef0e65e04ff0287e04a2d73d5692974abb3b915a594df8a96ca3e55226"
     },
     {
-      "dump_id": "leak_stealer_log_20261110_782",
+      "dump_id": "leak_stealer_log_20261116_782",
       "breach_name": "Lumma Stealer Botnet Campaign #812",
       "source": "Telegram Private Stealer Channel",
       "source_type": "stealer_log",
@@ -481,23 +1162,27 @@
       "sampled_records": [
         {
           "record_id": "rec_0001",
-          "name": "Varun Pandey",
-          "email": "varun.pandey13@suraksha-test.org",
-          "phone": "+919843272214",
-          "aadhaar_number": "9999 9641 8265",
-          "pan_number": "SZXPP7451B",
-          "state": "Karnataka",
-          "pincode": "560687",
+          "name": "Nikhil Sharma",
+          "email": "nikhil.sharma19@testmail.co.in",
+          "phone": "+919886985424",
+          "aadhaar_number": "9999 4711 7468",
+          "pan_number": "MXQPS2173Q",
+          "driving_license": "TN8120235576382",
+          "voter_id": "KHX5408264",
+          "state": "Tamil Nadu",
+          "pincode": "600218",
           "password_hash": "$2b$12$e6kvYl0/E7rC1e7pEGEHfZkSAE0l43ywYMsHm5YhPIGTEB/aOZvzW",
           "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
         },
         {
           "record_id": "rec_0002",
-          "name": "Ritu Singh",
-          "email": "ritu.singh77@demo-resident.in",
+          "name": "Abhishek Singh",
+          "email": "abhishek.singh77@demo-resident.in",
           "phone": "+919878296460",
           "aadhaar_number": "9999 8381 2265",
           "pan_number": "ZLJPS7007N",
+          "driving_license": "UP3320134330922",
+          "voter_id": "XSF6514772",
           "state": "Uttar Pradesh",
           "pincode": "226292",
           "password_hash": "$2b$12$yt4ijt69phS8.fGsBSwfG36kbUR7xm/ZLMqwDeuiGrlNij4N6vaYt",
@@ -505,23 +1190,27 @@
         },
         {
           "record_id": "rec_0003",
-          "name": "Karthik Patel",
-          "email": "karthik.patel64@testmail.co.in",
-          "phone": "+919832940025",
-          "aadhaar_number": "9999 0797 7655",
-          "pan_number": "XDMPP9459H",
-          "state": "Tamil Nadu",
-          "pincode": "600705",
+          "name": "Priya Soni",
+          "email": "priya.soni86@example.in",
+          "phone": "+919839435384",
+          "aadhaar_number": "9999 3016 2020",
+          "pan_number": "BKWPS2006U",
+          "driving_license": "PB0220199544740",
+          "voter_id": "XDM9662631",
+          "state": "Punjab",
+          "pincode": "160532",
           "password_hash": "$2b$12$SgvBZSOEDzDJ4AliWUHd5rTWCacLOEwj9zDj2pBuYZC/mTVpeqfCJ",
           "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
         },
         {
           "record_id": "rec_0004",
-          "name": "Siddharth Gupta",
-          "email": "siddharth.gupta66@suraksha-test.org",
+          "name": "Harish Gupta",
+          "email": "harish.gupta66@suraksha-test.org",
           "phone": "+919896204076",
           "aadhaar_number": "9999 2067 2591",
           "pan_number": "AVKPG2087W",
+          "driving_license": "TN9520242034495",
+          "voter_id": "KRZ9053272",
           "state": "Tamil Nadu",
           "pincode": "600119",
           "password_hash": "$2b$12$uEuDTRGl3rMleUuINo2VAooySeXcBPBVgDgfYT5yB5X6qlnqSo/QD",
@@ -529,35 +1218,41 @@
         },
         {
           "record_id": "rec_0005",
-          "name": "Varun Joshi",
-          "email": "varun.joshi41@testmail.co.in",
-          "phone": "+919836967259",
-          "aadhaar_number": "9999 0289 3025",
-          "pan_number": "UZEPJ1688H",
-          "state": "Delhi",
-          "pincode": "110306",
+          "name": "Sunita Mukherjee",
+          "email": "sunita.mukherjee35@testmail.co.in",
+          "phone": "+919830876261",
+          "aadhaar_number": "9999 9203 1657",
+          "pan_number": "UXFPM5442N",
+          "driving_license": "TS2620236673898",
+          "voter_id": "MQV8560374",
+          "state": "Telangana",
+          "pincode": "500763",
           "password_hash": "$2b$12$5R/FGB165k79acUerJ1CPLf1lXOBniibTOz16nYCNDJ1G1cvn1O2/",
           "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
         },
         {
           "record_id": "rec_0006",
-          "name": "Deepa Joshi",
-          "email": "deepa.joshi20@testmail.co.in",
+          "name": "Harish Bhattacharya",
+          "email": "harish.bhattacharya20@testmail.co.in",
           "phone": "+919888488388",
-          "aadhaar_number": "9999 2579 4354",
-          "pan_number": "HYGPJ4289Q",
-          "state": "Kerala",
-          "pincode": "682653",
+          "aadhaar_number": "9999 1743 0289",
+          "pan_number": "MCMPB3341W",
+          "driving_license": "BR3220233309710",
+          "voter_id": "CVS8371451",
+          "state": "Bihar",
+          "pincode": "800981",
           "password_hash": "$2b$12$dL.qO9Jb0KDbZilBCHJDtIkqFwRgA2swJ1Qt5CHWlPHwYFX0lYjcq",
           "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
         },
         {
           "record_id": "rec_0007",
-          "name": "Ananya Agarwal",
-          "email": "ananya.agarwal27@testmail.co.in",
+          "name": "Rajesh Agarwal",
+          "email": "rajesh.agarwal27@testmail.co.in",
           "phone": "+919820356624",
           "aadhaar_number": "9999 9648 1854",
           "pan_number": "XLSPA8246S",
+          "driving_license": "GJ1320221293000",
+          "voter_id": "FPF7689551",
           "state": "Gujarat",
           "pincode": "380428",
           "password_hash": "$2b$12$p9wQv.ncqNIrUGx396.2tURtVp89VGB4nd.P2hUSCDkTDFhNRDg2H",
@@ -565,11 +1260,13 @@
         },
         {
           "record_id": "rec_0008",
-          "name": "Pooja Deshmukh",
-          "email": "pooja.deshmukh38@example.in",
+          "name": "Vikram Deshmukh",
+          "email": "vikram.deshmukh38@example.in",
           "phone": "+919822977267",
           "aadhaar_number": "9999 1350 5816",
           "pan_number": "UXRPD6462Y",
+          "driving_license": "TN7120154480471",
+          "voter_id": "LVK3725109",
           "state": "Tamil Nadu",
           "pincode": "600574",
           "password_hash": "$2b$12$0kj1MEf9hwkShKRdYR/3o8J5wNbXv0LG95GxUzr8bOfs12FYRKBQK",
@@ -577,35 +1274,39 @@
         },
         {
           "record_id": "rec_0009",
-          "name": "Arjun Choudhury",
-          "email": "arjun.choudhury31@example.in",
-          "phone": "+919847954719",
-          "aadhaar_number": "9999 7730 3059",
-          "pan_number": "GABPC4585M",
-          "state": "Telangana",
-          "pincode": "500572",
+          "name": "Nikhil Chauhan",
+          "email": "nikhil.chauhan15@demo-resident.in",
+          "phone": "+919832639751",
+          "aadhaar_number": "9999 8383 3476",
+          "pan_number": "RRHPC1199H",
+          "driving_license": "TN6220180942375",
+          "voter_id": "NBM1715530",
+          "state": "Tamil Nadu",
+          "pincode": "600351",
           "password_hash": "$2b$12$CDgWVLuToAUtOzeOKbtg18WjmABLBZkCWSg/Rm/PFJ/fktMcckkv6",
           "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
         },
         {
           "record_id": "rec_0010",
-          "name": "Varun Bose",
-          "email": "varun.bose85@example.in",
-          "phone": "+919873396191",
-          "aadhaar_number": "9999 7757 2919",
-          "pan_number": "CCNPB6398Y",
-          "state": "Tamil Nadu",
-          "pincode": "600586",
+          "name": "Preeti Patel",
+          "email": "preeti.patel48@demo-resident.in",
+          "phone": "+919873734122",
+          "aadhaar_number": "9999 1165 3068",
+          "pan_number": "HRSPP8658C",
+          "driving_license": "MP7020189085492",
+          "voter_id": "JCP6493294",
+          "state": "Madhya Pradesh",
+          "pincode": "462320",
           "password_hash": "$2b$12$hJMYzSXdouDqgRmHTYGqxtASu0IEsjxmIMI82bFD3uJbaOSPRA0DX",
           "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
         }
       ],
-      "dump_discovered_at": "2026-11-10T03:39:19.506054+00:00",
+      "dump_discovered_at": "2026-11-16T08:58:18.183944+00:00",
       "magnet_hash": "urn:btih:a7b678748a4343d4554725ff84724fabbdb7de8e",
       "raw_evidence_sha256": "a115b0bbdf89f35c52f1d5a73404a7a746c5a69bc317889bb8eff68d4698bb29"
     },
     {
-      "dump_id": "leak_healthcare_leak_20261110_215",
+      "dump_id": "leak_healthcare_leak_20261116_215",
       "breach_name": "Metro Diagnostics Health Records Leak",
       "source": "Dark Web Pastebin / I2P",
       "source_type": "healthcare_leak",
@@ -621,111 +1322,131 @@
       "sampled_records": [
         {
           "record_id": "rec_0001",
-          "name": "Ritu Iyer",
-          "email": "ritu.iyer38@suraksha-test.org",
+          "name": "Nandini Iyer",
+          "email": "nandini.iyer38@suraksha-test.org",
           "phone": "+919899842814",
-          "aadhaar_number": "9999 2081 8264",
-          "pan_number": "DKFPI2943R",
-          "state": "Maharashtra",
-          "pincode": "400761"
+          "aadhaar_number": "9999 0336 4969",
+          "pan_number": "FZAPI9485D",
+          "driving_license": "OD1620175934675",
+          "voter_id": "JRV4853567",
+          "state": "Odisha",
+          "pincode": "751143"
         },
         {
           "record_id": "rec_0002",
-          "name": "Kavya Ghosh",
-          "email": "kavya.ghosh40@example.in",
+          "name": "Neha Ghosh",
+          "email": "neha.ghosh40@example.in",
           "phone": "+919823457899",
           "aadhaar_number": "9999 3358 7549",
           "pan_number": "HYSPG3016A",
+          "driving_license": "TN3820200141069",
+          "voter_id": "JBU9216182",
           "state": "Tamil Nadu",
           "pincode": "600989"
         },
         {
           "record_id": "rec_0003",
-          "name": "Suresh Agarwal",
-          "email": "suresh.agarwal85@testmail.co.in",
+          "name": "Anjali Bhattacharya",
+          "email": "anjali.bhattacharya85@testmail.co.in",
           "phone": "+919846577225",
           "aadhaar_number": "9999 3585 6707",
-          "pan_number": "YVSPA7508V",
+          "pan_number": "YVSPB7508V",
+          "driving_license": "PB7120215194114",
+          "voter_id": "YHL6183932",
           "state": "Punjab",
           "pincode": "160811"
         },
         {
           "record_id": "rec_0004",
-          "name": "Ishaan Singh",
-          "email": "ishaan.singh96@example.in",
+          "name": "Preeti Singh",
+          "email": "preeti.singh96@example.in",
           "phone": "+919833218343",
           "aadhaar_number": "9999 5928 0513",
           "pan_number": "TNSPS6234L",
+          "driving_license": "TS2920207320936",
+          "voter_id": "TNW6532799",
           "state": "Telangana",
           "pincode": "500696"
         },
         {
           "record_id": "rec_0005",
-          "name": "Ananya Pillai",
-          "email": "ananya.pillai45@demo-resident.in",
+          "name": "Meera Pillai",
+          "email": "meera.pillai45@demo-resident.in",
           "phone": "+919838846268",
           "aadhaar_number": "9999 0888 8499",
           "pan_number": "RDBPP5775G",
+          "driving_license": "GJ3120168310985",
+          "voter_id": "AQT5370907",
           "state": "Gujarat",
           "pincode": "380752"
         },
         {
           "record_id": "rec_0006",
-          "name": "Aarav Pillai",
-          "email": "aarav.pillai58@testmail.co.in",
+          "name": "Diya Pillai",
+          "email": "diya.pillai58@testmail.co.in",
           "phone": "+919811140776",
           "aadhaar_number": "9999 4971 3075",
           "pan_number": "XAXPP8727J",
+          "driving_license": "TS2020125745918",
+          "voter_id": "TSU3929239",
           "state": "Telangana",
           "pincode": "500721"
         },
         {
           "record_id": "rec_0007",
-          "name": "Siddharth Iyer",
-          "email": "siddharth.iyer49@example.in",
+          "name": "Harish Iyer",
+          "email": "harish.iyer49@example.in",
           "phone": "+919838731609",
           "aadhaar_number": "9999 3520 0153",
           "pan_number": "VVFPI4315K",
+          "driving_license": "KA3320231224835",
+          "voter_id": "DNF7128237",
           "state": "Karnataka",
           "pincode": "560382"
         },
         {
           "record_id": "rec_0008",
-          "name": "Tanvi Nair",
-          "email": "tanvi.nair90@suraksha-test.org",
+          "name": "Venkatesh Nair",
+          "email": "venkatesh.nair90@suraksha-test.org",
           "phone": "+919850506444",
-          "aadhaar_number": "9999 8853 2014",
-          "pan_number": "FVTPN4579D",
-          "state": "Kerala",
-          "pincode": "682244"
+          "aadhaar_number": "9999 1710 7152",
+          "pan_number": "HVQPN6577Y",
+          "driving_license": "BR2220219182445",
+          "voter_id": "ZWW4188670",
+          "state": "Bihar",
+          "pincode": "800897"
         },
         {
           "record_id": "rec_0009",
-          "name": "Priya Mukherjee",
-          "email": "priya.mukherjee79@suraksha-test.org",
+          "name": "Amit Mukherjee",
+          "email": "amit.mukherjee79@suraksha-test.org",
           "phone": "+919830204457",
           "aadhaar_number": "9999 8949 2822",
           "pan_number": "QRKPM6961G",
+          "driving_license": "UP1620174053242",
+          "voter_id": "AKB3897376",
           "state": "Uttar Pradesh",
           "pincode": "226756"
         },
         {
           "record_id": "rec_0010",
-          "name": "Lakshmi Pillai",
-          "email": "lakshmi.pillai71@example.in",
-          "phone": "+919853289384",
-          "aadhaar_number": "9999 5538 1517",
-          "pan_number": "PRBPP4989Y",
-          "state": "Gujarat",
-          "pincode": "380538"
+          "name": "Divya Iyer",
+          "email": "divya.iyer51@demo-resident.in",
+          "phone": "+919869073381",
+          "aadhaar_number": "9999 6703 6240",
+          "pan_number": "XQDPI7691B",
+          "driving_license": "MH6920214377875",
+          "voter_id": "CSV3720220",
+          "state": "Maharashtra",
+          "pincode": "411697"
         }
       ],
-      "dump_discovered_at": "2026-11-10T03:39:19.506537+00:00",
+      "dump_discovered_at": "2026-11-16T08:58:18.185182+00:00",
       "magnet_hash": "urn:btih:851ae1888c5a0f15161ede9dbc04c9d79781cc72",
       "raw_evidence_sha256": "7ded905f6a82d71100b6c2737a77e2d2d55c90a40ff03b281eb6ec3a237780b7"
     },
     {
-      "dump_id": "leak_hospitality_leak_20261110_319",
+      "dump_id": "leak_hospitality_leak_20261116_319",
       "breach_name": "HotelEase Guest Registry Exposure",
       "source": "Ransomware Data Leak Site (LockBit)",
       "source_type": "hospitality_leak",
@@ -741,108 +1462,1582 @@
       "sampled_records": [
         {
           "record_id": "rec_0001",
-          "name": "Varun Mehta",
-          "email": "varun.mehta32@demo-resident.in",
-          "phone": "+919828053536",
-          "aadhaar_number": "9999 6742 8340",
-          "pan_number": "CHEPM4827C",
-          "state": "West Bengal",
-          "pincode": "700176"
+          "name": "Sunita Gupta",
+          "email": "sunita.gupta50@testmail.co.in",
+          "phone": "+919820037423",
+          "aadhaar_number": "9999 5875 6367",
+          "pan_number": "TCAPG7089T",
+          "driving_license": "MH3920146234943",
+          "voter_id": "TZX3081602",
+          "state": "Maharashtra",
+          "pincode": "400841"
         },
         {
           "record_id": "rec_0002",
-          "name": "Deepa Menon",
-          "email": "deepa.menon12@example.in",
+          "name": "Varun Bhattacharya",
+          "email": "varun.bhattacharya12@example.in",
           "phone": "+919850318544",
           "aadhaar_number": "9999 4170 4360",
-          "pan_number": "UCEPM1704M",
+          "pan_number": "UCEPB1704M",
+          "driving_license": "KA7120246941134",
+          "voter_id": "BEN5963249",
           "state": "Karnataka",
           "pincode": "560532"
         },
         {
           "record_id": "rec_0003",
-          "name": "Ishaan Mukherjee",
-          "email": "ishaan.mukherjee33@demo-resident.in",
+          "name": "Preeti Mukherjee",
+          "email": "preeti.mukherjee33@demo-resident.in",
           "phone": "+919833786021",
           "aadhaar_number": "9999 3074 9298",
           "pan_number": "DAZPM5141W",
+          "driving_license": "KL8020186151321",
+          "voter_id": "YEG3955187",
           "state": "Kerala",
           "pincode": "682585"
         },
         {
           "record_id": "rec_0004",
-          "name": "Karthik Menon",
-          "email": "karthik.menon20@suraksha-test.org",
+          "name": "Priya Menon",
+          "email": "priya.menon20@suraksha-test.org",
           "phone": "+919852224181",
           "aadhaar_number": "9999 7581 6925",
           "pan_number": "QGVPM6488L",
+          "driving_license": "UP7020226956547",
+          "voter_id": "XUM5376652",
           "state": "Uttar Pradesh",
           "pincode": "226317"
         },
         {
           "record_id": "rec_0005",
-          "name": "Sneha Bhat",
-          "email": "sneha.bhat15@suraksha-test.org",
+          "name": "Kavya Bhat",
+          "email": "kavya.bhat15@suraksha-test.org",
           "phone": "+919817885443",
           "aadhaar_number": "9999 0586 1911",
           "pan_number": "XXNPB8010L",
+          "driving_license": "KL9920212296589",
+          "voter_id": "BST2435764",
           "state": "Kerala",
           "pincode": "682180"
         },
         {
           "record_id": "rec_0006",
-          "name": "Amit Mukherjee",
-          "email": "amit.mukherjee52@demo-resident.in",
-          "phone": "+919839161538",
+          "name": "Kunal Bhattacharya",
+          "email": "kunal.bhattacharya64@testmail.co.in",
+          "phone": "+919854194372",
           "aadhaar_number": "9999 8219 5858",
-          "pan_number": "YJKPM3079Z",
-          "state": "West Bengal",
-          "pincode": "700961"
+          "pan_number": "YJKPB3079Z",
+          "driving_license": "TS0220143300690",
+          "voter_id": "VXQ3964860",
+          "state": "Telangana",
+          "pincode": "500454"
         },
         {
           "record_id": "rec_0007",
-          "name": "Ananya Kulkarni",
-          "email": "ananya.kulkarni25@demo-resident.in",
-          "phone": "+919883167440",
+          "name": "Rajesh Banerjee",
+          "email": "rajesh.banerjee68@suraksha-test.org",
+          "phone": "+919825765124",
           "aadhaar_number": "9999 1233 5329",
-          "pan_number": "NNDPK7618Z",
-          "state": "Telangana",
-          "pincode": "500998"
+          "pan_number": "NNDPB7618Z",
+          "driving_license": "RJ3820161910805",
+          "voter_id": "LWM8390650",
+          "state": "Rajasthan",
+          "pincode": "302295"
         },
         {
           "record_id": "rec_0008",
-          "name": "Ritu Bose",
-          "email": "ritu.bose14@demo-resident.in",
+          "name": "Nandini Bose",
+          "email": "nandini.bose14@demo-resident.in",
           "phone": "+919835351643",
           "aadhaar_number": "9999 9786 0444",
           "pan_number": "HHYPB4598T",
+          "driving_license": "WB0720122629919",
+          "voter_id": "BGE2911424",
           "state": "West Bengal",
           "pincode": "700928"
         },
         {
           "record_id": "rec_0009",
-          "name": "Varun Rao",
-          "email": "varun.rao51@testmail.co.in",
-          "phone": "+919889001692",
-          "aadhaar_number": "9999 8985 0983",
-          "pan_number": "KTLPR8381H",
-          "state": "Uttar Pradesh",
-          "pincode": "226503"
+          "name": "Venkatesh Gupta",
+          "email": "venkatesh.gupta85@suraksha-test.org",
+          "phone": "+919898731575",
+          "aadhaar_number": "9999 4857 3257",
+          "pan_number": "KTEPG6096C",
+          "driving_license": "MH1520187764397",
+          "voter_id": "UHP2986612",
+          "state": "Maharashtra",
+          "pincode": "411458"
         },
         {
           "record_id": "rec_0010",
-          "name": "Varun Singh",
-          "email": "varun.singh16@suraksha-test.org",
+          "name": "Amit Agarwal",
+          "email": "amit.agarwal16@suraksha-test.org",
           "phone": "+919841106607",
-          "aadhaar_number": "9999 8879 9812",
-          "pan_number": "PPLPS8706V",
-          "state": "Delhi",
-          "pincode": "110316"
+          "aadhaar_number": "9999 3122 7501",
+          "pan_number": "TTQPA9197D",
+          "driving_license": "BR8720175328816",
+          "voter_id": "BTB2288295",
+          "state": "Bihar",
+          "pincode": "800265"
         }
       ],
-      "dump_discovered_at": "2026-11-10T03:39:19.507025+00:00",
+      "dump_discovered_at": "2026-11-16T08:58:18.186375+00:00",
       "magnet_hash": "urn:btih:d9d49a210e1c4e6e7ccaeefbf4a37505aebf4da0",
       "raw_evidence_sha256": "4bd9224e8eaf3392fdf5fe1974d3b866eb7d816fcd73441110fe0452675a115a"
+    },
+    {
+      "dump_id": "leak_travel_leak_20261116_460",
+      "breach_name": "SkyHigh Airlines Passenger Manifest Dump",
+      "source": "Underground Aviation Leaks Forum",
+      "source_type": "travel_leak",
+      "severity": "high",
+      "compromised_data_classes": [
+        "name",
+        "email",
+        "phone",
+        "passport_number",
+        "travel_history"
+      ],
+      "description": "Compromised internal API gateway exposing frequent flyer profiles and passport numbers.",
+      "total_records_in_dump": 40000,
+      "sampled_records": [
+        {
+          "record_id": "rec_0001",
+          "name": "Divya Mehta",
+          "email": "divya.mehta94@demo-resident.in",
+          "phone": "+919832463147",
+          "aadhaar_number": "9999 3381 9496",
+          "pan_number": "HGJPM3548F",
+          "driving_license": "WB9520133730920",
+          "voter_id": "EUL9982186",
+          "state": "West Bengal",
+          "pincode": "700586",
+          "passport_number": "Z8953838"
+        },
+        {
+          "record_id": "rec_0002",
+          "name": "Deepa Patel",
+          "email": "deepa.patel80@suraksha-test.org",
+          "phone": "+919898137942",
+          "aadhaar_number": "9999 6682 5241",
+          "pan_number": "AANPP8392S",
+          "driving_license": "RJ8820182444021",
+          "voter_id": "UYN7067993",
+          "state": "Rajasthan",
+          "pincode": "302577",
+          "passport_number": "S9376493"
+        },
+        {
+          "record_id": "rec_0003",
+          "name": "Divya Pandey",
+          "email": "divya.pandey82@testmail.co.in",
+          "phone": "+919881162831",
+          "aadhaar_number": "9999 1922 9344",
+          "pan_number": "CDTPP5218L",
+          "driving_license": "TN1420135146609",
+          "voter_id": "JJP4249023",
+          "state": "Tamil Nadu",
+          "pincode": "600510",
+          "passport_number": "M5170045"
+        },
+        {
+          "record_id": "rec_0004",
+          "name": "Vikram Kulkarni",
+          "email": "vikram.kulkarni82@example.in",
+          "phone": "+919852035714",
+          "aadhaar_number": "9999 3506 6099",
+          "pan_number": "RLBPK2380V",
+          "driving_license": "DL2220183446842",
+          "voter_id": "RFS1119774",
+          "state": "Delhi",
+          "pincode": "110127",
+          "passport_number": "K9953911"
+        },
+        {
+          "record_id": "rec_0005",
+          "name": "Gautam Bhattacharya",
+          "email": "gautam.bhattacharya96@example.in",
+          "phone": "+919853602635",
+          "aadhaar_number": "9999 9362 7820",
+          "pan_number": "KVRPB5281U",
+          "driving_license": "KA5820180827764",
+          "voter_id": "UZK9874330",
+          "state": "Karnataka",
+          "pincode": "560727",
+          "passport_number": "S3330271"
+        },
+        {
+          "record_id": "rec_0006",
+          "name": "Neha Bhat",
+          "email": "neha.bhat65@demo-resident.in",
+          "phone": "+919837529372",
+          "aadhaar_number": "9999 5590 0499",
+          "pan_number": "TVXPB7079V",
+          "driving_license": "KA3720175813691",
+          "voter_id": "RCG4872576",
+          "state": "Karnataka",
+          "pincode": "560403",
+          "passport_number": "R9688065"
+        },
+        {
+          "record_id": "rec_0007",
+          "name": "Pooja Gupta",
+          "email": "pooja.gupta81@testmail.co.in",
+          "phone": "+919878191512",
+          "aadhaar_number": "9999 3673 3682",
+          "pan_number": "SXJPG6243M",
+          "driving_license": "TS7020215531784",
+          "voter_id": "XAZ8350656",
+          "state": "Telangana",
+          "pincode": "500191",
+          "passport_number": "X2007347"
+        },
+        {
+          "record_id": "rec_0008",
+          "name": "Nikhil Sengupta",
+          "email": "nikhil.sengupta45@example.in",
+          "phone": "+919869254298",
+          "aadhaar_number": "9999 4334 9139",
+          "pan_number": "LAAPS9726H",
+          "driving_license": "TS4820225381101",
+          "voter_id": "KHK6694792",
+          "state": "Telangana",
+          "pincode": "500653",
+          "passport_number": "J2175820"
+        },
+        {
+          "record_id": "rec_0009",
+          "name": "Aditya Joshi",
+          "email": "aditya.joshi90@demo-resident.in",
+          "phone": "+919838288879",
+          "aadhaar_number": "9999 3449 0495",
+          "pan_number": "GJAPJ2351X",
+          "driving_license": "MH7520218521032",
+          "voter_id": "EUW9176586",
+          "state": "Maharashtra",
+          "pincode": "411293",
+          "passport_number": "W9704065"
+        },
+        {
+          "record_id": "rec_0010",
+          "name": "Arjun Bose",
+          "email": "arjun.bose32@example.in",
+          "phone": "+919842157828",
+          "aadhaar_number": "9999 8715 2094",
+          "pan_number": "RBRPB3470B",
+          "driving_license": "GJ1120202446523",
+          "voter_id": "QRJ2491171",
+          "state": "Gujarat",
+          "pincode": "380521",
+          "passport_number": "N9273350"
+        }
+      ],
+      "dump_discovered_at": "2026-11-16T08:58:18.187571+00:00",
+      "magnet_hash": "urn:btih:2dbba6761e429761598cf627d6264992cbd1773b",
+      "raw_evidence_sha256": "e6b4cee0c1c2b996d687b893d203594c75cb1ef74839ece879e208caf75562d8"
+    },
+    {
+      "dump_id": "leak_edtech_leak_20261116_358",
+      "breach_name": "EduLearn Student Aadhaar & Fee Ledger",
+      "source": "Public GitHub Repository Scraping",
+      "source_type": "edtech_leak",
+      "severity": "high",
+      "compromised_data_classes": [
+        "student_name",
+        "email",
+        "parent_aadhaar",
+        "fee_receipt"
+      ],
+      "description": "Accidentally committed database dump file containing parent Aadhaar numbers and contact info.",
+      "total_records_in_dump": 40000,
+      "sampled_records": [
+        {
+          "record_id": "rec_0001",
+          "name": "Varun Bhat",
+          "email": "varun.bhat58@demo-resident.in",
+          "phone": "+919862963978",
+          "aadhaar_number": "9999 4163 8667",
+          "pan_number": "NNWPB7428E",
+          "driving_license": "RJ5120201202517",
+          "voter_id": "PBG7216832",
+          "state": "Rajasthan",
+          "pincode": "302241"
+        },
+        {
+          "record_id": "rec_0002",
+          "name": "Kavya Bhat",
+          "email": "kavya.bhat74@testmail.co.in",
+          "phone": "+919879902997",
+          "aadhaar_number": "9999 0414 1019",
+          "pan_number": "CKHPB8143K",
+          "driving_license": "MP6520229352858",
+          "voter_id": "SVU5951727",
+          "state": "Madhya Pradesh",
+          "pincode": "462759"
+        },
+        {
+          "record_id": "rec_0003",
+          "name": "Aarav Iyer",
+          "email": "aarav.iyer16@testmail.co.in",
+          "phone": "+919813024858",
+          "aadhaar_number": "9999 0982 8952",
+          "pan_number": "LUUPI1865J",
+          "driving_license": "PB0720184166449",
+          "voter_id": "UBU6542867",
+          "state": "Punjab",
+          "pincode": "160423"
+        },
+        {
+          "record_id": "rec_0004",
+          "name": "Aditya Reddy",
+          "email": "aditya.reddy58@suraksha-test.org",
+          "phone": "+919849153043",
+          "aadhaar_number": "9999 9537 1546",
+          "pan_number": "ZAZPR4536L",
+          "driving_license": "WB9720137167226",
+          "voter_id": "JGM2975388",
+          "state": "West Bengal",
+          "pincode": "700655"
+        },
+        {
+          "record_id": "rec_0005",
+          "name": "Abhishek Deshmukh",
+          "email": "abhishek.deshmukh82@example.in",
+          "phone": "+919830290730",
+          "aadhaar_number": "9999 4075 8728",
+          "pan_number": "WBHPD4543L",
+          "driving_license": "TN3520124787562",
+          "voter_id": "LPU3974076",
+          "state": "Tamil Nadu",
+          "pincode": "600633"
+        },
+        {
+          "record_id": "rec_0006",
+          "name": "Vikram Choudhury",
+          "email": "vikram.choudhury21@example.in",
+          "phone": "+919861188058",
+          "aadhaar_number": "9999 3170 2405",
+          "pan_number": "NFBPC9978U",
+          "driving_license": "MH3620151202910",
+          "voter_id": "MRP9174278",
+          "state": "Maharashtra",
+          "pincode": "411697"
+        },
+        {
+          "record_id": "rec_0007",
+          "name": "Manish Banerjee",
+          "email": "manish.banerjee10@suraksha-test.org",
+          "phone": "+919828714325",
+          "aadhaar_number": "9999 6251 4972",
+          "pan_number": "DVDPB9744B",
+          "driving_license": "PB0620163958026",
+          "voter_id": "BFB1962725",
+          "state": "Punjab",
+          "pincode": "160857"
+        },
+        {
+          "record_id": "rec_0008",
+          "name": "Kunal Nair",
+          "email": "kunal.nair52@testmail.co.in",
+          "phone": "+919860797833",
+          "aadhaar_number": "9999 8497 3077",
+          "pan_number": "HNCPN7438E",
+          "driving_license": "UP3420210193460",
+          "voter_id": "JYK1831998",
+          "state": "Uttar Pradesh",
+          "pincode": "226336"
+        },
+        {
+          "record_id": "rec_0009",
+          "name": "Neha Chatterjee",
+          "email": "neha.chatterjee96@suraksha-test.org",
+          "phone": "+919877331926",
+          "aadhaar_number": "9999 6154 8182",
+          "pan_number": "GEUPC8436T",
+          "driving_license": "MH7320165812734",
+          "voter_id": "YVX7771771",
+          "state": "Maharashtra",
+          "pincode": "400295"
+        },
+        {
+          "record_id": "rec_0010",
+          "name": "Sanjay Mukherjee",
+          "email": "sanjay.mukherjee55@demo-resident.in",
+          "phone": "+919810353741",
+          "aadhaar_number": "9999 8929 0051",
+          "pan_number": "TDBPM3685N",
+          "driving_license": "KA4620195907769",
+          "voter_id": "BSM8648539",
+          "state": "Karnataka",
+          "pincode": "560862"
+        }
+      ],
+      "dump_discovered_at": "2026-11-16T08:58:18.188850+00:00",
+      "magnet_hash": "urn:btih:7dad0ca9080a5287dde4cba0df7144f8e7c8ed69",
+      "raw_evidence_sha256": "a801f7c6cde89f60a0adf1e297b2309e4901a84354dc2a26dc6327ab179541ff"
+    },
+    {
+      "dump_id": "leak_crypto_leak_20261116_140",
+      "breach_name": "CoinDesi Crypto KYC Vault Leak",
+      "source": "RaidForums Mirror",
+      "source_type": "crypto_leak",
+      "severity": "critical",
+      "compromised_data_classes": [
+        "email",
+        "phone",
+        "pan_image",
+        "aadhaar_image",
+        "selfie_photo"
+      ],
+      "description": "Compromised AWS S3 bucket holding unmasked citizen KYC verification images for crypto trading.",
+      "total_records_in_dump": 40000,
+      "sampled_records": [
+        {
+          "record_id": "rec_0001",
+          "name": "Swati Soni",
+          "email": "swati.soni81@example.in",
+          "phone": "+919872771941",
+          "aadhaar_number": "9999 7471 0635",
+          "pan_number": "LBFPS9717S",
+          "driving_license": "UP5220239581280",
+          "voter_id": "MHZ7325004",
+          "state": "Uttar Pradesh",
+          "pincode": "226289"
+        },
+        {
+          "record_id": "rec_0002",
+          "name": "Neha Soni",
+          "email": "neha.soni85@testmail.co.in",
+          "phone": "+919866204795",
+          "aadhaar_number": "9999 9967 8845",
+          "pan_number": "PJLPS1610W",
+          "driving_license": "MH5320179658356",
+          "voter_id": "GCK3631821",
+          "state": "Maharashtra",
+          "pincode": "411727"
+        },
+        {
+          "record_id": "rec_0003",
+          "name": "Pranav Agarwal",
+          "email": "pranav.agarwal11@demo-resident.in",
+          "phone": "+919858434084",
+          "aadhaar_number": "9999 0772 1451",
+          "pan_number": "YWSPA8100R",
+          "driving_license": "TN0720201004317",
+          "voter_id": "YDB4765953",
+          "state": "Tamil Nadu",
+          "pincode": "600865"
+        },
+        {
+          "record_id": "rec_0004",
+          "name": "Tanvi Mukherjee",
+          "email": "tanvi.mukherjee76@testmail.co.in",
+          "phone": "+919834535756",
+          "aadhaar_number": "9999 4839 8259",
+          "pan_number": "BQNPM4633E",
+          "driving_license": "KA5520127961180",
+          "voter_id": "TDW6650803",
+          "state": "Karnataka",
+          "pincode": "560371"
+        },
+        {
+          "record_id": "rec_0005",
+          "name": "Ishaan Deshmukh",
+          "email": "ishaan.deshmukh84@demo-resident.in",
+          "phone": "+919821400929",
+          "aadhaar_number": "9999 6066 8618",
+          "pan_number": "PHGPD7209M",
+          "driving_license": "OD7620238682015",
+          "voter_id": "EBP1254015",
+          "state": "Odisha",
+          "pincode": "751991"
+        },
+        {
+          "record_id": "rec_0006",
+          "name": "Vikram Soni",
+          "email": "vikram.soni12@testmail.co.in",
+          "phone": "+919825891598",
+          "aadhaar_number": "9999 3815 8040",
+          "pan_number": "RWSPS2662T",
+          "driving_license": "KL9220218311780",
+          "voter_id": "PFU1679017",
+          "state": "Kerala",
+          "pincode": "682807"
+        },
+        {
+          "record_id": "rec_0007",
+          "name": "Divya Gupta",
+          "email": "divya.gupta41@testmail.co.in",
+          "phone": "+919845544919",
+          "aadhaar_number": "9999 1403 1465",
+          "pan_number": "MCWPG2242M",
+          "driving_license": "MH3420228332308",
+          "voter_id": "DHY1696033",
+          "state": "Maharashtra",
+          "pincode": "411617"
+        },
+        {
+          "record_id": "rec_0008",
+          "name": "Priya Verma",
+          "email": "priya.verma70@demo-resident.in",
+          "phone": "+919875623064",
+          "aadhaar_number": "9999 5411 9719",
+          "pan_number": "BTGPV1525E",
+          "driving_license": "DL5620193008707",
+          "voter_id": "CNX5661666",
+          "state": "Delhi",
+          "pincode": "110196"
+        },
+        {
+          "record_id": "rec_0009",
+          "name": "Divya Pillai",
+          "email": "divya.pillai51@demo-resident.in",
+          "phone": "+919846540722",
+          "aadhaar_number": "9999 5439 0746",
+          "pan_number": "GEQPP4695N",
+          "driving_license": "BR6720172038360",
+          "voter_id": "VTT3060689",
+          "state": "Bihar",
+          "pincode": "800210"
+        },
+        {
+          "record_id": "rec_0010",
+          "name": "Sunita Bose",
+          "email": "sunita.bose35@testmail.co.in",
+          "phone": "+919826103283",
+          "aadhaar_number": "9999 1130 8691",
+          "pan_number": "AWPPB3131A",
+          "driving_license": "MP4420161697876",
+          "voter_id": "NCJ6880631",
+          "state": "Madhya Pradesh",
+          "pincode": "462689"
+        }
+      ],
+      "dump_discovered_at": "2026-11-16T08:58:18.190139+00:00",
+      "magnet_hash": "urn:btih:c11936f42c251cafe8d8f490bf6b64b8054b0d95",
+      "raw_evidence_sha256": "57338717e1c67215873f63b13110d90f827a987c61b92eca70253a998490ceaa"
+    },
+    {
+      "dump_id": "leak_payment_gateway_leak_20261116_961",
+      "breach_name": "PayDirect Merchant Bank Account Dump",
+      "source": "Dark Web Marketplace Dump",
+      "source_type": "payment_gateway_leak",
+      "severity": "critical",
+      "compromised_data_classes": [
+        "merchant_name",
+        "phone",
+        "pan_number",
+        "bank_account",
+        "ifsc"
+      ],
+      "description": "Aggregated merchant settlements archive exposing PAN and active business bank accounts.",
+      "total_records_in_dump": 40000,
+      "sampled_records": [
+        {
+          "record_id": "rec_0001",
+          "name": "Siddharth Pandey",
+          "email": "siddharth.pandey93@suraksha-test.org",
+          "phone": "+919812875225",
+          "aadhaar_number": "9999 0480 9925",
+          "pan_number": "HZVPP6763U",
+          "driving_license": "MH2620198816875",
+          "voter_id": "HVU1683271",
+          "state": "Maharashtra",
+          "pincode": "400134",
+          "bank_account": "88671973450",
+          "ifsc": "ICIC0009149"
+        },
+        {
+          "record_id": "rec_0002",
+          "name": "Ishaan Sengupta",
+          "email": "ishaan.sengupta73@demo-resident.in",
+          "phone": "+919848340905",
+          "aadhaar_number": "9999 6510 3802",
+          "pan_number": "ERXPS4167K",
+          "driving_license": "DL9320246477030",
+          "voter_id": "FFN2495016",
+          "state": "Delhi",
+          "pincode": "110583",
+          "bank_account": "8361599814176728",
+          "ifsc": "BARB0005167"
+        },
+        {
+          "record_id": "rec_0003",
+          "name": "Venkatesh Verma",
+          "email": "venkatesh.verma27@testmail.co.in",
+          "phone": "+919835336989",
+          "aadhaar_number": "9999 4027 6798",
+          "pan_number": "GDGPV3665Z",
+          "driving_license": "DL1520164631570",
+          "voter_id": "NHU5432196",
+          "state": "Delhi",
+          "pincode": "110388",
+          "bank_account": "58881124614604",
+          "ifsc": "UTIB0003587"
+        },
+        {
+          "record_id": "rec_0004",
+          "name": "Vikram Agarwal",
+          "email": "vikram.agarwal23@testmail.co.in",
+          "phone": "+919817974791",
+          "aadhaar_number": "9999 5572 9396",
+          "pan_number": "UUUPA7512A",
+          "driving_license": "MH0520187922603",
+          "voter_id": "JTZ6168979",
+          "state": "Maharashtra",
+          "pincode": "400403",
+          "bank_account": "35996805268",
+          "ifsc": "UTIB0001254"
+        },
+        {
+          "record_id": "rec_0005",
+          "name": "Neha Chatterjee",
+          "email": "neha.chatterjee61@example.in",
+          "phone": "+919853920932",
+          "aadhaar_number": "9999 3064 6090",
+          "pan_number": "LMXPC3424T",
+          "driving_license": "WB4420187720572",
+          "voter_id": "WET1662697",
+          "state": "West Bengal",
+          "pincode": "700777",
+          "bank_account": "54703977336",
+          "ifsc": "KKBK0001320"
+        },
+        {
+          "record_id": "rec_0006",
+          "name": "Sanjay Patel",
+          "email": "sanjay.patel18@testmail.co.in",
+          "phone": "+919856329545",
+          "aadhaar_number": "9999 2384 5480",
+          "pan_number": "NVJPP7646Z",
+          "driving_license": "UP5720181111414",
+          "voter_id": "TZH9418217",
+          "state": "Uttar Pradesh",
+          "pincode": "226352",
+          "bank_account": "377248467103",
+          "ifsc": "BARB0006217"
+        },
+        {
+          "record_id": "rec_0007",
+          "name": "Kavya Chatterjee",
+          "email": "kavya.chatterjee14@demo-resident.in",
+          "phone": "+919827445306",
+          "aadhaar_number": "9999 0657 9670",
+          "pan_number": "RSSPC1984F",
+          "driving_license": "TS6020213993644",
+          "voter_id": "UEU5430713",
+          "state": "Telangana",
+          "pincode": "500251",
+          "bank_account": "9014974358095802",
+          "ifsc": "SBIN0009176"
+        },
+        {
+          "record_id": "rec_0008",
+          "name": "Lakshmi Menon",
+          "email": "lakshmi.menon91@testmail.co.in",
+          "phone": "+919816742942",
+          "aadhaar_number": "9999 2890 8377",
+          "pan_number": "MTPPM7893H",
+          "driving_license": "MH2920162007330",
+          "voter_id": "ANL8709119",
+          "state": "Maharashtra",
+          "pincode": "411158",
+          "bank_account": "9717126694368872",
+          "ifsc": "BARB0002507"
+        },
+        {
+          "record_id": "rec_0009",
+          "name": "Abhishek Mehta",
+          "email": "abhishek.mehta32@demo-resident.in",
+          "phone": "+919861142447",
+          "aadhaar_number": "9999 0579 2575",
+          "pan_number": "CDRPM4449S",
+          "driving_license": "GJ3720220741201",
+          "voter_id": "RHS7379731",
+          "state": "Gujarat",
+          "pincode": "380354",
+          "bank_account": "4332656794538041",
+          "ifsc": "BARB0002685"
+        },
+        {
+          "record_id": "rec_0010",
+          "name": "Sanjay Kulkarni",
+          "email": "sanjay.kulkarni12@example.in",
+          "phone": "+919842633103",
+          "aadhaar_number": "9999 2179 3057",
+          "pan_number": "TSBPK6867M",
+          "driving_license": "TN2420120897455",
+          "voter_id": "RED4552330",
+          "state": "Tamil Nadu",
+          "pincode": "600933",
+          "bank_account": "479481293485",
+          "ifsc": "SBIN0009879"
+        }
+      ],
+      "dump_discovered_at": "2026-11-16T08:58:18.191398+00:00",
+      "magnet_hash": "urn:btih:9a9ec144fb29fb4013468fe0e5719e6930819423",
+      "raw_evidence_sha256": "858ec22bb5d403589ccb46902d1fca93c0bc52c917eef748d5bb6b350080f3e0"
+    },
+    {
+      "dump_id": "leak_rideshare_leak_20261116_175",
+      "breach_name": "CityRide Driver Licensing Database",
+      "source": "BreachForums Database Listing",
+      "source_type": "rideshare_leak",
+      "severity": "medium",
+      "compromised_data_classes": [
+        "driver_name",
+        "phone",
+        "driving_license",
+        "vehicle_rc"
+      ],
+      "description": "Onboarding database for commercial cab drivers with driving license numbers and vehicle registrations.",
+      "total_records_in_dump": 40000,
+      "sampled_records": [
+        {
+          "record_id": "rec_0001",
+          "name": "Sanjay Choudhury",
+          "email": "sanjay.choudhury57@suraksha-test.org",
+          "phone": "+919885744070",
+          "aadhaar_number": "9999 5724 2137",
+          "pan_number": "EJXPC9400S",
+          "driving_license": "TS6320187413887",
+          "voter_id": "BJP9390479",
+          "state": "Telangana",
+          "pincode": "500670"
+        },
+        {
+          "record_id": "rec_0002",
+          "name": "Amit Bhat",
+          "email": "amit.bhat28@testmail.co.in",
+          "phone": "+919886157106",
+          "aadhaar_number": "9999 0950 3332",
+          "pan_number": "NYPPB7054L",
+          "driving_license": "BR9520183189470",
+          "voter_id": "SGJ3595163",
+          "state": "Bihar",
+          "pincode": "800306"
+        },
+        {
+          "record_id": "rec_0003",
+          "name": "Ananya Bhattacharya",
+          "email": "ananya.bhattacharya79@demo-resident.in",
+          "phone": "+919882898012",
+          "aadhaar_number": "9999 2742 4339",
+          "pan_number": "FQWPB1155N",
+          "driving_license": "MP0320172519328",
+          "voter_id": "YXC5685341",
+          "state": "Madhya Pradesh",
+          "pincode": "462158"
+        },
+        {
+          "record_id": "rec_0004",
+          "name": "Arjun Bhattacharya",
+          "email": "arjun.bhattacharya71@example.in",
+          "phone": "+919873631718",
+          "aadhaar_number": "9999 3488 9286",
+          "pan_number": "GKQPB3546L",
+          "driving_license": "BR8220160637605",
+          "voter_id": "NKY1781082",
+          "state": "Bihar",
+          "pincode": "800770"
+        },
+        {
+          "record_id": "rec_0005",
+          "name": "Nandini Chatterjee",
+          "email": "nandini.chatterjee38@demo-resident.in",
+          "phone": "+919873723656",
+          "aadhaar_number": "9999 3121 1409",
+          "pan_number": "XDXPC8689J",
+          "driving_license": "WB5520219792804",
+          "voter_id": "YLZ6605821",
+          "state": "West Bengal",
+          "pincode": "700629"
+        },
+        {
+          "record_id": "rec_0006",
+          "name": "Anjali Bhattacharya",
+          "email": "anjali.bhattacharya24@suraksha-test.org",
+          "phone": "+919881968377",
+          "aadhaar_number": "9999 9176 9833",
+          "pan_number": "LURPB1878Q",
+          "driving_license": "PB4320230357812",
+          "voter_id": "FAJ2245549",
+          "state": "Punjab",
+          "pincode": "160961"
+        },
+        {
+          "record_id": "rec_0007",
+          "name": "Harish Pandey",
+          "email": "harish.pandey84@demo-resident.in",
+          "phone": "+919882404625",
+          "aadhaar_number": "9999 7737 6315",
+          "pan_number": "CKQPP5547D",
+          "driving_license": "OD2120150621170",
+          "voter_id": "USV6814500",
+          "state": "Odisha",
+          "pincode": "751136"
+        },
+        {
+          "record_id": "rec_0008",
+          "name": "Tanvi Sengupta",
+          "email": "tanvi.sengupta48@testmail.co.in",
+          "phone": "+919892750312",
+          "aadhaar_number": "9999 5042 7909",
+          "pan_number": "YFKPS4710K",
+          "driving_license": "MH6620204523346",
+          "voter_id": "CVV9977799",
+          "state": "Maharashtra",
+          "pincode": "411507"
+        },
+        {
+          "record_id": "rec_0009",
+          "name": "Abhishek Choudhury",
+          "email": "abhishek.choudhury62@demo-resident.in",
+          "phone": "+919818902667",
+          "aadhaar_number": "9999 7598 5190",
+          "pan_number": "ANSPC1571L",
+          "driving_license": "KL6220152030313",
+          "voter_id": "TGN6032947",
+          "state": "Kerala",
+          "pincode": "682537"
+        },
+        {
+          "record_id": "rec_0010",
+          "name": "Sunita Iyer",
+          "email": "sunita.iyer99@example.in",
+          "phone": "+919824050935",
+          "aadhaar_number": "9999 0514 0432",
+          "pan_number": "TYQPI4092N",
+          "driving_license": "TN8420246977829",
+          "voter_id": "SJP6213781",
+          "state": "Tamil Nadu",
+          "pincode": "600397"
+        }
+      ],
+      "dump_discovered_at": "2026-11-16T08:58:18.192584+00:00",
+      "magnet_hash": "urn:btih:e3c95b3449555ad1ae3995e743ac3fd6d73e19f6",
+      "raw_evidence_sha256": "660c1f2eb943d8333fa8e819202d9e048c6cf77d1602020e85b7524147b0d4b6"
+    },
+    {
+      "dump_id": "leak_stealer_log_20261116_983",
+      "breach_name": "RedLine Stealer Credential Dump #441",
+      "source": "Stealer Log Torrent",
+      "source_type": "stealer_log",
+      "severity": "critical",
+      "compromised_data_classes": [
+        "email",
+        "password_hash",
+        "netbanking_login",
+        "pan_card_doc"
+      ],
+      "description": "Consumer endpoint logs containing saved browser passwords and downloaded e-Aadhaar PDFs.",
+      "total_records_in_dump": 40000,
+      "sampled_records": [
+        {
+          "record_id": "rec_0001",
+          "name": "Nikhil Bhattacharya",
+          "email": "nikhil.bhattacharya38@example.in",
+          "phone": "+919853070472",
+          "aadhaar_number": "9999 9616 4332",
+          "pan_number": "RQCPB6468D",
+          "driving_license": "UP4920153858273",
+          "voter_id": "EBY3137650",
+          "state": "Uttar Pradesh",
+          "pincode": "226286",
+          "password_hash": "$2b$12$sWzlcpodS.w6FEjLeMP6PHB3emlopixY3bSYykCyQ7cpPQODUgISD",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0002",
+          "name": "Arjun Choudhury",
+          "email": "arjun.choudhury66@suraksha-test.org",
+          "phone": "+919840394436",
+          "aadhaar_number": "9999 8395 1167",
+          "pan_number": "AYRPC2180N",
+          "driving_license": "UP3720192198089",
+          "voter_id": "DUH1035624",
+          "state": "Uttar Pradesh",
+          "pincode": "226688",
+          "password_hash": "$2b$12$0LKNn1jD0C8B0wpt6wD5iAPZb7WXb8/FIZidUdkXICNvceUNvaI4K",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0003",
+          "name": "Diya Verma",
+          "email": "diya.verma12@example.in",
+          "phone": "+919879485100",
+          "aadhaar_number": "9999 2366 3891",
+          "pan_number": "DQHPV3813Q",
+          "driving_license": "DL1120149761959",
+          "voter_id": "JVZ7692987",
+          "state": "Delhi",
+          "pincode": "110657",
+          "password_hash": "$2b$12$08tFNj41JswmtznwRGRqtR7rQ1FV5OBQCTwaAt9kU9908ND1j.xrW",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0004",
+          "name": "Kunal Sengupta",
+          "email": "kunal.sengupta27@example.in",
+          "phone": "+919895397557",
+          "aadhaar_number": "9999 2892 9373",
+          "pan_number": "YHRPS7562F",
+          "driving_license": "GJ1820209774108",
+          "voter_id": "FNC2355534",
+          "state": "Gujarat",
+          "pincode": "380534",
+          "password_hash": "$2b$12$BS2syNQ1p9rW1ozsWJ/DwTeX40d27CyuENk1xMaEo8SjC5E6PFt7X",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0005",
+          "name": "Pranav Iyer",
+          "email": "pranav.iyer68@demo-resident.in",
+          "phone": "+919871506744",
+          "aadhaar_number": "9999 6680 8466",
+          "pan_number": "NVJPI6986Y",
+          "driving_license": "UP7020157249236",
+          "voter_id": "VZE9096382",
+          "state": "Uttar Pradesh",
+          "pincode": "226608",
+          "password_hash": "$2b$12$is7gDBQW/BohbCALyzHSFIsRASELhkLXWlKaEzbHuU3pDI.4LZTl6",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0006",
+          "name": "Karthik Verma",
+          "email": "karthik.verma69@testmail.co.in",
+          "phone": "+919835594357",
+          "aadhaar_number": "9999 3184 5148",
+          "pan_number": "ESTPV2860N",
+          "driving_license": "WB0420241189971",
+          "voter_id": "GZF8091869",
+          "state": "West Bengal",
+          "pincode": "700959",
+          "password_hash": "$2b$12$lkE.D9Jss6VCdJ7t1QevCzz1s2AIC7EfK6/NHrxpUezJdNO8EYGm0",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0007",
+          "name": "Diya Trivedi",
+          "email": "diya.trivedi53@demo-resident.in",
+          "phone": "+919847472778",
+          "aadhaar_number": "9999 4488 6418",
+          "pan_number": "QAKPT1489K",
+          "driving_license": "GJ2220241316923",
+          "voter_id": "SWJ7983087",
+          "state": "Gujarat",
+          "pincode": "380204",
+          "password_hash": "$2b$12$q2yO1mL2kRYx8AHbQEgaTUOL2KwWKCxA8tAwqcXIQcmqROx6Yzupl",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0008",
+          "name": "Ananya Bose",
+          "email": "ananya.bose67@testmail.co.in",
+          "phone": "+919890985171",
+          "aadhaar_number": "9999 5522 8300",
+          "pan_number": "YNMPB4055Y",
+          "driving_license": "MP9020246952232",
+          "voter_id": "ERG3804309",
+          "state": "Madhya Pradesh",
+          "pincode": "462794",
+          "password_hash": "$2b$12$n0jY.x8snqLxtETDquH9XLWCy8WwxNGlpr/YNZF8DFzJCvXwECV7J",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0009",
+          "name": "Diya Iyer",
+          "email": "diya.iyer36@testmail.co.in",
+          "phone": "+919873399616",
+          "aadhaar_number": "9999 9456 9064",
+          "pan_number": "ZYAPI8763Q",
+          "driving_license": "TS5220147214353",
+          "voter_id": "ANU7219887",
+          "state": "Telangana",
+          "pincode": "500469",
+          "password_hash": "$2b$12$aoPQUWy9E/WKQdZYEEaJ1U7nSRL/RMx0ynUGZghzoa1JWIbGJYQag",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        },
+        {
+          "record_id": "rec_0010",
+          "name": "Aarav Pillai",
+          "email": "aarav.pillai90@suraksha-test.org",
+          "phone": "+919827868649",
+          "aadhaar_number": "9999 8681 6926",
+          "pan_number": "BXBPP5552L",
+          "driving_license": "RJ8620226822052",
+          "voter_id": "AVJ1128894",
+          "state": "Rajasthan",
+          "pincode": "302121",
+          "password_hash": "$2b$12$PQyj.4H6v9jkdjOOHlQ8eqVqJ7WptQQEhKlpbKPYr6GKN555t/klh",
+          "plaintext_password_redacted": "[REDACTED_BY_CTI_POLICY]"
+        }
+      ],
+      "dump_discovered_at": "2026-11-16T08:58:18.193901+00:00",
+      "magnet_hash": "urn:btih:c96f15c830b1bc53ac1e6a1fb498c48392772bc6",
+      "raw_evidence_sha256": "9dc2146e3dce0cf549af367a011e3aac4d7dfa33a221817d7ba6c042a64ca9d0"
+    },
+    {
+      "dump_id": "leak_aeps_leak_20261116_351",
+      "breach_name": "BharatPay AePS Micro-ATM Transaction Log",
+      "source": "Telegram Financial Fraud Feed",
+      "source_type": "aeps_leak",
+      "severity": "critical",
+      "compromised_data_classes": [
+        "aadhaar_last4",
+        "iinp",
+        "terminal_id",
+        "biometric_auth_status",
+        "amount"
+      ],
+      "description": "Leaked AePS transaction telemetry used by fraudsters for fingerprint clone financial attacks.",
+      "total_records_in_dump": 40000,
+      "sampled_records": [
+        {
+          "record_id": "rec_0001",
+          "name": "Swati Gupta",
+          "email": "swati.gupta27@example.in",
+          "phone": "+919829236933",
+          "aadhaar_number": "9999 5307 3009",
+          "pan_number": "XNJPG4722Z",
+          "driving_license": "DL4220192521347",
+          "voter_id": "FLG5324379",
+          "state": "Delhi",
+          "pincode": "110421"
+        },
+        {
+          "record_id": "rec_0002",
+          "name": "Priya Verma",
+          "email": "priya.verma57@example.in",
+          "phone": "+919841122083",
+          "aadhaar_number": "9999 1503 7462",
+          "pan_number": "NZZPV1728M",
+          "driving_license": "TS6420156011261",
+          "voter_id": "EGW9051621",
+          "state": "Telangana",
+          "pincode": "500290"
+        },
+        {
+          "record_id": "rec_0003",
+          "name": "Ananya Joshi",
+          "email": "ananya.joshi22@example.in",
+          "phone": "+919881198306",
+          "aadhaar_number": "9999 5524 5615",
+          "pan_number": "EPSPJ2098K",
+          "driving_license": "WB0120175956719",
+          "voter_id": "HNQ6077612",
+          "state": "West Bengal",
+          "pincode": "700913"
+        },
+        {
+          "record_id": "rec_0004",
+          "name": "Diya Choudhury",
+          "email": "diya.choudhury45@testmail.co.in",
+          "phone": "+919828828299",
+          "aadhaar_number": "9999 2894 5176",
+          "pan_number": "KXAPC7391H",
+          "driving_license": "GJ1020147066018",
+          "voter_id": "DAG5584797",
+          "state": "Gujarat",
+          "pincode": "380644"
+        },
+        {
+          "record_id": "rec_0005",
+          "name": "Meera Gupta",
+          "email": "meera.gupta10@suraksha-test.org",
+          "phone": "+919893738829",
+          "aadhaar_number": "9999 1484 3293",
+          "pan_number": "BMGPG9879F",
+          "driving_license": "WB6620169285357",
+          "voter_id": "ZER6192565",
+          "state": "West Bengal",
+          "pincode": "700777"
+        },
+        {
+          "record_id": "rec_0006",
+          "name": "Nikhil Chatterjee",
+          "email": "nikhil.chatterjee66@example.in",
+          "phone": "+919837315258",
+          "aadhaar_number": "9999 3915 9094",
+          "pan_number": "LRWPC4074H",
+          "driving_license": "KA2220221075732",
+          "voter_id": "XZK5781785",
+          "state": "Karnataka",
+          "pincode": "560472"
+        },
+        {
+          "record_id": "rec_0007",
+          "name": "Suresh Joshi",
+          "email": "suresh.joshi45@example.in",
+          "phone": "+919877897611",
+          "aadhaar_number": "9999 2444 5740",
+          "pan_number": "UUKPJ4829J",
+          "driving_license": "PB1520142592334",
+          "voter_id": "HEL1152977",
+          "state": "Punjab",
+          "pincode": "160494"
+        },
+        {
+          "record_id": "rec_0008",
+          "name": "Sneha Trivedi",
+          "email": "sneha.trivedi87@suraksha-test.org",
+          "phone": "+919855166398",
+          "aadhaar_number": "9999 7162 6453",
+          "pan_number": "CKTPT7748V",
+          "driving_license": "MP0420141059757",
+          "voter_id": "EDS3708674",
+          "state": "Madhya Pradesh",
+          "pincode": "462289"
+        },
+        {
+          "record_id": "rec_0009",
+          "name": "Tanvi Bhattacharya",
+          "email": "tanvi.bhattacharya23@demo-resident.in",
+          "phone": "+919823492915",
+          "aadhaar_number": "9999 4734 5840",
+          "pan_number": "HSDPB5146K",
+          "driving_license": "MH8320129498673",
+          "voter_id": "AQX3450843",
+          "state": "Maharashtra",
+          "pincode": "400215"
+        },
+        {
+          "record_id": "rec_0010",
+          "name": "Priya Rao",
+          "email": "priya.rao72@example.in",
+          "phone": "+919849710790",
+          "aadhaar_number": "9999 5752 4770",
+          "pan_number": "UAJPR7161M",
+          "driving_license": "UP8820184176637",
+          "voter_id": "YXZ4282005",
+          "state": "Uttar Pradesh",
+          "pincode": "226550"
+        }
+      ],
+      "dump_discovered_at": "2026-11-16T08:58:18.195127+00:00",
+      "magnet_hash": "urn:btih:a677d286b91bdf5155de156c5a9b4397efdf27ef",
+      "raw_evidence_sha256": "f7b8c4a020381d3fd7ca3fe72830e2b5777a70a36b6719089e433e820c7c0b0c"
+    },
+    {
+      "dump_id": "leak_healthcare_leak_20261116_536",
+      "breach_name": "Apex Hospital Patient Diagnostic Records",
+      "source": "Dark Web Pastebin",
+      "source_type": "healthcare_leak",
+      "severity": "high",
+      "compromised_data_classes": [
+        "patient_name",
+        "age",
+        "aadhaar",
+        "prescription_history"
+      ],
+      "description": "Hospital lab information system exposing patient demographic profiles and scanned identity cards.",
+      "total_records_in_dump": 40000,
+      "sampled_records": [
+        {
+          "record_id": "rec_0001",
+          "name": "Sanjay Bhat",
+          "email": "sanjay.bhat19@suraksha-test.org",
+          "phone": "+919851948496",
+          "aadhaar_number": "9999 1220 3717",
+          "pan_number": "SWCPB6847Z",
+          "driving_license": "TN1920181799472",
+          "voter_id": "ZDX3145218",
+          "state": "Tamil Nadu",
+          "pincode": "600238"
+        },
+        {
+          "record_id": "rec_0002",
+          "name": "Pranav Mukherjee",
+          "email": "pranav.mukherjee86@demo-resident.in",
+          "phone": "+919816330341",
+          "aadhaar_number": "9999 3470 1211",
+          "pan_number": "YJAPM4819M",
+          "driving_license": "GJ2920167736219",
+          "voter_id": "ACY9988228",
+          "state": "Gujarat",
+          "pincode": "380982"
+        },
+        {
+          "record_id": "rec_0003",
+          "name": "Aditya Nair",
+          "email": "aditya.nair94@suraksha-test.org",
+          "phone": "+919872715920",
+          "aadhaar_number": "9999 8325 8301",
+          "pan_number": "ETQPN9775W",
+          "driving_license": "TN2820247358426",
+          "voter_id": "CQR8113567",
+          "state": "Tamil Nadu",
+          "pincode": "600335"
+        },
+        {
+          "record_id": "rec_0004",
+          "name": "Rohan Banerjee",
+          "email": "rohan.banerjee48@suraksha-test.org",
+          "phone": "+919811580458",
+          "aadhaar_number": "9999 1709 7529",
+          "pan_number": "RBRPB1459J",
+          "driving_license": "WB4220185128882",
+          "voter_id": "NGZ6265185",
+          "state": "West Bengal",
+          "pincode": "700989"
+        },
+        {
+          "record_id": "rec_0005",
+          "name": "Diya Pandey",
+          "email": "diya.pandey22@testmail.co.in",
+          "phone": "+919858407086",
+          "aadhaar_number": "9999 5165 8853",
+          "pan_number": "DGPPP5950Z",
+          "driving_license": "MP9720223919513",
+          "voter_id": "LXQ1330764",
+          "state": "Madhya Pradesh",
+          "pincode": "462777"
+        },
+        {
+          "record_id": "rec_0006",
+          "name": "Lakshmi Singh",
+          "email": "lakshmi.singh22@testmail.co.in",
+          "phone": "+919868845576",
+          "aadhaar_number": "9999 3177 6893",
+          "pan_number": "SAVPS4861P",
+          "driving_license": "KA5020245822624",
+          "voter_id": "GRM4962820",
+          "state": "Karnataka",
+          "pincode": "560682"
+        },
+        {
+          "record_id": "rec_0007",
+          "name": "Amit Das",
+          "email": "amit.das24@testmail.co.in",
+          "phone": "+919873442224",
+          "aadhaar_number": "9999 9472 5756",
+          "pan_number": "BXVPD5151Z",
+          "driving_license": "KL8220125404578",
+          "voter_id": "ZDL4821776",
+          "state": "Kerala",
+          "pincode": "682378"
+        },
+        {
+          "record_id": "rec_0008",
+          "name": "Deepa Trivedi",
+          "email": "deepa.trivedi35@example.in",
+          "phone": "+919872461045",
+          "aadhaar_number": "9999 0218 9790",
+          "pan_number": "VLYPT6151X",
+          "driving_license": "UP4220197405867",
+          "voter_id": "JXC3023571",
+          "state": "Uttar Pradesh",
+          "pincode": "226622"
+        },
+        {
+          "record_id": "rec_0009",
+          "name": "Nikhil Joshi",
+          "email": "nikhil.joshi83@suraksha-test.org",
+          "phone": "+919812966930",
+          "aadhaar_number": "9999 7303 3798",
+          "pan_number": "EVKPJ7575D",
+          "driving_license": "KA8420242660887",
+          "voter_id": "JBM3596706",
+          "state": "Karnataka",
+          "pincode": "560377"
+        },
+        {
+          "record_id": "rec_0010",
+          "name": "Vikram Mukherjee",
+          "email": "vikram.mukherjee24@demo-resident.in",
+          "phone": "+919885863849",
+          "aadhaar_number": "9999 0866 1574",
+          "pan_number": "RFYPM3228D",
+          "driving_license": "MP4420222961316",
+          "voter_id": "MUN7106415",
+          "state": "Madhya Pradesh",
+          "pincode": "462846"
+        }
+      ],
+      "dump_discovered_at": "2026-11-16T08:58:18.197591+00:00",
+      "magnet_hash": "urn:btih:1e1cdee28951b93f518751a3ce36c900b743fc74",
+      "raw_evidence_sha256": "b607df9272e833796b87537408acf4005c4992be0edc4a1636e6234227c59240"
+    },
+    {
+      "dump_id": "leak_courier_leak_20261116_920",
+      "breach_name": "SpeedPost Delivery Roster Leak",
+      "source": "Darknet Forum Post",
+      "source_type": "courier_leak",
+      "severity": "low",
+      "compromised_data_classes": [
+        "recipient_name",
+        "phone",
+        "address",
+        "consignment_type"
+      ],
+      "description": "Exposed delivery consignment roster utilized by phishing groups for fake parcel arrival scams.",
+      "total_records_in_dump": 40000,
+      "sampled_records": [
+        {
+          "record_id": "rec_0001",
+          "name": "Aditya Agarwal",
+          "email": "aditya.agarwal64@demo-resident.in",
+          "phone": "+919843795980",
+          "aadhaar_number": "9999 0393 1363",
+          "pan_number": "TJSPA1733A",
+          "driving_license": "UP2920249524384",
+          "voter_id": "MLR8434776",
+          "state": "Uttar Pradesh",
+          "pincode": "226990"
+        },
+        {
+          "record_id": "rec_0002",
+          "name": "Preeti Trivedi",
+          "email": "preeti.trivedi39@suraksha-test.org",
+          "phone": "+919815655314",
+          "aadhaar_number": "9999 8425 7325",
+          "pan_number": "NLLPT6645G",
+          "driving_license": "UP4520137530118",
+          "voter_id": "YCC1617212",
+          "state": "Uttar Pradesh",
+          "pincode": "226412"
+        },
+        {
+          "record_id": "rec_0003",
+          "name": "Swati Choudhury",
+          "email": "swati.choudhury68@suraksha-test.org",
+          "phone": "+919840405267",
+          "aadhaar_number": "9999 9008 8131",
+          "pan_number": "NBFPC1269G",
+          "driving_license": "KL2720136283181",
+          "voter_id": "TSU4752898",
+          "state": "Kerala",
+          "pincode": "682153"
+        },
+        {
+          "record_id": "rec_0004",
+          "name": "Nandini Nair",
+          "email": "nandini.nair66@example.in",
+          "phone": "+919855201702",
+          "aadhaar_number": "9999 7444 0644",
+          "pan_number": "LCLPN4997Z",
+          "driving_license": "OD7220217923034",
+          "voter_id": "FWX1944306",
+          "state": "Odisha",
+          "pincode": "751333"
+        },
+        {
+          "record_id": "rec_0005",
+          "name": "Swati Sharma",
+          "email": "swati.sharma31@example.in",
+          "phone": "+919840779317",
+          "aadhaar_number": "9999 5427 0406",
+          "pan_number": "CSAPS3480P",
+          "driving_license": "MH0220126765438",
+          "voter_id": "DGW3452683",
+          "state": "Maharashtra",
+          "pincode": "400576"
+        },
+        {
+          "record_id": "rec_0006",
+          "name": "Swati Bose",
+          "email": "swati.bose20@demo-resident.in",
+          "phone": "+919887705047",
+          "aadhaar_number": "9999 9816 7536",
+          "pan_number": "CXHPB8424R",
+          "driving_license": "BR4520138557664",
+          "voter_id": "GYT4427318",
+          "state": "Bihar",
+          "pincode": "800639"
+        },
+        {
+          "record_id": "rec_0007",
+          "name": "Anjali Iyer",
+          "email": "anjali.iyer81@suraksha-test.org",
+          "phone": "+919847093449",
+          "aadhaar_number": "9999 6808 2472",
+          "pan_number": "PBXPI2596R",
+          "driving_license": "MH3020249675577",
+          "voter_id": "ZHQ4867632",
+          "state": "Maharashtra",
+          "pincode": "400776"
+        },
+        {
+          "record_id": "rec_0008",
+          "name": "Aditya Kulkarni",
+          "email": "aditya.kulkarni84@suraksha-test.org",
+          "phone": "+919855985723",
+          "aadhaar_number": "9999 0448 5728",
+          "pan_number": "RJTPK4034X",
+          "driving_license": "DL2920246251772",
+          "voter_id": "GLR6443060",
+          "state": "Delhi",
+          "pincode": "110712"
+        },
+        {
+          "record_id": "rec_0009",
+          "name": "Preeti Singh",
+          "email": "preeti.singh56@testmail.co.in",
+          "phone": "+919815160517",
+          "aadhaar_number": "9999 9221 3022",
+          "pan_number": "TQAPS1909A",
+          "driving_license": "UP8020186596923",
+          "voter_id": "PQS6045128",
+          "state": "Uttar Pradesh",
+          "pincode": "226211"
+        },
+        {
+          "record_id": "rec_0010",
+          "name": "Shruti Chatterjee",
+          "email": "shruti.chatterjee17@example.in",
+          "phone": "+919834545468",
+          "aadhaar_number": "9999 3546 0565",
+          "pan_number": "SHHPC3018U",
+          "driving_license": "BR9820136902944",
+          "voter_id": "GEK4120463",
+          "state": "Bihar",
+          "pincode": "800838"
+        }
+      ],
+      "dump_discovered_at": "2026-11-16T08:58:18.198888+00:00",
+      "magnet_hash": "urn:btih:61025573217a2f61633db39fe10f154c7a3fcbe6",
+      "raw_evidence_sha256": "67de931c704a29cbc0ff889a79ee0402aee91efa61ad0f3eaa8bdcd5edd7b196"
+    },
+    {
+      "dump_id": "leak_telecom_leak_20261116_485",
+      "breach_name": "DoT Sanchar Saathi Bulk TAFCOP Scrape",
+      "source": "Underground Telecom SIM Ring",
+      "source_type": "telecom_leak",
+      "severity": "critical",
+      "compromised_data_classes": [
+        "name",
+        "aadhaar_masked",
+        "registered_sim_count",
+        "active_phone_numbers"
+      ],
+      "description": "Aggregated list of citizens with multiple SIM cards targeted for SIM-swap extortion.",
+      "total_records_in_dump": 40000,
+      "sampled_records": [
+        {
+          "record_id": "rec_0001",
+          "name": "Rohan Chauhan",
+          "email": "rohan.chauhan39@demo-resident.in",
+          "phone": "+919843314055",
+          "aadhaar_number": "9999 9052 2104",
+          "pan_number": "LXTPC2446D",
+          "driving_license": "RJ3620180290828",
+          "voter_id": "RPY1295466",
+          "state": "Rajasthan",
+          "pincode": "302940"
+        },
+        {
+          "record_id": "rec_0002",
+          "name": "Amit Nair",
+          "email": "amit.nair17@testmail.co.in",
+          "phone": "+919889940880",
+          "aadhaar_number": "9999 9993 1830",
+          "pan_number": "DAZPN4440H",
+          "driving_license": "KL0320168066362",
+          "voter_id": "YET7497849",
+          "state": "Kerala",
+          "pincode": "682280"
+        },
+        {
+          "record_id": "rec_0003",
+          "name": "Kunal Iyer",
+          "email": "kunal.iyer73@testmail.co.in",
+          "phone": "+919876394693",
+          "aadhaar_number": "9999 1843 8025",
+          "pan_number": "DZCPI5088G",
+          "driving_license": "TS5120139290152",
+          "voter_id": "ZHQ3595310",
+          "state": "Telangana",
+          "pincode": "500300"
+        },
+        {
+          "record_id": "rec_0004",
+          "name": "Sunita Kulkarni",
+          "email": "sunita.kulkarni64@example.in",
+          "phone": "+919880612182",
+          "aadhaar_number": "9999 6464 6380",
+          "pan_number": "KXEPK1262U",
+          "driving_license": "MH8120246335504",
+          "voter_id": "EQQ8980629",
+          "state": "Maharashtra",
+          "pincode": "411416"
+        },
+        {
+          "record_id": "rec_0005",
+          "name": "Manish Bhat",
+          "email": "manish.bhat56@demo-resident.in",
+          "phone": "+919850247674",
+          "aadhaar_number": "9999 1373 8425",
+          "pan_number": "QGPPB1122T",
+          "driving_license": "KA2420150917563",
+          "voter_id": "SEH9929622",
+          "state": "Karnataka",
+          "pincode": "560515"
+        },
+        {
+          "record_id": "rec_0006",
+          "name": "Meera Sengupta",
+          "email": "meera.sengupta34@testmail.co.in",
+          "phone": "+919843626392",
+          "aadhaar_number": "9999 4455 8834",
+          "pan_number": "WTJPS5595H",
+          "driving_license": "TN6220158509655",
+          "voter_id": "EGX5945398",
+          "state": "Tamil Nadu",
+          "pincode": "600696"
+        },
+        {
+          "record_id": "rec_0007",
+          "name": "Venkatesh Bhattacharya",
+          "email": "venkatesh.bhattacharya98@testmail.co.in",
+          "phone": "+919866518379",
+          "aadhaar_number": "9999 3074 8197",
+          "pan_number": "AVAPB1421E",
+          "driving_license": "KL0320206089210",
+          "voter_id": "VVF8734528",
+          "state": "Kerala",
+          "pincode": "682340"
+        },
+        {
+          "record_id": "rec_0008",
+          "name": "Priya Das",
+          "email": "priya.das42@testmail.co.in",
+          "phone": "+919877697443",
+          "aadhaar_number": "9999 3545 0230",
+          "pan_number": "GYJPD2103K",
+          "driving_license": "MH7620163840081",
+          "voter_id": "QCD7956731",
+          "state": "Maharashtra",
+          "pincode": "400264"
+        },
+        {
+          "record_id": "rec_0009",
+          "name": "Aditya Choudhury",
+          "email": "aditya.choudhury42@testmail.co.in",
+          "phone": "+919850804248",
+          "aadhaar_number": "9999 1211 6462",
+          "pan_number": "VEJPC6543C",
+          "driving_license": "TN1820130678405",
+          "voter_id": "LDD3111041",
+          "state": "Tamil Nadu",
+          "pincode": "600104"
+        },
+        {
+          "record_id": "rec_0010",
+          "name": "Preeti Pandey",
+          "email": "preeti.pandey55@testmail.co.in",
+          "phone": "+919828832316",
+          "aadhaar_number": "9999 1562 0475",
+          "pan_number": "YCAPP5433T",
+          "driving_license": "GJ3520177395288",
+          "voter_id": "LMM4908816",
+          "state": "Gujarat",
+          "pincode": "380785"
+        }
+      ],
+      "dump_discovered_at": "2026-11-16T08:58:18.200291+00:00",
+      "magnet_hash": "urn:btih:a42440e1cc0b39b14e58017224e894bd3d2720f5",
+      "raw_evidence_sha256": "a4ac1c2c0ac399ec2a7083ee469d574c05bf997d85b71d0736a6461cb4dbe12a"
     }
   ],
   "whatsapp_dlp_samples": [
@@ -850,29 +3045,84 @@
       "thread_id": "wa_thread_001",
       "title": "HR Onboarding Verification",
       "channel": "office_hr",
-      "sender_name": "Nikhil Bhat",
+      "sender_name": "Pranav Bhat",
       "sender_phone": "+919819884139",
       "contains_sensitive_id": true,
       "sample_profile": {
-        "full_name": "Nikhil Bhat",
-        "first_name": "Nikhil",
+        "full_name": "Pranav Bhat",
+        "first_name": "Pranav",
         "last_name": "Bhat",
-        "email": "nikhil.bhat21@example.in",
+        "email": "pranav.bhat21@example.in",
         "phone": "+919819884139",
-        "aadhaar_raw": "999932795821",
-        "aadhaar_formatted": "9999 3279 5821",
-        "aadhaar_masked": "XXXX-XXXX-5821",
-        "pan_raw": "YFJPB2173P",
-        "pan_masked": "YF***21*P",
-        "vid_number": "3568-9875-8915-5912",
+        "aadhaar_raw": "999992489353",
+        "aadhaar_formatted": "9999 9248 9353",
+        "aadhaar_masked": "XXXX-XXXX-9353",
+        "pan_raw": "HEQPB6985S",
+        "pan_masked": "HE***69*S",
+        "vid_number": "2416-0354-6721-8272",
+        "driving_license_raw": "OD3020177272350",
+        "driving_license_masked": "OD30-****-72350",
+        "voter_id_raw": "UVB4736660",
+        "voter_id_masked": "UV****660",
+        "passport_raw": "N4112571",
+        "passport_masked": "N****571",
+        "bank_details": {
+          "bank_name": "Bank of Baroda",
+          "ifsc_code": "BARB0004971",
+          "account_raw": "615149658916",
+          "account_masked": "XXXXXXXX8916"
+        },
+        "vehicle_rc_raw": "OD90DT9159",
+        "vehicle_rc_masked": "OD90-**-9159",
+        "telecom_sims": [
+          {
+            "phone_number": "+919819884139",
+            "carrier": "BSNL",
+            "telecom_circle": "Maharashtra",
+            "is_primary": true,
+            "is_authorized_by_resident": true,
+            "issued_on": "2025-09-29",
+            "status": "active"
+          },
+          {
+            "phone_number": "+919462414983",
+            "carrier": "Vodafone Idea (Vi)",
+            "telecom_circle": "Mumbai",
+            "is_primary": false,
+            "is_authorized_by_resident": true,
+            "flagged_as_ghost_sim": false,
+            "issued_on": "2026-08-31",
+            "status": "active"
+          },
+          {
+            "phone_number": "+919525898800",
+            "carrier": "BSNL",
+            "telecom_circle": "Maharashtra",
+            "is_primary": false,
+            "is_authorized_by_resident": false,
+            "flagged_as_ghost_sim": true,
+            "issued_on": "2026-10-12",
+            "status": "flagged_unauthorized"
+          }
+        ],
+        "credit_profile": {
+          "pan_number": "HEQPB6985S",
+          "cibil_score": 740,
+          "score_band": "Fair",
+          "credit_bureau": "TransUnion CIBIL",
+          "active_credit_cards": 4,
+          "recent_hard_inquiries": [],
+          "has_unauthorized_inquiries": false
+        },
         "address": {
-          "street": "Flat 287, Surya Enclave",
-          "city": "Jaipur",
-          "state": "Rajasthan",
-          "pincode": "302128",
+          "street": "Flat 404, Surya Enclave",
+          "city": "Bhubaneswar",
+          "state": "Odisha",
+          "state_code": "OD",
+          "pincode": "751621",
           "country": "India"
         },
-        "created_at": "2026-11-10T03:39:19.507100+00:00"
+        "created_at": "2026-11-16T08:58:18.200444+00:00"
       },
       "messages": [
         {
@@ -881,42 +3131,104 @@
         },
         {
           "from": "sender",
-          "text": "Sure, sending here. My Aadhaar number is 9999 3279 5821 and PAN is YFJPB2173P. Please verify."
+          "text": "Sure, sending here. My Aadhaar number is 9999 9248 9353 and PAN is HEQPB6985S. Please verify."
         },
         {
           "from": "recipient",
           "text": "Received, thank you!"
         }
       ],
-      "last_message_text": "Sure, sending here. My Aadhaar number is 9999 3279 5821 and PAN is YFJPB2173P. Please verify."
+      "last_message_text": "Sure, sending here. My Aadhaar number is 9999 9248 9353 and PAN is HEQPB6985S. Please verify."
     },
     {
       "thread_id": "wa_thread_002",
       "title": "Hotel Room Booking KYC Proof",
       "channel": "hotel_agent",
-      "sender_name": "Tanvi Mehta",
+      "sender_name": "Venkatesh Trivedi",
       "sender_phone": "+919881935574",
       "contains_sensitive_id": true,
       "sample_profile": {
-        "full_name": "Tanvi Mehta",
-        "first_name": "Tanvi",
-        "last_name": "Mehta",
-        "email": "tanvi.mehta82@suraksha-test.org",
+        "full_name": "Venkatesh Trivedi",
+        "first_name": "Venkatesh",
+        "last_name": "Trivedi",
+        "email": "venkatesh.trivedi82@suraksha-test.org",
         "phone": "+919881935574",
         "aadhaar_raw": "999997239644",
         "aadhaar_formatted": "9999 9723 9644",
         "aadhaar_masked": "XXXX-XXXX-9644",
-        "pan_raw": "SEAPM6061A",
+        "pan_raw": "SEAPT6061A",
         "pan_masked": "SE***60*A",
         "vid_number": "9837-0599-2779-7614",
+        "driving_license_raw": "RJ0820196241341",
+        "driving_license_masked": "RJ08-****-41341",
+        "voter_id_raw": "BNE2822227",
+        "voter_id_masked": "BN****227",
+        "passport_raw": "R3293098",
+        "passport_masked": "R****098",
+        "bank_details": {
+          "bank_name": "ICICI Bank",
+          "ifsc_code": "ICIC0008196",
+          "account_raw": "34583118909811",
+          "account_masked": "XXXXXXXXXX9811"
+        },
+        "vehicle_rc_raw": "RJ62AN4537",
+        "vehicle_rc_masked": "RJ62-**-4537",
+        "telecom_sims": [
+          {
+            "phone_number": "+919881935574",
+            "carrier": "Jio 5G",
+            "telecom_circle": "Maharashtra",
+            "is_primary": true,
+            "is_authorized_by_resident": true,
+            "issued_on": "2022-12-29",
+            "status": "active"
+          },
+          {
+            "phone_number": "+919468690317",
+            "carrier": "Airtel 5G",
+            "telecom_circle": "Maharashtra",
+            "is_primary": false,
+            "is_authorized_by_resident": false,
+            "flagged_as_ghost_sim": true,
+            "issued_on": "2026-10-01",
+            "status": "flagged_unauthorized"
+          }
+        ],
+        "credit_profile": {
+          "pan_number": "SEAPT6061A",
+          "cibil_score": 756,
+          "score_band": "Good",
+          "credit_bureau": "TransUnion CIBIL",
+          "active_credit_cards": 3,
+          "recent_hard_inquiries": [
+            {
+              "institution": "HDFC Bank",
+              "purpose": "Credit Card",
+              "inquiry_type": "Hard Pull",
+              "date": "2026-10-03",
+              "is_authorized": true,
+              "flagged_suspicious": false
+            },
+            {
+              "institution": "Axis Bank",
+              "purpose": "Personal Loan",
+              "inquiry_type": "Hard Pull",
+              "date": "2026-11-05",
+              "is_authorized": true,
+              "flagged_suspicious": false
+            }
+          ],
+          "has_unauthorized_inquiries": false
+        },
         "address": {
-          "street": "Flat 449, Surya Enclave",
+          "street": "Flat 486, Surya Enclave",
           "city": "Jaipur",
           "state": "Rajasthan",
+          "state_code": "RJ",
           "pincode": "302650",
           "country": "India"
         },
-        "created_at": "2026-11-10T03:39:19.507152+00:00"
+        "created_at": "2026-11-16T08:58:18.200568+00:00"
       },
       "messages": [
         {
@@ -925,42 +3237,205 @@
         },
         {
           "from": "sender",
-          "text": "Here is my Aadhaar card details: 9999 9723 9644 (Name: Tanvi Mehta)"
+          "text": "Here is my Aadhaar card details: 9999 9723 9644 (Name: Venkatesh Trivedi)"
         },
         {
           "from": "recipient",
           "text": "Noted. Your booking is confirmed."
         }
       ],
-      "last_message_text": "Here is my Aadhaar card details: 9999 9723 9644 (Name: Tanvi Mehta)"
+      "last_message_text": "Here is my Aadhaar card details: 9999 9723 9644 (Name: Venkatesh Trivedi)"
     },
     {
       "thread_id": "wa_thread_003",
       "title": "Personal Loan Executive Chat",
       "channel": "loan_rep",
-      "sender_name": "Deepa Singh",
+      "sender_name": "Amit Soni",
       "sender_phone": "+919832293867",
       "contains_sensitive_id": true,
       "sample_profile": {
-        "full_name": "Deepa Singh",
-        "first_name": "Deepa",
-        "last_name": "Singh",
-        "email": "deepa.singh28@testmail.co.in",
+        "full_name": "Amit Soni",
+        "first_name": "Amit",
+        "last_name": "Soni",
+        "email": "amit.soni28@testmail.co.in",
         "phone": "+919832293867",
-        "aadhaar_raw": "999961352098",
-        "aadhaar_formatted": "9999 6135 2098",
-        "aadhaar_masked": "XXXX-XXXX-2098",
-        "pan_raw": "EERPS3114Q",
-        "pan_masked": "EE***31*Q",
-        "vid_number": "2735-2596-5556-7222",
+        "aadhaar_raw": "999965802555",
+        "aadhaar_formatted": "9999 6580 2555",
+        "aadhaar_masked": "XXXX-XXXX-2555",
+        "pan_raw": "PZDPS4527L",
+        "pan_masked": "PZ***45*L",
+        "vid_number": "2272-7541-2206-7510",
+        "driving_license_raw": "BR2020193730566",
+        "driving_license_masked": "BR20-****-30566",
+        "voter_id_raw": "EKQ3893644",
+        "voter_id_masked": "EK****644",
+        "passport_raw": "X9116518",
+        "passport_masked": "X****518",
+        "bank_details": {
+          "bank_name": "Kotak Mahindra Bank",
+          "ifsc_code": "KKBK0009814",
+          "account_raw": "0534327393770031",
+          "account_masked": "XXXXXXXXXXXX0031"
+        },
+        "vehicle_rc_raw": "BR01NW6669",
+        "vehicle_rc_masked": "BR01-**-6669",
+        "telecom_sims": [
+          {
+            "phone_number": "+919832293867",
+            "carrier": "Airtel 5G",
+            "telecom_circle": "Mumbai",
+            "is_primary": true,
+            "is_authorized_by_resident": true,
+            "issued_on": "2025-04-24",
+            "status": "active"
+          },
+          {
+            "phone_number": "+919618672405",
+            "carrier": "BSNL",
+            "telecom_circle": "Delhi NCR",
+            "is_primary": false,
+            "is_authorized_by_resident": true,
+            "flagged_as_ghost_sim": false,
+            "issued_on": "2026-08-14",
+            "status": "active"
+          },
+          {
+            "phone_number": "+919556076103",
+            "carrier": "BSNL",
+            "telecom_circle": "Mumbai",
+            "is_primary": false,
+            "is_authorized_by_resident": true,
+            "flagged_as_ghost_sim": false,
+            "issued_on": "2026-10-14",
+            "status": "active"
+          }
+        ],
+        "credit_profile": {
+          "pan_number": "PZDPS4527L",
+          "cibil_score": 810,
+          "score_band": "Excellent",
+          "credit_bureau": "TransUnion CIBIL",
+          "active_credit_cards": 4,
+          "recent_hard_inquiries": [
+            {
+              "institution": "HDFC Bank",
+              "purpose": "Auto Loan",
+              "inquiry_type": "Hard Pull",
+              "date": "2026-11-01",
+              "is_authorized": true,
+              "flagged_suspicious": false
+            }
+          ],
+          "has_unauthorized_inquiries": false
+        },
         "address": {
-          "street": "Flat 679, Surya Enclave",
-          "city": "New Delhi",
-          "state": "Delhi",
-          "pincode": "110356",
+          "street": "Flat 535, Surya Enclave",
+          "city": "Patna",
+          "state": "Bihar",
+          "state_code": "BR",
+          "pincode": "800259",
           "country": "India"
         },
-        "created_at": "2026-11-10T03:39:19.507200+00:00"
+        "created_at": "2026-11-16T08:58:18.200692+00:00"
+      },
+      "messages": [
+        {
+          "from": "recipient",
+          "text": "Car rental self-drive requires Driving License copy."
+        },
+        {
+          "from": "sender",
+          "text": "Sharing my Driving License: BR2020193730566 and PAN: PZDPS4527L."
+        },
+        {
+          "from": "recipient",
+          "text": "Car is reserved for pickup tomorrow."
+        }
+      ],
+      "last_message_text": "Sharing my Driving License: BR2020193730566 and PAN: PZDPS4527L."
+    },
+    {
+      "thread_id": "wa_thread_004",
+      "title": "Self-Drive Car Rental Booking",
+      "channel": "car_rental",
+      "sender_name": "Ritu Verma",
+      "sender_phone": "+919861415712",
+      "contains_sensitive_id": true,
+      "sample_profile": {
+        "full_name": "Ritu Verma",
+        "first_name": "Ritu",
+        "last_name": "Verma",
+        "email": "ritu.verma31@suraksha-test.org",
+        "phone": "+919861415712",
+        "aadhaar_raw": "999995227183",
+        "aadhaar_formatted": "9999 9522 7183",
+        "aadhaar_masked": "XXXX-XXXX-7183",
+        "pan_raw": "MDUPV2941W",
+        "pan_masked": "MD***29*W",
+        "vid_number": "1161-1407-1101-6219",
+        "driving_license_raw": "GJ2520131010227",
+        "driving_license_masked": "GJ25-****-10227",
+        "voter_id_raw": "JQN3555057",
+        "voter_id_masked": "JQ****057",
+        "passport_raw": "L7204436",
+        "passport_masked": "L****436",
+        "bank_details": {
+          "bank_name": "State Bank of India",
+          "ifsc_code": "SBIN0006948",
+          "account_raw": "182281519980",
+          "account_masked": "XXXXXXXX9980"
+        },
+        "vehicle_rc_raw": "GJ45RP4441",
+        "vehicle_rc_masked": "GJ45-**-4441",
+        "telecom_sims": [
+          {
+            "phone_number": "+919861415712",
+            "carrier": "BSNL",
+            "telecom_circle": "Telangana",
+            "is_primary": true,
+            "is_authorized_by_resident": true,
+            "issued_on": "2023-09-20",
+            "status": "active"
+          },
+          {
+            "phone_number": "+919371727811",
+            "carrier": "Airtel 5G",
+            "telecom_circle": "Delhi NCR",
+            "is_primary": false,
+            "is_authorized_by_resident": true,
+            "flagged_as_ghost_sim": false,
+            "issued_on": "2026-06-16",
+            "status": "active"
+          },
+          {
+            "phone_number": "+919605363718",
+            "carrier": "BSNL",
+            "telecom_circle": "Tamil Nadu",
+            "is_primary": false,
+            "is_authorized_by_resident": false,
+            "flagged_as_ghost_sim": true,
+            "issued_on": "2026-10-12",
+            "status": "flagged_unauthorized"
+          }
+        ],
+        "credit_profile": {
+          "pan_number": "MDUPV2941W",
+          "cibil_score": 669,
+          "score_band": "Fair",
+          "credit_bureau": "TransUnion CIBIL",
+          "active_credit_cards": 2,
+          "recent_hard_inquiries": [],
+          "has_unauthorized_inquiries": false
+        },
+        "address": {
+          "street": "Flat 236, Surya Enclave",
+          "city": "Ahmedabad",
+          "state": "Gujarat",
+          "state_code": "GJ",
+          "pincode": "380870",
+          "country": "India"
+        },
+        "created_at": "2026-11-16T08:58:18.200821+00:00"
       },
       "messages": [
         {
@@ -969,71 +3444,27 @@
         },
         {
           "from": "sender",
-          "text": "Sure, sending here. My Aadhaar number is 9999 6135 2098 and PAN is EERPS3114Q. Please verify."
+          "text": "Sure, sending here. My Aadhaar number is 9999 9522 7183 and PAN is MDUPV2941W. Please verify."
         },
         {
           "from": "recipient",
           "text": "Received, thank you!"
         }
       ],
-      "last_message_text": "Sure, sending here. My Aadhaar number is 9999 6135 2098 and PAN is EERPS3114Q. Please verify."
-    },
-    {
-      "thread_id": "wa_thread_004",
-      "title": "Family Vacation Flight Details",
-      "channel": "family_group",
-      "sender_name": "Priya Verma",
-      "sender_phone": "+919861415712",
-      "contains_sensitive_id": false,
-      "sample_profile": {
-        "full_name": "Priya Verma",
-        "first_name": "Priya",
-        "last_name": "Verma",
-        "email": "priya.verma31@suraksha-test.org",
-        "phone": "+919861415712",
-        "aadhaar_raw": "999995227183",
-        "aadhaar_formatted": "9999 9522 7183",
-        "aadhaar_masked": "XXXX-XXXX-7183",
-        "pan_raw": "MDUPV2941W",
-        "pan_masked": "MD***29*W",
-        "vid_number": "1161-1407-1101-6219",
-        "address": {
-          "street": "Flat 273, Surya Enclave",
-          "city": "Ahmedabad",
-          "state": "Gujarat",
-          "pincode": "380870",
-          "country": "India"
-        },
-        "created_at": "2026-11-10T03:39:19.507247+00:00"
-      },
-      "messages": [
-        {
-          "from": "sender",
-          "text": "Flight tickets have been booked for Saturday morning."
-        },
-        {
-          "from": "recipient",
-          "text": "Great! Did you use the Masked Aadhaar or VID for airport entry?"
-        },
-        {
-          "from": "sender",
-          "text": "Yes, using official VID 1161-1407-1101-6219. No full Aadhaar shared."
-        }
-      ],
-      "last_message_text": "Great! Did you use the Masked Aadhaar or VID for airport entry?"
+      "last_message_text": "Sure, sending here. My Aadhaar number is 9999 9522 7183 and PAN is MDUPV2941W. Please verify."
     },
     {
       "thread_id": "wa_thread_005",
-      "title": "Society Maintenance Discussion",
-      "channel": "apartment_rwa",
-      "sender_name": "Diya Nair",
+      "title": "Family Vacation Flight Details",
+      "channel": "family_group",
+      "sender_name": "Rohan Nair",
       "sender_phone": "+919831001707",
       "contains_sensitive_id": false,
       "sample_profile": {
-        "full_name": "Diya Nair",
-        "first_name": "Diya",
+        "full_name": "Rohan Nair",
+        "first_name": "Rohan",
         "last_name": "Nair",
-        "email": "diya.nair18@example.in",
+        "email": "rohan.nair18@example.in",
         "phone": "+919831001707",
         "aadhaar_raw": "999939261517",
         "aadhaar_formatted": "9999 3926 1517",
@@ -1041,14 +3472,84 @@
         "pan_raw": "JYEPN9646K",
         "pan_masked": "JY***96*K",
         "vid_number": "0726-3480-3603-9468",
+        "driving_license_raw": "DL4020204082926",
+        "driving_license_masked": "DL40-****-82926",
+        "voter_id_raw": "BCP2223472",
+        "voter_id_masked": "BC****472",
+        "passport_raw": "N7862626",
+        "passport_masked": "N****626",
+        "bank_details": {
+          "bank_name": "ICICI Bank",
+          "ifsc_code": "ICIC0009841",
+          "account_raw": "0748494397378101",
+          "account_masked": "XXXXXXXXXXXX8101"
+        },
+        "vehicle_rc_raw": "DL52QP8000",
+        "vehicle_rc_masked": "DL52-**-8000",
+        "telecom_sims": [
+          {
+            "phone_number": "+919831001707",
+            "carrier": "BSNL",
+            "telecom_circle": "Tamil Nadu",
+            "is_primary": true,
+            "is_authorized_by_resident": true,
+            "issued_on": "2024-05-22",
+            "status": "active"
+          },
+          {
+            "phone_number": "+919620820077",
+            "carrier": "Airtel 5G",
+            "telecom_circle": "Delhi NCR",
+            "is_primary": false,
+            "is_authorized_by_resident": true,
+            "flagged_as_ghost_sim": false,
+            "issued_on": "2026-09-14",
+            "status": "active"
+          }
+        ],
+        "credit_profile": {
+          "pan_number": "JYEPN9646K",
+          "cibil_score": 757,
+          "score_band": "Good",
+          "credit_bureau": "TransUnion CIBIL",
+          "active_credit_cards": 4,
+          "recent_hard_inquiries": [
+            {
+              "institution": "Bajaj Finance",
+              "purpose": "Credit Card",
+              "inquiry_type": "Hard Pull",
+              "date": "2026-11-05",
+              "is_authorized": false,
+              "flagged_suspicious": true
+            },
+            {
+              "institution": "HDFC Bank",
+              "purpose": "Auto Loan",
+              "inquiry_type": "Hard Pull",
+              "date": "2026-11-12",
+              "is_authorized": true,
+              "flagged_suspicious": false
+            },
+            {
+              "institution": "SBI Cards",
+              "purpose": "Instant Micro-Credit",
+              "inquiry_type": "Hard Pull",
+              "date": "2026-11-09",
+              "is_authorized": true,
+              "flagged_suspicious": false
+            }
+          ],
+          "has_unauthorized_inquiries": true
+        },
         "address": {
-          "street": "Flat 584, Surya Enclave",
+          "street": "Flat 351, Surya Enclave",
           "city": "New Delhi",
           "state": "Delhi",
+          "state_code": "DL",
           "pincode": "110143",
           "country": "India"
         },
-        "created_at": "2026-11-10T03:39:19.507295+00:00"
+        "created_at": "2026-11-16T08:58:18.200949+00:00"
       },
       "messages": [
         {
@@ -1068,16 +3569,16 @@
     },
     {
       "thread_id": "wa_thread_006",
-      "title": "HR Onboarding Verification",
-      "channel": "office_hr",
-      "sender_name": "Sneha Sharma",
+      "title": "Society Maintenance Discussion",
+      "channel": "apartment_rwa",
+      "sender_name": "Aditya Sharma",
       "sender_phone": "+919881285543",
-      "contains_sensitive_id": true,
+      "contains_sensitive_id": false,
       "sample_profile": {
-        "full_name": "Sneha Sharma",
-        "first_name": "Sneha",
+        "full_name": "Aditya Sharma",
+        "first_name": "Aditya",
         "last_name": "Sharma",
-        "email": "sneha.sharma26@demo-resident.in",
+        "email": "aditya.sharma26@demo-resident.in",
         "phone": "+919881285543",
         "aadhaar_raw": "999976499688",
         "aadhaar_formatted": "9999 7649 9688",
@@ -1085,30 +3586,938 @@
         "pan_raw": "GMRPS8279W",
         "pan_masked": "GM***82*W",
         "vid_number": "8994-5897-1419-6062",
+        "driving_license_raw": "MH5320129377752",
+        "driving_license_masked": "MH53-****-77752",
+        "voter_id_raw": "QKG1146214",
+        "voter_id_masked": "QK****214",
+        "passport_raw": "U2433258",
+        "passport_masked": "U****258",
+        "bank_details": {
+          "bank_name": "ICICI Bank",
+          "ifsc_code": "ICIC0001854",
+          "account_raw": "20776275061991",
+          "account_masked": "XXXXXXXXXX1991"
+        },
+        "vehicle_rc_raw": "MH31HS9808",
+        "vehicle_rc_masked": "MH31-**-9808",
+        "telecom_sims": [
+          {
+            "phone_number": "+919881285543",
+            "carrier": "Vodafone Idea (Vi)",
+            "telecom_circle": "Telangana",
+            "is_primary": true,
+            "is_authorized_by_resident": true,
+            "issued_on": "2025-09-16",
+            "status": "active"
+          },
+          {
+            "phone_number": "+919730038144",
+            "carrier": "Jio 5G",
+            "telecom_circle": "Karnataka",
+            "is_primary": false,
+            "is_authorized_by_resident": true,
+            "flagged_as_ghost_sim": false,
+            "issued_on": "2026-05-15",
+            "status": "active"
+          },
+          {
+            "phone_number": "+919350911401",
+            "carrier": "Vodafone Idea (Vi)",
+            "telecom_circle": "Delhi NCR",
+            "is_primary": false,
+            "is_authorized_by_resident": false,
+            "flagged_as_ghost_sim": true,
+            "issued_on": "2026-06-29",
+            "status": "flagged_unauthorized"
+          }
+        ],
+        "credit_profile": {
+          "pan_number": "GMRPS8279W",
+          "cibil_score": 830,
+          "score_band": "Excellent",
+          "credit_bureau": "TransUnion CIBIL",
+          "active_credit_cards": 3,
+          "recent_hard_inquiries": [
+            {
+              "institution": "HDFC Bank",
+              "purpose": "Credit Card",
+              "inquiry_type": "Hard Pull",
+              "date": "2026-11-10",
+              "is_authorized": true,
+              "flagged_suspicious": false
+            }
+          ],
+          "has_unauthorized_inquiries": false
+        },
         "address": {
-          "street": "Flat 459, Surya Enclave",
+          "street": "Flat 175, Surya Enclave",
           "city": "Mumbai",
           "state": "Maharashtra",
+          "state_code": "MH",
           "pincode": "400152",
           "country": "India"
         },
-        "created_at": "2026-11-10T03:39:19.507342+00:00"
+        "created_at": "2026-11-16T08:58:18.201073+00:00"
       },
       "messages": [
         {
+          "from": "sender",
+          "text": "Flight tickets have been booked for Saturday morning."
+        },
+        {
           "from": "recipient",
-          "text": "Sir, room booking requires government ID proof copy."
+          "text": "Great! Did you use the Masked Aadhaar or VID for airport entry?"
         },
         {
           "from": "sender",
-          "text": "Here is my Aadhaar card details: 9999 7649 9688 (Name: Sneha Sharma)"
-        },
-        {
-          "from": "recipient",
-          "text": "Noted. Your booking is confirmed."
+          "text": "Yes, using official VID 8994-5897-1419-6062. No full Aadhaar shared."
         }
       ],
-      "last_message_text": "Here is my Aadhaar card details: 9999 7649 9688 (Name: Sneha Sharma)"
+      "last_message_text": "Great! Did you use the Masked Aadhaar or VID for airport entry?"
+    }
+  ],
+  "scam_phishing_corpus": [
+    {
+      "sample_id": "scam_sample_0001",
+      "text": "Dear citizen, you are placed under DIGITAL ARREST by CBI and Cyber Cell Hyderabad. Your Aadhaar was found in money laundering package at customs. Connect on Skype video call immediately within 2 hours or police team will arrest you.",
+      "channel": "video_call",
+      "sender_header": "CYBER_CELL",
+      "is_scam": true,
+      "expected_category": "digital_arrest_impersonation",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201093+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0002",
+      "text": "India Post Notice: Your consignment IN6798890 is detained at regional hub due to incorrect address. Install postal delivery update app: http://indiapost-speedpost.com/track.apk",
+      "channel": "sms",
+      "sender_header": "+919879249474",
+      "is_scam": true,
+      "expected_category": "malicious_apk_sideload",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201099+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0003",
+      "text": "Bank Account Suspended: Suspicious login detected from IP 185.220.101.4. Your account is frozen immediately. Contact nodal officer at +919823127772 to unblock.",
+      "channel": "sms",
+      "sender_header": "+919823127772",
+      "is_scam": true,
+      "expected_category": "electricity_bill_urgency",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201103+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0004",
+      "text": "ICICI Bank: KYC expired. NetBanking disabled. Please verify your debit card PIN and OTP on secure link to restore access.",
+      "channel": "sms",
+      "sender_header": "+919897777541",
+      "is_scam": true,
+      "expected_category": "bank_vishing_otp",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201108+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0005",
+      "text": "\u0421\u0412I Police Notice: W\u0430rr\u0430nt issued for customs contraband. Stay on vid\u0435\u043e c\u0430ll.",
+      "channel": "sms",
+      "sender_header": "+919824999286",
+      "is_scam": true,
+      "expected_category": "adversarial_evasion",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201111+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0006",
+      "text": "Amazon.in: Package containing your order #404-412912-10 is out for delivery today with PIN 49. Track on the app.",
+      "channel": "sms",
+      "sender_header": "AADHAR",
+      "is_scam": false,
+      "expected_category": "legitimate_notice",
+      "expected_threat_level": "safe",
+      "created_at": "2026-11-16T08:58:18.201119+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0007",
+      "text": "Dear citizen, you are placed under DIGITAL ARREST by CBI and Cyber Cell Chennai. Your Aadhaar was found in money laundering package at customs. Connect on Skype video call immediately within 2 hours or police team will arrest you.",
+      "channel": "sms",
+      "sender_header": "CYBER_CELL",
+      "is_scam": true,
+      "expected_category": "digital_arrest_impersonation",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201123+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0008",
+      "text": "PAN-Aadhaar Link Suspension Warning: Income Tax Dept mandates urgent verification. Install ITD-eFiling-Secure.apk from bit.ly/pan_update_434 to prevent account freeze.",
+      "channel": "sms",
+      "sender_header": "+919864239225",
+      "is_scam": true,
+      "expected_category": "malicious_apk_sideload",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201132+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0009",
+      "text": "FINAL NOTICE: Electricity connection will be cut within 1 hour. Pay pending arrears of Rs 1341 immediately or contact Senior Engineer at +919868665828.",
+      "channel": "sms",
+      "sender_header": "+919868665828",
+      "is_scam": true,
+      "expected_category": "electricity_bill_urgency",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201138+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0010",
+      "text": "Dear SBI Customer, your YONO reward points worth Rs 9,850 are expiring today. Claim cash credit to account immediately by entering OTP shared with verification agent.",
+      "channel": "phone",
+      "sender_header": "CP-SBIBNK",
+      "is_scam": true,
+      "expected_category": "bank_vishing_otp",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201142+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0011",
+      "text": "Dear BESCOM Customer: Your electricity bill is pending. Install update\u200b.\u200capk from tinyurl.com/bescom563 to prevent disconnection.",
+      "channel": "sms",
+      "sender_header": "+919817143363",
+      "is_scam": true,
+      "expected_category": "adversarial_evasion",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201150+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0012",
+      "text": "Amazon.in: Package containing your order #404-497912-10 is out for delivery today with PIN 86. Track on the app.",
+      "channel": "sms",
+      "sender_header": "AMAZON",
+      "is_scam": false,
+      "expected_category": "legitimate_notice",
+      "expected_threat_level": "safe",
+      "created_at": "2026-11-16T08:58:18.201156+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0013",
+      "text": "Dear citizen, you are placed under DIGITAL ARREST by CBI and Cyber Cell Delhi. Your Aadhaar was found in money laundering package at customs. Connect on Skype video call immediately within 2 hours or police team will arrest you.",
+      "channel": "video_call",
+      "sender_header": "+919842339329",
+      "is_scam": true,
+      "expected_category": "digital_arrest_impersonation",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201161+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0014",
+      "text": "BSNL / Jio 5G SIM Expiry: Your SIM card will be deactivated in 24 hours. Update KYC immediately by downloading: http://sim-kyc-update.net/telecom.apk",
+      "channel": "sms",
+      "sender_header": "VM-DHBVN",
+      "is_scam": true,
+      "expected_category": "malicious_apk_sideload",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201164+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0015",
+      "text": "Department of Telecommunications: Your mobile number +919866212990 is involved in 14 fraudulent calls. SIM card will be blocked within 30 minutes. Call officer at +919778617420.",
+      "channel": "sms",
+      "sender_header": "+919866212990",
+      "is_scam": true,
+      "expected_category": "electricity_bill_urgency",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201168+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0016",
+      "text": "Dear SBI Customer, your YONO reward points worth Rs 9,850 are expiring today. Claim cash credit to account immediately by entering OTP shared with verification agent.",
+      "channel": "phone",
+      "sender_header": "+919842373462",
+      "is_scam": true,
+      "expected_category": "bank_vishing_otp",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201171+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0017",
+      "text": "D\u200bi\u200cg\u200di\u200bt\u200ba\u200bl A\u200br\u200br\u200be\u200bs\u200bt Warrant: CBI Cyber Cell Mumbai requires immediate Skype video call.",
+      "channel": "sms",
+      "sender_header": "+919831896868",
+      "is_scam": true,
+      "expected_category": "adversarial_evasion",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201175+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0018",
+      "text": "IRCTC PNR 425195819: Booking confirmed. Train 12658 Chennai Mail, Coach B2 Berth 34 (Side Lower). Departure 21:15 HRS. Happy Journey!",
+      "channel": "sms",
+      "sender_header": "IRCTC",
+      "is_scam": false,
+      "expected_category": "legitimate_notice",
+      "expected_threat_level": "safe",
+      "created_at": "2026-11-16T08:58:18.201180+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0019",
+      "text": "Narcotics Control Bureau (NCB): 16 passports and contraband drugs confiscated with your Aadhaar credentials. Immediate digital arrest order active. Cooperate on Skype.",
+      "channel": "video_call",
+      "sender_header": "+919847919528",
+      "is_scam": true,
+      "expected_category": "digital_arrest_impersonation",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201184+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0020",
+      "text": "Dear BESCOM Consumer, your power supply will be disconnected tonight at 9:30 PM due to unpaid bill of Rs 9589. Immediately update your electricity app by downloading: http://bescom-karnataka-bill.in/update.apk",
+      "channel": "sms",
+      "sender_header": "+919897041895",
+      "is_scam": true,
+      "expected_category": "malicious_apk_sideload",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201189+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0021",
+      "text": "FINAL NOTICE: Electricity connection will be cut within 1 hour. Pay pending arrears of Rs 6422 immediately or contact Senior Engineer at +919821953850.",
+      "channel": "sms",
+      "sender_header": "+919821953850",
+      "is_scam": true,
+      "expected_category": "electricity_bill_urgency",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201192+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0022",
+      "text": "ICICI Bank: KYC expired. NetBanking disabled. Please verify your debit card PIN and OTP on secure link to restore access.",
+      "channel": "sms",
+      "sender_header": "VK-HDFCBK",
+      "is_scam": true,
+      "expected_category": "bank_vishing_otp",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201197+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0023",
+      "text": "D\u200bi\u200cg\u200di\u200bt\u200ba\u200bl A\u200br\u200br\u200be\u200bs\u200bt Warrant: CBI Cyber Cell Mumbai requires immediate Skype video call.",
+      "channel": "sms",
+      "sender_header": "+919864219084",
+      "is_scam": true,
+      "expected_category": "adversarial_evasion",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201200+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0024",
+      "text": "Amazon.in: Package containing your order #404-294912-10 is out for delivery today with PIN 42. Track on the app.",
+      "channel": "sms",
+      "sender_header": "SBIINB",
+      "is_scam": false,
+      "expected_category": "legitimate_notice",
+      "expected_threat_level": "safe",
+      "created_at": "2026-11-16T08:58:18.201206+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0025",
+      "text": "Supreme Court of India e-Warrant: Case No SC/2026/8192. CBI officer inspecting your premises. Connect via video call for clearance certificate.",
+      "channel": "sms",
+      "sender_header": "POLICE_HQ",
+      "is_scam": true,
+      "expected_category": "digital_arrest_impersonation",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201209+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0026",
+      "text": "Dear UPPCL Consumer, your power supply will be disconnected tonight at 9:30 PM due to unpaid bill of Rs 6520. Immediately update your electricity app by downloading: http://uppcl-bijli-update.in/update.apk",
+      "channel": "sms",
+      "sender_header": "VM-UPPCL",
+      "is_scam": true,
+      "expected_category": "malicious_apk_sideload",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201213+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0027",
+      "text": "Department of Telecommunications: Your mobile number +919812680236 is involved in 14 fraudulent calls. SIM card will be blocked within 30 minutes. Call officer at +919735400176.",
+      "channel": "sms",
+      "sender_header": "+919812680236",
+      "is_scam": true,
+      "expected_category": "electricity_bill_urgency",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201216+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0028",
+      "text": "Dear SBI Customer, your YONO reward points worth Rs 9,850 are expiring today. Claim cash credit to account immediately by entering OTP shared with verification agent.",
+      "channel": "phone",
+      "sender_header": "VK-HDFCBK",
+      "is_scam": true,
+      "expected_category": "bank_vishing_otp",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201220+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0029",
+      "text": "Dear BESCOM Customer: Your electricity bill is pending. Install update\u200b.\u200capk from tinyurl.com/bescom835 to prevent disconnection.",
+      "channel": "sms",
+      "sender_header": "+919818010377",
+      "is_scam": true,
+      "expected_category": "adversarial_evasion",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201224+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0030",
+      "text": "Amazon.in: Package containing your order #404-320912-10 is out for delivery today with PIN 12. Track on the app.",
+      "channel": "sms",
+      "sender_header": "AMAZON",
+      "is_scam": false,
+      "expected_category": "legitimate_notice",
+      "expected_threat_level": "safe",
+      "created_at": "2026-11-16T08:58:18.201229+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0031",
+      "text": "URGENT NOTICE: An arrest warrant has been issued by Enforcement Directorate (ED) New Delhi for illegal narcotics contraband in your name. Stay on video call for judicial verification.",
+      "channel": "whatsapp",
+      "sender_header": "CBI_CRIME",
+      "is_scam": true,
+      "expected_category": "digital_arrest_impersonation",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201233+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0032",
+      "text": "BSNL / Jio 5G SIM Expiry: Your SIM card will be deactivated in 24 hours. Update KYC immediately by downloading: http://sim-kyc-update.net/telecom.apk",
+      "channel": "sms",
+      "sender_header": "VM-BESCOM",
+      "is_scam": true,
+      "expected_category": "malicious_apk_sideload",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201236+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0033",
+      "text": "Bank Account Suspended: Suspicious login detected from IP 185.220.101.4. Your account is frozen immediately. Contact nodal officer at +919864038242 to unblock.",
+      "channel": "sms",
+      "sender_header": "+919864038242",
+      "is_scam": true,
+      "expected_category": "electricity_bill_urgency",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201240+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0034",
+      "text": "ICICI Bank: KYC expired. NetBanking disabled. Please verify your debit card PIN and OTP on secure link to restore access.",
+      "channel": "phone",
+      "sender_header": "+919878596941",
+      "is_scam": true,
+      "expected_category": "bank_vishing_otp",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201243+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0035",
+      "text": "Dear BESCOM Customer: Your electricity bill is pending. Install update\u200b.\u200capk from tinyurl.com/bescom635 to prevent disconnection.",
+      "channel": "sms",
+      "sender_header": "+919881302312",
+      "is_scam": true,
+      "expected_category": "adversarial_evasion",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201248+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0036",
+      "text": "Amazon.in: Package containing your order #404-863912-10 is out for delivery today with PIN 25. Track on the app.",
+      "channel": "sms",
+      "sender_header": "SBIINB",
+      "is_scam": false,
+      "expected_category": "legitimate_notice",
+      "expected_threat_level": "safe",
+      "created_at": "2026-11-16T08:58:18.201254+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0037",
+      "text": "Dear citizen, you are placed under DIGITAL ARREST by CBI and Cyber Cell Chennai. Your Aadhaar was found in money laundering package at customs. Connect on Skype video call immediately within 2 hours or police team will arrest you.",
+      "channel": "whatsapp",
+      "sender_header": "CBI_CRIME",
+      "is_scam": true,
+      "expected_category": "digital_arrest_impersonation",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201257+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0038",
+      "text": "Dear BESCOM Consumer, your power supply will be disconnected tonight at 9:30 PM due to unpaid bill of Rs 8818. Immediately update your electricity app by downloading: http://bescom-karnataka-bill.in/update.apk",
+      "channel": "sms",
+      "sender_header": "VM-BESCOM",
+      "is_scam": true,
+      "expected_category": "malicious_apk_sideload",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201261+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0039",
+      "text": "FINAL NOTICE: Electricity connection will be cut within 1 hour. Pay pending arrears of Rs 5446 immediately or contact Senior Engineer at +919841658686.",
+      "channel": "sms",
+      "sender_header": "+919841658686",
+      "is_scam": true,
+      "expected_category": "electricity_bill_urgency",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201264+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0040",
+      "text": "ICICI Bank: KYC expired. NetBanking disabled. Please verify your debit card PIN and OTP on secure link to restore access.",
+      "channel": "sms",
+      "sender_header": "+919845233338",
+      "is_scam": true,
+      "expected_category": "bank_vishing_otp",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201267+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0041",
+      "text": "Dear BESCOM Customer: Your electricity bill is pending. Install update\u200b.\u200capk from tinyurl.com/bescom365 to prevent disconnection.",
+      "channel": "sms",
+      "sender_header": "+919810072320",
+      "is_scam": true,
+      "expected_category": "adversarial_evasion",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201270+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0042",
+      "text": "IRCTC PNR 425472819: Booking confirmed. Train 12658 Chennai Mail, Coach B2 Berth 34 (Side Lower). Departure 21:15 HRS. Happy Journey!",
+      "channel": "sms",
+      "sender_header": "SBIINB",
+      "is_scam": false,
+      "expected_category": "legitimate_notice",
+      "expected_threat_level": "safe",
+      "created_at": "2026-11-16T08:58:18.201276+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0043",
+      "text": "MUMBAI CRIME BRANCH ALERT: Your bank account is linked to Rs 3.8 Crore international hawala syndicate. Do not disconnect the video call or face non-bailable arrest.",
+      "channel": "video_call",
+      "sender_header": "+919822517419",
+      "is_scam": true,
+      "expected_category": "digital_arrest_impersonation",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201279+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0044",
+      "text": "Dear Mahadiscom Consumer, your power supply will be disconnected tonight at 9:30 PM due to unpaid bill of Rs 2746. Immediately update your electricity app by downloading: http://mahadiscom-power-pay.net/update.apk",
+      "channel": "sms",
+      "sender_header": "VM-Mahadi",
+      "is_scam": true,
+      "expected_category": "malicious_apk_sideload",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201283+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0045",
+      "text": "Bank Account Suspended: Suspicious login detected from IP 185.220.101.4. Your account is frozen immediately. Contact nodal officer at +919877755241 to unblock.",
+      "channel": "sms",
+      "sender_header": "+919877755241",
+      "is_scam": true,
+      "expected_category": "electricity_bill_urgency",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201286+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0046",
+      "text": "Dear SBI Customer, your YONO reward points worth Rs 9,850 are expiring today. Claim cash credit to account immediately by entering OTP shared with verification agent.",
+      "channel": "phone",
+      "sender_header": "+919850502965",
+      "is_scam": true,
+      "expected_category": "bank_vishing_otp",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201290+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0047",
+      "text": "Dear BESCOM Customer: Your electricity bill is pending. Install update\u200b.\u200capk from tinyurl.com/bescom669 to prevent disconnection.",
+      "channel": "sms",
+      "sender_header": "+919845758499",
+      "is_scam": true,
+      "expected_category": "adversarial_evasion",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201293+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0048",
+      "text": "Swiggy: Your food delivery order #404-720912-10 from Meghana Foods is on the way. Delivery executive will reach in 14 minutes.",
+      "channel": "sms",
+      "sender_header": "IRCTC",
+      "is_scam": false,
+      "expected_category": "legitimate_notice",
+      "expected_threat_level": "safe",
+      "created_at": "2026-11-16T08:58:18.201298+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0049",
+      "text": "Dear citizen, you are placed under DIGITAL ARREST by CBI and Cyber Cell Bengaluru. Your Aadhaar was found in money laundering package at customs. Connect on Skype video call immediately within 2 hours or police team will arrest you.",
+      "channel": "video_call",
+      "sender_header": "POLICE_HQ",
+      "is_scam": true,
+      "expected_category": "digital_arrest_impersonation",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201302+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0050",
+      "text": "India Post Notice: Your consignment IN2628890 is detained at regional hub due to incorrect address. Install postal delivery update app: http://indiapost-speedpost.com/track.apk",
+      "channel": "sms",
+      "sender_header": "VM-DHBVN",
+      "is_scam": true,
+      "expected_category": "malicious_apk_sideload",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201305+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0051",
+      "text": "Department of Telecommunications: Your mobile number +919890321947 is involved in 14 fraudulent calls. SIM card will be blocked within 30 minutes. Call officer at +919713816861.",
+      "channel": "sms",
+      "sender_header": "+919890321947",
+      "is_scam": true,
+      "expected_category": "electricity_bill_urgency",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201309+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0052",
+      "text": "ICICI Bank: KYC expired. NetBanking disabled. Please verify your debit card PIN and OTP on secure link to restore access.",
+      "channel": "sms",
+      "sender_header": "VK-HDFCBK",
+      "is_scam": true,
+      "expected_category": "bank_vishing_otp",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201312+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0053",
+      "text": "\u0421\u0412I Police Notice: W\u0430rr\u0430nt issued for customs contraband. Stay on vid\u0435\u043e c\u0430ll.",
+      "channel": "sms",
+      "sender_header": "+919826619981",
+      "is_scam": true,
+      "expected_category": "adversarial_evasion",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201315+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0054",
+      "text": "UIDAI: OTP for online Aadhaar authentication is 158955. Generated at 08:58. If not requested, visit myaadhaar.uidai.gov.in.",
+      "channel": "sms",
+      "sender_header": "AMAZON",
+      "is_scam": false,
+      "expected_category": "legitimate_notice",
+      "expected_threat_level": "safe",
+      "created_at": "2026-11-16T08:58:18.201320+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0055",
+      "text": "Dear citizen, you are placed under DIGITAL ARREST by CBI and Cyber Cell Hyderabad. Your Aadhaar was found in money laundering package at customs. Connect on Skype video call immediately within 2 hours or police team will arrest you.",
+      "channel": "sms",
+      "sender_header": "POLICE_HQ",
+      "is_scam": true,
+      "expected_category": "digital_arrest_impersonation",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201324+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0056",
+      "text": "PAN-Aadhaar Link Suspension Warning: Income Tax Dept mandates urgent verification. Install ITD-eFiling-Secure.apk from bit.ly/pan_update_742 to prevent account freeze.",
+      "channel": "sms",
+      "sender_header": "VM-Mahadi",
+      "is_scam": true,
+      "expected_category": "malicious_apk_sideload",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201327+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0057",
+      "text": "FINAL NOTICE: Electricity connection will be cut within 1 hour. Pay pending arrears of Rs 3481 immediately or contact Senior Engineer at +919847512531.",
+      "channel": "sms",
+      "sender_header": "+919847512531",
+      "is_scam": true,
+      "expected_category": "electricity_bill_urgency",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201330+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0058",
+      "text": "Dear SBI Customer, your YONO reward points worth Rs 9,850 are expiring today. Claim cash credit to account immediately by entering OTP shared with verification agent.",
+      "channel": "phone",
+      "sender_header": "+919892197484",
+      "is_scam": true,
+      "expected_category": "bank_vishing_otp",
+      "expected_threat_level": "high",
+      "created_at": "2026-11-16T08:58:18.201334+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0059",
+      "text": "Dear BESCOM Customer: Your electricity bill is pending. Install update\u200b.\u200capk from tinyurl.com/bescom130 to prevent disconnection.",
+      "channel": "sms",
+      "sender_header": "+919851173953",
+      "is_scam": true,
+      "expected_category": "adversarial_evasion",
+      "expected_threat_level": "critical",
+      "created_at": "2026-11-16T08:58:18.201337+00:00"
+    },
+    {
+      "sample_id": "scam_sample_0060",
+      "text": "UIDAI: OTP for online Aadhaar authentication is 323950. Generated at 08:58. If not requested, visit myaadhaar.uidai.gov.in.",
+      "channel": "sms",
+      "sender_header": "SWIGGY",
+      "is_scam": false,
+      "expected_category": "legitimate_notice",
+      "expected_threat_level": "safe",
+      "created_at": "2026-11-16T08:58:18.201343+00:00"
+    }
+  ],
+  "qr_pass_samples": [
+    {
+      "pass_id": "qr_sample_0001",
+      "raw_payload": "{\"suraksha_certified\": true, \"version\": \"1.0\", \"claim\": {\"holder\": \"Ishaan Deshmukh\", \"masked_id\": \"XXXX-XXXX-6381\", \"doc_type\": \"aadhaar\", \"recipient\": \"HDFC Bank Branch\", \"purpose\": \"visitor_pass\", \"valid_until\": \"2027-07-11\"}, \"sig\": \"eddfc47ac27a75ec6dc4492cc6df7055ff756ee74e65e99ef2f3e1d4fc087853\", \"pubkey\": \"46793daa274a5345b8a607b0ed844552\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": true,
+      "holder_name": "Ishaan Deshmukh",
+      "notes": "Valid offline Ed25519 signature."
+    },
+    {
+      "pass_id": "qr_sample_0002",
+      "raw_payload": "<PrintLetterBarcodeData uid=\"999959671103\" name=\"Lakshmi Menon\" gender=\"M\" yob=\"1992\" co=\"S/O Ram Sharma\" house=\"12\" loc=\"Surya Enclave\" vtc=\"Bhopal\" dist=\"Bhopal\" state=\"Madhya Pradesh\" pc=\"462861\"/>",
+      "expected_pass_type": "uidai_secure_qr",
+      "expected_valid": true,
+      "holder_name": "Lakshmi Menon",
+      "notes": "Official UIDAI 2048-bit RSA Secure QR."
+    },
+    {
+      "pass_id": "qr_sample_0003",
+      "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Arjun Deshmukh\", \"masked_id\": \"XXXX-XXXX-8308\", \"recipient\": \"Grand Hyatt Bengaluru\", \"purpose\": \"hotel_checkin\", \"valid_until\": \"2026-10-25\"}, \"sig\": \"abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789\", \"pubkey\": \"abcdef0123456789abcdef0123456789\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Pass expired in the past."
+    },
+    {
+      "pass_id": "qr_sample_0004",
+      "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Kunal Natarajan\", \"masked_id\": \"XXXX-XXXX-8349\", \"recipient\": \"Zoomcar Rentals\", \"purpose\": \"car_rental\", \"valid_until\": \"2028-12-31\"}, \"sig\": \"corrupt_short_sig\", \"pubkey\": \"short_pk\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Tampered or corrupted Ed25519 signature."
+    },
+    {
+      "pass_id": "qr_sample_0005",
+      "raw_payload": "PLAIN_TEXT_NOT_A_PASS_DATA",
+      "expected_pass_type": "unrecognized_text",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Unrecognized QR format."
+    },
+    {
+      "pass_id": "qr_sample_0006",
+      "raw_payload": "{\"suraksha_certified\": true, \"version\": \"1.0\", \"claim\": {\"holder\": \"Sneha Mehta\", \"masked_id\": \"XXXX-XXXX-8184\", \"doc_type\": \"aadhaar\", \"recipient\": \"Grand Hyatt Bengaluru\", \"purpose\": \"car_rental\", \"valid_until\": \"2027-04-30\"}, \"sig\": \"67aae068fc6788e8a7b33101e78988e81ccf37fbed83cd81cd8bbd7618e3ad29\", \"pubkey\": \"8de4d1c996ddeb4a4038c65847c208b5\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": true,
+      "holder_name": "Sneha Mehta",
+      "notes": "Valid offline Ed25519 signature."
+    },
+    {
+      "pass_id": "qr_sample_0007",
+      "raw_payload": "<PrintLetterBarcodeData uid=\"999941521811\" name=\"Sanjay Pandey\" gender=\"M\" yob=\"1992\" co=\"S/O Ram Sharma\" house=\"12\" loc=\"Surya Enclave\" vtc=\"Kochi\" dist=\"Kochi\" state=\"Kerala\" pc=\"682223\"/>",
+      "expected_pass_type": "uidai_secure_qr",
+      "expected_valid": true,
+      "holder_name": "Sanjay Pandey",
+      "notes": "Official UIDAI 2048-bit RSA Secure QR."
+    },
+    {
+      "pass_id": "qr_sample_0008",
+      "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Preeti Nair\", \"masked_id\": \"XXXX-XXXX-0935\", \"recipient\": \"Grand Hyatt Bengaluru\", \"purpose\": \"hotel_checkin\", \"valid_until\": \"2026-10-27\"}, \"sig\": \"abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789\", \"pubkey\": \"abcdef0123456789abcdef0123456789\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Pass expired in the past."
+    },
+    {
+      "pass_id": "qr_sample_0009",
+      "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Nikhil Chauhan\", \"masked_id\": \"XXXX-XXXX-8275\", \"recipient\": \"Zoomcar Rentals\", \"purpose\": \"car_rental\", \"valid_until\": \"2028-12-31\"}, \"sig\": \"corrupt_short_sig\", \"pubkey\": \"short_pk\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Tampered or corrupted Ed25519 signature."
+    },
+    {
+      "pass_id": "qr_sample_0010",
+      "raw_payload": "WIFI:T:WPA;S:HomeWiFi;P:secretPass123;;",
+      "expected_pass_type": "unrecognized_text",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Unrecognized QR format."
+    },
+    {
+      "pass_id": "qr_sample_0011",
+      "raw_payload": "{\"suraksha_certified\": true, \"version\": \"1.0\", \"claim\": {\"holder\": \"Sneha Trivedi\", \"masked_id\": \"XXXX-XXXX-2747\", \"doc_type\": \"aadhaar\", \"recipient\": \"Grand Hyatt Bengaluru\", \"purpose\": \"car_rental\", \"valid_until\": \"2027-10-21\"}, \"sig\": \"b0ea125b9c16f7e9e0bdc33adf383eada6885cbc3c025d9d861a6732cd7d0035\", \"pubkey\": \"6e2b4c0849e8e703f428ab261a22952b\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": true,
+      "holder_name": "Sneha Trivedi",
+      "notes": "Valid offline Ed25519 signature."
+    },
+    {
+      "pass_id": "qr_sample_0012",
+      "raw_payload": "<PrintLetterBarcodeData uid=\"999946547871\" name=\"Kavya Banerjee\" gender=\"M\" yob=\"1992\" co=\"S/O Ram Sharma\" house=\"12\" loc=\"Surya Enclave\" vtc=\"Patna\" dist=\"Patna\" state=\"Bihar\" pc=\"800998\"/>",
+      "expected_pass_type": "uidai_secure_qr",
+      "expected_valid": true,
+      "holder_name": "Kavya Banerjee",
+      "notes": "Official UIDAI 2048-bit RSA Secure QR."
+    },
+    {
+      "pass_id": "qr_sample_0013",
+      "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Amit Banerjee\", \"masked_id\": \"XXXX-XXXX-6224\", \"recipient\": \"Grand Hyatt Bengaluru\", \"purpose\": \"hotel_checkin\", \"valid_until\": \"2026-10-27\"}, \"sig\": \"abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789\", \"pubkey\": \"abcdef0123456789abcdef0123456789\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Pass expired in the past."
+    },
+    {
+      "pass_id": "qr_sample_0014",
+      "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Diya Gupta\", \"masked_id\": \"XXXX-XXXX-7735\", \"recipient\": \"Zoomcar Rentals\", \"purpose\": \"car_rental\", \"valid_until\": \"2028-12-31\"}, \"sig\": \"corrupt_short_sig\", \"pubkey\": \"short_pk\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Tampered or corrupted Ed25519 signature."
+    },
+    {
+      "pass_id": "qr_sample_0015",
+      "raw_payload": "WIFI:T:WPA;S:HomeWiFi;P:secretPass123;;",
+      "expected_pass_type": "unrecognized_text",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Unrecognized QR format."
+    },
+    {
+      "pass_id": "qr_sample_0016",
+      "raw_payload": "{\"suraksha_certified\": true, \"version\": \"1.0\", \"claim\": {\"holder\": \"Neha Pillai\", \"masked_id\": \"XXXX-XXXX-2204\", \"doc_type\": \"aadhaar\", \"recipient\": \"HDFC Bank Branch\", \"purpose\": \"sim_purchase\", \"valid_until\": \"2026-12-11\"}, \"sig\": \"2f067ab41adf2f41335bf7f440d675c9df9659627f9d31f0ece779a8787b930f\", \"pubkey\": \"97b2c64376fe47e1b15584bf7d3af11f\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": true,
+      "holder_name": "Neha Pillai",
+      "notes": "Valid offline Ed25519 signature."
+    },
+    {
+      "pass_id": "qr_sample_0017",
+      "raw_payload": "<PrintLetterBarcodeData uid=\"999968460922\" name=\"Shruti Ghosh\" gender=\"M\" yob=\"1992\" co=\"S/O Ram Sharma\" house=\"12\" loc=\"Surya Enclave\" vtc=\"Chandigarh\" dist=\"Chandigarh\" state=\"Punjab\" pc=\"160354\"/>",
+      "expected_pass_type": "uidai_secure_qr",
+      "expected_valid": true,
+      "holder_name": "Shruti Ghosh",
+      "notes": "Official UIDAI 2048-bit RSA Secure QR."
+    },
+    {
+      "pass_id": "qr_sample_0018",
+      "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Varun Singh\", \"masked_id\": \"XXXX-XXXX-0814\", \"recipient\": \"Grand Hyatt Bengaluru\", \"purpose\": \"hotel_checkin\", \"valid_until\": \"2026-10-30\"}, \"sig\": \"abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789\", \"pubkey\": \"abcdef0123456789abcdef0123456789\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Pass expired in the past."
+    },
+    {
+      "pass_id": "qr_sample_0019",
+      "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Anjali Pandey\", \"masked_id\": \"XXXX-XXXX-0597\", \"recipient\": \"Zoomcar Rentals\", \"purpose\": \"car_rental\", \"valid_until\": \"2028-12-31\"}, \"sig\": \"corrupt_short_sig\", \"pubkey\": \"short_pk\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Tampered or corrupted Ed25519 signature."
+    },
+    {
+      "pass_id": "qr_sample_0020",
+      "raw_payload": "WIFI:T:WPA;S:HomeWiFi;P:secretPass123;;",
+      "expected_pass_type": "unrecognized_text",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Unrecognized QR format."
+    },
+    {
+      "pass_id": "qr_sample_0021",
+      "raw_payload": "{\"suraksha_certified\": true, \"version\": \"1.0\", \"claim\": {\"holder\": \"Rajesh Choudhury\", \"masked_id\": \"XXXX-XXXX-6500\", \"doc_type\": \"aadhaar\", \"recipient\": \"Airtel Store\", \"purpose\": \"car_rental\", \"valid_until\": \"2027-05-31\"}, \"sig\": \"7654ed365afa5ea0abe95557e3caf8c574aea07d3218ce8c21c6fd84b2054948\", \"pubkey\": \"1c525533c9c157cab7b7d0e38469f553\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": true,
+      "holder_name": "Rajesh Choudhury",
+      "notes": "Valid offline Ed25519 signature."
+    },
+    {
+      "pass_id": "qr_sample_0022",
+      "raw_payload": "<PrintLetterBarcodeData uid=\"999949651556\" name=\"Rohan Banerjee\" gender=\"M\" yob=\"1992\" co=\"S/O Ram Sharma\" house=\"12\" loc=\"Surya Enclave\" vtc=\"Pune\" dist=\"Pune\" state=\"Maharashtra\" pc=\"411185\"/>",
+      "expected_pass_type": "uidai_secure_qr",
+      "expected_valid": true,
+      "holder_name": "Rohan Banerjee",
+      "notes": "Official UIDAI 2048-bit RSA Secure QR."
+    },
+    {
+      "pass_id": "qr_sample_0023",
+      "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Aarav Rao\", \"masked_id\": \"XXXX-XXXX-1761\", \"recipient\": \"Grand Hyatt Bengaluru\", \"purpose\": \"hotel_checkin\", \"valid_until\": \"2026-11-09\"}, \"sig\": \"abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789\", \"pubkey\": \"abcdef0123456789abcdef0123456789\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Pass expired in the past."
+    },
+    {
+      "pass_id": "qr_sample_0024",
+      "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Rajesh Trivedi\", \"masked_id\": \"XXXX-XXXX-1712\", \"recipient\": \"Zoomcar Rentals\", \"purpose\": \"car_rental\", \"valid_until\": \"2028-12-31\"}, \"sig\": \"corrupt_short_sig\", \"pubkey\": \"short_pk\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Tampered or corrupted Ed25519 signature."
+    },
+    {
+      "pass_id": "qr_sample_0025",
+      "raw_payload": "https://example.com/wifi_connect?pass=12345678",
+      "expected_pass_type": "unrecognized_text",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Unrecognized QR format."
+    },
+    {
+      "pass_id": "qr_sample_0026",
+      "raw_payload": "{\"suraksha_certified\": true, \"version\": \"1.0\", \"claim\": {\"holder\": \"Abhishek Deshmukh\", \"masked_id\": \"XXXX-XXXX-8214\", \"doc_type\": \"aadhaar\", \"recipient\": \"Zoomcar Rentals\", \"purpose\": \"sim_purchase\", \"valid_until\": \"2027-01-14\"}, \"sig\": \"c1a4a0730a6a26842e2a9f7146f9dc39bdeae4727ee72c830f588faebc1f2524\", \"pubkey\": \"5d7a7e35c1fc63ad684a0afc6d4f61a8\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": true,
+      "holder_name": "Abhishek Deshmukh",
+      "notes": "Valid offline Ed25519 signature."
+    },
+    {
+      "pass_id": "qr_sample_0027",
+      "raw_payload": "<PrintLetterBarcodeData uid=\"999986624626\" name=\"Suresh Rao\" gender=\"M\" yob=\"1992\" co=\"S/O Ram Sharma\" house=\"12\" loc=\"Surya Enclave\" vtc=\"Pune\" dist=\"Pune\" state=\"Maharashtra\" pc=\"411292\"/>",
+      "expected_pass_type": "uidai_secure_qr",
+      "expected_valid": true,
+      "holder_name": "Suresh Rao",
+      "notes": "Official UIDAI 2048-bit RSA Secure QR."
+    },
+    {
+      "pass_id": "qr_sample_0028",
+      "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Pooja Chauhan\", \"masked_id\": \"XXXX-XXXX-3357\", \"recipient\": \"Grand Hyatt Bengaluru\", \"purpose\": \"hotel_checkin\", \"valid_until\": \"2026-10-21\"}, \"sig\": \"abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789\", \"pubkey\": \"abcdef0123456789abcdef0123456789\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Pass expired in the past."
+    },
+    {
+      "pass_id": "qr_sample_0029",
+      "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Nandini Verma\", \"masked_id\": \"XXXX-XXXX-6564\", \"recipient\": \"Zoomcar Rentals\", \"purpose\": \"car_rental\", \"valid_until\": \"2028-12-31\"}, \"sig\": \"corrupt_short_sig\", \"pubkey\": \"short_pk\"}",
+      "expected_pass_type": "suraksha_certified_pass",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Tampered or corrupted Ed25519 signature."
+    },
+    {
+      "pass_id": "qr_sample_0030",
+      "raw_payload": "PLAIN_TEXT_NOT_A_PASS_DATA",
+      "expected_pass_type": "unrecognized_text",
+      "expected_valid": false,
+      "holder_name": null,
+      "notes": "Unrecognized QR format."
     }
   ]
 }

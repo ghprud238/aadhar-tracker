@@ -13,9 +13,18 @@ from packages.domain.synthetic import (
     generate_synthetic_aadhaar,
     generate_synthetic_pan,
     generate_synthetic_vid,
+    generate_synthetic_driving_license,
+    generate_synthetic_voter_id,
+    generate_synthetic_passport,
+    generate_synthetic_bank_account,
+    generate_synthetic_vehicle_rc,
+    generate_synthetic_telecom_sims,
+    generate_synthetic_credit_profile,
     generate_synthetic_resident_profile,
     generate_synthetic_breach_dump,
     generate_synthetic_whatsapp_conversations,
+    generate_synthetic_scam_corpus,
+    generate_synthetic_qr_pass_corpus,
     generate_complete_test_fixture_bundle,
     BREACH_TEMPLATES,
 )
@@ -213,4 +222,115 @@ def test_synthetic_card_image_generation_and_annotations():
     assert scene_img.size == (640, 480)
     assert "rotation_angle" in scene_meta
     assert "offset" in scene_meta
+
+
+def test_synthetic_multi_document_generators():
+    """Verify DL, Voter ID, Passport, Bank, and Vehicle RC generator syntaxes and maskings."""
+    # 1. Driving License
+    dl_raw, dl_masked = generate_synthetic_driving_license(state_code="KA", issue_year=2021, seed=42)
+    assert len(dl_raw) == 15
+    assert dl_raw.startswith("KA")
+    assert "2021" in dl_raw
+    assert dl_masked.startswith("KA") and "****" in dl_masked
+
+    # 2. Voter ID (EPIC)
+    epic_raw, epic_masked = generate_synthetic_voter_id(seed=42)
+    assert len(epic_raw) == 10
+    assert epic_raw[:3].isalpha() and epic_raw[3:].isdigit()
+    assert "****" in epic_masked
+
+    # 3. Indian Passport
+    pass_raw, pass_masked = generate_synthetic_passport(seed=42)
+    assert len(pass_raw) == 8
+    assert pass_raw[0].isalpha() and pass_raw[1:].isdigit()
+    assert "****" in pass_masked
+
+    # 4. Bank Account & IFSC
+    bank = generate_synthetic_bank_account(bank_name="HDFC Bank", seed=42)
+    assert bank["bank_name"] == "HDFC Bank"
+    assert bank["ifsc_code"].startswith("HDFC000")
+    assert len(bank["ifsc_code"]) == 11
+    assert "XXXX" in bank["account_masked"]
+
+    # 5. Vehicle RC
+    rc_raw, rc_masked = generate_synthetic_vehicle_rc(state_code="MH", seed=42)
+    assert rc_raw.startswith("MH")
+    assert "-**-" in rc_masked
+
+
+def test_synthetic_telecom_sims_and_credit_profile():
+    """Verify TAFCOP monitored SIMs with ghost SIM generation and CIBIL score ranges."""
+    sims = generate_synthetic_telecom_sims(resident_phone="+919876543210", count=3, seed=123)
+    assert len(sims) == 3
+    assert sims[0]["is_primary"] is True
+    assert sims[0]["phone_number"] == "+919876543210"
+
+    credit = generate_synthetic_credit_profile(pan_number="ABCPS1234D", seed=123)
+    assert 650 <= credit["cibil_score"] <= 850
+    assert credit["credit_bureau"] == "TransUnion CIBIL"
+    assert isinstance(credit["recent_hard_inquiries"], list)
+
+
+def test_synthetic_scam_corpus_generation_and_detection():
+    """Verify scam corpus generation and test ScamRadarEngine against synthetic samples."""
+    from packages.domain.scam_radar import ScamRadarEngine
+
+    corpus = generate_synthetic_scam_corpus(count=30, seed=42)
+    assert len(corpus) == 30
+
+    scam_count = sum(1 for s in corpus if s["is_scam"])
+    clean_count = sum(1 for s in corpus if not s["is_scam"])
+    assert scam_count > 15
+    assert clean_count > 0
+
+    # Test ScamRadar against digital arrest sample
+    da_sample = next(s for s in corpus if s["expected_category"] == "digital_arrest_impersonation")
+    analysis = ScamRadarEngine.analyze_message(
+        message_text=da_sample["text"],
+        sender_header=da_sample["sender_header"],
+        channel=da_sample["channel"]
+    )
+    assert analysis.is_scam is True
+    assert analysis.scam_category == "digital_arrest_impersonation"
+    assert analysis.threat_level in ("high", "critical")
+
+    # Test ScamRadar against clean negative control
+    clean_sample = next(s for s in corpus if not s["is_scam"])
+    clean_analysis = ScamRadarEngine.analyze_message(
+        message_text=clean_sample["text"],
+        sender_header=clean_sample["sender_header"],
+        channel="sms"
+    )
+    assert clean_analysis.is_scam is False
+    assert clean_analysis.threat_level == "safe"
+
+
+def test_synthetic_qr_pass_corpus_and_verification():
+    """Verify synthetic QR pass corpus generation and offline PassVerifierService verification."""
+    from packages.domain.pass_verifier import PassVerifierService
+    from packages.domain.schemas import PassVerificationRequest
+
+    qr_corpus = generate_synthetic_qr_pass_corpus(count=20, seed=42)
+    assert len(qr_corpus) == 20
+
+    # 1. Verify valid Suraksha Certified Pass sample
+    valid_sample = next(s for s in qr_corpus if s["expected_pass_type"] == "suraksha_certified_pass" and s["expected_valid"])
+    req = PassVerificationRequest(raw_qr_payload=valid_sample["raw_payload"], verifier_entity="Hotel Reception Desk")
+    res = PassVerifierService.verify_pass(req)
+    assert res.verified is True
+    assert res.pass_type == "suraksha_certified_pass"
+
+    # 2. Verify UIDAI XML Secure QR sample
+    uidai_sample = next(s for s in qr_corpus if s["expected_pass_type"] == "uidai_secure_qr")
+    req_uidai = PassVerificationRequest(raw_qr_payload=uidai_sample["raw_payload"], verifier_entity="Airport Kiosk")
+    res_uidai = PassVerifierService.verify_pass(req_uidai)
+    assert res_uidai.verified is True
+    assert res_uidai.pass_type == "uidai_secure_qr"
+
+    # 3. Verify expired pass rejection
+    expired_sample = next(s for s in qr_corpus if not s["expected_valid"] and "expired" in s["notes"].lower())
+    req_exp = PassVerificationRequest(raw_qr_payload=expired_sample["raw_payload"], verifier_entity="Hotel Reception Desk")
+    res_exp = PassVerifierService.verify_pass(req_exp)
+    assert res_exp.verified is False
+
 

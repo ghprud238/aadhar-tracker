@@ -3,29 +3,84 @@
     "thread_id": "wa_thread_001",
     "title": "HR Onboarding Verification",
     "channel": "office_hr",
-    "sender_name": "Nikhil Bhat",
+    "sender_name": "Pranav Bhat",
     "sender_phone": "+919819884139",
     "contains_sensitive_id": true,
     "sample_profile": {
-      "full_name": "Nikhil Bhat",
-      "first_name": "Nikhil",
+      "full_name": "Pranav Bhat",
+      "first_name": "Pranav",
       "last_name": "Bhat",
-      "email": "nikhil.bhat21@example.in",
+      "email": "pranav.bhat21@example.in",
       "phone": "+919819884139",
-      "aadhaar_raw": "999932795821",
-      "aadhaar_formatted": "9999 3279 5821",
-      "aadhaar_masked": "XXXX-XXXX-5821",
-      "pan_raw": "YFJPB2173P",
-      "pan_masked": "YF***21*P",
-      "vid_number": "3568-9875-8915-5912",
+      "aadhaar_raw": "999992489353",
+      "aadhaar_formatted": "9999 9248 9353",
+      "aadhaar_masked": "XXXX-XXXX-9353",
+      "pan_raw": "HEQPB6985S",
+      "pan_masked": "HE***69*S",
+      "vid_number": "2416-0354-6721-8272",
+      "driving_license_raw": "OD3020177272350",
+      "driving_license_masked": "OD30-****-72350",
+      "voter_id_raw": "UVB4736660",
+      "voter_id_masked": "UV****660",
+      "passport_raw": "N4112571",
+      "passport_masked": "N****571",
+      "bank_details": {
+        "bank_name": "Bank of Baroda",
+        "ifsc_code": "BARB0004971",
+        "account_raw": "615149658916",
+        "account_masked": "XXXXXXXX8916"
+      },
+      "vehicle_rc_raw": "OD90DT9159",
+      "vehicle_rc_masked": "OD90-**-9159",
+      "telecom_sims": [
+        {
+          "phone_number": "+919819884139",
+          "carrier": "BSNL",
+          "telecom_circle": "Maharashtra",
+          "is_primary": true,
+          "is_authorized_by_resident": true,
+          "issued_on": "2025-09-29",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919462414983",
+          "carrier": "Vodafone Idea (Vi)",
+          "telecom_circle": "Mumbai",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-08-31",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919525898800",
+          "carrier": "BSNL",
+          "telecom_circle": "Maharashtra",
+          "is_primary": false,
+          "is_authorized_by_resident": false,
+          "flagged_as_ghost_sim": true,
+          "issued_on": "2026-10-12",
+          "status": "flagged_unauthorized"
+        }
+      ],
+      "credit_profile": {
+        "pan_number": "HEQPB6985S",
+        "cibil_score": 740,
+        "score_band": "Fair",
+        "credit_bureau": "TransUnion CIBIL",
+        "active_credit_cards": 4,
+        "recent_hard_inquiries": [],
+        "has_unauthorized_inquiries": false
+      },
       "address": {
-        "street": "Flat 287, Surya Enclave",
-        "city": "Jaipur",
-        "state": "Rajasthan",
-        "pincode": "302128",
+        "street": "Flat 404, Surya Enclave",
+        "city": "Bhubaneswar",
+        "state": "Odisha",
+        "state_code": "OD",
+        "pincode": "751621",
         "country": "India"
       },
-      "created_at": "2026-11-10T03:39:19.507100+00:00"
+      "created_at": "2026-11-16T08:58:18.200444+00:00"
     },
     "messages": [
       {
@@ -34,42 +89,104 @@
       },
       {
         "from": "sender",
-        "text": "Sure, sending here. My Aadhaar number is 9999 3279 5821 and PAN is YFJPB2173P. Please verify."
+        "text": "Sure, sending here. My Aadhaar number is 9999 9248 9353 and PAN is HEQPB6985S. Please verify."
       },
       {
         "from": "recipient",
         "text": "Received, thank you!"
       }
     ],
-    "last_message_text": "Sure, sending here. My Aadhaar number is 9999 3279 5821 and PAN is YFJPB2173P. Please verify."
+    "last_message_text": "Sure, sending here. My Aadhaar number is 9999 9248 9353 and PAN is HEQPB6985S. Please verify."
   },
   {
     "thread_id": "wa_thread_002",
     "title": "Hotel Room Booking KYC Proof",
     "channel": "hotel_agent",
-    "sender_name": "Tanvi Mehta",
+    "sender_name": "Venkatesh Trivedi",
     "sender_phone": "+919881935574",
     "contains_sensitive_id": true,
     "sample_profile": {
-      "full_name": "Tanvi Mehta",
-      "first_name": "Tanvi",
-      "last_name": "Mehta",
-      "email": "tanvi.mehta82@suraksha-test.org",
+      "full_name": "Venkatesh Trivedi",
+      "first_name": "Venkatesh",
+      "last_name": "Trivedi",
+      "email": "venkatesh.trivedi82@suraksha-test.org",
       "phone": "+919881935574",
       "aadhaar_raw": "999997239644",
       "aadhaar_formatted": "9999 9723 9644",
       "aadhaar_masked": "XXXX-XXXX-9644",
-      "pan_raw": "SEAPM6061A",
+      "pan_raw": "SEAPT6061A",
       "pan_masked": "SE***60*A",
       "vid_number": "9837-0599-2779-7614",
+      "driving_license_raw": "RJ0820196241341",
+      "driving_license_masked": "RJ08-****-41341",
+      "voter_id_raw": "BNE2822227",
+      "voter_id_masked": "BN****227",
+      "passport_raw": "R3293098",
+      "passport_masked": "R****098",
+      "bank_details": {
+        "bank_name": "ICICI Bank",
+        "ifsc_code": "ICIC0008196",
+        "account_raw": "34583118909811",
+        "account_masked": "XXXXXXXXXX9811"
+      },
+      "vehicle_rc_raw": "RJ62AN4537",
+      "vehicle_rc_masked": "RJ62-**-4537",
+      "telecom_sims": [
+        {
+          "phone_number": "+919881935574",
+          "carrier": "Jio 5G",
+          "telecom_circle": "Maharashtra",
+          "is_primary": true,
+          "is_authorized_by_resident": true,
+          "issued_on": "2022-12-29",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919468690317",
+          "carrier": "Airtel 5G",
+          "telecom_circle": "Maharashtra",
+          "is_primary": false,
+          "is_authorized_by_resident": false,
+          "flagged_as_ghost_sim": true,
+          "issued_on": "2026-10-01",
+          "status": "flagged_unauthorized"
+        }
+      ],
+      "credit_profile": {
+        "pan_number": "SEAPT6061A",
+        "cibil_score": 756,
+        "score_band": "Good",
+        "credit_bureau": "TransUnion CIBIL",
+        "active_credit_cards": 3,
+        "recent_hard_inquiries": [
+          {
+            "institution": "HDFC Bank",
+            "purpose": "Credit Card",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-10-03",
+            "is_authorized": true,
+            "flagged_suspicious": false
+          },
+          {
+            "institution": "Axis Bank",
+            "purpose": "Personal Loan",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-11-05",
+            "is_authorized": true,
+            "flagged_suspicious": false
+          }
+        ],
+        "has_unauthorized_inquiries": false
+      },
       "address": {
-        "street": "Flat 449, Surya Enclave",
+        "street": "Flat 486, Surya Enclave",
         "city": "Jaipur",
         "state": "Rajasthan",
+        "state_code": "RJ",
         "pincode": "302650",
         "country": "India"
       },
-      "created_at": "2026-11-10T03:39:19.507152+00:00"
+      "created_at": "2026-11-16T08:58:18.200568+00:00"
     },
     "messages": [
       {
@@ -78,42 +195,205 @@
       },
       {
         "from": "sender",
-        "text": "Here is my Aadhaar card details: 9999 9723 9644 (Name: Tanvi Mehta)"
+        "text": "Here is my Aadhaar card details: 9999 9723 9644 (Name: Venkatesh Trivedi)"
       },
       {
         "from": "recipient",
         "text": "Noted. Your booking is confirmed."
       }
     ],
-    "last_message_text": "Here is my Aadhaar card details: 9999 9723 9644 (Name: Tanvi Mehta)"
+    "last_message_text": "Here is my Aadhaar card details: 9999 9723 9644 (Name: Venkatesh Trivedi)"
   },
   {
     "thread_id": "wa_thread_003",
     "title": "Personal Loan Executive Chat",
     "channel": "loan_rep",
-    "sender_name": "Deepa Singh",
+    "sender_name": "Amit Soni",
     "sender_phone": "+919832293867",
     "contains_sensitive_id": true,
     "sample_profile": {
-      "full_name": "Deepa Singh",
-      "first_name": "Deepa",
-      "last_name": "Singh",
-      "email": "deepa.singh28@testmail.co.in",
+      "full_name": "Amit Soni",
+      "first_name": "Amit",
+      "last_name": "Soni",
+      "email": "amit.soni28@testmail.co.in",
       "phone": "+919832293867",
-      "aadhaar_raw": "999961352098",
-      "aadhaar_formatted": "9999 6135 2098",
-      "aadhaar_masked": "XXXX-XXXX-2098",
-      "pan_raw": "EERPS3114Q",
-      "pan_masked": "EE***31*Q",
-      "vid_number": "2735-2596-5556-7222",
+      "aadhaar_raw": "999965802555",
+      "aadhaar_formatted": "9999 6580 2555",
+      "aadhaar_masked": "XXXX-XXXX-2555",
+      "pan_raw": "PZDPS4527L",
+      "pan_masked": "PZ***45*L",
+      "vid_number": "2272-7541-2206-7510",
+      "driving_license_raw": "BR2020193730566",
+      "driving_license_masked": "BR20-****-30566",
+      "voter_id_raw": "EKQ3893644",
+      "voter_id_masked": "EK****644",
+      "passport_raw": "X9116518",
+      "passport_masked": "X****518",
+      "bank_details": {
+        "bank_name": "Kotak Mahindra Bank",
+        "ifsc_code": "KKBK0009814",
+        "account_raw": "0534327393770031",
+        "account_masked": "XXXXXXXXXXXX0031"
+      },
+      "vehicle_rc_raw": "BR01NW6669",
+      "vehicle_rc_masked": "BR01-**-6669",
+      "telecom_sims": [
+        {
+          "phone_number": "+919832293867",
+          "carrier": "Airtel 5G",
+          "telecom_circle": "Mumbai",
+          "is_primary": true,
+          "is_authorized_by_resident": true,
+          "issued_on": "2025-04-24",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919618672405",
+          "carrier": "BSNL",
+          "telecom_circle": "Delhi NCR",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-08-14",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919556076103",
+          "carrier": "BSNL",
+          "telecom_circle": "Mumbai",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-10-14",
+          "status": "active"
+        }
+      ],
+      "credit_profile": {
+        "pan_number": "PZDPS4527L",
+        "cibil_score": 810,
+        "score_band": "Excellent",
+        "credit_bureau": "TransUnion CIBIL",
+        "active_credit_cards": 4,
+        "recent_hard_inquiries": [
+          {
+            "institution": "HDFC Bank",
+            "purpose": "Auto Loan",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-11-01",
+            "is_authorized": true,
+            "flagged_suspicious": false
+          }
+        ],
+        "has_unauthorized_inquiries": false
+      },
       "address": {
-        "street": "Flat 679, Surya Enclave",
-        "city": "New Delhi",
-        "state": "Delhi",
-        "pincode": "110356",
+        "street": "Flat 535, Surya Enclave",
+        "city": "Patna",
+        "state": "Bihar",
+        "state_code": "BR",
+        "pincode": "800259",
         "country": "India"
       },
-      "created_at": "2026-11-10T03:39:19.507200+00:00"
+      "created_at": "2026-11-16T08:58:18.200692+00:00"
+    },
+    "messages": [
+      {
+        "from": "recipient",
+        "text": "Car rental self-drive requires Driving License copy."
+      },
+      {
+        "from": "sender",
+        "text": "Sharing my Driving License: BR2020193730566 and PAN: PZDPS4527L."
+      },
+      {
+        "from": "recipient",
+        "text": "Car is reserved for pickup tomorrow."
+      }
+    ],
+    "last_message_text": "Sharing my Driving License: BR2020193730566 and PAN: PZDPS4527L."
+  },
+  {
+    "thread_id": "wa_thread_004",
+    "title": "Self-Drive Car Rental Booking",
+    "channel": "car_rental",
+    "sender_name": "Ritu Verma",
+    "sender_phone": "+919861415712",
+    "contains_sensitive_id": true,
+    "sample_profile": {
+      "full_name": "Ritu Verma",
+      "first_name": "Ritu",
+      "last_name": "Verma",
+      "email": "ritu.verma31@suraksha-test.org",
+      "phone": "+919861415712",
+      "aadhaar_raw": "999995227183",
+      "aadhaar_formatted": "9999 9522 7183",
+      "aadhaar_masked": "XXXX-XXXX-7183",
+      "pan_raw": "MDUPV2941W",
+      "pan_masked": "MD***29*W",
+      "vid_number": "1161-1407-1101-6219",
+      "driving_license_raw": "GJ2520131010227",
+      "driving_license_masked": "GJ25-****-10227",
+      "voter_id_raw": "JQN3555057",
+      "voter_id_masked": "JQ****057",
+      "passport_raw": "L7204436",
+      "passport_masked": "L****436",
+      "bank_details": {
+        "bank_name": "State Bank of India",
+        "ifsc_code": "SBIN0006948",
+        "account_raw": "182281519980",
+        "account_masked": "XXXXXXXX9980"
+      },
+      "vehicle_rc_raw": "GJ45RP4441",
+      "vehicle_rc_masked": "GJ45-**-4441",
+      "telecom_sims": [
+        {
+          "phone_number": "+919861415712",
+          "carrier": "BSNL",
+          "telecom_circle": "Telangana",
+          "is_primary": true,
+          "is_authorized_by_resident": true,
+          "issued_on": "2023-09-20",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919371727811",
+          "carrier": "Airtel 5G",
+          "telecom_circle": "Delhi NCR",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-06-16",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919605363718",
+          "carrier": "BSNL",
+          "telecom_circle": "Tamil Nadu",
+          "is_primary": false,
+          "is_authorized_by_resident": false,
+          "flagged_as_ghost_sim": true,
+          "issued_on": "2026-10-12",
+          "status": "flagged_unauthorized"
+        }
+      ],
+      "credit_profile": {
+        "pan_number": "MDUPV2941W",
+        "cibil_score": 669,
+        "score_band": "Fair",
+        "credit_bureau": "TransUnion CIBIL",
+        "active_credit_cards": 2,
+        "recent_hard_inquiries": [],
+        "has_unauthorized_inquiries": false
+      },
+      "address": {
+        "street": "Flat 236, Surya Enclave",
+        "city": "Ahmedabad",
+        "state": "Gujarat",
+        "state_code": "GJ",
+        "pincode": "380870",
+        "country": "India"
+      },
+      "created_at": "2026-11-16T08:58:18.200821+00:00"
     },
     "messages": [
       {
@@ -122,71 +402,27 @@
       },
       {
         "from": "sender",
-        "text": "Sure, sending here. My Aadhaar number is 9999 6135 2098 and PAN is EERPS3114Q. Please verify."
+        "text": "Sure, sending here. My Aadhaar number is 9999 9522 7183 and PAN is MDUPV2941W. Please verify."
       },
       {
         "from": "recipient",
         "text": "Received, thank you!"
       }
     ],
-    "last_message_text": "Sure, sending here. My Aadhaar number is 9999 6135 2098 and PAN is EERPS3114Q. Please verify."
-  },
-  {
-    "thread_id": "wa_thread_004",
-    "title": "Family Vacation Flight Details",
-    "channel": "family_group",
-    "sender_name": "Priya Verma",
-    "sender_phone": "+919861415712",
-    "contains_sensitive_id": false,
-    "sample_profile": {
-      "full_name": "Priya Verma",
-      "first_name": "Priya",
-      "last_name": "Verma",
-      "email": "priya.verma31@suraksha-test.org",
-      "phone": "+919861415712",
-      "aadhaar_raw": "999995227183",
-      "aadhaar_formatted": "9999 9522 7183",
-      "aadhaar_masked": "XXXX-XXXX-7183",
-      "pan_raw": "MDUPV2941W",
-      "pan_masked": "MD***29*W",
-      "vid_number": "1161-1407-1101-6219",
-      "address": {
-        "street": "Flat 273, Surya Enclave",
-        "city": "Ahmedabad",
-        "state": "Gujarat",
-        "pincode": "380870",
-        "country": "India"
-      },
-      "created_at": "2026-11-10T03:39:19.507247+00:00"
-    },
-    "messages": [
-      {
-        "from": "sender",
-        "text": "Flight tickets have been booked for Saturday morning."
-      },
-      {
-        "from": "recipient",
-        "text": "Great! Did you use the Masked Aadhaar or VID for airport entry?"
-      },
-      {
-        "from": "sender",
-        "text": "Yes, using official VID 1161-1407-1101-6219. No full Aadhaar shared."
-      }
-    ],
-    "last_message_text": "Great! Did you use the Masked Aadhaar or VID for airport entry?"
+    "last_message_text": "Sure, sending here. My Aadhaar number is 9999 9522 7183 and PAN is MDUPV2941W. Please verify."
   },
   {
     "thread_id": "wa_thread_005",
-    "title": "Society Maintenance Discussion",
-    "channel": "apartment_rwa",
-    "sender_name": "Diya Nair",
+    "title": "Family Vacation Flight Details",
+    "channel": "family_group",
+    "sender_name": "Rohan Nair",
     "sender_phone": "+919831001707",
     "contains_sensitive_id": false,
     "sample_profile": {
-      "full_name": "Diya Nair",
-      "first_name": "Diya",
+      "full_name": "Rohan Nair",
+      "first_name": "Rohan",
       "last_name": "Nair",
-      "email": "diya.nair18@example.in",
+      "email": "rohan.nair18@example.in",
       "phone": "+919831001707",
       "aadhaar_raw": "999939261517",
       "aadhaar_formatted": "9999 3926 1517",
@@ -194,14 +430,84 @@
       "pan_raw": "JYEPN9646K",
       "pan_masked": "JY***96*K",
       "vid_number": "0726-3480-3603-9468",
+      "driving_license_raw": "DL4020204082926",
+      "driving_license_masked": "DL40-****-82926",
+      "voter_id_raw": "BCP2223472",
+      "voter_id_masked": "BC****472",
+      "passport_raw": "N7862626",
+      "passport_masked": "N****626",
+      "bank_details": {
+        "bank_name": "ICICI Bank",
+        "ifsc_code": "ICIC0009841",
+        "account_raw": "0748494397378101",
+        "account_masked": "XXXXXXXXXXXX8101"
+      },
+      "vehicle_rc_raw": "DL52QP8000",
+      "vehicle_rc_masked": "DL52-**-8000",
+      "telecom_sims": [
+        {
+          "phone_number": "+919831001707",
+          "carrier": "BSNL",
+          "telecom_circle": "Tamil Nadu",
+          "is_primary": true,
+          "is_authorized_by_resident": true,
+          "issued_on": "2024-05-22",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919620820077",
+          "carrier": "Airtel 5G",
+          "telecom_circle": "Delhi NCR",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-09-14",
+          "status": "active"
+        }
+      ],
+      "credit_profile": {
+        "pan_number": "JYEPN9646K",
+        "cibil_score": 757,
+        "score_band": "Good",
+        "credit_bureau": "TransUnion CIBIL",
+        "active_credit_cards": 4,
+        "recent_hard_inquiries": [
+          {
+            "institution": "Bajaj Finance",
+            "purpose": "Credit Card",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-11-05",
+            "is_authorized": false,
+            "flagged_suspicious": true
+          },
+          {
+            "institution": "HDFC Bank",
+            "purpose": "Auto Loan",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-11-12",
+            "is_authorized": true,
+            "flagged_suspicious": false
+          },
+          {
+            "institution": "SBI Cards",
+            "purpose": "Instant Micro-Credit",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-11-09",
+            "is_authorized": true,
+            "flagged_suspicious": false
+          }
+        ],
+        "has_unauthorized_inquiries": true
+      },
       "address": {
-        "street": "Flat 584, Surya Enclave",
+        "street": "Flat 351, Surya Enclave",
         "city": "New Delhi",
         "state": "Delhi",
+        "state_code": "DL",
         "pincode": "110143",
         "country": "India"
       },
-      "created_at": "2026-11-10T03:39:19.507295+00:00"
+      "created_at": "2026-11-16T08:58:18.200949+00:00"
     },
     "messages": [
       {
@@ -221,16 +527,16 @@
   },
   {
     "thread_id": "wa_thread_006",
-    "title": "HR Onboarding Verification",
-    "channel": "office_hr",
-    "sender_name": "Sneha Sharma",
+    "title": "Society Maintenance Discussion",
+    "channel": "apartment_rwa",
+    "sender_name": "Aditya Sharma",
     "sender_phone": "+919881285543",
-    "contains_sensitive_id": true,
+    "contains_sensitive_id": false,
     "sample_profile": {
-      "full_name": "Sneha Sharma",
-      "first_name": "Sneha",
+      "full_name": "Aditya Sharma",
+      "first_name": "Aditya",
       "last_name": "Sharma",
-      "email": "sneha.sharma26@demo-resident.in",
+      "email": "aditya.sharma26@demo-resident.in",
       "phone": "+919881285543",
       "aadhaar_raw": "999976499688",
       "aadhaar_formatted": "9999 7649 9688",
@@ -238,29 +544,93 @@
       "pan_raw": "GMRPS8279W",
       "pan_masked": "GM***82*W",
       "vid_number": "8994-5897-1419-6062",
+      "driving_license_raw": "MH5320129377752",
+      "driving_license_masked": "MH53-****-77752",
+      "voter_id_raw": "QKG1146214",
+      "voter_id_masked": "QK****214",
+      "passport_raw": "U2433258",
+      "passport_masked": "U****258",
+      "bank_details": {
+        "bank_name": "ICICI Bank",
+        "ifsc_code": "ICIC0001854",
+        "account_raw": "20776275061991",
+        "account_masked": "XXXXXXXXXX1991"
+      },
+      "vehicle_rc_raw": "MH31HS9808",
+      "vehicle_rc_masked": "MH31-**-9808",
+      "telecom_sims": [
+        {
+          "phone_number": "+919881285543",
+          "carrier": "Vodafone Idea (Vi)",
+          "telecom_circle": "Telangana",
+          "is_primary": true,
+          "is_authorized_by_resident": true,
+          "issued_on": "2025-09-16",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919730038144",
+          "carrier": "Jio 5G",
+          "telecom_circle": "Karnataka",
+          "is_primary": false,
+          "is_authorized_by_resident": true,
+          "flagged_as_ghost_sim": false,
+          "issued_on": "2026-05-15",
+          "status": "active"
+        },
+        {
+          "phone_number": "+919350911401",
+          "carrier": "Vodafone Idea (Vi)",
+          "telecom_circle": "Delhi NCR",
+          "is_primary": false,
+          "is_authorized_by_resident": false,
+          "flagged_as_ghost_sim": true,
+          "issued_on": "2026-06-29",
+          "status": "flagged_unauthorized"
+        }
+      ],
+      "credit_profile": {
+        "pan_number": "GMRPS8279W",
+        "cibil_score": 830,
+        "score_band": "Excellent",
+        "credit_bureau": "TransUnion CIBIL",
+        "active_credit_cards": 3,
+        "recent_hard_inquiries": [
+          {
+            "institution": "HDFC Bank",
+            "purpose": "Credit Card",
+            "inquiry_type": "Hard Pull",
+            "date": "2026-11-10",
+            "is_authorized": true,
+            "flagged_suspicious": false
+          }
+        ],
+        "has_unauthorized_inquiries": false
+      },
       "address": {
-        "street": "Flat 459, Surya Enclave",
+        "street": "Flat 175, Surya Enclave",
         "city": "Mumbai",
         "state": "Maharashtra",
+        "state_code": "MH",
         "pincode": "400152",
         "country": "India"
       },
-      "created_at": "2026-11-10T03:39:19.507342+00:00"
+      "created_at": "2026-11-16T08:58:18.201073+00:00"
     },
     "messages": [
       {
+        "from": "sender",
+        "text": "Flight tickets have been booked for Saturday morning."
+      },
+      {
         "from": "recipient",
-        "text": "Sir, room booking requires government ID proof copy."
+        "text": "Great! Did you use the Masked Aadhaar or VID for airport entry?"
       },
       {
         "from": "sender",
-        "text": "Here is my Aadhaar card details: 9999 7649 9688 (Name: Sneha Sharma)"
-      },
-      {
-        "from": "recipient",
-        "text": "Noted. Your booking is confirmed."
+        "text": "Yes, using official VID 8994-5897-1419-6062. No full Aadhaar shared."
       }
     ],
-    "last_message_text": "Here is my Aadhaar card details: 9999 7649 9688 (Name: Sneha Sharma)"
+    "last_message_text": "Great! Did you use the Masked Aadhaar or VID for airport entry?"
   }
 ]

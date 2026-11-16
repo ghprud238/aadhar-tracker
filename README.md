@@ -2,7 +2,7 @@
 
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg)](https://fastapi.tiangolo.com/)
-[![Tests Passing](https://img.shields.io/badge/tests-71%2F71%20passing-brightgreen.svg)](tests/)
+[![Tests Passing](https://img.shields.io/badge/tests-81%2F81%20passing-brightgreen.svg)](tests/)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Security Zero-Plaintext](https://img.shields.io/badge/security-Zero--Plaintext%20Credentials-success.svg)](docs/threat-model.md)
 
@@ -59,15 +59,20 @@ Production-grade, consent-first identity protection platform with verified email
 │   ├── mobile/                # React Native / Expo cross-platform mobile app (iOS & Android)
 │   └── wearable/              # Smartwatch companion client (Wear OS Tile & watchOS Glance)
 ├── dummy_data_to_test/        # Synthetic test data generators, DB seeder & JSON fixtures
-│   ├── generator.py           # Core Verhoeff Aadhaar, PAN, and profile generator
+│   ├── generator.py           # Multi-doc generator (Aadhaar, PAN, DL, Voter, Passport, Bank, RC, SIMs, CIBIL)
 │   ├── seed_db.py             # Database seeder & fixture exporter
 │   ├── synthetic_bundle.json  # Complete exported test fixture bundle
+│   ├── synthetic_scam_corpus.json # 100+ labeled scam & adversarial samples
+│   ├── synthetic_qr_passes.json   # 100+ test QR passes (Suraksha Ed25519, UIDAI XML, tampered)
 │   └── README.md              # Documentation for dummy data generation
 ├── minisky_fork/              # Local GCP emulator (Cloud Run, Secret Manager, GCS)
 │   ├── minisky                # Pre-built binary executable (:8080 Gateway & :8081 Web Console)
 │   ├── docs/                  # MiniSky service emulation specifications
 │   └── ui/                    # React Web Console dashboard source
-├── tests/                     # Unit, property, integration, contract, security, and E2E tests
+├── tests/                     # Unit, property, integration, contract, security, and stress tests
+│   ├── unit/                  # Unit tests (including concurrency invariants & synthetic suites)
+│   ├── stress/                # High-throughput async multi-worker stress testing CLI
+│   └── ...
 └── infrastructure/            # Docker compose & configuration
 ```
 
@@ -104,8 +109,11 @@ git submodule update --init --recursive
 # Install virtualenv and all dependencies
 uv sync
 
-# Run the test suite (71 tests passing 100%)
+# Run the complete test suite (81 tests passing 100%)
 uv run pytest -v
+
+# Run the high-throughput multi-worker stress test suite (114+ RPS @ 50 concurrency)
+uv run python tests/stress/run_stress_suite.py --concurrency 50 --requests 500
 
 # Run the high-concurrency async load benchmark (400+ RPS)
 PYTHONPATH=. uv run python tests/load/run_benchmark.py
@@ -995,7 +1003,7 @@ console.log(`Score: ${scoreData.score}/1000 Tier: ${scoreData.tier} Badges: ${sc
 ## 📚 Technical Documentation & Daily Logs
 
 * **Daily Engineering Logs:** [`docs/daily-notes/`](docs/daily-notes/README.md)
-  * **[16 Nov 2026: High-Appeal Citizen Defense Suite & Code Review](docs/daily-notes/2026-11-16.md)** — Digital Arrest Radar, Apple/Google Wallet Passes, Ephemeral Self-Destructing Passes, Panic Pack, and 71/71 tests passing.
+  * **[16 Nov 2026: High-Appeal Citizen Defense, Synthetic Data Suite & Stress Tests](docs/daily-notes/2026-11-16.md)** — Digital Arrest Radar, Apple/Google Wallet Passes, Ephemeral Passes, Panic Pack, Expanded Synthetic Indian Data, Solid Concurrency Invariants, and 81/81 tests passing.
   * **[15 Nov 2026: Six Robustness Pillars & Full Citizen Suite](docs/daily-notes/2026-11-15.md)** — Hardware storage, Ed25519 signing, anti-tamper shield, homoglyph sanitization, and K-Anonymity threat sync.
   * **[14 Nov 2026: Usability & Zero-Cloud Edge AI](docs/daily-notes/2026-11-14.md)** — Multi-document registry, 1930 FIR assistant, 16-digit VID rotator, and P2P Family Mesh.
 * **Architecture & Formal Code Review:** [`docs/code-review.md`](docs/code-review.md)

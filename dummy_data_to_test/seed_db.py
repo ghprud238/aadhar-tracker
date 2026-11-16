@@ -65,6 +65,20 @@ def export_fixture_files(bundle: dict, output_dirs: list[Path] = None):
             json.dump(bundle["whatsapp_dlp_samples"], f, indent=2)
         print(f"[*] Exported {len(bundle['whatsapp_dlp_samples'])} synthetic WhatsApp DLP samples -> {wa_path}")
 
+        # 5. Scam & Phishing Labeled Corpus Fixture
+        if "scam_phishing_corpus" in bundle:
+            scam_path = out_dir / "synthetic_scam_corpus.json"
+            with open(scam_path, "w", encoding="utf-8") as f:
+                json.dump(bundle["scam_phishing_corpus"], f, indent=2)
+            print(f"[*] Exported {len(bundle['scam_phishing_corpus'])} synthetic scam samples -> {scam_path}")
+
+        # 6. QR Pass Samples Fixture
+        if "qr_pass_samples" in bundle:
+            qr_path = out_dir / "synthetic_qr_passes.json"
+            with open(qr_path, "w", encoding="utf-8") as f:
+                json.dump(bundle["qr_pass_samples"], f, indent=2)
+            print(f"[*] Exported {len(bundle['qr_pass_samples'])} synthetic QR pass samples -> {qr_path}")
+
 
 async def seed_database(num_residents: int = 5, seed: int = 101):
     """Seeds the local SQLite/PostgreSQL database with synthetic resident profiles and incidents."""
@@ -142,6 +156,34 @@ async def seed_database(num_residents: int = 5, seed: int = 101):
                 state="verified"
             )
             session.add(pan_ident)
+
+            # Seed Driving License & Voter ID if present
+            if "driving_license_raw" in prof:
+                enc_dl = vault.encrypt(prof["driving_license_raw"], associated_data=tenant.id)
+                blind_dl = vault.compute_blind_index(prof["driving_license_raw"], scope=tenant.id)
+                session.add(Identifier(
+                    tenant_id=tenant.id,
+                    subject_id=subject.id,
+                    type="driving_license",
+                    encrypted_value=enc_dl,
+                    blind_index=blind_dl,
+                    masked_value=prof["driving_license_masked"],
+                    state="verified"
+                ))
+
+            if "voter_id_raw" in prof:
+                enc_voter = vault.encrypt(prof["voter_id_raw"], associated_data=tenant.id)
+                blind_voter = vault.compute_blind_index(prof["voter_id_raw"], scope=tenant.id)
+                session.add(Identifier(
+                    tenant_id=tenant.id,
+                    subject_id=subject.id,
+                    type="voter_id",
+                    encrypted_value=enc_voter,
+                    blind_index=blind_voter,
+                    masked_value=prof["voter_id_masked"],
+                    state="verified"
+                ))
+
             await session.flush()
 
             # 5. Create a Synthetic Incident for the first resident

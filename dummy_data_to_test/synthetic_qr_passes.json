@@ -1,0 +1,242 @@
+[
+  {
+    "pass_id": "qr_sample_0001",
+    "raw_payload": "{\"suraksha_certified\": true, \"version\": \"1.0\", \"claim\": {\"holder\": \"Ishaan Deshmukh\", \"masked_id\": \"XXXX-XXXX-6381\", \"doc_type\": \"aadhaar\", \"recipient\": \"HDFC Bank Branch\", \"purpose\": \"visitor_pass\", \"valid_until\": \"2027-07-11\"}, \"sig\": \"eddfc47ac27a75ec6dc4492cc6df7055ff756ee74e65e99ef2f3e1d4fc087853\", \"pubkey\": \"46793daa274a5345b8a607b0ed844552\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": true,
+    "holder_name": "Ishaan Deshmukh",
+    "notes": "Valid offline Ed25519 signature."
+  },
+  {
+    "pass_id": "qr_sample_0002",
+    "raw_payload": "<PrintLetterBarcodeData uid=\"999959671103\" name=\"Lakshmi Menon\" gender=\"M\" yob=\"1992\" co=\"S/O Ram Sharma\" house=\"12\" loc=\"Surya Enclave\" vtc=\"Bhopal\" dist=\"Bhopal\" state=\"Madhya Pradesh\" pc=\"462861\"/>",
+    "expected_pass_type": "uidai_secure_qr",
+    "expected_valid": true,
+    "holder_name": "Lakshmi Menon",
+    "notes": "Official UIDAI 2048-bit RSA Secure QR."
+  },
+  {
+    "pass_id": "qr_sample_0003",
+    "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Arjun Deshmukh\", \"masked_id\": \"XXXX-XXXX-8308\", \"recipient\": \"Grand Hyatt Bengaluru\", \"purpose\": \"hotel_checkin\", \"valid_until\": \"2026-10-25\"}, \"sig\": \"abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789\", \"pubkey\": \"abcdef0123456789abcdef0123456789\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Pass expired in the past."
+  },
+  {
+    "pass_id": "qr_sample_0004",
+    "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Kunal Natarajan\", \"masked_id\": \"XXXX-XXXX-8349\", \"recipient\": \"Zoomcar Rentals\", \"purpose\": \"car_rental\", \"valid_until\": \"2028-12-31\"}, \"sig\": \"corrupt_short_sig\", \"pubkey\": \"short_pk\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Tampered or corrupted Ed25519 signature."
+  },
+  {
+    "pass_id": "qr_sample_0005",
+    "raw_payload": "PLAIN_TEXT_NOT_A_PASS_DATA",
+    "expected_pass_type": "unrecognized_text",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Unrecognized QR format."
+  },
+  {
+    "pass_id": "qr_sample_0006",
+    "raw_payload": "{\"suraksha_certified\": true, \"version\": \"1.0\", \"claim\": {\"holder\": \"Sneha Mehta\", \"masked_id\": \"XXXX-XXXX-8184\", \"doc_type\": \"aadhaar\", \"recipient\": \"Grand Hyatt Bengaluru\", \"purpose\": \"car_rental\", \"valid_until\": \"2027-04-30\"}, \"sig\": \"67aae068fc6788e8a7b33101e78988e81ccf37fbed83cd81cd8bbd7618e3ad29\", \"pubkey\": \"8de4d1c996ddeb4a4038c65847c208b5\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": true,
+    "holder_name": "Sneha Mehta",
+    "notes": "Valid offline Ed25519 signature."
+  },
+  {
+    "pass_id": "qr_sample_0007",
+    "raw_payload": "<PrintLetterBarcodeData uid=\"999941521811\" name=\"Sanjay Pandey\" gender=\"M\" yob=\"1992\" co=\"S/O Ram Sharma\" house=\"12\" loc=\"Surya Enclave\" vtc=\"Kochi\" dist=\"Kochi\" state=\"Kerala\" pc=\"682223\"/>",
+    "expected_pass_type": "uidai_secure_qr",
+    "expected_valid": true,
+    "holder_name": "Sanjay Pandey",
+    "notes": "Official UIDAI 2048-bit RSA Secure QR."
+  },
+  {
+    "pass_id": "qr_sample_0008",
+    "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Preeti Nair\", \"masked_id\": \"XXXX-XXXX-0935\", \"recipient\": \"Grand Hyatt Bengaluru\", \"purpose\": \"hotel_checkin\", \"valid_until\": \"2026-10-27\"}, \"sig\": \"abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789\", \"pubkey\": \"abcdef0123456789abcdef0123456789\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Pass expired in the past."
+  },
+  {
+    "pass_id": "qr_sample_0009",
+    "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Nikhil Chauhan\", \"masked_id\": \"XXXX-XXXX-8275\", \"recipient\": \"Zoomcar Rentals\", \"purpose\": \"car_rental\", \"valid_until\": \"2028-12-31\"}, \"sig\": \"corrupt_short_sig\", \"pubkey\": \"short_pk\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Tampered or corrupted Ed25519 signature."
+  },
+  {
+    "pass_id": "qr_sample_0010",
+    "raw_payload": "WIFI:T:WPA;S:HomeWiFi;P:secretPass123;;",
+    "expected_pass_type": "unrecognized_text",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Unrecognized QR format."
+  },
+  {
+    "pass_id": "qr_sample_0011",
+    "raw_payload": "{\"suraksha_certified\": true, \"version\": \"1.0\", \"claim\": {\"holder\": \"Sneha Trivedi\", \"masked_id\": \"XXXX-XXXX-2747\", \"doc_type\": \"aadhaar\", \"recipient\": \"Grand Hyatt Bengaluru\", \"purpose\": \"car_rental\", \"valid_until\": \"2027-10-21\"}, \"sig\": \"b0ea125b9c16f7e9e0bdc33adf383eada6885cbc3c025d9d861a6732cd7d0035\", \"pubkey\": \"6e2b4c0849e8e703f428ab261a22952b\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": true,
+    "holder_name": "Sneha Trivedi",
+    "notes": "Valid offline Ed25519 signature."
+  },
+  {
+    "pass_id": "qr_sample_0012",
+    "raw_payload": "<PrintLetterBarcodeData uid=\"999946547871\" name=\"Kavya Banerjee\" gender=\"M\" yob=\"1992\" co=\"S/O Ram Sharma\" house=\"12\" loc=\"Surya Enclave\" vtc=\"Patna\" dist=\"Patna\" state=\"Bihar\" pc=\"800998\"/>",
+    "expected_pass_type": "uidai_secure_qr",
+    "expected_valid": true,
+    "holder_name": "Kavya Banerjee",
+    "notes": "Official UIDAI 2048-bit RSA Secure QR."
+  },
+  {
+    "pass_id": "qr_sample_0013",
+    "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Amit Banerjee\", \"masked_id\": \"XXXX-XXXX-6224\", \"recipient\": \"Grand Hyatt Bengaluru\", \"purpose\": \"hotel_checkin\", \"valid_until\": \"2026-10-27\"}, \"sig\": \"abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789\", \"pubkey\": \"abcdef0123456789abcdef0123456789\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Pass expired in the past."
+  },
+  {
+    "pass_id": "qr_sample_0014",
+    "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Diya Gupta\", \"masked_id\": \"XXXX-XXXX-7735\", \"recipient\": \"Zoomcar Rentals\", \"purpose\": \"car_rental\", \"valid_until\": \"2028-12-31\"}, \"sig\": \"corrupt_short_sig\", \"pubkey\": \"short_pk\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Tampered or corrupted Ed25519 signature."
+  },
+  {
+    "pass_id": "qr_sample_0015",
+    "raw_payload": "WIFI:T:WPA;S:HomeWiFi;P:secretPass123;;",
+    "expected_pass_type": "unrecognized_text",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Unrecognized QR format."
+  },
+  {
+    "pass_id": "qr_sample_0016",
+    "raw_payload": "{\"suraksha_certified\": true, \"version\": \"1.0\", \"claim\": {\"holder\": \"Neha Pillai\", \"masked_id\": \"XXXX-XXXX-2204\", \"doc_type\": \"aadhaar\", \"recipient\": \"HDFC Bank Branch\", \"purpose\": \"sim_purchase\", \"valid_until\": \"2026-12-11\"}, \"sig\": \"2f067ab41adf2f41335bf7f440d675c9df9659627f9d31f0ece779a8787b930f\", \"pubkey\": \"97b2c64376fe47e1b15584bf7d3af11f\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": true,
+    "holder_name": "Neha Pillai",
+    "notes": "Valid offline Ed25519 signature."
+  },
+  {
+    "pass_id": "qr_sample_0017",
+    "raw_payload": "<PrintLetterBarcodeData uid=\"999968460922\" name=\"Shruti Ghosh\" gender=\"M\" yob=\"1992\" co=\"S/O Ram Sharma\" house=\"12\" loc=\"Surya Enclave\" vtc=\"Chandigarh\" dist=\"Chandigarh\" state=\"Punjab\" pc=\"160354\"/>",
+    "expected_pass_type": "uidai_secure_qr",
+    "expected_valid": true,
+    "holder_name": "Shruti Ghosh",
+    "notes": "Official UIDAI 2048-bit RSA Secure QR."
+  },
+  {
+    "pass_id": "qr_sample_0018",
+    "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Varun Singh\", \"masked_id\": \"XXXX-XXXX-0814\", \"recipient\": \"Grand Hyatt Bengaluru\", \"purpose\": \"hotel_checkin\", \"valid_until\": \"2026-10-30\"}, \"sig\": \"abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789\", \"pubkey\": \"abcdef0123456789abcdef0123456789\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Pass expired in the past."
+  },
+  {
+    "pass_id": "qr_sample_0019",
+    "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Anjali Pandey\", \"masked_id\": \"XXXX-XXXX-0597\", \"recipient\": \"Zoomcar Rentals\", \"purpose\": \"car_rental\", \"valid_until\": \"2028-12-31\"}, \"sig\": \"corrupt_short_sig\", \"pubkey\": \"short_pk\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Tampered or corrupted Ed25519 signature."
+  },
+  {
+    "pass_id": "qr_sample_0020",
+    "raw_payload": "WIFI:T:WPA;S:HomeWiFi;P:secretPass123;;",
+    "expected_pass_type": "unrecognized_text",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Unrecognized QR format."
+  },
+  {
+    "pass_id": "qr_sample_0021",
+    "raw_payload": "{\"suraksha_certified\": true, \"version\": \"1.0\", \"claim\": {\"holder\": \"Rajesh Choudhury\", \"masked_id\": \"XXXX-XXXX-6500\", \"doc_type\": \"aadhaar\", \"recipient\": \"Airtel Store\", \"purpose\": \"car_rental\", \"valid_until\": \"2027-05-31\"}, \"sig\": \"7654ed365afa5ea0abe95557e3caf8c574aea07d3218ce8c21c6fd84b2054948\", \"pubkey\": \"1c525533c9c157cab7b7d0e38469f553\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": true,
+    "holder_name": "Rajesh Choudhury",
+    "notes": "Valid offline Ed25519 signature."
+  },
+  {
+    "pass_id": "qr_sample_0022",
+    "raw_payload": "<PrintLetterBarcodeData uid=\"999949651556\" name=\"Rohan Banerjee\" gender=\"M\" yob=\"1992\" co=\"S/O Ram Sharma\" house=\"12\" loc=\"Surya Enclave\" vtc=\"Pune\" dist=\"Pune\" state=\"Maharashtra\" pc=\"411185\"/>",
+    "expected_pass_type": "uidai_secure_qr",
+    "expected_valid": true,
+    "holder_name": "Rohan Banerjee",
+    "notes": "Official UIDAI 2048-bit RSA Secure QR."
+  },
+  {
+    "pass_id": "qr_sample_0023",
+    "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Aarav Rao\", \"masked_id\": \"XXXX-XXXX-1761\", \"recipient\": \"Grand Hyatt Bengaluru\", \"purpose\": \"hotel_checkin\", \"valid_until\": \"2026-11-09\"}, \"sig\": \"abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789\", \"pubkey\": \"abcdef0123456789abcdef0123456789\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Pass expired in the past."
+  },
+  {
+    "pass_id": "qr_sample_0024",
+    "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Rajesh Trivedi\", \"masked_id\": \"XXXX-XXXX-1712\", \"recipient\": \"Zoomcar Rentals\", \"purpose\": \"car_rental\", \"valid_until\": \"2028-12-31\"}, \"sig\": \"corrupt_short_sig\", \"pubkey\": \"short_pk\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Tampered or corrupted Ed25519 signature."
+  },
+  {
+    "pass_id": "qr_sample_0025",
+    "raw_payload": "https://example.com/wifi_connect?pass=12345678",
+    "expected_pass_type": "unrecognized_text",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Unrecognized QR format."
+  },
+  {
+    "pass_id": "qr_sample_0026",
+    "raw_payload": "{\"suraksha_certified\": true, \"version\": \"1.0\", \"claim\": {\"holder\": \"Abhishek Deshmukh\", \"masked_id\": \"XXXX-XXXX-8214\", \"doc_type\": \"aadhaar\", \"recipient\": \"Zoomcar Rentals\", \"purpose\": \"sim_purchase\", \"valid_until\": \"2027-01-14\"}, \"sig\": \"c1a4a0730a6a26842e2a9f7146f9dc39bdeae4727ee72c830f588faebc1f2524\", \"pubkey\": \"5d7a7e35c1fc63ad684a0afc6d4f61a8\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": true,
+    "holder_name": "Abhishek Deshmukh",
+    "notes": "Valid offline Ed25519 signature."
+  },
+  {
+    "pass_id": "qr_sample_0027",
+    "raw_payload": "<PrintLetterBarcodeData uid=\"999986624626\" name=\"Suresh Rao\" gender=\"M\" yob=\"1992\" co=\"S/O Ram Sharma\" house=\"12\" loc=\"Surya Enclave\" vtc=\"Pune\" dist=\"Pune\" state=\"Maharashtra\" pc=\"411292\"/>",
+    "expected_pass_type": "uidai_secure_qr",
+    "expected_valid": true,
+    "holder_name": "Suresh Rao",
+    "notes": "Official UIDAI 2048-bit RSA Secure QR."
+  },
+  {
+    "pass_id": "qr_sample_0028",
+    "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Pooja Chauhan\", \"masked_id\": \"XXXX-XXXX-3357\", \"recipient\": \"Grand Hyatt Bengaluru\", \"purpose\": \"hotel_checkin\", \"valid_until\": \"2026-10-21\"}, \"sig\": \"abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789\", \"pubkey\": \"abcdef0123456789abcdef0123456789\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Pass expired in the past."
+  },
+  {
+    "pass_id": "qr_sample_0029",
+    "raw_payload": "{\"suraksha_certified\": true, \"claim\": {\"holder\": \"Nandini Verma\", \"masked_id\": \"XXXX-XXXX-6564\", \"recipient\": \"Zoomcar Rentals\", \"purpose\": \"car_rental\", \"valid_until\": \"2028-12-31\"}, \"sig\": \"corrupt_short_sig\", \"pubkey\": \"short_pk\"}",
+    "expected_pass_type": "suraksha_certified_pass",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Tampered or corrupted Ed25519 signature."
+  },
+  {
+    "pass_id": "qr_sample_0030",
+    "raw_payload": "PLAIN_TEXT_NOT_A_PASS_DATA",
+    "expected_pass_type": "unrecognized_text",
+    "expected_valid": false,
+    "holder_name": null,
+    "notes": "Unrecognized QR format."
+  }
+]

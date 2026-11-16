@@ -1,0 +1,602 @@
+[
+  {
+    "sample_id": "scam_sample_0001",
+    "text": "Dear citizen, you are placed under DIGITAL ARREST by CBI and Cyber Cell Hyderabad. Your Aadhaar was found in money laundering package at customs. Connect on Skype video call immediately within 2 hours or police team will arrest you.",
+    "channel": "video_call",
+    "sender_header": "CYBER_CELL",
+    "is_scam": true,
+    "expected_category": "digital_arrest_impersonation",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201093+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0002",
+    "text": "India Post Notice: Your consignment IN6798890 is detained at regional hub due to incorrect address. Install postal delivery update app: http://indiapost-speedpost.com/track.apk",
+    "channel": "sms",
+    "sender_header": "+919879249474",
+    "is_scam": true,
+    "expected_category": "malicious_apk_sideload",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201099+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0003",
+    "text": "Bank Account Suspended: Suspicious login detected from IP 185.220.101.4. Your account is frozen immediately. Contact nodal officer at +919823127772 to unblock.",
+    "channel": "sms",
+    "sender_header": "+919823127772",
+    "is_scam": true,
+    "expected_category": "electricity_bill_urgency",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201103+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0004",
+    "text": "ICICI Bank: KYC expired. NetBanking disabled. Please verify your debit card PIN and OTP on secure link to restore access.",
+    "channel": "sms",
+    "sender_header": "+919897777541",
+    "is_scam": true,
+    "expected_category": "bank_vishing_otp",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201108+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0005",
+    "text": "\u0421\u0412I Police Notice: W\u0430rr\u0430nt issued for customs contraband. Stay on vid\u0435\u043e c\u0430ll.",
+    "channel": "sms",
+    "sender_header": "+919824999286",
+    "is_scam": true,
+    "expected_category": "adversarial_evasion",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201111+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0006",
+    "text": "Amazon.in: Package containing your order #404-412912-10 is out for delivery today with PIN 49. Track on the app.",
+    "channel": "sms",
+    "sender_header": "AADHAR",
+    "is_scam": false,
+    "expected_category": "legitimate_notice",
+    "expected_threat_level": "safe",
+    "created_at": "2026-11-16T08:58:18.201119+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0007",
+    "text": "Dear citizen, you are placed under DIGITAL ARREST by CBI and Cyber Cell Chennai. Your Aadhaar was found in money laundering package at customs. Connect on Skype video call immediately within 2 hours or police team will arrest you.",
+    "channel": "sms",
+    "sender_header": "CYBER_CELL",
+    "is_scam": true,
+    "expected_category": "digital_arrest_impersonation",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201123+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0008",
+    "text": "PAN-Aadhaar Link Suspension Warning: Income Tax Dept mandates urgent verification. Install ITD-eFiling-Secure.apk from bit.ly/pan_update_434 to prevent account freeze.",
+    "channel": "sms",
+    "sender_header": "+919864239225",
+    "is_scam": true,
+    "expected_category": "malicious_apk_sideload",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201132+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0009",
+    "text": "FINAL NOTICE: Electricity connection will be cut within 1 hour. Pay pending arrears of Rs 1341 immediately or contact Senior Engineer at +919868665828.",
+    "channel": "sms",
+    "sender_header": "+919868665828",
+    "is_scam": true,
+    "expected_category": "electricity_bill_urgency",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201138+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0010",
+    "text": "Dear SBI Customer, your YONO reward points worth Rs 9,850 are expiring today. Claim cash credit to account immediately by entering OTP shared with verification agent.",
+    "channel": "phone",
+    "sender_header": "CP-SBIBNK",
+    "is_scam": true,
+    "expected_category": "bank_vishing_otp",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201142+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0011",
+    "text": "Dear BESCOM Customer: Your electricity bill is pending. Install update\u200b.\u200capk from tinyurl.com/bescom563 to prevent disconnection.",
+    "channel": "sms",
+    "sender_header": "+919817143363",
+    "is_scam": true,
+    "expected_category": "adversarial_evasion",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201150+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0012",
+    "text": "Amazon.in: Package containing your order #404-497912-10 is out for delivery today with PIN 86. Track on the app.",
+    "channel": "sms",
+    "sender_header": "AMAZON",
+    "is_scam": false,
+    "expected_category": "legitimate_notice",
+    "expected_threat_level": "safe",
+    "created_at": "2026-11-16T08:58:18.201156+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0013",
+    "text": "Dear citizen, you are placed under DIGITAL ARREST by CBI and Cyber Cell Delhi. Your Aadhaar was found in money laundering package at customs. Connect on Skype video call immediately within 2 hours or police team will arrest you.",
+    "channel": "video_call",
+    "sender_header": "+919842339329",
+    "is_scam": true,
+    "expected_category": "digital_arrest_impersonation",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201161+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0014",
+    "text": "BSNL / Jio 5G SIM Expiry: Your SIM card will be deactivated in 24 hours. Update KYC immediately by downloading: http://sim-kyc-update.net/telecom.apk",
+    "channel": "sms",
+    "sender_header": "VM-DHBVN",
+    "is_scam": true,
+    "expected_category": "malicious_apk_sideload",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201164+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0015",
+    "text": "Department of Telecommunications: Your mobile number +919866212990 is involved in 14 fraudulent calls. SIM card will be blocked within 30 minutes. Call officer at +919778617420.",
+    "channel": "sms",
+    "sender_header": "+919866212990",
+    "is_scam": true,
+    "expected_category": "electricity_bill_urgency",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201168+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0016",
+    "text": "Dear SBI Customer, your YONO reward points worth Rs 9,850 are expiring today. Claim cash credit to account immediately by entering OTP shared with verification agent.",
+    "channel": "phone",
+    "sender_header": "+919842373462",
+    "is_scam": true,
+    "expected_category": "bank_vishing_otp",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201171+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0017",
+    "text": "D\u200bi\u200cg\u200di\u200bt\u200ba\u200bl A\u200br\u200br\u200be\u200bs\u200bt Warrant: CBI Cyber Cell Mumbai requires immediate Skype video call.",
+    "channel": "sms",
+    "sender_header": "+919831896868",
+    "is_scam": true,
+    "expected_category": "adversarial_evasion",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201175+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0018",
+    "text": "IRCTC PNR 425195819: Booking confirmed. Train 12658 Chennai Mail, Coach B2 Berth 34 (Side Lower). Departure 21:15 HRS. Happy Journey!",
+    "channel": "sms",
+    "sender_header": "IRCTC",
+    "is_scam": false,
+    "expected_category": "legitimate_notice",
+    "expected_threat_level": "safe",
+    "created_at": "2026-11-16T08:58:18.201180+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0019",
+    "text": "Narcotics Control Bureau (NCB): 16 passports and contraband drugs confiscated with your Aadhaar credentials. Immediate digital arrest order active. Cooperate on Skype.",
+    "channel": "video_call",
+    "sender_header": "+919847919528",
+    "is_scam": true,
+    "expected_category": "digital_arrest_impersonation",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201184+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0020",
+    "text": "Dear BESCOM Consumer, your power supply will be disconnected tonight at 9:30 PM due to unpaid bill of Rs 9589. Immediately update your electricity app by downloading: http://bescom-karnataka-bill.in/update.apk",
+    "channel": "sms",
+    "sender_header": "+919897041895",
+    "is_scam": true,
+    "expected_category": "malicious_apk_sideload",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201189+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0021",
+    "text": "FINAL NOTICE: Electricity connection will be cut within 1 hour. Pay pending arrears of Rs 6422 immediately or contact Senior Engineer at +919821953850.",
+    "channel": "sms",
+    "sender_header": "+919821953850",
+    "is_scam": true,
+    "expected_category": "electricity_bill_urgency",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201192+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0022",
+    "text": "ICICI Bank: KYC expired. NetBanking disabled. Please verify your debit card PIN and OTP on secure link to restore access.",
+    "channel": "sms",
+    "sender_header": "VK-HDFCBK",
+    "is_scam": true,
+    "expected_category": "bank_vishing_otp",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201197+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0023",
+    "text": "D\u200bi\u200cg\u200di\u200bt\u200ba\u200bl A\u200br\u200br\u200be\u200bs\u200bt Warrant: CBI Cyber Cell Mumbai requires immediate Skype video call.",
+    "channel": "sms",
+    "sender_header": "+919864219084",
+    "is_scam": true,
+    "expected_category": "adversarial_evasion",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201200+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0024",
+    "text": "Amazon.in: Package containing your order #404-294912-10 is out for delivery today with PIN 42. Track on the app.",
+    "channel": "sms",
+    "sender_header": "SBIINB",
+    "is_scam": false,
+    "expected_category": "legitimate_notice",
+    "expected_threat_level": "safe",
+    "created_at": "2026-11-16T08:58:18.201206+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0025",
+    "text": "Supreme Court of India e-Warrant: Case No SC/2026/8192. CBI officer inspecting your premises. Connect via video call for clearance certificate.",
+    "channel": "sms",
+    "sender_header": "POLICE_HQ",
+    "is_scam": true,
+    "expected_category": "digital_arrest_impersonation",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201209+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0026",
+    "text": "Dear UPPCL Consumer, your power supply will be disconnected tonight at 9:30 PM due to unpaid bill of Rs 6520. Immediately update your electricity app by downloading: http://uppcl-bijli-update.in/update.apk",
+    "channel": "sms",
+    "sender_header": "VM-UPPCL",
+    "is_scam": true,
+    "expected_category": "malicious_apk_sideload",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201213+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0027",
+    "text": "Department of Telecommunications: Your mobile number +919812680236 is involved in 14 fraudulent calls. SIM card will be blocked within 30 minutes. Call officer at +919735400176.",
+    "channel": "sms",
+    "sender_header": "+919812680236",
+    "is_scam": true,
+    "expected_category": "electricity_bill_urgency",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201216+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0028",
+    "text": "Dear SBI Customer, your YONO reward points worth Rs 9,850 are expiring today. Claim cash credit to account immediately by entering OTP shared with verification agent.",
+    "channel": "phone",
+    "sender_header": "VK-HDFCBK",
+    "is_scam": true,
+    "expected_category": "bank_vishing_otp",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201220+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0029",
+    "text": "Dear BESCOM Customer: Your electricity bill is pending. Install update\u200b.\u200capk from tinyurl.com/bescom835 to prevent disconnection.",
+    "channel": "sms",
+    "sender_header": "+919818010377",
+    "is_scam": true,
+    "expected_category": "adversarial_evasion",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201224+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0030",
+    "text": "Amazon.in: Package containing your order #404-320912-10 is out for delivery today with PIN 12. Track on the app.",
+    "channel": "sms",
+    "sender_header": "AMAZON",
+    "is_scam": false,
+    "expected_category": "legitimate_notice",
+    "expected_threat_level": "safe",
+    "created_at": "2026-11-16T08:58:18.201229+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0031",
+    "text": "URGENT NOTICE: An arrest warrant has been issued by Enforcement Directorate (ED) New Delhi for illegal narcotics contraband in your name. Stay on video call for judicial verification.",
+    "channel": "whatsapp",
+    "sender_header": "CBI_CRIME",
+    "is_scam": true,
+    "expected_category": "digital_arrest_impersonation",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201233+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0032",
+    "text": "BSNL / Jio 5G SIM Expiry: Your SIM card will be deactivated in 24 hours. Update KYC immediately by downloading: http://sim-kyc-update.net/telecom.apk",
+    "channel": "sms",
+    "sender_header": "VM-BESCOM",
+    "is_scam": true,
+    "expected_category": "malicious_apk_sideload",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201236+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0033",
+    "text": "Bank Account Suspended: Suspicious login detected from IP 185.220.101.4. Your account is frozen immediately. Contact nodal officer at +919864038242 to unblock.",
+    "channel": "sms",
+    "sender_header": "+919864038242",
+    "is_scam": true,
+    "expected_category": "electricity_bill_urgency",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201240+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0034",
+    "text": "ICICI Bank: KYC expired. NetBanking disabled. Please verify your debit card PIN and OTP on secure link to restore access.",
+    "channel": "phone",
+    "sender_header": "+919878596941",
+    "is_scam": true,
+    "expected_category": "bank_vishing_otp",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201243+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0035",
+    "text": "Dear BESCOM Customer: Your electricity bill is pending. Install update\u200b.\u200capk from tinyurl.com/bescom635 to prevent disconnection.",
+    "channel": "sms",
+    "sender_header": "+919881302312",
+    "is_scam": true,
+    "expected_category": "adversarial_evasion",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201248+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0036",
+    "text": "Amazon.in: Package containing your order #404-863912-10 is out for delivery today with PIN 25. Track on the app.",
+    "channel": "sms",
+    "sender_header": "SBIINB",
+    "is_scam": false,
+    "expected_category": "legitimate_notice",
+    "expected_threat_level": "safe",
+    "created_at": "2026-11-16T08:58:18.201254+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0037",
+    "text": "Dear citizen, you are placed under DIGITAL ARREST by CBI and Cyber Cell Chennai. Your Aadhaar was found in money laundering package at customs. Connect on Skype video call immediately within 2 hours or police team will arrest you.",
+    "channel": "whatsapp",
+    "sender_header": "CBI_CRIME",
+    "is_scam": true,
+    "expected_category": "digital_arrest_impersonation",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201257+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0038",
+    "text": "Dear BESCOM Consumer, your power supply will be disconnected tonight at 9:30 PM due to unpaid bill of Rs 8818. Immediately update your electricity app by downloading: http://bescom-karnataka-bill.in/update.apk",
+    "channel": "sms",
+    "sender_header": "VM-BESCOM",
+    "is_scam": true,
+    "expected_category": "malicious_apk_sideload",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201261+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0039",
+    "text": "FINAL NOTICE: Electricity connection will be cut within 1 hour. Pay pending arrears of Rs 5446 immediately or contact Senior Engineer at +919841658686.",
+    "channel": "sms",
+    "sender_header": "+919841658686",
+    "is_scam": true,
+    "expected_category": "electricity_bill_urgency",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201264+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0040",
+    "text": "ICICI Bank: KYC expired. NetBanking disabled. Please verify your debit card PIN and OTP on secure link to restore access.",
+    "channel": "sms",
+    "sender_header": "+919845233338",
+    "is_scam": true,
+    "expected_category": "bank_vishing_otp",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201267+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0041",
+    "text": "Dear BESCOM Customer: Your electricity bill is pending. Install update\u200b.\u200capk from tinyurl.com/bescom365 to prevent disconnection.",
+    "channel": "sms",
+    "sender_header": "+919810072320",
+    "is_scam": true,
+    "expected_category": "adversarial_evasion",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201270+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0042",
+    "text": "IRCTC PNR 425472819: Booking confirmed. Train 12658 Chennai Mail, Coach B2 Berth 34 (Side Lower). Departure 21:15 HRS. Happy Journey!",
+    "channel": "sms",
+    "sender_header": "SBIINB",
+    "is_scam": false,
+    "expected_category": "legitimate_notice",
+    "expected_threat_level": "safe",
+    "created_at": "2026-11-16T08:58:18.201276+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0043",
+    "text": "MUMBAI CRIME BRANCH ALERT: Your bank account is linked to Rs 3.8 Crore international hawala syndicate. Do not disconnect the video call or face non-bailable arrest.",
+    "channel": "video_call",
+    "sender_header": "+919822517419",
+    "is_scam": true,
+    "expected_category": "digital_arrest_impersonation",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201279+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0044",
+    "text": "Dear Mahadiscom Consumer, your power supply will be disconnected tonight at 9:30 PM due to unpaid bill of Rs 2746. Immediately update your electricity app by downloading: http://mahadiscom-power-pay.net/update.apk",
+    "channel": "sms",
+    "sender_header": "VM-Mahadi",
+    "is_scam": true,
+    "expected_category": "malicious_apk_sideload",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201283+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0045",
+    "text": "Bank Account Suspended: Suspicious login detected from IP 185.220.101.4. Your account is frozen immediately. Contact nodal officer at +919877755241 to unblock.",
+    "channel": "sms",
+    "sender_header": "+919877755241",
+    "is_scam": true,
+    "expected_category": "electricity_bill_urgency",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201286+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0046",
+    "text": "Dear SBI Customer, your YONO reward points worth Rs 9,850 are expiring today. Claim cash credit to account immediately by entering OTP shared with verification agent.",
+    "channel": "phone",
+    "sender_header": "+919850502965",
+    "is_scam": true,
+    "expected_category": "bank_vishing_otp",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201290+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0047",
+    "text": "Dear BESCOM Customer: Your electricity bill is pending. Install update\u200b.\u200capk from tinyurl.com/bescom669 to prevent disconnection.",
+    "channel": "sms",
+    "sender_header": "+919845758499",
+    "is_scam": true,
+    "expected_category": "adversarial_evasion",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201293+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0048",
+    "text": "Swiggy: Your food delivery order #404-720912-10 from Meghana Foods is on the way. Delivery executive will reach in 14 minutes.",
+    "channel": "sms",
+    "sender_header": "IRCTC",
+    "is_scam": false,
+    "expected_category": "legitimate_notice",
+    "expected_threat_level": "safe",
+    "created_at": "2026-11-16T08:58:18.201298+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0049",
+    "text": "Dear citizen, you are placed under DIGITAL ARREST by CBI and Cyber Cell Bengaluru. Your Aadhaar was found in money laundering package at customs. Connect on Skype video call immediately within 2 hours or police team will arrest you.",
+    "channel": "video_call",
+    "sender_header": "POLICE_HQ",
+    "is_scam": true,
+    "expected_category": "digital_arrest_impersonation",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201302+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0050",
+    "text": "India Post Notice: Your consignment IN2628890 is detained at regional hub due to incorrect address. Install postal delivery update app: http://indiapost-speedpost.com/track.apk",
+    "channel": "sms",
+    "sender_header": "VM-DHBVN",
+    "is_scam": true,
+    "expected_category": "malicious_apk_sideload",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201305+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0051",
+    "text": "Department of Telecommunications: Your mobile number +919890321947 is involved in 14 fraudulent calls. SIM card will be blocked within 30 minutes. Call officer at +919713816861.",
+    "channel": "sms",
+    "sender_header": "+919890321947",
+    "is_scam": true,
+    "expected_category": "electricity_bill_urgency",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201309+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0052",
+    "text": "ICICI Bank: KYC expired. NetBanking disabled. Please verify your debit card PIN and OTP on secure link to restore access.",
+    "channel": "sms",
+    "sender_header": "VK-HDFCBK",
+    "is_scam": true,
+    "expected_category": "bank_vishing_otp",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201312+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0053",
+    "text": "\u0421\u0412I Police Notice: W\u0430rr\u0430nt issued for customs contraband. Stay on vid\u0435\u043e c\u0430ll.",
+    "channel": "sms",
+    "sender_header": "+919826619981",
+    "is_scam": true,
+    "expected_category": "adversarial_evasion",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201315+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0054",
+    "text": "UIDAI: OTP for online Aadhaar authentication is 158955. Generated at 08:58. If not requested, visit myaadhaar.uidai.gov.in.",
+    "channel": "sms",
+    "sender_header": "AMAZON",
+    "is_scam": false,
+    "expected_category": "legitimate_notice",
+    "expected_threat_level": "safe",
+    "created_at": "2026-11-16T08:58:18.201320+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0055",
+    "text": "Dear citizen, you are placed under DIGITAL ARREST by CBI and Cyber Cell Hyderabad. Your Aadhaar was found in money laundering package at customs. Connect on Skype video call immediately within 2 hours or police team will arrest you.",
+    "channel": "sms",
+    "sender_header": "POLICE_HQ",
+    "is_scam": true,
+    "expected_category": "digital_arrest_impersonation",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201324+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0056",
+    "text": "PAN-Aadhaar Link Suspension Warning: Income Tax Dept mandates urgent verification. Install ITD-eFiling-Secure.apk from bit.ly/pan_update_742 to prevent account freeze.",
+    "channel": "sms",
+    "sender_header": "VM-Mahadi",
+    "is_scam": true,
+    "expected_category": "malicious_apk_sideload",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201327+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0057",
+    "text": "FINAL NOTICE: Electricity connection will be cut within 1 hour. Pay pending arrears of Rs 3481 immediately or contact Senior Engineer at +919847512531.",
+    "channel": "sms",
+    "sender_header": "+919847512531",
+    "is_scam": true,
+    "expected_category": "electricity_bill_urgency",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201330+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0058",
+    "text": "Dear SBI Customer, your YONO reward points worth Rs 9,850 are expiring today. Claim cash credit to account immediately by entering OTP shared with verification agent.",
+    "channel": "phone",
+    "sender_header": "+919892197484",
+    "is_scam": true,
+    "expected_category": "bank_vishing_otp",
+    "expected_threat_level": "high",
+    "created_at": "2026-11-16T08:58:18.201334+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0059",
+    "text": "Dear BESCOM Customer: Your electricity bill is pending. Install update\u200b.\u200capk from tinyurl.com/bescom130 to prevent disconnection.",
+    "channel": "sms",
+    "sender_header": "+919851173953",
+    "is_scam": true,
+    "expected_category": "adversarial_evasion",
+    "expected_threat_level": "critical",
+    "created_at": "2026-11-16T08:58:18.201337+00:00"
+  },
+  {
+    "sample_id": "scam_sample_0060",
+    "text": "UIDAI: OTP for online Aadhaar authentication is 323950. Generated at 08:58. If not requested, visit myaadhaar.uidai.gov.in.",
+    "channel": "sms",
+    "sender_header": "SWIGGY",
+    "is_scam": false,
+    "expected_category": "legitimate_notice",
+    "expected_threat_level": "safe",
+    "created_at": "2026-11-16T08:58:18.201343+00:00"
+  }
+]
