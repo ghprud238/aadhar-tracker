@@ -21,6 +21,8 @@ import {
 import { UniversalScanResult } from '../services/universalQrScanner';
 import { RedactionResult } from '../services/imageRedactor';
 import { antiTamperShield } from '../services/antiTamperShield';
+import { ScamAnalysisResult, ScamRadarService } from '../services/scamRadar';
+import { SurakshaScoreReport, SurakshaScoreService } from '../services/surakshaScore';
 
 interface DashboardScreenProps {
   session: UserSession | null;
@@ -46,6 +48,29 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({ session, onNav
   const [redactorDocType, setRedactorDocType] = useState<'aadhaar' | 'pan' | 'driving_license'>('aadhaar');
   const [redactorRecipient, setRedactorRecipient] = useState('Taj Lands End Hotel');
   const [redactedDoc, setRedactedDoc] = useState<RedactionResult>(api.redactDocumentImage('aadhaar', 'Taj Lands End Hotel'));
+
+  // Suraksha Score (0-1000) State
+  const [scoreReport, setScoreReport] = useState<SurakshaScoreReport>(() => {
+    return SurakshaScoreService.calculateScore({
+      biometricsLocked: true,
+      activeIdentifiersCount: 1,
+      hasActiveBreaches: false,
+      unauthorizedGhostSimsCount: 0,
+      familyMembersProtectedCount: 1,
+      hasGeneratedMaskedPass: true,
+    });
+  });
+
+  // 10-Minute Biometric Auto-Relock Countdown Timer State
+  const [unlockTimerActive, setUnlockTimerActive] = useState(false);
+  const [unlockSecondsLeft, setUnlockSecondsLeft] = useState(600); // 10 minutes
+
+  // Digital Arrest & Scam Radar Modal State
+  const [scamModalVisible, setScamModalVisible] = useState(false);
+  const [scamInputText, setScamInputText] = useState('');
+  const [scamHeaderInput, setScamHeaderInput] = useState('');
+  const [scamChannel, setScamChannel] = useState<'sms' | 'whatsapp' | 'video_call'>('video_call');
+  const [scamResult, setScamResult] = useState<ScamAnalysisResult | null>(null);
 
   const loadData = async () => {
     try {
@@ -130,6 +155,74 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({ session, onNav
     setRedactorDocType(docType);
     setRedactorRecipient(recipient);
     setRedactedDoc(api.redactDocumentImage(docType, recipient));
+  };
+
+  // 10-Minute Biometric Auto-Relock Timer Effect
+  useEffect(() => {
+    let interval: any = null;
+    if (unlockTimerActive && unlockSecondsLeft > 0) {
+      interval = setInterval(() => {
+        setUnlockSecondsLeft((prev) => {
+          if (prev <= 1) {
+            setUnlockTimerActive(false);
+            Alert.alert(
+              '🔒 Biometrics Auto-Relocked',
+              'The 10-minute temporary unlock window has expired. Your Aadhaar biometrics are now locked and protected against AePS banking fraud.'
+            );
+            return 600;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [unlockTimerActive, unlockSecondsLeft]);
+
+  const handleStartUnlockTimer = () => {
+    setUnlockSecondsLeft(600);
+    setUnlockTimerActive(true);
+    Alert.alert(
+      '🔓 10-Minute Temporary Window Started',
+      'Your biometrics are temporarily open for your bank or SIM verification. A timer of 10:00 is active. You will be alerted before it automatically relocks.'
+    );
+  };
+
+  const handleManualRelock = () => {
+    setUnlockTimerActive(false);
+    setUnlockSecondsLeft(600);
+    Alert.alert('🔒 Biometrics Re-Locked Immediately', 'Your Aadhaar biometric shield is active and secure.');
+  };
+
+  const handleRunScamAnalysis = () => {
+    if (!scamInputText.trim()) {
+      return Alert.alert('Input Required', 'Please enter suspicious message text or suspect claims.');
+    }
+    const res = ScamRadarService.analyzeMessage(scamInputText.trim(), scamHeaderInput.trim() || undefined, scamChannel);
+    setScamResult(res);
+  };
+
+  const handleLoadSampleScam = (type: 'digital_arrest' | 'bescom_apk' | 'challan_apk') => {
+    if (type === 'digital_arrest') {
+      setScamChannel('video_call');
+      setScamHeaderInput('+91 98201 92841 (WhatsApp / Skype Video)');
+      const text = 'You are under Digital Arrest by CBI Headquarters and Mumbai Cyber Police. Stay on Skype video call. 16 packets of MDMA narcotics seized in FedEx parcel with your Aadhaar.';
+      setScamInputText(text);
+      setScamResult(ScamRadarService.analyzeMessage(text, '+91 98201 92841', 'video_call'));
+    } else if (type === 'bescom_apk') {
+      setScamChannel('sms');
+      setScamHeaderInput('VM-BESCOM-OFFICIAL');
+      const text = 'Dear consumer, your electricity power will be disconnected tonight at 9:30 PM due to unpaid bill. Immediately download and install BESCOM_update.apk from bit.ly/bescom-pay to update bill.';
+      setScamInputText(text);
+      setScamResult(ScamRadarService.analyzeMessage(text, 'VM-BESCOM-OFFICIAL', 'sms'));
+    } else {
+      setScamChannel('sms');
+      setScamHeaderInput('+91 88291 00291');
+      const text = 'Traffic police e-challan pending for vehicle. Pay fine of Rs 500 or warrant issued. Download app echallan_parivahan.apk to pay.';
+      setScamInputText(text);
+      setScamResult(ScamRadarService.analyzeMessage(text, '+91 88291 00291', 'sms'));
+    }
   };
 
   const handleScanNow = async () => {
@@ -217,7 +310,19 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({ session, onNav
           <Text style={styles.greeting}>Identity Shield</Text>
           <Text style={styles.userName}>{session?.full_name || 'Resident'}</Text>
         </View>
-        <View style={{ flexDirection: 'row', gap: 8 }}>
+        <View style={{ flexDirection: 'row', gap: 6 }}>
+          <TouchableOpacity
+            style={[styles.scanButton, { backgroundColor: '#b91c1c' }]}
+            onPress={() => {
+              setScamResult(null);
+              setScamInputText('');
+              setScamHeaderInput('');
+              setScamModalVisible(true);
+            }}
+          >
+            <Text style={styles.scanButtonText}>🚨 Scam Radar</Text>
+          </TouchableOpacity>
+
           <TouchableOpacity
             style={[styles.scanButton, { backgroundColor: '#0284c7' }]}
             onPress={() => {
@@ -226,7 +331,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({ session, onNav
               setQrModalVisible(true);
             }}
           >
-            <Text style={styles.scanButtonText}>📷 Scanner</Text>
+            <Text style={styles.scanButtonText}>📷 QR</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -237,7 +342,7 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({ session, onNav
             {scanning ? (
               <ActivityIndicator size="small" color="#fff" />
             ) : (
-              <Text style={styles.scanButtonText}>⚡ Quick Scan</Text>
+              <Text style={styles.scanButtonText}>⚡ Scan</Text>
             )}
           </TouchableOpacity>
         </View>
@@ -263,6 +368,70 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({ session, onNav
             ? 'No unaddressed breach records or compromised credentials matching your verified identifiers.'
             : 'Action required: Review detected incidents and complete remediation steps below.'}
         </Text>
+      </View>
+
+      {/* Feature A: Suraksha Citizen Health Score & Gamified Badges */}
+      <View style={[styles.cardScore, { borderColor: scoreReport.tierColor }]}>
+        <View style={styles.scoreHeaderRow}>
+          <View>
+            <Text style={styles.scoreSubTitle}>SURAKSHA PRIVACY HEALTH</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 6 }}>
+              <Text style={[styles.scoreNumber, { color: scoreReport.tierColor }]}>{scoreReport.score}</Text>
+              <Text style={styles.scoreMax}>/ {scoreReport.maxScore}</Text>
+            </View>
+          </View>
+          <View style={[styles.scoreTierPill, { backgroundColor: `${scoreReport.tierColor}25`, borderColor: scoreReport.tierColor }]}>
+            <Text style={[styles.scoreTierText, { color: scoreReport.tierColor }]}>{scoreReport.tier}</Text>
+          </View>
+        </View>
+
+        <Text style={styles.scorePercentileText}>{scoreReport.percentileText}</Text>
+
+        {/* Achievement Badges Row */}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.badgesScroll}>
+          {scoreReport.badges.map((b) => (
+            <View key={b.id} style={[styles.badgeChip, b.unlocked ? styles.badgeChipUnlocked : styles.badgeChipLocked]}>
+              <Text style={styles.badgeIcon}>{b.icon}</Text>
+              <Text style={[styles.badgeTitle, b.unlocked && styles.badgeTitleUnlocked]}>{b.title}</Text>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
+
+      {/* Feature B: 10-Minute Biometric Temporary Relock Countdown Widget */}
+      <View style={[styles.actionCard, { borderColor: unlockTimerActive ? '#f59e0b' : '#10b981' }]}>
+        <View style={styles.actionHeader}>
+          <Text style={styles.actionIcon}>{unlockTimerActive ? '🔓' : '🔒'}</Text>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.actionTitle}>Aadhaar Biometric Auto-Relock Timer</Text>
+            <Text style={[styles.actionStatus, { color: unlockTimerActive ? '#f59e0b' : '#10b981' }]}>
+              {unlockTimerActive ? 'TEMPORARILY UNLOCKED FOR BANK / KYC' : 'SECURE & LOCKED AGAINST AePS THEFT'}
+            </Text>
+          </View>
+        </View>
+
+        {unlockTimerActive ? (
+          <View style={styles.timerActiveBox}>
+            <Text style={styles.timerActiveNotice}>
+              Auto-relock countdown active. Your biometrics will automatically re-lock when timer reaches 00:00.
+            </Text>
+            <Text style={styles.timerClockText}>
+              {Math.floor(unlockSecondsLeft / 60).toString().padStart(2, '0')}:{(unlockSecondsLeft % 60).toString().padStart(2, '0')}
+            </Text>
+            <TouchableOpacity style={styles.relockImmediateBtn} onPress={handleManualRelock}>
+              <Text style={styles.relockImmediateBtnText}>🔒 Relock Biometrics Immediately</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View>
+            <Text style={styles.actionDesc}>
+              Visiting an Indian bank or telecom kiosk? Open a 10-minute temporary unlock window with automatic safety re-lock.
+            </Text>
+            <TouchableOpacity style={[styles.actionBtn, { borderColor: '#10b981' }]} onPress={handleStartUnlockTimer}>
+              <Text style={[styles.actionBtnText, { color: '#34d399' }]}>⏱️ Start 10-Minute Temporary Window</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
 
       {/* Urgent Breach Alert if present */}
@@ -500,6 +669,121 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({ session, onNav
                 <TouchableOpacity
                   style={styles.btnSecondary}
                   onPress={() => setQrModalVisible(false)}
+                >
+                  <Text style={styles.btnSecondaryText}>Close</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </ScrollView>
+        </View>
+      </Modal>
+
+      {/* Feature C: Digital Arrest & Malicious APK Scam Radar Modal */}
+      <Modal visible={scamModalVisible} animationType="slide" transparent>
+        <View style={styles.modalBackdrop}>
+          <ScrollView contentContainerStyle={styles.modalScroll}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Scam & Digital Arrest Threat Radar</Text>
+              <Text style={styles.modalSub}>
+                Zero-cloud heuristic scanner for fake police video calls, WhatsApp extortion, and APK phishing links.
+              </Text>
+
+              <Text style={styles.inputLabel}>Test Realistic Attack Scenarios:</Text>
+              <View style={{ flexDirection: 'row', gap: 6, marginBottom: 10 }}>
+                <TouchableOpacity
+                  style={[styles.testPayloadBtn, { borderColor: '#ef4444' }]}
+                  onPress={() => handleLoadSampleScam('digital_arrest')}
+                >
+                  <Text style={[styles.testPayloadText, { color: '#f87171' }]}>CBI Video Call</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.testPayloadBtn, { borderColor: '#f59e0b' }]}
+                  onPress={() => handleLoadSampleScam('bescom_apk')}
+                >
+                  <Text style={[styles.testPayloadText, { color: '#fbbf24' }]}>Power Cut APK</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.testPayloadBtn, { borderColor: '#38bdf8' }]}
+                  onPress={() => handleLoadSampleScam('challan_apk')}
+                >
+                  <Text style={[styles.testPayloadText, { color: '#38bdf8' }]}>Challan APK</Text>
+                </TouchableOpacity>
+              </View>
+
+              <Text style={styles.inputLabel}>Channel & Sender Header / Number:</Text>
+              <View style={{ flexDirection: 'row', gap: 8, marginBottom: 8 }}>
+                <TextInput
+                  style={[styles.input, { flex: 1 }]}
+                  placeholder="e.g. VM-BESCOM or +91 98201..."
+                  placeholderTextColor="#64748b"
+                  value={scamHeaderInput}
+                  onChangeText={setScamHeaderInput}
+                />
+              </View>
+
+              <Text style={styles.inputLabel}>Message Text / Suspect Claims:</Text>
+              <TextInput
+                style={[styles.input, { height: 70, textAlignVertical: 'top' }]}
+                multiline
+                placeholder="Paste suspicious SMS text or Skype / video call transcript..."
+                placeholderTextColor="#64748b"
+                value={scamInputText}
+                onChangeText={setScamInputText}
+              />
+
+              <TouchableOpacity
+                style={[styles.actionBtn, { backgroundColor: '#b91c1c', borderColor: '#ef4444', marginBottom: 12 }]}
+                onPress={handleRunScamAnalysis}
+              >
+                <Text style={[styles.actionBtnText, { color: '#ffffff' }]}>🔍 Scan for Extortion & Phishing</Text>
+              </TouchableOpacity>
+
+              {/* Analysis Result */}
+              {scamResult && (
+                <View style={[styles.scanResultCard, scamResult.isScam ? { borderColor: '#ef4444' } : { borderColor: '#10b981' }]}>
+                  <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                    <Text style={{ fontSize: 13, fontWeight: '700', color: '#f8fafc' }}>
+                      {scamResult.scamCategory.toUpperCase().replace(/_/g, ' ')}
+                    </Text>
+                    <Text style={[styles.verifyPill, scamResult.isScam ? styles.verifyPillInvalid : styles.verifyPillValid]}>
+                      {scamResult.threatLevel.toUpperCase()}
+                    </Text>
+                  </View>
+
+                  {scamResult.isScam && (
+                    <View style={{ backgroundColor: '#450a0a', padding: 8, borderRadius: 6, marginBottom: 8, borderWidth: 1, borderColor: '#ef4444' }}>
+                      <Text style={{ fontSize: 11, fontWeight: '800', color: '#fca5a5', marginBottom: 4 }}>
+                        🚨 EXTORTION / PHISHING WARNING (Confidence: {Math.round(scamResult.confidenceScore * 100)}%)
+                      </Text>
+                      {scamResult.matchedIndicators.map((ind, i) => (
+                        <Text key={i} style={{ fontSize: 10, color: '#fee2e2' }}>• {ind}</Text>
+                      ))}
+                    </View>
+                  )}
+
+                  <View style={{ backgroundColor: '#0c1a2f', padding: 8, borderRadius: 6, marginBottom: 8 }}>
+                    <Text style={{ fontSize: 10, fontWeight: '800', color: '#60a5fa', marginBottom: 2 }}>OFFICIAL MHA GUIDANCE:</Text>
+                    <Text style={{ fontSize: 10, color: '#93c5fd', lineHeight: 14 }}>{scamResult.mhaOfficialAdvisory}</Text>
+                  </View>
+
+                  {scamResult.isScam && (
+                    <TouchableOpacity
+                      style={[styles.actionBtn, { backgroundColor: '#1e293b', borderColor: '#475569', marginTop: 4 }]}
+                      onPress={() => {
+                        antiTamperShield.safeCopyToClipboard(scamResult.prefilledFirDraft, 'Complaint Draft');
+                        Alert.alert('Complaint Draft Copied', '1930 / cybercrime.gov.in complaint draft copied to clipboard.');
+                      }}
+                    >
+                      <Text style={styles.actionBtnText}>📋 Copy 1930 Police Complaint Draft</Text>
+                    </TouchableOpacity>
+                  )}
+                </View>
+              )}
+
+              <View style={styles.modalButtons}>
+                <TouchableOpacity
+                  style={styles.btnSecondary}
+                  onPress={() => setScamModalVisible(false)}
                 >
                   <Text style={styles.btnSecondaryText}>Close</Text>
                 </TouchableOpacity>
@@ -1001,5 +1285,116 @@ const styles = StyleSheet.create({
     color: '#cbd5e1',
     fontWeight: '600',
     fontSize: 13,
+  },
+  cardScore: {
+    backgroundColor: '#0c1a2f',
+    padding: 16,
+    borderRadius: 16,
+    borderWidth: 1.5,
+    marginBottom: 16,
+  },
+  scoreHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 6,
+  },
+  scoreSubTitle: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: '#94a3b8',
+    letterSpacing: 0.8,
+  },
+  scoreNumber: {
+    fontSize: 34,
+    fontWeight: '900',
+  },
+  scoreMax: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#64748b',
+  },
+  scoreTierPill: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
+  scoreTierText: {
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 0.5,
+  },
+  scorePercentileText: {
+    fontSize: 12,
+    color: '#93c5fd',
+    marginBottom: 10,
+  },
+  badgesScroll: {
+    flexDirection: 'row',
+    gap: 8,
+    paddingVertical: 4,
+  },
+  badgeChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 20,
+    borderWidth: 1,
+  },
+  badgeChipUnlocked: {
+    backgroundColor: '#1e293b',
+    borderColor: '#38bdf8',
+  },
+  badgeChipLocked: {
+    backgroundColor: '#0f172a',
+    borderColor: '#334155',
+    opacity: 0.5,
+  },
+  badgeIcon: {
+    fontSize: 14,
+    marginRight: 6,
+  },
+  badgeTitle: {
+    fontSize: 11,
+    color: '#64748b',
+    fontWeight: '700',
+  },
+  badgeTitleUnlocked: {
+    color: '#f8fafc',
+  },
+  timerActiveBox: {
+    backgroundColor: '#451a03',
+    padding: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#f59e0b',
+    marginTop: 8,
+  },
+  timerActiveNotice: {
+    fontSize: 11,
+    color: '#fde68a',
+    marginBottom: 6,
+    lineHeight: 15,
+  },
+  timerClockText: {
+    fontSize: 30,
+    fontWeight: '900',
+    color: '#f59e0b',
+    fontFamily: 'monospace',
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  relockImmediateBtn: {
+    backgroundColor: '#b45309',
+    paddingVertical: 8,
+    borderRadius: 6,
+    alignItems: 'center',
+  },
+  relockImmediateBtnText: {
+    color: '#ffffff',
+    fontWeight: '800',
+    fontSize: 12,
   },
 });

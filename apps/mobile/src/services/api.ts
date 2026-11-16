@@ -519,4 +519,64 @@ export const api = {
     }
     return res;
   },
+
+  // Scam & Digital Arrest Radar
+  analyzeScamThreat(messageText: string, senderHeader?: string, channel?: 'sms' | 'whatsapp' | 'video_call' | 'phone') {
+    const { ScamRadarService } = require('./scamRadar');
+    return ScamRadarService.analyzeMessage(messageText, senderHeader, channel);
+  },
+
+  // Suraksha Citizen Health Score (0-1000)
+  calculateSurakshaScore(params: {
+    biometricsLocked: boolean;
+    activeIdentifiersCount: number;
+    hasActiveBreaches: boolean;
+    unauthorizedGhostSimsCount: number;
+    familyMembersProtectedCount: number;
+    hasGeneratedMaskedPass: boolean;
+  }) {
+    const { SurakshaScoreService } = require('./surakshaScore');
+    return SurakshaScoreService.calculateScore(params);
+  },
+
+  // Apple & Google Wallet Pass Generator
+  generateWalletPass(params: {
+    passId: string;
+    holderName: string;
+    documentType: string;
+    maskedIdentifier: string;
+    recipientEntity: string;
+    purpose: string;
+    validUntil: string;
+    signerPublicKey: string;
+    signatureHex: string;
+  }) {
+    const { WalletPassGeneratorService } = require('./walletPassGenerator');
+    return WalletPassGeneratorService.generatePass(params);
+  },
+
+  // Emergency SOS Panic Pack
+  executePanicProtocol(params: {
+    victimName: string;
+    lostDeviceModel?: string;
+    lostImeiMasked?: string;
+    compromisedDocs?: string[];
+    incidentLocation?: string;
+  }) {
+    const { PanicPackClientService } = require('./panicPack');
+    return PanicPackClientService.executePanicProtocol(params);
+  },
+
+  // Ephemeral Time-Bombed Pass Sharing
+  createEphemeralShareLink(params: {
+    passId: string;
+    recipientEntity: string;
+    purpose: string;
+    ttlHours?: number;
+    singleBurn?: boolean;
+    encryptedPayload: string;
+  }) {
+    const { EphemeralShareService } = require('./ephemeralShare');
+    return EphemeralShareService.createEphemeralLink(params);
+  },
 };

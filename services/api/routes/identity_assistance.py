@@ -34,7 +34,23 @@ from packages.domain.schemas import (
     AssistanceGuideDTO,
     AssistanceReportRequest,
     AssistanceReportDTO,
+    ScamAnalysisRequest,
+    ScamAnalysisDTO,
+    EphemeralPassCreateRequest,
+    EphemeralPassDTO,
+    EphemeralPassReadDTO,
+    WalletPassRequest,
+    WalletPassDTO,
+    PanicPackRequest,
+    PanicPackExecutionDTO,
+    PassVerificationRequest,
+    PassVerificationDTO,
 )
+from packages.domain.scam_radar import ScamRadarEngine
+from packages.domain.ephemeral_passes import EphemeralPassStore
+from packages.domain.wallet_passes import WalletPassGenerator
+from packages.domain.panic_pack import PanicPackService
+from packages.domain.pass_verifier import PassVerifierService
 
 router = APIRouter(prefix="/identity-assistance", tags=["identity-assistance"])
 
@@ -519,3 +535,142 @@ async def get_synthetic_dataset(
         },
         meta=ResponseMeta(request_id=req_id)
     )
+
+
+# -----------------------------------------------------------------------------
+# High-Appeal Citizen Defense Endpoints
+# -----------------------------------------------------------------------------
+
+@router.post("/scam-radar", response_model=ApiResponse[ScamAnalysisDTO])
+async def analyze_scam_threat(
+    payload: ScamAnalysisRequest,
+    request: Request,
+    ctx: AuthContext = Depends(get_auth_context)
+):
+    """
+    Analyzes SMS text, WhatsApp forwards, or suspicious call transcripts against
+    'Digital Arrest' heuristics, malicious APK sideload signatures, and urgent utility extortion patterns.
+    """
+    req_id = get_request_id(request)
+    analysis = ScamRadarEngine.analyze_message(
+        message_text=payload.message_text,
+        sender_header=payload.sender_header,
+        channel=payload.channel or "sms",
+        suspect_claims=payload.suspect_claims
+    )
+    return ApiResponse(data=analysis, meta=ResponseMeta(request_id=req_id))
+
+
+@router.post("/ephemeral-passes", response_model=ApiResponse[EphemeralPassDTO], status_code=status.HTTP_201_CREATED)
+async def create_ephemeral_pass(
+    payload: EphemeralPassCreateRequest,
+    request: Request,
+    ctx: AuthContext = Depends(get_auth_context),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Creates a time-bombed, encrypted document pass link with configurable TTL and single-view burning.
+    Raw Aadhaar or unmasked PII is never stored in plaintext.
+    """
+    req_id = get_request_id(request)
+    pass_dto = EphemeralPassStore.get_instance().create_pass(payload, tenant_id=ctx.tenant_id)
+
+    # Log immutable audit event
+    audit = AuditEvent(
+        tenant_id=ctx.tenant_id,
+        actor_id=ctx.user_id,
+        actor_role=ctx.role,
+        action="ephemeral_pass.created",
+        scoped_resource=f"pass:{pass_dto.token}",
+        result="success",
+        details_json={
+            "recipient_entity": payload.recipient_entity,
+            "single_burn": payload.single_burn,
+            "ttl_seconds": payload.ttl_seconds
+        }
+    )
+    db.add(audit)
+    await db.commit()
+
+    return ApiResponse(data=pass_dto, meta=ResponseMeta(request_id=req_id))
+
+
+@router.get("/ephemeral-passes/{token}", response_model=ApiResponse[EphemeralPassReadDTO])
+async def read_ephemeral_pass(
+    token: str,
+    request: Request
+):
+    """
+    Retrieves and burns an ephemeral document pass. Publicly accessible by permitted recipient.
+    Burns the pass immediately if single_burn was specified at creation time.
+    """
+    req_id = get_request_id(request)
+    result = EphemeralPassStore.get_instance().read_and_burn_pass(token)
+    if not result:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Ephemeral pass not found, already burned, or validity expired."
+        )
+    return ApiResponse(data=result, meta=ResponseMeta(request_id=req_id))
+
+
+@router.post("/wallet-pass", response_model=ApiResponse[WalletPassDTO])
+async def generate_wallet_pass(
+    payload: WalletPassRequest,
+    request: Request,
+    ctx: AuthContext = Depends(get_auth_context)
+):
+    """
+    Generates an Apple Wallet (.pkpass) manifest and Google Wallet Generic Object payload
+    for a certified purpose-restricted identity pass.
+    """
+    req_id = get_request_id(request)
+    wallet_pass = WalletPassGenerator.generate_wallet_pass(payload)
+    return ApiResponse(data=wallet_pass, meta=ResponseMeta(request_id=req_id))
+
+
+@router.post("/panic-pack", response_model=ApiResponse[PanicPackExecutionDTO])
+async def execute_panic_pack(
+    payload: PanicPackRequest,
+    request: Request,
+    ctx: AuthContext = Depends(get_auth_context),
+    db: AsyncSession = Depends(get_db)
+):
+    """
+    Executes Emergency SOS Panic Pack: verifies biometric lock, prepares CEIR stolen IMEI block,
+    flags credit bureau fraud advisory, and produces a Section 63 BSA Police Non-Cognizable Report (NCR) affidavit.
+    """
+    req_id = get_request_id(request)
+    panic_dto = PanicPackService.execute_panic_pack(payload)
+
+    audit = AuditEvent(
+        tenant_id=ctx.tenant_id,
+        actor_id=ctx.user_id,
+        actor_role=ctx.role,
+        action="emergency_panic_pack.executed",
+        scoped_resource=f"panic_pack:{panic_dto.pack_id}",
+        result="success",
+        details_json={
+            "compromised_docs": payload.compromised_docs,
+            "lost_device": payload.lost_device_model
+        }
+    )
+    db.add(audit)
+    await db.commit()
+
+    return ApiResponse(data=panic_dto, meta=ResponseMeta(request_id=req_id))
+
+
+@router.post("/verify-pass", response_model=ApiResponse[PassVerificationDTO])
+async def verify_pass_offline(
+    payload: PassVerificationRequest,
+    request: Request
+):
+    """
+    Public zero-cloud verifier endpoint for hotels, car rentals, and kiosks.
+    Validates Ed25519 Suraksha Certified Passes and official UIDAI 2048-bit Secure QR codes
+    without storing guest identity records.
+    """
+    req_id = get_request_id(request)
+    result = PassVerifierService.verify_pass(payload)
+    return ApiResponse(data=result, meta=ResponseMeta(request_id=req_id))

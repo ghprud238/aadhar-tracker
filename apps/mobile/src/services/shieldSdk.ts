@@ -282,6 +282,46 @@ export class SurakshaShield {
       purpose: 'hotel_checkin',
     });
   }
+
+  /**
+   * Evaluates text for "Digital Arrest" keywords and malicious APK sideload lures.
+   */
+  public static analyzeScam(text: string, senderHeader?: string) {
+    const { ScamRadarService } = require('./scamRadar');
+    return ScamRadarService.analyzeMessage(text, senderHeader);
+  }
+
+  /**
+   * Computes holistic citizen privacy health score (0-1000).
+   */
+  public static computeSurakshaScore(params: any) {
+    const { SurakshaScoreService } = require('./surakshaScore');
+    return SurakshaScoreService.calculateScore(params);
+  }
+
+  /**
+   * Generates Apple Wallet & Google Wallet pass payload.
+   */
+  public static createWalletPass(params: any) {
+    const { WalletPassGeneratorService } = require('./walletPassGenerator');
+    return WalletPassGeneratorService.generatePass(params);
+  }
+
+  /**
+   * Executes 1-tap emergency lost wallet / stolen device protocol.
+   */
+  public static executeEmergencyPanic(params: any) {
+    const { PanicPackClientService } = require('./panicPack');
+    return PanicPackClientService.executePanicProtocol(params);
+  }
+
+  /**
+   * Generates encrypted self-destructing pass share link.
+   */
+  public static createEphemeralShare(params: any) {
+    const { EphemeralShareService } = require('./ephemeralShare');
+    return EphemeralShareService.createEphemeralLink(params);
+  }
 }
 
 export default SurakshaShield;

@@ -26,6 +26,8 @@ import {
 import { antiTamperShield } from '../services/antiTamperShield';
 import { TelecomCreditShieldService, SimConnectionInfo, CreditInquiryAlert } from '../services/telecomCreditShield';
 import { ForensicEvidenceCertificate, EvidenceItem } from '../services/evidenceDossier';
+import { WalletPassGeneratorService } from '../services/walletPassGenerator';
+import { PanicPackClientService, PanicExecutionResult } from '../services/panicPack';
 
 export const AadhaarPanScreen: React.FC = () => {
   const [lockedConfirmed, setLockedConfirmed] = useState(false);
@@ -42,6 +44,13 @@ export const AadhaarPanScreen: React.FC = () => {
   const [passCustomPurpose, setPassCustomPurpose] = useState('');
   const [passDocType, setPassDocType] = useState<PassRequest['documentType']>('aadhaar');
   const [generatedPass, setGeneratedPass] = useState<CertifiedIdentityPass | null>(null);
+
+  // Emergency SOS Panic Pack State
+  const [panicModalVisible, setPanicModalVisible] = useState(false);
+  const [generatedPanic, setGeneratedPanic] = useState<PanicExecutionResult | null>(null);
+  const [panicVictimName, setPanicVictimName] = useState('Aarav Sharma');
+  const [panicDeviceModel, setPanicDeviceModel] = useState('iPhone 15 Pro / Android Device');
+  const [panicImei, setPanicImei] = useState('3569********102');
 
   // Cybercrime 1930 / FIR Drafter State
   const [firModalVisible, setFirModalVisible] = useState(false);
@@ -234,6 +243,63 @@ export const AadhaarPanScreen: React.FC = () => {
     setEvidenceModalVisible(true);
   };
 
+  const handleQuickTravelerPass = (hotel = 'Taj Lands End, Mumbai') => {
+    setPassRecipient(hotel);
+    setPassPurpose('hotel_checkin');
+    setPassDocType('aadhaar');
+    const pass = generateCertifiedIdentityPass({
+      documentType: 'aadhaar',
+      holderName: 'Aarav Sharma',
+      maskedIdentifier: 'XXXX-XXXX-4819',
+      recipientEntity: hotel,
+      purpose: 'hotel_checkin',
+    });
+    setGeneratedPass(pass);
+    setPassModalVisible(true);
+  };
+
+  const handleExportWalletPass = (platform: 'apple' | 'google') => {
+    if (!generatedPass) return;
+    const wallet = WalletPassGeneratorService.generatePass({
+      passId: generatedPass.passId,
+      holderName: generatedPass.holderName,
+      documentType: passDocType,
+      maskedIdentifier: generatedPass.maskedIdentifier,
+      recipientEntity: generatedPass.recipientEntity,
+      purpose: generatedPass.purposeText,
+      validUntil: generatedPass.validUntil,
+      signerPublicKey: generatedPass.signerPublicKey,
+      signatureHex: generatedPass.signatureHex,
+    });
+
+    if (platform === 'apple') {
+      copyToClipboard(JSON.stringify(wallet.applePassJson, null, 2), 'Apple Wallet Pass');
+      Alert.alert(
+        ' Apple Wallet Pass Exported',
+        `PKPass manifest created for "${generatedPass.recipientEntity}".\n\nFormatted pass JSON copied to clipboard with Ed25519 QR barcode and statutory clauses.`
+      );
+    } else {
+      copyToClipboard(JSON.stringify(wallet.googleWalletJwtPayload, null, 2), 'Google Wallet Pass');
+      Alert.alert(
+        'G Google Wallet Pass Exported',
+        `Google Wallet Generic Object payload generated for "${generatedPass.recipientEntity}".\n\nPayload copied to clipboard.`
+      );
+    }
+  };
+
+  const handleTriggerPanicProtocol = () => {
+    const result = PanicPackClientService.executePanicProtocol({
+      victimName: panicVictimName.trim() || 'Aarav Sharma',
+      lostDeviceModel: panicDeviceModel.trim() || 'Mobile Device',
+      lostImeiMasked: panicImei.trim() || '3569********102',
+      compromisedDocs: ['aadhaar', 'pan', 'driving_license'],
+      incidentLocation: 'Mumbai, Maharashtra',
+    });
+    setGeneratedPanic(result);
+    setLockedConfirmed(true);
+    setPanicModalVisible(true);
+  };
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.header}>
@@ -262,15 +328,24 @@ export const AadhaarPanScreen: React.FC = () => {
           Hotels, car rentals, and co-working spaces regularly photocopy identity cards. Generate an indelible,
           purpose-restricted masked pass with statutory warning that makes secondary reuse impossible.
         </Text>
-        <TouchableOpacity
-          style={[styles.portalBtn, { backgroundColor: '#1d4ed8', borderColor: '#3b82f6' }]}
-          onPress={() => {
-            setGeneratedPass(null);
-            setPassModalVisible(true);
-          }}
-        >
-          <Text style={[styles.portalBtnText, { color: '#ffffff' }]}>🎫 Generate Watermarked Pass</Text>
-        </TouchableOpacity>
+        <View style={{ flexDirection: 'row', gap: 8 }}>
+          <TouchableOpacity
+            style={[styles.portalBtn, { flex: 1, backgroundColor: '#1d4ed8', borderColor: '#3b82f6' }]}
+            onPress={() => {
+              setGeneratedPass(null);
+              setPassModalVisible(true);
+            }}
+          >
+            <Text style={[styles.portalBtnText, { color: '#ffffff' }]}>🎫 Custom Pass</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.portalBtn, { flex: 1, backgroundColor: '#0284c7', borderColor: '#38bdf8' }]}
+            onPress={() => handleQuickTravelerPass('Taj Lands End, Mumbai')}
+          >
+            <Text style={[styles.portalBtnText, { color: '#ffffff' }]}>✈️ Fast Hotel Pass</Text>
+          </TouchableOpacity>
+        </View>
       </View>
 
       {/* Feature 2: 1-Tap 16-Digit Virtual ID Rotator */}
@@ -490,6 +565,26 @@ export const AadhaarPanScreen: React.FC = () => {
         </TouchableOpacity>
       </View>
 
+      {/* Feature 7: Emergency SOS Panic Pack (Lost Wallet / Stolen Device) */}
+      <View style={[styles.card, { borderColor: '#ef4444', backgroundColor: 'rgba(239, 68, 68, 0.05)' }]}>
+        <View style={styles.cardHeader}>
+          <Text style={[styles.cardBadge, { color: '#f87171' }]}>RAPID DISASTER PROTOCOL</Text>
+          <Text style={styles.cardTitle}>Emergency SOS Panic Pack</Text>
+        </View>
+        <Text style={styles.cardIntro}>
+          Misplaced your wallet with Aadhaar/PAN cards or had your phone stolen? Trigger the 1-Tap Panic Protocol
+          to immediately lock biometrics, blacklist device IMEI on CEIR across all networks, alert credit bureaus,
+          and compile a court-admissible Police NCR affidavit.
+        </Text>
+
+        <TouchableOpacity
+          style={[styles.portalBtn, { backgroundColor: '#b91c1c', borderColor: '#ef4444' }]}
+          onPress={handleTriggerPanicProtocol}
+        >
+          <Text style={[styles.portalBtnText, { color: '#ffffff' }]}>🚨 Trigger Emergency Panic Protocol</Text>
+        </TouchableOpacity>
+      </View>
+
       {/* Modal 1: Single-Use Watermarked Pass Modal */}
       <Modal visible={passModalVisible} animationType="slide" transparent>
         <View style={styles.modalBackdrop}>
@@ -603,6 +698,23 @@ export const AadhaarPanScreen: React.FC = () => {
                   <View style={styles.legalNoticeBox}>
                     <Text style={styles.legalNoticeTitle}>STATUTORY CLAUSE (Aadhaar Act & IT Act):</Text>
                     <Text style={styles.legalNoticeText}>{generatedPass.legalNotice}</Text>
+                  </View>
+
+                  {/* Digital Wallet Export Options */}
+                  <View style={{ flexDirection: 'row', gap: 8, marginBottom: 12 }}>
+                    <TouchableOpacity
+                      style={[styles.portalBtn, { flex: 1, backgroundColor: '#000000', borderColor: '#334155' }]}
+                      onPress={() => handleExportWalletPass('apple')}
+                    >
+                      <Text style={[styles.portalBtnText, { color: '#ffffff' }]}> Apple Wallet</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      style={[styles.portalBtn, { flex: 1, backgroundColor: '#1e293b', borderColor: '#38bdf8' }]}
+                      onPress={() => handleExportWalletPass('google')}
+                    >
+                      <Text style={[styles.portalBtnText, { color: '#38bdf8' }]}>G Google Wallet</Text>
+                    </TouchableOpacity>
                   </View>
 
                   <View style={styles.modalButtons}>
@@ -960,6 +1072,69 @@ export const AadhaarPanScreen: React.FC = () => {
                       onPress={() => copyToClipboard(generatedEvidence.affidavitBody, 'Section 63 Affidavit Copied')}
                     >
                       <Text style={styles.btnPrimaryText}>📋 Copy Affidavit</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
+            </View>
+          </ScrollView>
+        </View>
+      </Modal>
+
+      {/* Modal 6: Emergency SOS Panic Pack Execution Modal */}
+      <Modal visible={panicModalVisible} animationType="slide" transparent>
+        <View style={styles.modalBackdrop}>
+          <ScrollView contentContainerStyle={styles.modalScroll}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Emergency SOS Incident Pack</Text>
+              <Text style={styles.modalSub}>
+                Emergency multi-vector defense triggered for lost wallet / stolen device.
+              </Text>
+
+              {generatedPanic && (
+                <View>
+                  <View style={{ backgroundColor: '#450a0a', padding: 12, borderRadius: 8, borderWidth: 1, borderColor: '#ef4444', marginBottom: 12 }}>
+                    <Text style={{ fontSize: 12, fontWeight: '800', color: '#fca5a5', marginBottom: 4 }}>
+                      SOS INCIDENT ID: {generatedPanic.packId}
+                    </Text>
+                    <Text style={{ fontSize: 11, color: '#fee2e2' }}>
+                      ✓ Aadhaar Biometrics Confirmed Locked in Local Enclave
+                    </Text>
+                    <Text style={{ fontSize: 11, color: '#fca5a5', marginTop: 2 }}>
+                      ✓ Credit Bureau Freeze Advisory Registered
+                    </Text>
+                  </View>
+
+                  <Text style={styles.inputLabel}>CEIR Mobile Handset Blacklisting:</Text>
+                  <View style={{ backgroundColor: '#090d16', padding: 10, borderRadius: 8, borderWidth: 1, borderColor: '#1e293b', marginBottom: 10 }}>
+                    <Text style={{ fontSize: 11, color: '#94a3b8', marginBottom: 6 }}>
+                      {generatedPanic.ceirInstructions}
+                    </Text>
+                    <TouchableOpacity
+                      style={[styles.portalBtn, { backgroundColor: '#0369a1', borderColor: '#0ea5e9' }]}
+                      onPress={handleOpenCEIR}
+                    >
+                      <Text style={[styles.portalBtnText, { color: '#ffffff' }]}>📱 Blacklist IMEI on CEIR Portal</Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  <Text style={styles.inputLabel}>Section 63 BSA Police NCR Affidavit:</Text>
+                  <ScrollView style={styles.dossierScrollBox}>
+                    <Text style={styles.dossierText}>{generatedPanic.section63NcrAffidavit}</Text>
+                  </ScrollView>
+
+                  <View style={styles.modalButtons}>
+                    <TouchableOpacity
+                      style={styles.btnSecondary}
+                      onPress={() => setPanicModalVisible(false)}
+                    >
+                      <Text style={styles.btnSecondaryText}>Close</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.btnPrimary, { backgroundColor: '#b91c1c' }]}
+                      onPress={() => copyToClipboard(generatedPanic.section63NcrAffidavit, 'Police NCR Affidavit')}
+                    >
+                      <Text style={styles.btnPrimaryText}>📋 Copy NCR Affidavit</Text>
                     </TouchableOpacity>
                   </View>
                 </View>

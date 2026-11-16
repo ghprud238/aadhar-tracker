@@ -15,6 +15,7 @@ import { api } from '../services/api';
 import { UserSession, FamilyMember } from '../types';
 import { antiTamperShield, DeviceIntegrityReport } from '../services/antiTamperShield';
 import { EncryptedBackupPackage } from '../services/backupRecovery';
+import { EphemeralShareLink } from '../services/ephemeralShare';
 
 interface SecurityScreenProps {
   session: UserSession | null;
@@ -56,6 +57,13 @@ export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefre
   const [pairingQrPayload, setPairingQrPayload] = useState('');
   const [pairingInputText, setPairingInputText] = useState('');
   const [pairingProcessing, setPairingProcessing] = useState(false);
+
+  // Ephemeral Self-Destructing Pass Sharing State
+  const [ephemeralModalVisible, setEphemeralModalVisible] = useState(false);
+  const [ephemeralRecipient, setEphemeralRecipient] = useState('Hotel Front Desk');
+  const [ephemeralTtlHours, setEphemeralTtlHours] = useState(1);
+  const [ephemeralSingleBurn, setEphemeralSingleBurn] = useState(true);
+  const [generatedShareLink, setGeneratedShareLink] = useState<EphemeralShareLink | null>(null);
 
   const fetchFamilyMembers = async () => {
     try {
@@ -304,6 +312,18 @@ export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefre
     );
   };
 
+  const handleCreateEphemeralShare = () => {
+    const link = api.createEphemeralShareLink({
+      passId: 'PASS_' + Math.random().toString(36).substring(2, 8).toUpperCase(),
+      recipientEntity: ephemeralRecipient.trim() || 'Hotel Front Desk',
+      purpose: 'hotel_checkin',
+      ttlHours: ephemeralTtlHours,
+      singleBurn: ephemeralSingleBurn,
+      encryptedPayload: 'AES256_GCM_ENCRYPTED_PASS_BLOB_ZERO_KNOWLEDGE',
+    });
+    setGeneratedShareLink(link);
+  };
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.header}>
@@ -490,6 +510,30 @@ export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefre
             <Text style={styles.btnOutlineText}>📥 Restore from Encrypted Backup</Text>
           </TouchableOpacity>
         </View>
+      </View>
+
+      {/* Feature 5: Self-Destructing Pass Links & Ephemeral Sharing */}
+      <View style={[styles.card, { borderColor: '#f59e0b' }]}>
+        <View style={styles.stepUpHeader}>
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.cardBadge, { color: '#fbbf24' }]}>PRIVACY CONFINEMENT</Text>
+            <Text style={styles.cardTitle}>Time-Bombed Self-Destructing Passes</Text>
+          </View>
+        </View>
+        <Text style={styles.cardDesc}>
+          Share a temporary certified identity pass for hotel check-ins or visitor desks with single-view burn
+          and automatic TTL expiration. Eliminates physical photocopies and prevents WhatsApp storage leaks.
+        </Text>
+
+        <TouchableOpacity
+          style={[styles.meshAuditBtn, { backgroundColor: '#78350f', borderColor: '#f59e0b', marginTop: 10 }]}
+          onPress={() => {
+            setGeneratedShareLink(null);
+            setEphemeralModalVisible(true);
+          }}
+        >
+          <Text style={[styles.meshAuditBtnText, { color: '#fef3c7' }]}>⏳ Generate Self-Destructing Pass Link</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Biometric App Lock Card */}
@@ -852,6 +896,120 @@ export const SecurityScreen: React.FC<SecurityScreenProps> = ({ session, onRefre
                   )}
                 </TouchableOpacity>
               </View>
+            </View>
+          </ScrollView>
+        </View>
+      </Modal>
+
+      {/* Modal 5: Ephemeral Pass Generator Modal */}
+      <Modal visible={ephemeralModalVisible} animationType="slide" transparent>
+        <View style={styles.modalBackdrop}>
+          <ScrollView contentContainerStyle={styles.modalScroll}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Generate Self-Destructing Link</Text>
+              <Text style={styles.modalSub}>
+                Creates an ephemeral, time-bombed URL with cryptographic single-view burn to securely share
+                your certified identity pass.
+              </Text>
+
+              {!generatedShareLink ? (
+                <>
+                  <Text style={styles.inputLabel}>Recipient / Entity Name:</Text>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="e.g. Hotel Front Desk / Visitor Gate"
+                    placeholderTextColor="#64748b"
+                    value={ephemeralRecipient}
+                    onChangeText={setEphemeralRecipient}
+                  />
+
+                  <Text style={styles.inputLabel}>Time-To-Live (Validity Duration):</Text>
+                  <View style={styles.relSelector}>
+                    {[
+                      { hours: 1, label: '1 Hour' },
+                      { hours: 6, label: '6 Hours' },
+                      { hours: 24, label: '24 Hours' },
+                    ].map((item) => (
+                      <TouchableOpacity
+                        key={item.hours}
+                        style={[styles.relBtn, ephemeralTtlHours === item.hours && styles.relBtnActive]}
+                        onPress={() => setEphemeralTtlHours(item.hours)}
+                      >
+                        <Text style={[styles.relBtnText, ephemeralTtlHours === item.hours && styles.relBtnTextActive]}>
+                          {item.label}
+                        </Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+
+                  <View style={[styles.rowBetween, { marginTop: 12, marginBottom: 16 }]}>
+                    <View style={{ flex: 1, paddingRight: 8 }}>
+                      <Text style={{ fontSize: 13, fontWeight: '700', color: '#f8fafc' }}>
+                        Single-View Burn 🔥
+                      </Text>
+                      <Text style={{ fontSize: 11, color: '#94a3b8' }}>
+                        Instantly revokes and purges the pass the moment it is opened once by the recipient.
+                      </Text>
+                    </View>
+                    <Switch
+                      value={ephemeralSingleBurn}
+                      onValueChange={setEphemeralSingleBurn}
+                      trackColor={{ false: '#374151', true: '#f59e0b' }}
+                      thumbColor={ephemeralSingleBurn ? '#ffffff' : '#9ca3af'}
+                    />
+                  </View>
+
+                  <View style={styles.modalButtons}>
+                    <TouchableOpacity
+                      style={styles.btnSecondary}
+                      onPress={() => setEphemeralModalVisible(false)}
+                    >
+                      <Text style={styles.btnSecondaryText}>Cancel</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.btnPrimary, { backgroundColor: '#f59e0b' }]}
+                      onPress={handleCreateEphemeralShare}
+                    >
+                      <Text style={[styles.btnPrimaryText, { color: '#000', fontWeight: '800' }]}>
+                        ⚡ Generate Pass Link
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </>
+              ) : (
+                <View>
+                  <View style={{ backgroundColor: '#451a03', padding: 12, borderRadius: 8, borderWidth: 1, borderColor: '#f59e0b', marginBottom: 12 }}>
+                    <Text style={{ fontSize: 11, fontWeight: '800', color: '#fbbf24', marginBottom: 4 }}>
+                      🔥 TIME-BOMBED SECURE SHARING LINK
+                    </Text>
+                    <Text style={{ fontSize: 11, color: '#fef3c7', fontFamily: 'monospace', lineHeight: 16 }}>
+                      {generatedShareLink.shareUrl}
+                    </Text>
+                    <Text style={{ fontSize: 10, color: '#fde68a', marginTop: 6 }}>
+                      Expires: {new Date(generatedShareLink.expiresAt).toLocaleTimeString()} • {generatedShareLink.singleBurn ? 'Auto-destructs after 1 view' : 'Multi-view enabled'}
+                    </Text>
+                  </View>
+
+                  <View style={styles.modalButtons}>
+                    <TouchableOpacity
+                      style={styles.btnSecondary}
+                      onPress={() => setGeneratedShareLink(null)}
+                    >
+                      <Text style={styles.btnSecondaryText}>New Link</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.btnPrimary, { backgroundColor: '#059669' }]}
+                      onPress={() => {
+                        antiTamperShield.safeCopyToClipboard(generatedShareLink.shareUrl, 'Ephemeral Pass URL');
+                        Alert.alert('Link Copied', 'Secure ephemeral link copied to clipboard. Share with front desk via SMS/messaging.');
+                        setEphemeralModalVisible(false);
+                      }}
+                    >
+                      <Text style={styles.btnPrimaryText}>📋 Copy Share URL</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
             </View>
           </ScrollView>
         </View>

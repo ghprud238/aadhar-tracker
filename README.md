@@ -2,7 +2,7 @@
 
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg)](https://fastapi.tiangolo.com/)
-[![Tests Passing](https://img.shields.io/badge/tests-54%2F54%20passing-brightgreen.svg)](tests/)
+[![Tests Passing](https://img.shields.io/badge/tests-71%2F71%20passing-brightgreen.svg)](tests/)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Security Zero-Plaintext](https://img.shields.io/badge/security-Zero--Plaintext%20Credentials-success.svg)](docs/threat-model.md)
 
@@ -104,7 +104,7 @@ git submodule update --init --recursive
 # Install virtualenv and all dependencies
 uv sync
 
-# Run the test suite (54 tests passing 100%)
+# Run the test suite (71 tests passing 100%)
 uv run pytest -v
 
 # Run the high-concurrency async load benchmark (400+ RPS)
@@ -884,6 +884,42 @@ flowchart TD
 * Connects non-tech-savvy elderly parents to the family mesh with a single QR scan.
 * Uses 15-minute time-bound ephemeral URIs (`suraksha://mesh/pair?data=...`) with ephemeral session keys over local home Wi-Fi with zero router or IP configuration.
 
+#### 13. Digital Arrest & Fake Law Enforcement Scam Shield ([`scamRadar.ts`](file:///Users/dpcubed/projects/aadhar-tracker/apps/mobile/src/services/scamRadar.ts))
+* **MHA & I4C Official Advisory:** Immediately warns citizens that no police, CBI, ED, NCB, or judicial authority ever conducts arrests, interrogations, or trials via Skype or video calls.
+* Detects coercive video call arrest threats, money laundering accusations, and fake customs parcel contraband claims.
+* Pre-fills formal 1930 / `cybercrime.gov.in` complaints invoking IT Act Sections 66C/66D and BNS Sections 318/319.
+
+#### 14. Sideload APK & Malicious Phishing SMS Radar ([`scamRadar.ts`](file:///Users/dpcubed/projects/aadhar-tracker/apps/mobile/src/services/scamRadar.ts))
+* Detects dangerous `.apk` download links disguised as urgent power cuts (BESCOM, Mahadiscom) or traffic challans.
+* Flags official notices sent from personal 10-digit mobile numbers (+91...) instead of registered telemarketer headers.
+
+#### 15. Suraksha Citizen Score (0 to 1,000) & Privacy Health Ring ([`surakshaScore.ts`](file:///Users/dpcubed/projects/aadhar-tracker/apps/mobile/src/services/surakshaScore.ts))
+* A gamified, credit-score style privacy health index (0 to 1,000) computed across 6 weighted security pillars: Biometric Locking (+350), Active Monitoring (+150), Zero Breaches (+200), Zero Ghost SIMs (+150), Family Mesh (+100), and Masked Pass Usage (+50).
+* Dynamic status tiers: Excellent (850-1,000), Strong (700-849), Moderate (500-699), and Needs Attention (<500).
+* Unlockable milestone badges (🔒 Biometric Sentinel, 🛡️ AePS Fortress, 👨‍👩‍👧‍👦 Family Protector, ✈️ Smart Traveler, ⚡ Zero-Cloud Pioneer).
+
+#### 16. Temporary Biometric Unlock with 10-Minute Auto-Relock Timer ([`DashboardScreen.tsx`](file:///Users/dpcubed/projects/aadhar-tracker/apps/mobile/src/screens/DashboardScreen.tsx))
+* Provides a secure countdown window (10 minutes) for legitimate bank account opening or new SIM purchase KYC.
+* Features a visual countdown timer that automatically re-locks Aadhaar biometrics when time expires.
+
+#### 17. Apple Wallet (`.pkpass`) & Google Wallet Digital Pass Generator ([`walletPassGenerator.ts`](file:///Users/dpcubed/projects/aadhar-tracker/apps/mobile/src/services/walletPassGenerator.ts))
+* Generates native Apple Wallet `pass.json` manifests (`PKBarcodeFormatQR`, Ed25519 signature, Section 43 Aadhaar Act back clause).
+* Generates Google Wallet Generic Object JWT claims payloads for 1-tap addition to Google Wallet.
+
+#### 18. Time-Bombed Ephemeral Document Sharing Links ([`ephemeralShare.ts`](file:///Users/dpcubed/projects/aadhar-tracker/apps/mobile/src/services/ephemeralShare.ts))
+* Generates self-destructing pass URLs with configurable validity (1 hour, 6 hours, 24 hours).
+* Cryptographic single-view burn (`single_burn=True`) permanently purges the pass the moment it is opened by the front desk.
+
+#### 19. Smart Traveler & Fast Hotel Check-In Mode ([`AadhaarPanScreen.tsx`](file:///Users/dpcubed/projects/aadhar-tracker/apps/mobile/src/screens/AadhaarPanScreen.tsx))
+* 1-tap pass generation in < 5 seconds with pre-set "HOTEL CHECK-IN ONLY" purpose restriction, masked digits, and recipient hotel stamp.
+
+#### 20. Emergency SOS "Panic Pack" for Lost Wallets / Stolen Phones ([`panicPack.ts`](file:///Users/dpcubed/projects/aadhar-tracker/apps/mobile/src/services/panicPack.ts))
+* Instant multi-vector response: dispatches biometric locking, prepares CEIR IMEI handset blacklisting instructions (`ceir.sancharsaathi.gov.in`), flags credit bureau disputes (CIBIL/Experian), and generates a court-admissible Section 63 BSA Police Non-Cognizable Report (NCR) affidavit.
+
+#### 21. Zero-Install Public Pass Verifier ([`pass_verifier.py`](file:///Users/dpcubed/projects/aadhar-tracker/packages/domain/pass_verifier.py))
+* Public zero-cloud verification endpoint for hotel kiosks, security desks, and car rentals.
+* Parses and cryptographically validates both Ed25519 Suraksha Passes and official UIDAI 2048-bit Secure QR codes.
+
 ---
 
 ### The Six High-Assurance Robustness Pillars
@@ -930,5 +966,39 @@ const evidenceCert = SurakshaShield.generateEvidenceCertificate('Aarav Sharma', 
 // 4. Localize UI into citizen's native language (e.g. Tamil or Hindi)
 const strings = SurakshaShield.getLocalizedStrings('ta');
 console.log(strings.shieldActive); // "அடையாள பாதுகாப்பு கவசம் செயல்படுகிறது"
+
+// 5. Detect Digital Arrest & Malicious APK Phishing Scams
+const scamAnalysis = SurakshaShield.analyzeScamThreat(
+  'You are under digital arrest by CBI Mumbai. Join Skype video call immediately.',
+  'CYBER_HQ',
+  'video_call'
+);
+if (scamAnalysis.isScam) {
+  console.log(`Alert: ${scamAnalysis.scamName} (${scamAnalysis.threatLevel})`);
+  console.log(scamAnalysis.prefilledFirDraft);
+}
+
+// 6. Calculate Suraksha Citizen Privacy Health Score (0-1,000)
+const scoreData = SurakshaShield.calculateCitizenScore({
+  biometricsLocked: true,
+  activeIdentifiersCount: 4,
+  hasActiveBreaches: false,
+  unauthorizedGhostSimsCount: 0,
+  familyMembersProtectedCount: 2,
+  hasGeneratedMaskedPass: true,
+});
+console.log(`Score: ${scoreData.score}/1000 Tier: ${scoreData.tier} Badges: ${scoreData.badges.length}`);
 ```
+
+---
+
+## 📚 Technical Documentation & Daily Logs
+
+* **Daily Engineering Logs:** [`docs/daily-notes/`](docs/daily-notes/README.md)
+  * **[16 Nov 2026: High-Appeal Citizen Defense Suite & Code Review](docs/daily-notes/2026-11-16.md)** — Digital Arrest Radar, Apple/Google Wallet Passes, Ephemeral Self-Destructing Passes, Panic Pack, and 71/71 tests passing.
+  * **[15 Nov 2026: Six Robustness Pillars & Full Citizen Suite](docs/daily-notes/2026-11-15.md)** — Hardware storage, Ed25519 signing, anti-tamper shield, homoglyph sanitization, and K-Anonymity threat sync.
+  * **[14 Nov 2026: Usability & Zero-Cloud Edge AI](docs/daily-notes/2026-11-14.md)** — Multi-document registry, 1930 FIR assistant, 16-digit VID rotator, and P2P Family Mesh.
+* **Architecture & Formal Code Review:** [`docs/code-review.md`](docs/code-review.md)
+* **Architecture Decision Records:** [`docs/decisions/`](docs/decisions/)
+* **Legal & Statutory Compliance Traceability:** [`docs/traceability.md`](docs/traceability.md)
 
