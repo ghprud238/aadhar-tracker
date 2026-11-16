@@ -1007,6 +1007,7 @@ console.log(`Score: ${scoreData.score}/1000 Tier: ${scoreData.tier} Badges: ${sc
   * **[15 Nov 2026: Six Robustness Pillars & Full Citizen Suite](docs/daily-notes/2026-11-15.md)** — Hardware storage, Ed25519 signing, anti-tamper shield, homoglyph sanitization, and K-Anonymity threat sync.
   * **[14 Nov 2026: Usability & Zero-Cloud Edge AI](docs/daily-notes/2026-11-14.md)** — Multi-document registry, 1930 FIR assistant, 16-digit VID rotator, and P2P Family Mesh.
 * **Architecture & Formal Code Review:** [`docs/code-review.md`](docs/code-review.md)
+* **Shark Tank Commercial Teardown & Monetization Analysis:** [`docs/shark-tank-business-teardown.md`](docs/shark-tank-business-teardown.md)
 * **Architecture Decision Records:** [`docs/decisions/`](docs/decisions/)
 * **Legal & Statutory Compliance Traceability:** [`docs/traceability.md`](docs/traceability.md)
 
