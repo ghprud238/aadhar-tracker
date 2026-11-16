@@ -122,6 +122,10 @@ async def run_stress_test(
         "POST /verify-pass": WorkloadStats(endpoint="POST /verify-pass"),
         "POST /canary-test": WorkloadStats(endpoint="POST /canary-test"),
         "GET /companion/glance": WorkloadStats(endpoint="GET /companion/glance"),
+        "POST /b2b/verify/identity": WorkloadStats(endpoint="POST /b2b/verify/identity"),
+        "POST /b2b/verify/document-tamper": WorkloadStats(endpoint="POST /b2b/verify/document-tamper"),
+        "POST /b2b/verify/telecom-sim-velocity": WorkloadStats(endpoint="POST /b2b/verify/telecom-sim-velocity"),
+        "GET /executive-protection/dashboard": WorkloadStats(endpoint="GET /executive-protection/dashboard"),
     }
 
     results: List[RequestResult] = []
@@ -149,7 +153,13 @@ async def run_stress_test(
 
         async def execute_task(req_idx: int):
             async with semaphore:
-                headers = headers_pool[req_idx % len(headers_pool)]
+                worker_idx = req_idx % len(headers_pool)
+                headers = headers_pool[worker_idx]
+                anon_headers = {"X-Forwarded-For": f"10.0.{worker_idx}.1"}
+                b2b_headers = {
+                    "X-Suraksha-API-Key": f"sk_live_fintech_partner_{worker_idx}",
+                    "X-Forwarded-For": f"10.0.{worker_idx}.1"
+                }
                 # Select endpoint based on workload setting
                 if workload == "scam_radar":
                     endpoint_type = "scam_radar"
@@ -171,9 +181,13 @@ async def run_stress_test(
                         "panic_pack",
                         "verify_pass",
                         "canary_test",
-                        "companion_glance"
+                        "companion_glance",
+                        "b2b_verify_id",
+                        "b2b_verify_tamper",
+                        "b2b_telecom",
+                        "executive_dashboard"
                     ]
-                    weights = [25, 15, 10, 15, 5, 15, 5, 10]
+                    weights = [15, 8, 8, 8, 5, 8, 5, 8, 10, 10, 8, 7]
                     endpoint_type = random.choices(options, weights=weights, k=1)[0]
 
                 start_ts = time.perf_counter()
@@ -229,12 +243,12 @@ async def run_stress_test(
                                 tok_to_read = random.choice(created_tokens)
 
                         if tok_to_read:
-                            resp = await client.get(f"/api/v1/identity-assistance/ephemeral-passes/{tok_to_read}")
+                            resp = await client.get(f"/api/v1/identity-assistance/ephemeral-passes/{tok_to_read}", headers=anon_headers)
                             status_code = resp.status_code
                             success = (status_code in (200, 404))
                         else:
                             # Read fallback token
-                            resp = await client.get("/api/v1/identity-assistance/ephemeral-passes/suraksha_ephem_nonexistent")
+                            resp = await client.get("/api/v1/identity-assistance/ephemeral-passes/suraksha_ephem_nonexistent", headers=anon_headers)
                             status_code = resp.status_code
                             success = (status_code == 404)
 
@@ -284,7 +298,8 @@ async def run_stress_test(
                             json={
                                 "raw_qr_payload": qr_item["raw_payload"],
                                 "verifier_entity": "Stress Terminal Verifier"
-                            }
+                            },
+                            headers=anon_headers
                         )
                         status_code = resp.status_code
                         success = (status_code == 200)
@@ -297,6 +312,59 @@ async def run_stress_test(
                                 "preset_id": "aadhaar_sandbox_1",
                                 "leak_scenario": "darkweb_market"
                             },
+                            headers=headers
+                        )
+                        status_code = resp.status_code
+                        success = (status_code == 200)
+
+                    elif endpoint_type == "b2b_verify_id":
+                        ep_name = "POST /b2b/verify/identity"
+                        prof = random.choice(profiles)
+                        resp = await client.post(
+                            "/api/v1/b2b/verify/identity",
+                            headers=b2b_headers,
+                            json={
+                                "document_type": "aadhaar",
+                                "document_value": prof["aadhaar_raw"],
+                                "declared_name": prof["full_name"],
+                                "borrower_entity_type": "individual"
+                            }
+                        )
+                        status_code = resp.status_code
+                        success = (status_code == 200)
+
+                    elif endpoint_type == "b2b_verify_tamper":
+                        ep_name = "POST /b2b/verify/document-tamper"
+                        resp = await client.post(
+                            "/api/v1/b2b/verify/document-tamper",
+                            headers=b2b_headers,
+                            json={
+                                "document_type": "aadhaar",
+                                "ocr_extracted_text": "Sample authentic KYC copy for resident",
+                                "declared_dob": "15/08/1990"
+                            }
+                        )
+                        status_code = resp.status_code
+                        success = (status_code == 200)
+
+                    elif endpoint_type == "b2b_telecom":
+                        ep_name = "POST /b2b/verify/telecom-sim-velocity"
+                        prof = random.choice(profiles)
+                        resp = await client.post(
+                            "/api/v1/b2b/verify/telecom-sim-velocity",
+                            headers=b2b_headers,
+                            json={
+                                "mobile_number": prof["phone"],
+                                "aadhaar_masked": prof["aadhaar_masked"]
+                            }
+                        )
+                        status_code = resp.status_code
+                        success = (status_code == 200)
+
+                    elif endpoint_type == "executive_dashboard":
+                        ep_name = "GET /executive-protection/dashboard"
+                        resp = await client.get(
+                            "/api/v1/executive-protection/dashboard",
                             headers=headers
                         )
                         status_code = resp.status_code

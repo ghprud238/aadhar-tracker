@@ -47,11 +47,15 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         self._lock = asyncio.Lock()
 
     def _get_client_key(self, request: Request, rule_key: str) -> str:
-        # Prefer Authorization bearer or session cookie; fallback to client IP
+        # Prefer Authorization bearer, B2B API Key, or session cookie; fallback to client IP
         auth_header = request.headers.get("Authorization", "")
         if auth_header.startswith("Bearer "):
             token = auth_header.split(" ")[1][:16]
             return f"{rule_key}:usr_{token}"
+
+        b2b_key = request.headers.get("X-Suraksha-API-Key", "")
+        if b2b_key:
+            return f"{rule_key}:b2b_{b2b_key[:16]}"
 
         client_host = request.client.host if request.client else "unknown_ip"
         forwarded = request.headers.get("X-Forwarded-For")

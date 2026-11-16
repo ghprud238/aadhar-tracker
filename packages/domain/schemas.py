@@ -290,3 +290,168 @@ class PassVerificationDTO(BaseModel):
     security_audit: str
     algorithm_used: str
     verified_at: datetime
+
+
+# -----------------------------------------------------------------------------
+# B2B Digital Lending Fraud Verification Schemas
+# -----------------------------------------------------------------------------
+
+class B2BIdentityVerifyRequest(BaseModel):
+    document_type: str = Field(..., description="aadhaar, pan, driving_license, voter_id, passport")
+    document_value: str = Field(..., min_length=5, max_length=100)
+    declared_name: Optional[str] = Field(None, max_length=200)
+    borrower_entity_type: Optional[str] = Field("individual", description="individual, company, trust, firm")
+    loan_application_id: Optional[str] = Field(None, max_length=100)
+
+
+class B2BIdentityVerifyDTO(BaseModel):
+    document_type: str
+    is_valid_syntax: bool
+    is_checksum_valid: bool
+    masked_identifier: str
+    synthetic_fraud_risk: str  # low, medium, high, critical
+    risk_score: int  # 0 to 100 (0=safe, 100=extreme risk)
+    risk_factors: List[str]
+    statutory_masking_compliant: bool
+    recommendation: str  # approve, step_up_kyc, reject
+    verified_at: datetime
+
+
+class B2BDocTamperVerifyRequest(BaseModel):
+    document_type: str = Field("aadhaar", description="aadhaar, pan, driving_license, salary_slip")
+    ocr_extracted_text: str = Field(..., min_length=10, max_length=20000)
+    declared_dob: Optional[str] = Field(None, max_length=20)
+    has_photo: bool = Field(True)
+    detected_watermark: Optional[str] = Field(None, max_length=200)
+
+
+class B2BDocTamperVerifyDTO(BaseModel):
+    tampering_detected: bool
+    tamper_confidence: float
+    detected_anomalies: List[str]
+    uidai_masking_violation: bool
+    reused_hotel_stamp_detected: bool
+    verdict: str  # authentic, suspicious, tampered
+    details: str
+    verified_at: datetime
+
+
+class B2BTelecomRiskRequest(BaseModel):
+    mobile_number: str = Field(..., min_length=10, max_length=15)
+    aadhaar_masked: Optional[str] = Field(None, max_length=30)
+    borrower_city: Optional[str] = Field(None, max_length=100)
+
+
+class B2BTelecomRiskDTO(BaseModel):
+    mobile_number_masked: str
+    sim_velocity_risk: str  # normal, high, critical
+    sim_activation_age_days: int
+    ghost_sim_cluster_detected: bool
+    associated_sims_on_aadhaar: int
+    unauthorized_sims_flagged: int
+    risk_score: int  # 0 to 100
+    telecom_fraud_warning: Optional[str] = None
+    recommendation: str  # proceed, manual_verification_required, block_loan
+    verified_at: datetime
+
+
+class B2BBreachCanaryRequest(BaseModel):
+    email: Optional[str] = Field(None, max_length=255)
+    phone: Optional[str] = Field(None, max_length=20)
+    pan_masked: Optional[str] = Field(None, max_length=20)
+
+
+class B2BBreachCanaryDTO(BaseModel):
+    risk_level: str  # safe, moderate, severe, critical
+    credentials_leaked: bool
+    cleartext_password_dumped: bool
+    session_tokens_compromised: bool
+    known_breaches_matched: List[str]
+    borrower_account_takeover_risk: str  # low, medium, high
+    disbursement_recommendation: str  # safe_to_disburse, hold_for_step_up, decline
+    checked_at: datetime
+
+
+class B2BUsageDTO(BaseModel):
+    api_key_prefix: str
+    client_name: str
+    tier: str
+    rate_limit_rpm: int
+    total_calls: int
+    total_cost_inr: float
+    endpoint_breakdown: Dict[str, int]
+    billing_cycle: str
+
+
+# -----------------------------------------------------------------------------
+# Corporate Executive & Family Office Protection Schemas
+# -----------------------------------------------------------------------------
+
+class ExecutiveEnrollRequest(BaseModel):
+    full_name: str = Field(..., min_length=2, max_length=200)
+    corporate_email: str = Field(..., min_length=5, max_length=255)
+    designation: str = Field("Chief Executive Officer", max_length=100)
+    vip_tier: str = Field("c_suite", description="c_suite, board_member, promoter, family_member")
+    personal_email: Optional[str] = Field(None, max_length=255)
+    personal_phone: Optional[str] = Field(None, max_length=20)
+    masked_aadhaar: Optional[str] = Field(None, max_length=30)
+    pan: Optional[str] = Field(None, max_length=20)
+
+
+class ExecutiveProfileDTO(BaseModel):
+    id: str
+    full_name: str
+    corporate_email: str
+    designation: str
+    vip_tier: str
+    risk_score: int
+    monitoring_status: str
+    assets_count: int
+    active_incidents_count: int
+    created_at: datetime
+
+
+class ExecutiveThreatSimulateRequest(BaseModel):
+    executive_id: str = Field(..., min_length=1)
+    threat_type: str = Field("digital_arrest", description="spear_phishing, digital_arrest, sim_swap_attempt, darkweb_leak, unmasked_document_exposure")
+    title: str = Field(..., min_length=5, max_length=255)
+    description: str = Field(..., min_length=10, max_length=3000)
+    severity: str = Field("critical", description="critical, high, medium")
+
+
+class ExecutiveThreatIncidentDTO(BaseModel):
+    id: str
+    executive_id: str
+    executive_name: str
+    threat_type: str
+    severity: str
+    title: str
+    description: str
+    indicators: Dict[str, Any]
+    state: str
+    detected_at: datetime
+
+
+class ExecutiveDashboardDTO(BaseModel):
+    company_name: str
+    corporate_exposure_index: int  # 0 to 1000
+    security_posture_tier: str  # fortress, strong, monitored, vulnerable
+    total_executives_protected: int
+    active_critical_threats: int
+    assets_under_monitoring: int
+    threat_category_breakdown: Dict[str, int]
+    recent_threats: List[ExecutiveThreatIncidentDTO]
+    audit_summary: str
+
+
+class ExecutiveDispatchPackDTO(BaseModel):
+    incident_id: str
+    executive_name: str
+    threat_type: str
+    section63_bsa_affidavit: str
+    ceir_handset_block_dossier: Dict[str, str]
+    priority_1930_cybercrime_escalation: Dict[str, str]
+    biometric_lock_pushed: bool
+    corporate_legal_counsel_brief: str
+    dispatched_at: datetime
+

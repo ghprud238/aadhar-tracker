@@ -138,6 +138,16 @@ async function renderCurrentView() {
       subtitle.textContent = "DPDP / GDPR self-service: Consent controls, export data, and account deletion";
       await renderPrivacyView(container);
       break;
+    case "b2b-hub":
+      title.textContent = "B2B Fintech & Lending Fraud APIs";
+      subtitle.textContent = "High-throughput identity validation, document tamper verification, and usage billing metering for NBFCs";
+      await renderB2BHubView(container);
+      break;
+    case "executive-suite":
+      title.textContent = "Corporate Executive & Board Protection Suite";
+      subtitle.textContent = "Enterprise CISO portal: VIP threat monitoring, deepfake defense, and Section 63 BSA evidence dispatch";
+      await renderExecutiveSuiteView(container);
+      break;
     case "security":
       title.textContent = I18N[currentLang].nav_security;
       subtitle.textContent = "Step-up authentication, active session inventory, and session revocation";
@@ -1207,6 +1217,254 @@ document.getElementById("btn-scan-now").addEventListener("click", async () => {
 document.getElementById("btn-step-up").addEventListener("click", () => {
   elevateSession();
 });
+
+// 11. B2B Hub View (Commercial Pivot: NBFC Fraud API & Invoicing)
+async function renderB2BHubView(container) {
+  let usageData = null;
+  try {
+    const res = await apiCall("/b2b/usage", "GET");
+    usageData = res ? res.data : null;
+  } catch (err) {
+    console.warn("Could not fetch B2B usage:", err);
+  }
+
+  const calls = usageData ? usageData.total_calls : 128;
+  const cost = usageData ? usageData.total_cost_inr : 256.00;
+  const keyPrefix = usageData ? usageData.api_key_prefix : "sk_live_fintech_growth";
+  const tier = usageData ? usageData.tier : "fintech_growth";
+
+  container.innerHTML = `
+    <div class="card" style="margin-bottom: 1.5rem; border-left: 4px solid #10b981;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h3 style="margin: 0; font-size: 1.25rem;">💼 NBFC & Digital Lending Fraud Verification Hub</h3>
+          <p class="text-muted" style="margin: 0.25rem 0 0 0;">Commercial B2B API Suite for synthetic identity detection, document tampering, and usage billing.</p>
+        </div>
+        <div>
+          <span class="badge badge-success" style="font-size: 0.85rem; padding: 0.4rem 0.8rem;">Tier: ${tier.toUpperCase()}</span>
+          <span class="badge" style="background: #3b82f6; color: #fff; font-size: 0.85rem; padding: 0.4rem 0.8rem; margin-left: 0.5rem;">Rate: ₹2.00 / call</span>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.25rem;">
+        <div style="background: var(--bg-surface, #f8fafc); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color, #e2e8f0);">
+          <div class="text-muted" style="font-size: 0.8rem;">ACTIVE API KEY</div>
+          <div style="font-family: monospace; font-weight: 700; margin-top: 0.25rem;">${keyPrefix}••••••••</div>
+        </div>
+        <div style="background: var(--bg-surface, #f8fafc); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color, #e2e8f0);">
+          <div class="text-muted" style="font-size: 0.8rem;">TOTAL API CALLS THIS CYCLE</div>
+          <div style="font-size: 1.35rem; font-weight: 700; color: #10b981; margin-top: 0.25rem;">${calls}</div>
+        </div>
+        <div style="background: var(--bg-surface, #f8fafc); padding: 1rem; border-radius: 8px; border: 1px solid var(--border-color, #e2e8f0);">
+          <div class="text-muted" style="font-size: 0.8rem;">UNBILLED METERED INVOICE</div>
+          <div style="font-size: 1.35rem; font-weight: 700; color: #3b82f6; margin-top: 0.25rem;">₹${cost.toFixed(2)} INR</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Testing Playground -->
+    <div class="card" style="margin-bottom: 1.5rem;">
+      <h3>⚡ Real-Time Lending Verification Playground</h3>
+      <p class="text-muted">Simulate an instant loan applicant document verification call (POST /api/v1/b2b/verify/identity):</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; margin-top: 1rem;">
+        <div>
+          <label style="font-size: 0.85rem; font-weight: 600;">Document Type:</label>
+          <select id="b2b-doc-type" class="form-control" style="width: 100%; margin-top: 0.35rem; padding: 0.5rem;">
+            <option value="aadhaar">Aadhaar (12 Digits)</option>
+            <option value="pan">PAN Card (10 Chars)</option>
+            <option value="driving_license">Driving License (15 Chars)</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size: 0.85rem; font-weight: 600;">Document Number / Sample:</label>
+          <input type="text" id="b2b-doc-val" class="form-control" style="width: 100%; margin-top: 0.35rem; padding: 0.5rem;" value="999924467773" />
+        </div>
+        <div>
+          <label style="font-size: 0.85rem; font-weight: 600;">Applicant Entity Type:</label>
+          <select id="b2b-entity-type" class="form-control" style="width: 100%; margin-top: 0.35rem; padding: 0.5rem;">
+            <option value="individual">Individual Resident (P)</option>
+            <option value="company">Private / Public Ltd (C)</option>
+          </select>
+        </div>
+      </div>
+      <div style="margin-top: 1rem;">
+        <button id="btn-test-b2b" class="btn btn-primary">
+          <span class="icon">🚀</span> Run Verification API (₹2.00)
+        </button>
+      </div>
+      <div id="b2b-result-box" style="margin-top: 1.25rem; display: none;">
+        <h4 style="margin: 0 0 0.5rem 0;">Verification Verdict:</h4>
+        <pre id="b2b-result-json" style="background: #0f172a; color: #38bdf8; padding: 1rem; border-radius: 8px; overflow-x: auto; font-size: 0.85rem;"></pre>
+      </div>
+    </div>
+
+    <!-- Embedded Banking SDK Documentation Box -->
+    <div class="card">
+      <h3>🛡️ Embedded Mobile Banking SDK (@suraksha/shield-sdk)</h3>
+      <p class="text-muted">Direct client-side fraud prevention SDK for HDFC, ICICI, PhonePe, and CRED banking apps.</p>
+      <pre style="background: #1e293b; color: #f8fafc; padding: 1rem; border-radius: 8px; font-size: 0.85rem; overflow-x: auto;">
+import { SurakshaShield } from "@suraksha/shield-sdk";
+
+// 1. Initialize inside Bank App lifecycle
+const shield = SurakshaShield.init({
+  apiKey: "${keyPrefix}••••",
+  tenantId: "tenant_bank_production",
+  bankIdentifier: "HDFC_BANK"
+});
+
+// 2. Client-Side Scam Radar (&lt;1ms latency)
+const threat = shield.evaluateMessage(smsText, senderNumber);
+if (threat.isScam) {
+  // Flag Digital Arrest or Malicious APK on customer's phone
+}
+
+// 3. 10-Minute Biometric Unlock Window Manager
+shield.startBiometricWindow(10, () => {
+  promptCustomerToRelockBiometrics();
+});
+      </pre>
+    </div>
+  `;
+
+  document.getElementById("btn-test-b2b").addEventListener("click", async () => {
+    const docType = document.getElementById("b2b-doc-type").value;
+    const docVal = document.getElementById("b2b-doc-val").value;
+    const entType = document.getElementById("b2b-entity-type").value;
+
+    const btn = document.getElementById("btn-test-b2b");
+    btn.disabled = true;
+    btn.textContent = "Verifying...";
+
+    try {
+      const res = await apiCall("/b2b/verify/identity", "POST", {
+        document_type: docType,
+        document_value: docVal,
+        declared_name: "Test Borrower",
+        borrower_entity_type: entType
+      });
+      const box = document.getElementById("b2b-result-box");
+      const pre = document.getElementById("b2b-result-json");
+      box.style.display = "block";
+      pre.textContent = JSON.stringify(res.data, null, 2);
+    } catch (err) {
+      alert("Verification error: " + err.message);
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = `<span class="icon">🚀</span> Run Verification API (₹2.00)`;
+    }
+  });
+}
+
+// 12. Executive Suite View (Commercial Pivot: Enterprise CISO Portal)
+async function renderExecutiveSuiteView(container) {
+  let dashData = null;
+  try {
+    const res = await apiCall("/executive-protection/dashboard", "GET");
+    dashData = res ? res.data : null;
+  } catch (err) {
+    console.warn("Could not fetch Executive dashboard:", err);
+  }
+
+  const score = dashData ? dashData.corporate_exposure_index : 880;
+  const tier = dashData ? dashData.security_posture_tier : "fortress";
+  const totalExecs = dashData ? dashData.total_executives_protected : 2;
+  const activeThreats = dashData ? dashData.active_critical_threats : 1;
+  const threats = (dashData && dashData.recent_threats) ? dashData.recent_threats : [];
+
+  container.innerHTML = `
+    <div class="card" style="margin-bottom: 1.5rem; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: #fff;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <span style="font-size: 0.8rem; letter-spacing: 0.1em; color: #94a3b8; text-transform: uppercase;">ENTERPRISE CISO COMMAND PORTAL</span>
+          <h2 style="margin: 0.25rem 0 0 0; color: #fff; font-size: 1.5rem;">Corporate Executive & Board Protection Suite</h2>
+          <p style="margin: 0.35rem 0 0 0; color: #cbd5e1; font-size: 0.9rem;">24/7 dark-web surveillance, deepfake defense, and Section 63 BSA legal escalation for C-Suite leaders.</p>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 2.2rem; font-weight: 800; color: #38bdf8;">${score} <span style="font-size: 1rem; color: #94a3b8;">/ 1000</span></div>
+          <div style="font-size: 0.85rem; font-weight: 600; color: #4ade80; text-transform: uppercase;">Posture: ${tier.toUpperCase()}</div>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+        <div style="background: rgba(255,255,255,0.06); padding: 0.85rem; border-radius: 6px;">
+          <div style="font-size: 0.75rem; color: #94a3b8;">PROTECTED DIRECTORS</div>
+          <div style="font-size: 1.3rem; font-weight: 700; margin-top: 0.2rem;">${totalExecs} VIPs</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.06); padding: 0.85rem; border-radius: 6px;">
+          <div style="font-size: 0.75rem; color: #94a3b8;">ACTIVE CRITICAL THREATS</div>
+          <div style="font-size: 1.3rem; font-weight: 700; color: #f87171; margin-top: 0.2rem;">${activeThreats} Critical</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.06); padding: 0.85rem; border-radius: 6px;">
+          <div style="font-size: 0.75rem; color: #94a3b8;">PRICING MODEL</div>
+          <div style="font-size: 1.1rem; font-weight: 700; color: #fbbf24; margin-top: 0.2rem;">₹25,000 / seat / yr</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Threats Feed -->
+    <div class="card" style="margin-bottom: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h3 style="margin: 0;">🚨 Targeted Executive Threats</h3>
+        <button id="btn-sim-threat" class="btn btn-outline" style="font-size: 0.85rem;">
+          <span class="icon">⚠️</span> Simulate Targeted Attack
+        </button>
+      </div>
+      <div id="exec-threats-container">
+        ${threats.length === 0 ? '<p class="text-muted">No active threats detected against registered executives.</p>' : threats.map(t => `
+          <div style="border-left: 4px solid #ef4444; background: var(--bg-surface, #f8fafc); padding: 1rem; border-radius: 6px; margin-bottom: 0.75rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <strong style="color: #ef4444; font-size: 0.85rem; text-transform: uppercase;">${t.threat_type.replace(/_/g, ' ')}</strong>
+                <h4 style="margin: 0.25rem 0;">${t.title}</h4>
+                <div class="text-muted" style="font-size: 0.85rem;">Target: <strong>${t.executive_name}</strong> | Detected: ${new Date(t.detected_at).toLocaleString()}</div>
+              </div>
+              <div>
+                <button class="btn btn-primary btn-dispatch-pack" data-id="${t.id}" style="font-size: 0.8rem;">
+                  📜 Dispatch Section 63 BSA Pack
+                </button>
+              </div>
+            </div>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">${t.description}</p>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  // Simulate Threat button listener
+  document.getElementById("btn-sim-threat").addEventListener("click", async () => {
+    try {
+      const execsRes = await apiCall("/executive-protection/executives", "GET");
+      const execId = execsRes.data[0].id;
+
+      await apiCall("/executive-protection/threats/simulate", "POST", {
+        executive_id: execId,
+        threat_type: "digital_arrest",
+        title: "Targeted Skype Video Arrest Dial Impersonating CBI Joint Director",
+        description: "Scammer syndicate contacted executive claiming corporate money laundering and attempted coercing an immediate Skype interrogation.",
+        severity: "critical"
+      });
+
+      renderExecutiveSuiteView(container);
+    } catch (err) {
+      alert("Simulation error: " + err.message);
+    }
+  });
+
+  // Dispatch pack buttons
+  document.querySelectorAll(".btn-dispatch-pack").forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const incId = btn.dataset.id;
+      btn.disabled = true;
+      btn.textContent = "Dispatching...";
+      try {
+        const res = await apiCall(`/executive-protection/incidents/${incId}/dispatch-pack`, "POST");
+        alert("VIP Legal Evidence Pack Dispatched!\n\n" + res.data.section63_bsa_affidavit);
+        renderExecutiveSuiteView(container);
+      } catch (err) {
+        alert("Dispatch error: " + err.message);
+      }
+    });
+  });
+}
 
 // Mobile menu toggle
 const mobileMenuBtn = document.getElementById("mobile-menu-btn");

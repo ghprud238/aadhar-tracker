@@ -5,7 +5,7 @@ import uuid
 from datetime import datetime, timezone
 from typing import Optional, List
 from sqlalchemy import (
-    String, Boolean, Integer, DateTime, Text, ForeignKey,
+    String, Boolean, Integer, Float, DateTime, Text, ForeignKey,
     UniqueConstraint, Index, JSON
 )
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
@@ -487,3 +487,89 @@ class UserAssistanceReport(Base):
     reported_action_taken: Mapped[Optional[str]] = mapped_column(String(255), nullable=True)
     provenance: Mapped[str] = mapped_column(String(50), default="user_reported")
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
+# -----------------------------------------------------------------------------
+# B2B Digital Lending Fraud API & Usage Metering
+# -----------------------------------------------------------------------------
+
+class B2BApiKey(Base):
+    __tablename__ = "b2b_api_keys"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=generate_uuid)
+    tenant_id: Mapped[str] = mapped_column(String(36), ForeignKey("tenants.id"), index=True)
+    client_name: Mapped[str] = mapped_column(String(255))
+    key_prefix: Mapped[str] = mapped_column(String(16), index=True)
+    api_key_hash: Mapped[str] = mapped_column(String(64), unique=True, index=True)
+    tier: Mapped[str] = mapped_column(String(50), default="fintech_growth")  # standard, fintech_growth, enterprise
+    rate_limit_rpm: Mapped[int] = mapped_column(Integer, default=300)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True)
+    total_calls: Mapped[int] = mapped_column(Integer, default=0)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+
+class B2BUsageLog(Base):
+    __tablename__ = "b2b_usage_logs"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=generate_uuid)
+    tenant_id: Mapped[str] = mapped_column(String(36), ForeignKey("tenants.id"), index=True)
+    api_key_id: Mapped[Optional[str]] = mapped_column(String(36), ForeignKey("b2b_api_keys.id"), nullable=True, index=True)
+    endpoint: Mapped[str] = mapped_column(String(255), index=True)
+    status_code: Mapped[int] = mapped_column(Integer, default=200)
+    cost_inr: Mapped[float] = mapped_column(Float, default=2.0)
+    latency_ms: Mapped[float] = mapped_column(Float, default=0.0)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
+# -----------------------------------------------------------------------------
+# Corporate Executive & Family Office Protection Suite
+# -----------------------------------------------------------------------------
+
+class ExecutiveProfile(Base):
+    __tablename__ = "executive_profiles"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=generate_uuid)
+    tenant_id: Mapped[str] = mapped_column(String(36), ForeignKey("tenants.id"), index=True)
+    full_name: Mapped[str] = mapped_column(String(255))
+    corporate_email: Mapped[str] = mapped_column(String(255), index=True)
+    designation: Mapped[str] = mapped_column(String(100))  # e.g. CEO, CFO, Managing Director
+    vip_tier: Mapped[str] = mapped_column(String(50), default="c_suite")  # c_suite, board_member, promoter, family_member
+    risk_score: Mapped[int] = mapped_column(Integer, default=920)  # 0 to 1000
+    monitoring_status: Mapped[str] = mapped_column(String(50), default="active")  # active, alert, paused
+    assets_count: Mapped[int] = mapped_column(Integer, default=0)
+    active_incidents_count: Mapped[int] = mapped_column(Integer, default=0)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
+
+
+class ExecutiveMonitoredAsset(Base):
+    __tablename__ = "executive_monitored_assets"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=generate_uuid)
+    tenant_id: Mapped[str] = mapped_column(String(36), ForeignKey("tenants.id"), index=True)
+    executive_id: Mapped[str] = mapped_column(String(36), ForeignKey("executive_profiles.id"), index=True)
+    asset_type: Mapped[str] = mapped_column(String(50))  # personal_email, personal_phone, masked_aadhaar, pan, family_member
+    masked_value: Mapped[str] = mapped_column(String(255))
+    blind_index: Mapped[str] = mapped_column(String(64), index=True)
+    encrypted_value: Mapped[str] = mapped_column(Text)
+    label: Mapped[str] = mapped_column(String(255))
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
+class ExecutiveThreatIncident(Base):
+    __tablename__ = "executive_threat_incidents"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=generate_uuid)
+    tenant_id: Mapped[str] = mapped_column(String(36), ForeignKey("tenants.id"), index=True)
+    executive_id: Mapped[str] = mapped_column(String(36), ForeignKey("executive_profiles.id"), index=True)
+    threat_type: Mapped[str] = mapped_column(String(50))  # spear_phishing, digital_arrest, sim_swap_attempt, darkweb_leak, unmasked_document_exposure
+    severity: Mapped[str] = mapped_column(String(50), default="high")  # critical, high, medium
+    title: Mapped[str] = mapped_column(String(255))
+    description: Mapped[str] = mapped_column(Text)
+    indicators: Mapped[dict] = mapped_column(JSON, default=dict)
+    state: Mapped[str] = mapped_column(String(50), default="active")  # active, investigating, dispatched, resolved
+    evidence_pack: Mapped[Optional[dict]] = mapped_column(JSON, nullable=True)
+    detected_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+    resolved_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+

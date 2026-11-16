@@ -12,17 +12,19 @@ from packages.domain.schemas import ScamAnalysisDTO
 
 DIGITAL_ARREST_KEYWORDS = [
     r"digital\s*arrest",
-    r"cbi\s*(officer|investigation|headquarters)",
-    r"narcotics\s*control\s*bureau|ncb",
-    r"enforcement\s*directorate|ed\s*office",
-    r"mumbai\s*cyber\s*police|crime\s*branch",
-    r"skype\s*(call|interrogation|verification)",
+    r"\bcbi\b",
+    r"central\s*bureau\s*of\s*investigation",
+    r"narcotics\s*control\s*bureau|\bncb\b",
+    r"enforcement\s*directorate|\bed\s*office|\bed\s*delhi|\bed\s*mumbai",
+    r"cyber\s*(police|crime|branch|cell)",
+    r"mumbai\s*police|delhi\s*police",
+    r"\bskype\b",
     r"customs\s*(clearance|confiscation|parcel)",
-    r"illegal\s*(substance|contraband|drugs)\s*found",
+    r"illegal\s*(substance|contraband|drugs)",
     r"stay\s*on\s*video\s*call",
-    r"do\s*not\s*disconnect\s*the\s*call",
-    r"money\s*laundering\s*case",
-    r"warrant\s*issued",
+    r"do\s*not\s*disconnect",
+    r"money\s*laundering",
+    r"arrest\s*warrant|warrant\s*issued",
 ]
 
 APK_SIDELOAD_PATTERNS = [

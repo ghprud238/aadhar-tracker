@@ -1,82 +1,114 @@
 {
-  "timestamp": 1794820269.718507,
+  "timestamp": 1794839010.603808,
   "concurrency": 50,
   "total_requests": 500,
-  "duration_seconds": 4.36,
-  "rps": 114.7,
+  "duration_seconds": 3.26,
+  "rps": 153.4,
   "success_rate_pct": 100.0,
   "latency_percentiles_ms": {
-    "min": 29.02,
-    "p50": 214.99,
-    "p90": 818.88,
-    "p95": 1228.58,
-    "p99": 3054.52,
-    "max": 3946.21
+    "min": 2.86,
+    "p50": 303.35,
+    "p90": 586.24,
+    "p95": 784.3,
+    "p99": 2024.75,
+    "max": 2909.33
   },
   "breakdown": {
     "POST /scam-radar": {
-      "total_requests": 125,
-      "success_count": 125,
+      "total_requests": 87,
+      "success_count": 87,
       "error_count": 0,
-      "p50_ms": 170.92,
-      "p95_ms": 454.61,
-      "p99_ms": 457.1
+      "p50_ms": 25.63,
+      "p95_ms": 254.54,
+      "p99_ms": 255.39
     },
     "POST /ephemeral-passes": {
-      "total_requests": 70,
-      "success_count": 70,
+      "total_requests": 40,
+      "success_count": 40,
       "error_count": 0,
-      "p50_ms": 748.45,
-      "p95_ms": 2589.47,
-      "p99_ms": 3830.71
+      "p50_ms": 409.79,
+      "p95_ms": 1660.96,
+      "p99_ms": 2024.75
     },
     "GET /ephemeral-passes/{tok}": {
-      "total_requests": 63,
-      "success_count": 63,
+      "total_requests": 31,
+      "success_count": 31,
       "error_count": 0,
-      "p50_ms": 94.89,
-      "p95_ms": 278.15,
-      "p99_ms": 444.06
+      "p50_ms": 9.68,
+      "p95_ms": 28.96,
+      "p99_ms": 227.61
     },
     "POST /wallet-pass": {
-      "total_requests": 80,
-      "success_count": 80,
+      "total_requests": 48,
+      "success_count": 48,
       "error_count": 0,
-      "p50_ms": 161.34,
-      "p95_ms": 455.5,
-      "p99_ms": 458.43
+      "p50_ms": 24.6,
+      "p95_ms": 250.0,
+      "p99_ms": 255.48
     },
     "POST /panic-pack": {
+      "total_requests": 26,
+      "success_count": 26,
+      "error_count": 0,
+      "p50_ms": 366.72,
+      "p95_ms": 1485.22,
+      "p99_ms": 1971.26
+    },
+    "POST /verify-pass": {
+      "total_requests": 38,
+      "success_count": 38,
+      "error_count": 0,
+      "p50_ms": 23.35,
+      "p95_ms": 248.88,
+      "p99_ms": 252.41
+    },
+    "POST /canary-test": {
       "total_requests": 24,
       "success_count": 24,
       "error_count": 0,
-      "p50_ms": 776.49,
-      "p95_ms": 3804.56,
-      "p99_ms": 3946.21
-    },
-    "POST /verify-pass": {
-      "total_requests": 66,
-      "success_count": 66,
-      "error_count": 0,
-      "p50_ms": 178.32,
-      "p95_ms": 453.83,
-      "p99_ms": 458.29
-    },
-    "POST /canary-test": {
-      "total_requests": 21,
-      "success_count": 21,
-      "error_count": 0,
-      "p50_ms": 777.04,
-      "p95_ms": 1816.27,
-      "p99_ms": 1819.86
+      "p50_ms": 410.76,
+      "p95_ms": 1687.85,
+      "p99_ms": 2640.43
     },
     "GET /companion/glance": {
-      "total_requests": 51,
-      "success_count": 51,
+      "total_requests": 37,
+      "success_count": 37,
       "error_count": 0,
-      "p50_ms": 700.79,
-      "p95_ms": 1057.68,
-      "p99_ms": 1279.88
+      "p50_ms": 349.47,
+      "p95_ms": 413.3,
+      "p99_ms": 413.45
+    },
+    "POST /b2b/verify/identity": {
+      "total_requests": 44,
+      "success_count": 44,
+      "error_count": 0,
+      "p50_ms": 402.25,
+      "p95_ms": 1115.23,
+      "p99_ms": 1512.56
+    },
+    "POST /b2b/verify/document-tamper": {
+      "total_requests": 53,
+      "success_count": 53,
+      "error_count": 0,
+      "p50_ms": 375.49,
+      "p95_ms": 784.3,
+      "p99_ms": 2909.33
+    },
+    "POST /b2b/verify/telecom-sim-velocity": {
+      "total_requests": 40,
+      "success_count": 40,
+      "error_count": 0,
+      "p50_ms": 405.69,
+      "p95_ms": 2179.41,
+      "p99_ms": 2894.3
+    },
+    "GET /executive-protection/dashboard": {
+      "total_requests": 32,
+      "success_count": 32,
+      "error_count": 0,
+      "p50_ms": 341.84,
+      "p95_ms": 653.17,
+      "p99_ms": 665.77
     }
   }
 }

@@ -2,7 +2,7 @@
 
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg)](https://fastapi.tiangolo.com/)
-[![Tests Passing](https://img.shields.io/badge/tests-81%2F81%20passing-brightgreen.svg)](tests/)
+[![Tests Passing](https://img.shields.io/badge/tests-88%2F88%20passing-brightgreen.svg)](tests/)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Security Zero-Plaintext](https://img.shields.io/badge/security-Zero--Plaintext%20Credentials-success.svg)](docs/threat-model.md)
 
@@ -109,10 +109,10 @@ git submodule update --init --recursive
 # Install virtualenv and all dependencies
 uv sync
 
-# Run the complete test suite (81 tests passing 100%)
+# Run the complete test suite (88 tests passing 100%)
 uv run pytest -v
 
-# Run the high-throughput multi-worker stress test suite (114+ RPS @ 50 concurrency)
+# Run the high-throughput multi-worker stress test suite (153+ RPS @ 50 concurrency across 12 endpoints)
 uv run python tests/stress/run_stress_suite.py --concurrency 50 --requests 500
 
 # Run the high-concurrency async load benchmark (400+ RPS)
@@ -1000,10 +1000,76 @@ console.log(`Score: ${scoreData.score}/1000 Tier: ${scoreData.tier} Badges: ${sc
 
 ---
 
+### 💼 Commercial Pivot: Enterprise B2B & Executive Suite
+
+Following the [Shark Tank Commercial Teardown](docs/shark-tank-business-teardown.md), Suraksha pivoted to high-margin B2B FinTech infrastructure, lending fraud verification, and Executive CISO Protection:
+
+```mermaid
+flowchart LR
+    subgraph B2C["1. Zero-CAC Wedge"]
+        CitizenApp["Free Citizen App<br/>(Scam Radar, Passes, Panic Pack)"]
+    end
+
+    subgraph B2B1["2. Embedded Banking SDK"]
+        BankingApp["Banking / FinTech App<br/>(HDFC, Zerodha, PhonePe)"]
+        ShieldSDK["@suraksha/shield-sdk<br/>• Realtime Scam Radar<br/>• Verhoeff Checksum<br/>• Zero-PII Telemetry"]
+        BankingApp --> ShieldSDK
+    end
+
+    subgraph B2B2["3. Digital Lending Fraud API"]
+        NBFC["Digital NBFC / FinTech<br/>(Cred, Navi, Bajaj)"]
+        FraudAPI["Lending Fraud Engine<br/>• Aadhaar & Pattern Check<br/>• Reused Hotel Stamp Check<br/>• TAFCOP Ghost SIM Velocity<br/>• Dark Web Canary ($0.024/call)"]
+        NBFC --> FraudAPI
+    end
+
+    subgraph B2B3["4. Executive Protection"]
+        CISO["Enterprise CISO / Family Office"]
+        VIPPortal["Executive CISO Command Portal<br/>• Blind-Indexed Asset Vault<br/>• Corporate Exposure Index<br/>• 1-Click Sec 63 BSA Dispatch ($15k/yr)"]
+        CISO --> VIPPortal
+    end
+
+    CitizenApp -.->|"Threat Intelligence Stream"| FraudAPI
+    CitizenApp -.->|"SDK Adoption Wedge"| ShieldSDK
+```
+
+#### 1. Embedded Mobile Banking SDK ([`packages/shield_sdk`](file:///Users/dpcubed/projects/aadhar-tracker/packages/shield_sdk/README.md))
+* **Package**: `@suraksha/shield-sdk` (TypeScript + Precompiled CommonJS & ES Module, `.d.ts` type declarations).
+* **Python Backend SDK**: [`packages/domain/shield_sdk.py`](file:///Users/dpcubed/projects/aadhar-tracker/packages/domain/shield_sdk.py) (`SurakshaShieldBackendSDK`).
+* **On-Device Scam Radar**: Zero-latency (<1ms) heuristic detection for digital arrest, fake CBI notices, electricity bill power cuts, APK sideload links, and screen-sharing app detection (AnyDesk, TeamViewer, RustDesk).
+* **Dihedral $D_5$ Verhoeff Algorithm**: Validates 12-digit Aadhaar checksums natively in TypeScript without network trips.
+* **Ephemeral Clipboard & Memory Vault**: Auto-expiring 45-second credential scrub prevents background clipboard harvesting malware.
+* **Zero-PII Telemetry**: Reports aggregated threat signatures without transmitting user Aadhaar numbers or personal identifiers.
+
+#### 2. Digital Lending Fraud Verification Suite ([`packages/domain/b2b_lending_fraud.py`](file:///Users/dpcubed/projects/aadhar-tracker/packages/domain/b2b_lending_fraud.py))
+* **Statutory Compliance**: Enforces UIDAI 2022 Circular on Masked Aadhaar and RBI Digital Payment Security Guidelines (2021).
+* **Multi-Vector Fraud Verification Endpoints**:
+  * `POST /api/v1/b2b/verify/identity`: Verhoeff checksum validation, sequential/repetitive digit rejection, PAN 4th-character entity mapping, and unmasked Aadhaar circular violation detection.
+  * `POST /api/v1/b2b/verify/document-tamper`: Flags forged loan document submissions, including reused "HOTEL CHECK-IN ONLY" watermarked passes.
+  * `POST /api/v1/b2b/verify/telecom-sim-velocity`: Detects freshly activated SIMs (<30 days) and flags TAFCOP ghost SIM clusters.
+  * `POST /api/v1/b2b/verify/breach-canary`: Instant dark-web exposure checks against breach catalogs.
+* **Automated Metering & Invoicing**: Every API call is validated via tenant-specific `X-Suraksha-API-Key`, metered in `B2BUsageLog`, and billed at statutory enterprise rates (₹2.00 / call).
+* **Interactive Usage Dashboard**: Inspect unbilled usage in INR, monthly call counts, and API key performance directly in the Web UI.
+
+#### 3. Corporate Executive & Family Office Protection Suite ([`packages/domain/executive_protection.py`](file:///Users/dpcubed/projects/aadhar-tracker/packages/domain/executive_protection.py))
+* **Target Audience**: C-suite executives, Board of Directors, Family Offices, and High-Net-Worth Individuals (HNIs).
+* **Enterprise CISO Command Portal**:
+  * Corporate Exposure Index (0 to 1,000) computed from VIP asset attack surface.
+  * Dynamic Security Posture Tiers (`Fortress`, `Strong`, `Monitored`, `Vulnerable`).
+  * Blind-Indexed Asset Vault: Monitored phones, PANs, and Aadhaar identifiers are stored solely as cryptographic blind HMAC-SHA256 hashes.
+* **Real-Time Threat Ingestion & Simulation**:
+  * Ingests and scores executive spear-phishing, digital arrest attempts, extortion calls, and SIM-swap indicators.
+* **1-Click Section 63 BSA Legal Affidavit Dispatch**:
+  * Instantly generates court-admissible electronic evidence certificates under Section 63 of Bharatiya Sakshya Adhiniyam (BSA) 2023 with SHA-256 evidence integrity chains.
+  * Pre-formats Sanchar Saathi CEIR IMEI handset blacklisting requests.
+  * Pre-fills National Cyber Crime Reporting Portal (1930 / cybercrime.gov.in) executive escalation dossiers.
+  * Dispatches instant remote biometric lock enforcement instructions.
+
+---
+
 ## 📚 Technical Documentation & Daily Logs
 
 * **Daily Engineering Logs:** [`docs/daily-notes/`](docs/daily-notes/README.md)
-  * **[16 Nov 2026: High-Appeal Citizen Defense, Synthetic Data Suite & Stress Tests](docs/daily-notes/2026-11-16.md)** — Digital Arrest Radar, Apple/Google Wallet Passes, Ephemeral Passes, Panic Pack, Expanded Synthetic Indian Data, Solid Concurrency Invariants, and 81/81 tests passing.
+  * **[16 Nov 2026: Commercial Pivot, Enterprise B2B Engines & High-Assurance Stress Tests](docs/daily-notes/2026-11-16.md)** — Embedded Banking SDK (`@suraksha/shield-sdk`), NBFC Lending Fraud API (₹2/call metered usage), Executive CISO Protection Portal, 88/88 tests passing, and 153.4 RPS stress testing.
   * **[15 Nov 2026: Six Robustness Pillars & Full Citizen Suite](docs/daily-notes/2026-11-15.md)** — Hardware storage, Ed25519 signing, anti-tamper shield, homoglyph sanitization, and K-Anonymity threat sync.
   * **[14 Nov 2026: Usability & Zero-Cloud Edge AI](docs/daily-notes/2026-11-14.md)** — Multi-document registry, 1930 FIR assistant, 16-digit VID rotator, and P2P Family Mesh.
 * **Architecture & Formal Code Review:** [`docs/code-review.md`](docs/code-review.md)
