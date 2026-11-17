@@ -137,5 +137,8 @@ $ADB reverse tcp:8082 tcp:8082 2>/dev/null || true
 
 # 3. Launch Expo development server and open on the phone simulator
 echo "📲 Launching Suraksha Mobile App on Simulator..."
+# Raise macOS file descriptor limit to prevent Node EMFILE watch errors
+ulimit -n 65536 2>/dev/null || ulimit -n 10240 2>/dev/null || true
+
 cd "$PROJECT_ROOT/apps/mobile"
 npx expo start --android --port 8082

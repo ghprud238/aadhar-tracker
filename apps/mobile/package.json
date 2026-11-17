@@ -4,13 +4,13 @@
   "description": "Suraksha Identity Protection Mobile Client (React Native / Expo)",
   "main": "App.tsx",
   "scripts": {
-    "start": "expo start",
+    "start": "ulimit -n 65536 2>/dev/null || true; expo start",
     "simulator": "../../scripts/run_android_simulator.sh",
     "simulator:fold": "../../scripts/run_android_simulator.sh --fold",
     "simulator:phone": "../../scripts/run_android_simulator.sh --phone",
-    "android": "expo run:android",
-    "ios": "expo run:ios",
-    "web": "expo start --web",
+    "android": "ulimit -n 65536 2>/dev/null || true; expo run:android",
+    "ios": "ulimit -n 65536 2>/dev/null || true; expo run:ios",
+    "web": "ulimit -n 65536 2>/dev/null || true; expo start --web",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
