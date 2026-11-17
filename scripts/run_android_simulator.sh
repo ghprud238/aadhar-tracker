@@ -47,7 +47,7 @@ PlayStore.enabled=true
 abi.type=arm64-v8a
 avd.ini.displayname=Pixel 8 Pro
 avd.ini.encoding=UTF-8
-disk.dataPartition.size=6G
+disk.dataPartition.size=2G
 fastboot.forceFastBoot=yes
 hw.accelerometer=yes
 hw.audioInput=yes
@@ -89,6 +89,9 @@ EOF
     fi
 
     echo "🚀 Booting Android Phone Simulator (${AVD_NAME})..."
+    # Clean any stale locks from previous aborted boots
+    rm -f "$HOME/.android/avd/${AVD_NAME}.avd/"*.lock 2>/dev/null || true
+
     "$EMULATOR" -avd "$AVD_NAME" -gpu auto -no-snapshot-load > /dev/null 2>&1 &
     
     echo "⏳ Waiting for Android Phone Simulator to complete boot sequence..."
