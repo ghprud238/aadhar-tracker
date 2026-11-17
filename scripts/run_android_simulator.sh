@@ -14,7 +14,14 @@ ADB="$ANDROID_HOME/platform-tools/adb"
 EMULATOR="$ANDROID_HOME/emulator/emulator"
 AVD_NAME="Pixel_8_Pro"
 
-echo "🛡️ [Suraksha] Initializing Android Phone Simulator..."
+# Allow selecting foldable device vs standard phone
+if [ "$1" == "--fold" ] || [ "$1" == "fold" ] || [ "$1" == "--pixel-fold" ]; then
+    AVD_NAME="Pixel_Fold"
+elif [ "$1" == "--phone" ] || [ "$1" == "phone" ] || [ "$1" == "--pixel8" ]; then
+    AVD_NAME="Pixel_8_Pro"
+fi
+
+echo "🛡️ [Suraksha] Initializing Android Simulator ($AVD_NAME)..."
 
 # 1. Check if an Android device or emulator is already running
 RUNNING_DEVICE=$($ADB devices | grep -E "device$" | grep -v "emulator-.*" | head -n 1 | awk '{print $1}' || true)
@@ -23,9 +30,19 @@ RUNNING_EMU=$($ADB devices | grep -E "emulator-.*device$" | head -n 1 | awk '{pr
 if [ -n "$RUNNING_DEVICE" ]; then
     echo "📱 Detected connected physical Android device: $RUNNING_DEVICE"
 elif [ -n "$RUNNING_EMU" ]; then
-    echo "⚡ Detected already running Android emulator: $RUNNING_EMU"
-else
-    echo "🔍 Checking for existing phone AVDs..."
+    RUNNING_AVD=$($ADB -s "$RUNNING_EMU" emu avd name 2>/dev/null | head -n 1 | tr -d '\r' || echo "$AVD_NAME")
+    if [ -n "$1" ] && [ "$RUNNING_AVD" != "$AVD_NAME" ]; then
+        echo "🔄 Requested $AVD_NAME but $RUNNING_AVD is running. Switching emulator..."
+        $ADB -s "$RUNNING_EMU" emu kill 2>/dev/null || true
+        sleep 2
+        RUNNING_EMU=""
+    else
+        echo "⚡ Detected already running Android emulator: $RUNNING_EMU ($RUNNING_AVD)"
+    fi
+fi
+
+if [ -z "$RUNNING_DEVICE" ] && [ -z "$RUNNING_EMU" ]; then
+    echo "🔍 Checking for existing AVDs..."
     AVAILABLE_AVDS=$($EMULATOR -list-avds 2>/dev/null || true)
 
     if echo "$AVAILABLE_AVDS" | grep -v -i "wear" | grep -q "$AVD_NAME"; then
@@ -92,7 +109,7 @@ EOF
     # Clean any stale locks from previous aborted boots
     rm -f "$HOME/.android/avd/${AVD_NAME}.avd/"*.lock 2>/dev/null || true
 
-    "$EMULATOR" -avd "$AVD_NAME" -gpu auto -no-snapshot-load > /dev/null 2>&1 &
+    "$EMULATOR" -avd "$AVD_NAME" -gpu auto > /dev/null 2>&1 &
     
     echo "⏳ Waiting for Android Phone Simulator to complete boot sequence..."
     "$ADB" wait-for-device
