@@ -23,32 +23,47 @@ fi
 
 echo "🛡️ [Suraksha] Initializing Android Simulator ($AVD_NAME)..."
 
-# 1. Check if an Android device or emulator is already running
-RUNNING_DEVICE=$($ADB devices | grep -E "device$" | grep -v "emulator-.*" | head -n 1 | awk '{print $1}' || true)
-RUNNING_EMU=$($ADB devices | grep -E "emulator-.*device$" | head -n 1 | awk '{print $1}' || true)
+# 1. Discover running devices or emulators
+RUNNING_DEVICE=$($ADB devices 2>/dev/null | grep -E "device$" | grep -v "emulator-.*" | head -n 1 | awk '{print $1}' || true)
+RUNNING_EMU=$($ADB devices 2>/dev/null | grep -E "emulator-.*device$" | head -n 1 | awk '{print $1}' || true)
+
+TARGET_DEVICE=""
 
 if [ -n "$RUNNING_DEVICE" ]; then
-    echo "📱 Detected connected physical Android device: $RUNNING_DEVICE"
+    TARGET_DEVICE="$RUNNING_DEVICE"
+    echo "📱 Detected connected physical Android device: $TARGET_DEVICE"
 elif [ -n "$RUNNING_EMU" ]; then
-    RUNNING_AVD=$($ADB -s "$RUNNING_EMU" emu avd name 2>/dev/null | head -n 1 | tr -d '\r' || echo "$AVD_NAME")
-    if [ -n "$1" ] && [ "$RUNNING_AVD" != "$AVD_NAME" ]; then
-        echo "🔄 Requested $AVD_NAME but $RUNNING_AVD is running. Switching emulator..."
+    RUNNING_AVD=$($ADB -s "$RUNNING_EMU" emu avd name 2>/dev/null | head -n 1 | tr -d '\r' || true)
+    
+    # If the user explicitly requested a different device type than what is running, kill and switch
+    if [ -n "$1" ] && [ -n "$RUNNING_AVD" ] && [ "$RUNNING_AVD" != "$AVD_NAME" ]; then
+        echo "🔄 Requested $AVD_NAME but $RUNNING_AVD ($RUNNING_EMU) is running. Switching emulator..."
         $ADB -s "$RUNNING_EMU" emu kill 2>/dev/null || true
         sleep 2
         RUNNING_EMU=""
     else
-        echo "⚡ Detected already running Android emulator: $RUNNING_EMU ($RUNNING_AVD)"
+        TARGET_DEVICE="$RUNNING_EMU"
+        echo "⚡ Detected already running Android emulator: $TARGET_DEVICE (${RUNNING_AVD:-$AVD_NAME})"
     fi
 fi
 
-if [ -z "$RUNNING_DEVICE" ] && [ -z "$RUNNING_EMU" ]; then
-    echo "🔍 Checking for existing AVDs..."
+# 2. If no device or matching emulator is online, boot one
+if [ -z "$TARGET_DEVICE" ]; then
+    # Clean up any dangling/offline emulators to prevent 'more than one device' collisions
+    ALL_EMUS=$($ADB devices 2>/dev/null | grep -E "^emulator-[0-9]+" | awk '{print $1}' || true)
+    for emu in $ALL_EMUS; do
+        echo "🧹 Cleaning up dangling emulator: $emu"
+        $ADB -s "$emu" emu kill 2>/dev/null || true
+    done
+    sleep 1
+
+    echo "🔍 Checking for existing AVD: $AVD_NAME..."
     AVAILABLE_AVDS=$($EMULATOR -list-avds 2>/dev/null || true)
 
-    if echo "$AVAILABLE_AVDS" | grep -v -i "wear" | grep -q "$AVD_NAME"; then
-        echo "✅ Found existing phone AVD: $AVD_NAME"
+    if echo "$AVAILABLE_AVDS" | grep -q "$AVD_NAME"; then
+        echo "✅ Found existing AVD: $AVD_NAME"
     else
-        echo "⚙️ No phone AVD found. Auto-provisioning Google Pixel 8 Pro AVD..."
+        echo "⚙️ No $AVD_NAME AVD found. Auto-provisioning Google $AVD_NAME AVD..."
         mkdir -p "$HOME/.android/avd/${AVD_NAME}.avd"
 
         cat << EOF > "$HOME/.android/avd/${AVD_NAME}.ini"
@@ -102,22 +117,21 @@ tag.display=Google Play
 tag.displaynames=Google Play
 tag.id=google_apis_playstore
 EOF
-        echo "✅ Successfully provisioned ${AVD_NAME} phone AVD!"
+        echo "✅ Successfully provisioned ${AVD_NAME} AVD!"
     fi
 
-    echo "🚀 Booting Android Phone Simulator (${AVD_NAME})..."
-    # Clean any stale locks from previous aborted boots
+    echo "🚀 Booting Android Simulator (${AVD_NAME})..."
     rm -f "$HOME/.android/avd/${AVD_NAME}.avd/"*.lock 2>/dev/null || true
 
-    "$EMULATOR" -avd "$AVD_NAME" -gpu auto > /dev/null 2>&1 &
+    TARGET_DEVICE="emulator-5554"
+    "$EMULATOR" -avd "$AVD_NAME" -port 5554 -gpu auto > /dev/null 2>&1 &
     
-    echo "⏳ Waiting for Android Phone Simulator to complete boot sequence..."
-    "$ADB" wait-for-device
+    echo "⏳ Waiting for Android Simulator ($TARGET_DEVICE) to complete boot sequence..."
+    "$ADB" -s "$TARGET_DEVICE" wait-for-device
     
-    # Wait until boot completed property is 1
     BOOT_TIMEOUT=120
     ELAPSED=0
-    while [ "$($ADB shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" != "1" ]; do
+    while [ "$($ADB -s "$TARGET_DEVICE" shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" != "1" ]; do
         sleep 2
         ELAPSED=$((ELAPSED + 2))
         if [ $ELAPSED -ge $BOOT_TIMEOUT ]; then
@@ -127,17 +141,19 @@ EOF
         echo -n "."
     done
     echo ""
-    echo "🎉 Android Phone Simulator is fully booted and online!"
+    echo "🎉 Android Simulator ($TARGET_DEVICE) is fully booted and online!"
 fi
 
-# 2. Reverse ports so the emulator can talk directly to localhost:8000 and localhost:8082
-echo "🔗 Setting up reverse port proxies (8000, 8082)..."
-$ADB reverse tcp:8000 tcp:8000 2>/dev/null || true
-$ADB reverse tcp:8082 tcp:8082 2>/dev/null || true
+# Export target device so Expo and ADB automatically bind to this device
+export ANDROID_SERIAL="$TARGET_DEVICE"
 
-# 3. Launch Expo development server and open on the phone simulator
-echo "📲 Launching Suraksha Mobile App on Simulator..."
-# Raise macOS file descriptor limit to prevent Node EMFILE watch errors
+# 3. Reverse ports so the emulator can talk directly to localhost:8000 and localhost:8082
+echo "🔗 Setting up reverse port proxies on $TARGET_DEVICE (8000, 8082)..."
+$ADB -s "$TARGET_DEVICE" reverse tcp:8000 tcp:8000 2>/dev/null || true
+$ADB -s "$TARGET_DEVICE" reverse tcp:8082 tcp:8082 2>/dev/null || true
+
+# 4. Launch Expo development server and open on the simulator
+echo "📲 Launching Suraksha Mobile App on $TARGET_DEVICE..."
 ulimit -n 65536 2>/dev/null || ulimit -n 10240 2>/dev/null || true
 
 cd "$PROJECT_ROOT/apps/mobile"
