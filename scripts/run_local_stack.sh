@@ -159,6 +159,7 @@ show_menu() {
     echo -e "  ${BOLD}[6]${RESET} 📦 ${MAGENTA}Seed Database with Synthetic Indian Identity Dataset${RESET}"
     echo -e "  ${BOLD}[7]${RESET} 🔍 ${CYAN}Check Active Stack Status & Port Health${RESET}"
     echo -e "  ${BOLD}[8]${RESET} 🛑 ${RED}Stop All Local Background Services${RESET}"
+    echo -e "  ${BOLD}[9]${RESET} 📲 ${GREEN}Launch Android Phone Simulator${RESET} (Auto-provision Pixel 8 Pro & Push App)"
     echo -e "  ${BOLD}[0]${RESET} 🚪 Exit"
     echo ""
 }
@@ -178,6 +179,9 @@ elif [ "$1" == "--test" ]; then
     start_backend
     run_auto_test
     exit 0
+elif [ "$1" == "--simulator" ]; then
+    ./scripts/run_android_simulator.sh
+    exit 0
 elif [ "$1" == "--stop" ]; then
     stop_services
     exit 0
@@ -185,7 +189,7 @@ fi
 
 while true; do
     show_menu
-    read -p "Select option [0-8]: " choice
+    read -p "Select option [0-9]: " choice
     case $choice in
         1)
             start_backend
@@ -215,12 +219,15 @@ while true; do
         8)
             stop_services
             ;;
+        9)
+            ./scripts/run_android_simulator.sh
+            ;;
         0)
             echo -e "${GREEN}Goodbye!${RESET}"
             exit 0
             ;;
         *)
-            echo -e "${RED}Invalid selection. Please enter a number between 0 and 8.${RESET}"
+            echo -e "${RED}Invalid selection. Please enter a number between 0 and 9.${RESET}"
             ;;
     esac
     echo ""
