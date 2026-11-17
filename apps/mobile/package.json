@@ -2,7 +2,7 @@
   "name": "@suraksha/mobile",
   "version": "1.0.0",
   "description": "Suraksha Identity Protection Mobile Client (React Native / Expo)",
-  "main": "App.tsx",
+  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "ulimit -n 65536 2>/dev/null || true; expo start",
     "simulator": "../../scripts/run_android_simulator.sh",
