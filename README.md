@@ -2,7 +2,7 @@
 
 [![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg)](https://fastapi.tiangolo.com/)
-[![Tests Passing](https://img.shields.io/badge/tests-88%2F88%20passing-brightgreen.svg)](tests/)
+[![Tests Passing](https://img.shields.io/badge/tests-90%2F90%20passing-brightgreen.svg)](tests/)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Security Zero-Plaintext](https://img.shields.io/badge/security-Zero--Plaintext%20Credentials-success.svg)](docs/threat-model.md)
 
@@ -109,7 +109,7 @@ git submodule update --init --recursive
 # Install virtualenv and all dependencies
 uv sync
 
-# Run the complete test suite (88 tests passing 100%)
+# Run the complete test suite (90 tests passing 100%)
 uv run pytest -v
 
 # Run the high-throughput multi-worker stress test suite (153+ RPS @ 50 concurrency across 12 endpoints)

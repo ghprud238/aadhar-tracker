@@ -312,3 +312,69 @@ async def test_executive_protection_workflow_and_vip_dispatch():
         assert data_pack["biometric_lock_pushed"] is True
         assert data_pack["ceir_handset_block_dossier"]["portal"] == "https://ceir.sancharsaathi.gov.in"
         assert "1930" in data_pack["priority_1930_cybercrime_escalation"]["helpline"]
+
+
+# -----------------------------------------------------------------------------
+# 4. Tests for Market Research & Consumer Validation Engine
+# -----------------------------------------------------------------------------
+
+def test_market_research_store_recording_and_metrics():
+    from packages.domain.market_research import market_research_store
+    from packages.domain.schemas import MarketValidationSurveyRequest
+
+    initial_summary = market_research_store.get_summary()
+    assert initial_summary.total_responses >= 25
+    assert initial_summary.unlocked_biometrics_pct > 0.0
+    assert initial_summary.market_readiness_score > 50
+    assert len(initial_summary.investor_validation_summary) > 20
+
+    # Submit a new audit response
+    req = MarketValidationSurveyRequest(
+        biometrics_locked_status="unlocked",
+        shared_unmasked_photocopies=True,
+        received_scam_contacts=["digital_arrest", "sideload_apk"],
+        tafcop_sim_awareness="found_unknown",
+        most_valued_feature="biometric_auto_relock",
+        willingness_to_pay_model="free_via_bank",
+        user_city="Bengaluru"
+    )
+    recorded = market_research_store.record_survey_response(req)
+    assert recorded["biometrics_locked_status"] == "unlocked"
+    assert recorded["user_city"] == "Bengaluru"
+
+    updated_summary = market_research_store.get_summary()
+    assert updated_summary.total_responses == initial_summary.total_responses + 1
+
+
+@pytest.mark.asyncio
+async def test_api_market_research_endpoints():
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test"
+    ) as client:
+        # 1. Submit an audit
+        submit_res = await client.post(
+            "/api/v1/identity-assistance/market-research/submit",
+            json={
+                "biometrics_locked_status": "unlocked",
+                "shared_unmasked_photocopies": True,
+                "received_scam_contacts": ["electricity_sms", "courier_customs"],
+                "tafcop_sim_awareness": "never_checked",
+                "most_valued_feature": "scam_radar",
+                "willingness_to_pay_model": "free_via_bank",
+                "user_city": "Mumbai"
+            }
+        )
+        assert submit_res.status_code == 200
+        submit_data = submit_res.json()["data"]
+        assert submit_data["status"] == "recorded"
+
+        # 2. Get aggregated summary
+        summary_res = await client.get("/api/v1/identity-assistance/market-research/summary")
+        assert summary_res.status_code == 200
+        summary_data = summary_res.json()["data"]
+        assert summary_data["total_responses"] >= 25
+        assert "unlocked_biometrics_pct" in summary_data
+        assert "top_scam_categories" in summary_data
+        assert "investor_validation_summary" in summary_data
+

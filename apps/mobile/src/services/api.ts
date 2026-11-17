@@ -579,4 +579,34 @@ export const api = {
     const { EphemeralShareService } = require('./ephemeralShare');
     return EphemeralShareService.createEphemeralLink(params);
   },
+
+  // Market Research & Problem Validation
+  async submitMarketResearchSurvey(payload: {
+    biometrics_locked_status: 'locked' | 'unlocked' | 'unaware';
+    shared_unmasked_photocopies: boolean;
+    received_scam_contacts: string[];
+    tafcop_sim_awareness: 'checked_ok' | 'never_checked' | 'found_unknown';
+    most_valued_feature: string;
+    willingness_to_pay_model: 'free_via_bank' | 'paid_monthly_49' | 'paid_annual_199' | 'free_only';
+    user_city?: string;
+  }) {
+    return request<any>('/identity-assistance/market-research/submit', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+  },
+
+  async getMarketResearchSummary() {
+    return request<{
+      total_responses: number;
+      unlocked_biometrics_pct: number;
+      unmasked_photocopy_sharing_pct: number;
+      top_scam_categories: Record<string, number>;
+      tafcop_unaware_pct: number;
+      feature_demand_distribution: Record<string, number>;
+      willingness_to_pay_distribution: Record<string, number>;
+      market_readiness_score: number;
+      investor_validation_summary: string;
+    }>('/identity-assistance/market-research/summary');
+  },
 };

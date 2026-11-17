@@ -18,8 +18,9 @@ import { AadhaarPanScreen } from './src/screens/AadhaarPanScreen';
 import { SecurityScreen } from './src/screens/SecurityScreen';
 import { AlertsScreen } from './src/screens/AlertsScreen';
 import { LoginScreen } from './src/screens/LoginScreen';
+import { MarketResearchScreen } from './src/screens/MarketResearchScreen';
 
-type ScreenKey = 'dashboard' | 'identities' | 'incidents' | 'alerts' | 'aadhaar' | 'security';
+type ScreenKey = 'dashboard' | 'identities' | 'incidents' | 'alerts' | 'aadhaar' | 'security' | 'research';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState<ScreenKey>('dashboard');
@@ -148,6 +149,9 @@ export default function App() {
         {currentScreen === 'identities' && <IdentitiesScreen />}
         {currentScreen === 'incidents' && <IncidentsScreen />}
         {currentScreen === 'aadhaar' && <AadhaarPanScreen />}
+        {currentScreen === 'research' && (
+          <MarketResearchScreen onNavigateToShield={() => setCurrentScreen('aadhaar')} />
+        )}
         {currentScreen === 'security' && (
           <SecurityScreen
             session={session}
@@ -163,8 +167,8 @@ export default function App() {
           { key: 'dashboard', label: 'Shield', icon: '📊' },
           { key: 'alerts', label: 'Alerts', icon: '🔔', badge: unreadAlertsCount },
           { key: 'incidents', label: 'Incidents', icon: '⚠️' },
-          { key: 'identities', label: 'Identities', icon: '🔑' },
           { key: 'aadhaar', label: 'Aadhaar', icon: '🇮🇳' },
+          { key: 'research', label: 'Research', icon: '🔬' },
           { key: 'security', label: 'Security', icon: '🛡️' },
         ].map((tab) => {
           const isActive = currentScreen === tab.key;

@@ -45,12 +45,15 @@ from packages.domain.schemas import (
     PanicPackExecutionDTO,
     PassVerificationRequest,
     PassVerificationDTO,
+    MarketValidationSurveyRequest,
+    MarketValidationSummaryDTO,
 )
 from packages.domain.scam_radar import ScamRadarEngine
 from packages.domain.ephemeral_passes import EphemeralPassStore
 from packages.domain.wallet_passes import WalletPassGenerator
 from packages.domain.panic_pack import PanicPackService
 from packages.domain.pass_verifier import PassVerifierService
+from packages.domain.market_research import market_research_store
 
 router = APIRouter(prefix="/identity-assistance", tags=["identity-assistance"])
 
@@ -710,3 +713,35 @@ async def verify_pass_offline(
     req_id = get_request_id(request)
     result = PassVerifierService.verify_pass(payload)
     return ApiResponse(data=result, meta=ResponseMeta(request_id=req_id))
+
+
+@router.post("/market-research/submit", response_model=ApiResponse[Dict[str, Any]])
+async def submit_market_validation_audit(
+    payload: MarketValidationSurveyRequest,
+    request: Request
+):
+    """
+    Submits an anonymized consumer cyber hygiene audit and product validation response.
+    Validates Indian threat prevalence and feature-demand distributions.
+    """
+    req_id = get_request_id(request)
+    recorded = market_research_store.record_survey_response(payload)
+    return ApiResponse(
+        data={"status": "recorded", "message": "Market validation audit submitted successfully.", "response": recorded},
+        meta=ResponseMeta(request_id=req_id),
+    )
+
+
+@router.get("/market-research/summary", response_model=ApiResponse[MarketValidationSummaryDTO])
+async def get_market_validation_summary(
+    request: Request
+):
+    """
+    Retrieves the aggregated empirical market research and problem-validation metrics.
+    Provides live statistics (% biometrics unlocked, % scam exposure, feature demand, pricing preference)
+    for founders, investors, and enterprise B2B partner pitches.
+    """
+    req_id = get_request_id(request)
+    summary = market_research_store.get_summary()
+    return ApiResponse(data=summary, meta=ResponseMeta(request_id=req_id))
+

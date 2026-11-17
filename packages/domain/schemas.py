@@ -455,3 +455,30 @@ class ExecutiveDispatchPackDTO(BaseModel):
     corporate_legal_counsel_brief: str
     dispatched_at: datetime
 
+
+# -----------------------------------------------------------------------------
+# Market Research & Consumer Validation Schemas
+# -----------------------------------------------------------------------------
+
+class MarketValidationSurveyRequest(BaseModel):
+    biometrics_locked_status: str = Field(..., description="'locked', 'unlocked', 'unaware'")
+    shared_unmasked_photocopies: bool = Field(..., description="Whether user shared unmasked Aadhaar at hotels/rentals")
+    received_scam_contacts: List[str] = Field(default_factory=list, description="List of scam categories encountered")
+    tafcop_sim_awareness: str = Field(..., description="'checked_ok', 'never_checked', 'found_unknown'")
+    most_valued_feature: str = Field(..., description="Top feature user desires")
+    willingness_to_pay_model: str = Field(..., description="'free_via_bank', 'paid_monthly_49', 'paid_annual_199', 'free_only'")
+    user_city: Optional[str] = Field(default="Metro", description="City tier or name")
+
+
+class MarketValidationSummaryDTO(BaseModel):
+    total_responses: int
+    unlocked_biometrics_pct: float
+    unmasked_photocopy_sharing_pct: float
+    top_scam_categories: Dict[str, int]
+    tafcop_unaware_pct: float
+    feature_demand_distribution: Dict[str, int]
+    willingness_to_pay_distribution: Dict[str, int]
+    market_readiness_score: int  # 0 to 100
+    investor_validation_summary: str
+
+

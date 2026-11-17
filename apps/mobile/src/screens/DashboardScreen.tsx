@@ -398,6 +398,28 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({ session, onNav
         </ScrollView>
       </View>
 
+      {/* Feature A.1: Citizen Voice & Market Research Card */}
+      <TouchableOpacity
+        style={styles.researchBannerCard}
+        onPress={() => onNavigate('research')}
+        activeOpacity={0.85}
+      >
+        <View style={styles.researchBannerRow}>
+          <Text style={styles.researchBannerIcon}>🔬</Text>
+          <View style={{ flex: 1 }}>
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
+              <Text style={styles.researchBannerTag}>MARKET VALIDATION & RESEARCH</Text>
+              <View style={styles.livePulseDot} />
+            </View>
+            <Text style={styles.researchBannerTitle}>Citizen Cyber Hygiene Audit</Text>
+            <Text style={styles.researchBannerSub}>
+              Take 60s audit • View live national threat metrics & investor data →
+            </Text>
+          </View>
+          <Text style={styles.researchBannerArrow}>→</Text>
+        </View>
+      </TouchableOpacity>
+
       {/* Feature B: 10-Minute Biometric Temporary Relock Countdown Widget */}
       <View style={[styles.actionCard, { borderColor: unlockTimerActive ? '#f59e0b' : '#10b981' }]}>
         <View style={styles.actionHeader}>
@@ -1396,5 +1418,50 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontWeight: '800',
     fontSize: 12,
+  },
+  researchBannerCard: {
+    backgroundColor: '#0c1a30',
+    borderRadius: 14,
+    padding: 14,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#1d4ed8',
+  },
+  researchBannerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  researchBannerIcon: {
+    fontSize: 28,
+    marginRight: 12,
+  },
+  researchBannerTag: {
+    fontSize: 9,
+    fontWeight: '800',
+    color: '#60a5fa',
+    letterSpacing: 1,
+  },
+  livePulseDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: '#10b981',
+  },
+  researchBannerTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#f8fafc',
+    marginTop: 2,
+  },
+  researchBannerSub: {
+    fontSize: 11,
+    color: '#94a3b8',
+    marginTop: 2,
+  },
+  researchBannerArrow: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#3b82f6',
+    marginLeft: 8,
   },
 });
