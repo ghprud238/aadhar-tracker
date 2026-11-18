@@ -1,0 +1,12 @@
+{
+  "": {
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaAppPackageTests.build/primary.swiftdeps"
+  },
+  "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaAppPackageTests.derived/runner.swift": {
+    "dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaAppPackageTests.build/runner.d",
+    "object": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaAppPackageTests.build/runner.swift.o",
+    "swiftmodule": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaAppPackageTests.build/runner~partial.swiftmodule",
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaAppPackageTests.build/runner.swiftdeps",
+    "diagnostics": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaAppPackageTests.build/runner.dia"
+  }
+}

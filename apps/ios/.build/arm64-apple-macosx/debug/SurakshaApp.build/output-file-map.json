@@ -1,0 +1,110 @@
+{
+  "": {
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/primary.swiftdeps"
+  },
+  "/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/App/SurakshaApp.swift": {
+    "dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/SurakshaApp.d",
+    "object": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/SurakshaApp.swift.o",
+    "swiftmodule": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/SurakshaApp~partial.swiftmodule",
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/SurakshaApp.swiftdeps",
+    "diagnostics": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/SurakshaApp.dia"
+  },
+  "/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Models/MobileModels.swift": {
+    "dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MobileModels.d",
+    "object": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MobileModels.swift.o",
+    "swiftmodule": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MobileModels~partial.swiftmodule",
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MobileModels.swiftdeps",
+    "diagnostics": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MobileModels.dia"
+  },
+  "/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Services/SurakshaAPIClient.swift": {
+    "dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/SurakshaAPIClient.d",
+    "object": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/SurakshaAPIClient.swift.o",
+    "swiftmodule": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/SurakshaAPIClient~partial.swiftmodule",
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/SurakshaAPIClient.swiftdeps",
+    "diagnostics": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/SurakshaAPIClient.dia"
+  },
+  "/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Components/HealthDialGauge.swift": {
+    "dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/HealthDialGauge.d",
+    "object": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/HealthDialGauge.swift.o",
+    "swiftmodule": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/HealthDialGauge~partial.swiftmodule",
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/HealthDialGauge.swiftdeps",
+    "diagnostics": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/HealthDialGauge.dia"
+  },
+  "/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Components/MaskedPassCard.swift": {
+    "dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MaskedPassCard.d",
+    "object": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MaskedPassCard.swift.o",
+    "swiftmodule": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MaskedPassCard~partial.swiftmodule",
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MaskedPassCard.swiftdeps",
+    "diagnostics": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MaskedPassCard.dia"
+  },
+  "/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Components/QuickActionTile.swift": {
+    "dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/QuickActionTile.d",
+    "object": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/QuickActionTile.swift.o",
+    "swiftmodule": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/QuickActionTile~partial.swiftmodule",
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/QuickActionTile.swiftdeps",
+    "diagnostics": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/QuickActionTile.dia"
+  },
+  "/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Components/SecurityMetricTile.swift": {
+    "dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/SecurityMetricTile.d",
+    "object": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/SecurityMetricTile.swift.o",
+    "swiftmodule": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/SecurityMetricTile~partial.swiftmodule",
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/SecurityMetricTile.swiftdeps",
+    "diagnostics": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/SecurityMetricTile.dia"
+  },
+  "/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Navigation/MainTabView.swift": {
+    "dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MainTabView.d",
+    "object": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MainTabView.swift.o",
+    "swiftmodule": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MainTabView~partial.swiftmodule",
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MainTabView.swiftdeps",
+    "diagnostics": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MainTabView.dia"
+  },
+  "/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Screens/ActivityView.swift": {
+    "dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/ActivityView.d",
+    "object": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/ActivityView.swift.o",
+    "swiftmodule": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/ActivityView~partial.swiftmodule",
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/ActivityView.swiftdeps",
+    "diagnostics": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/ActivityView.dia"
+  },
+  "/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Screens/MoreView.swift": {
+    "dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MoreView.d",
+    "object": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MoreView.swift.o",
+    "swiftmodule": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MoreView~partial.swiftmodule",
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MoreView.swiftdeps",
+    "diagnostics": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/MoreView.dia"
+  },
+  "/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Screens/ShieldView.swift": {
+    "dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/ShieldView.d",
+    "object": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/ShieldView.swift.o",
+    "swiftmodule": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/ShieldView~partial.swiftmodule",
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/ShieldView.swiftdeps",
+    "diagnostics": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/ShieldView.dia"
+  },
+  "/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Screens/VaultView.swift": {
+    "dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/VaultView.d",
+    "object": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/VaultView.swift.o",
+    "swiftmodule": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/VaultView~partial.swiftmodule",
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/VaultView.swiftdeps",
+    "diagnostics": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/VaultView.dia"
+  },
+  "/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Sheets/LanguagePickerSheet.swift": {
+    "dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/LanguagePickerSheet.d",
+    "object": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/LanguagePickerSheet.swift.o",
+    "swiftmodule": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/LanguagePickerSheet~partial.swiftmodule",
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/LanguagePickerSheet.swiftdeps",
+    "diagnostics": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/LanguagePickerSheet.dia"
+  },
+  "/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Sheets/QrVerifierSheet.swift": {
+    "dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/QrVerifierSheet.d",
+    "object": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/QrVerifierSheet.swift.o",
+    "swiftmodule": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/QrVerifierSheet~partial.swiftmodule",
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/QrVerifierSheet.swiftdeps",
+    "diagnostics": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/QrVerifierSheet.dia"
+  },
+  "/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Sheets/ScamRadarSheet.swift": {
+    "dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/ScamRadarSheet.d",
+    "object": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/ScamRadarSheet.swift.o",
+    "swiftmodule": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/ScamRadarSheet~partial.swiftmodule",
+    "swift-dependencies": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/ScamRadarSheet.swiftdeps",
+    "diagnostics": "/Users/dpcubed/projects/aadhar-tracker/apps/ios/.build/arm64-apple-macosx/debug/SurakshaApp.build/ScamRadarSheet.dia"
+  }
+}

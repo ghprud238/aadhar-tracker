@@ -1,0 +1,15 @@
+/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/App/SurakshaApp.swift
+/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Models/MobileModels.swift
+/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Services/SurakshaAPIClient.swift
+/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Components/HealthDialGauge.swift
+/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Components/MaskedPassCard.swift
+/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Components/QuickActionTile.swift
+/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Components/SecurityMetricTile.swift
+/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Navigation/MainTabView.swift
+/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Screens/ActivityView.swift
+/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Screens/MoreView.swift
+/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Screens/ShieldView.swift
+/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Screens/VaultView.swift
+/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Sheets/LanguagePickerSheet.swift
+/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Sheets/QrVerifierSheet.swift
+/Users/dpcubed/projects/aadhar-tracker/apps/ios/Sources/SurakshaApp/Views/Sheets/ScamRadarSheet.swift

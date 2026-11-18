@@ -1,0 +1,7 @@
+<resources>
+    <style name="Theme.Suraksha" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">#090D16</item>
+        <item name="android:navigationBarColor">#111827</item>
+        <item name="android:windowBackground">#090D16</item>
+    </style>
+</resources>
