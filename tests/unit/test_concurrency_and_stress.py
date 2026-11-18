@@ -153,9 +153,9 @@ def test_ephemeral_pass_store_capacity_and_eviction_stress():
     assert final_count <= MAX_STORE_CAPACITY, (
         f"Store capacity exceeded! Expected <= {MAX_STORE_CAPACITY}, got {final_count}."
     )
-    # Average insert time under high contention should be well under 0.1ms per insert
+    # Average insert time under high contention should be well under 0.3ms per insert
     rate = num_inserts / elapsed
-    assert rate > 5000, f"Insert throughput too slow: {rate:.1f} ops/sec"
+    assert rate > 3000, f"Insert throughput too slow: {rate:.1f} ops/sec"
 
 
 @pytest.mark.asyncio

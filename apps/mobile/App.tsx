@@ -8,26 +8,42 @@ import {
   StatusBar,
   TouchableOpacity,
   ActivityIndicator,
+  Modal,
 } from 'react-native';
 import { api } from './src/services/api';
 import { localEngine } from './src/services/localEngine';
 import { UserSession } from './src/types';
 import { DashboardScreen } from './src/screens/DashboardScreen';
-import { IdentitiesScreen } from './src/screens/IdentitiesScreen';
-import { IncidentsScreen } from './src/screens/IncidentsScreen';
+import { ActivityScreen } from './src/screens/ActivityScreen';
 import { AadhaarPanScreen } from './src/screens/AadhaarPanScreen';
-import { SecurityScreen } from './src/screens/SecurityScreen';
-import { AlertsScreen } from './src/screens/AlertsScreen';
+import { MoreScreen } from './src/screens/MoreScreen';
 import { LoginScreen } from './src/screens/LoginScreen';
-import { MarketResearchScreen } from './src/screens/MarketResearchScreen';
+import {
+  SUPPORTED_LANGUAGES,
+  SupportedLanguage,
+} from './src/services/bhashiniLocalization';
 
-type ScreenKey = 'dashboard' | 'identities' | 'incidents' | 'alerts' | 'aadhaar' | 'security' | 'research';
+export type ScreenKey =
+  | 'shield'
+  | 'activity'
+  | 'vault'
+  | 'more'
+  // Legacy / Direct routes
+  | 'dashboard'
+  | 'alerts'
+  | 'incidents'
+  | 'aadhaar'
+  | 'research'
+  | 'security'
+  | 'identities';
 
 export default function App() {
-  const [currentScreen, setCurrentScreen] = useState<ScreenKey>('dashboard');
+  const [currentScreen, setCurrentScreen] = useState<ScreenKey>('shield');
   const [session, setSession] = useState<UserSession | null>(null);
   const [initializing, setInitializing] = useState(true);
   const [unreadAlertsCount, setUnreadAlertsCount] = useState(0);
+  const [currentLang, setCurrentLang] = useState<SupportedLanguage>('en');
+  const [langModalVisible, setLangModalVisible] = useState(false);
 
   const fetchUnreadCount = async () => {
     try {
@@ -60,6 +76,12 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
+  const handleSelectLanguage = (lang: SupportedLanguage) => {
+    api.setLanguage(lang);
+    setCurrentLang(lang);
+    setLangModalVisible(false);
+  };
+
   if (initializing) {
     return (
       <SafeAreaView style={styles.splashContainer}>
@@ -87,6 +109,16 @@ export default function App() {
     );
   }
 
+  // Resolve which primary bottom nav tab is active
+  const activeTabKey: 'shield' | 'activity' | 'vault' | 'more' =
+    ['shield', 'dashboard'].includes(currentScreen)
+      ? 'shield'
+      : ['activity', 'alerts', 'incidents'].includes(currentScreen)
+      ? 'activity'
+      : ['vault', 'aadhaar'].includes(currentScreen)
+      ? 'vault'
+      : 'more';
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#090d16" />
@@ -101,6 +133,15 @@ export default function App() {
           </View>
         </View>
         <View style={styles.userSection}>
+          {/* Vernacular Language Pill */}
+          <TouchableOpacity
+            style={styles.langPill}
+            onPress={() => setLangModalVisible(true)}
+            activeOpacity={0.7}
+          >
+            <Text style={styles.langPillText}>🌐 {currentLang.toUpperCase()}</Text>
+          </TouchableOpacity>
+
           <View style={styles.userBadge}>
             <View style={styles.activeDot} />
             <Text style={styles.userEmail} numberOfLines={1}>
@@ -120,7 +161,7 @@ export default function App() {
       </View>
 
       {/* Urgent Alert Banner */}
-      {unreadAlertsCount > 0 && currentScreen !== 'alerts' && (
+      {unreadAlertsCount > 0 && activeTabKey !== 'activity' && (
         <TouchableOpacity
           style={styles.alertBanner}
           onPress={() => setCurrentScreen('alerts')}
@@ -138,41 +179,49 @@ export default function App() {
 
       {/* Main Screen Content */}
       <View style={styles.screenContainer}>
-        {currentScreen === 'dashboard' && (
-          <DashboardScreen session={session} onNavigate={(scr) => setCurrentScreen(scr as ScreenKey)} />
-        )}
-        {currentScreen === 'alerts' && (
-          <AlertsScreen
+        {activeTabKey === 'shield' && (
+          <DashboardScreen
+            session={session}
             onNavigate={(scr) => setCurrentScreen(scr as ScreenKey)}
+          />
+        )}
+        {activeTabKey === 'activity' && (
+          <ActivityScreen
+            initialTab={currentScreen === 'incidents' ? 'incidents' : 'alerts'}
             onRefreshAlertsCount={fetchUnreadCount}
           />
         )}
-        {currentScreen === 'identities' && <IdentitiesScreen />}
-        {currentScreen === 'incidents' && <IncidentsScreen />}
-        {currentScreen === 'aadhaar' && <AadhaarPanScreen />}
-        {currentScreen === 'research' && (
-          <MarketResearchScreen onNavigateToShield={() => setCurrentScreen('aadhaar')} />
-        )}
-        {currentScreen === 'security' && (
-          <SecurityScreen
+        {activeTabKey === 'vault' && <AadhaarPanScreen />}
+        {activeTabKey === 'more' && (
+          <MoreScreen
             session={session}
             onRefreshSession={initApp}
             onLogout={() => setSession(null)}
+            onNavigateToVault={() => setCurrentScreen('vault')}
+            onSelectLanguage={handleSelectLanguage}
+            currentLanguage={currentLang}
+            initialSubView={
+              currentScreen === 'identities'
+                ? 'identities'
+                : currentScreen === 'security'
+                ? 'security'
+                : currentScreen === 'research'
+                ? 'research'
+                : 'menu'
+            }
           />
         )}
       </View>
 
-      {/* Bottom Navigation Tabs */}
+      {/* Bottom Navigation Tabs - 4 Elegant Tabs */}
       <View style={styles.bottomNav}>
         {[
-          { key: 'dashboard', label: 'Shield', icon: '📊' },
-          { key: 'alerts', label: 'Alerts', icon: '🔔', badge: unreadAlertsCount },
-          { key: 'incidents', label: 'Incidents', icon: '⚠️' },
-          { key: 'aadhaar', label: 'Aadhaar', icon: '🇮🇳' },
-          { key: 'research', label: 'Research', icon: '🔬' },
-          { key: 'security', label: 'Security', icon: '🛡️' },
+          { key: 'shield', label: 'Shield', icon: '🛡️' },
+          { key: 'activity', label: 'Activity', icon: '🔔', badge: unreadAlertsCount },
+          { key: 'vault', label: 'Vault', icon: '🇮🇳' },
+          { key: 'more', label: 'More', icon: '⚙️' },
         ].map((tab) => {
-          const isActive = currentScreen === tab.key;
+          const isActive = activeTabKey === tab.key;
           return (
             <TouchableOpacity
               key={tab.key}
@@ -194,6 +243,56 @@ export default function App() {
           );
         })}
       </View>
+
+      {/* Vernacular Language Selection Modal */}
+      <Modal visible={langModalVisible} animationType="fade" transparent>
+        <TouchableOpacity
+          style={styles.modalBackdrop}
+          activeOpacity={1}
+          onPress={() => setLangModalVisible(false)}
+        >
+          <View style={styles.langModalContent}>
+            <Text style={styles.langModalTitle}>🗣️ Select Regional Language</Text>
+            <Text style={styles.langModalSub}>
+              Powered by Project Bhashini Vernacular Engine
+            </Text>
+            <View style={{ gap: 8, marginTop: 12 }}>
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <TouchableOpacity
+                  key={lang.code}
+                  style={[
+                    styles.langOptionBtn,
+                    currentLang === lang.code && styles.langOptionBtnActive,
+                  ]}
+                  onPress={() => handleSelectLanguage(lang.code)}
+                >
+                  <Text style={styles.langOptionFlag}>{lang.flag}</Text>
+                  <View style={{ flex: 1 }}>
+                    <Text
+                      style={[
+                        styles.langOptionName,
+                        currentLang === lang.code && styles.langOptionNameActive,
+                      ]}
+                    >
+                      {lang.nativeName}
+                    </Text>
+                    <Text style={styles.langOptionEnglish}>{lang.name}</Text>
+                  </View>
+                  {currentLang === lang.code && (
+                    <Text style={styles.langOptionCheck}>✓</Text>
+                  )}
+                </TouchableOpacity>
+              ))}
+            </View>
+            <TouchableOpacity
+              style={styles.langModalCloseBtn}
+              onPress={() => setLangModalVisible(false)}
+            >
+              <Text style={styles.langModalCloseText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -255,6 +354,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+  },
+  langPill: {
+    backgroundColor: '#111827',
+    paddingHorizontal: 8,
+    paddingVertical: 5,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#1e293b',
+  },
+  langPillText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: '#38bdf8',
   },
   userBadge: {
     flexDirection: 'row',
@@ -383,6 +495,79 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 9,
     fontWeight: '800',
+  },
+  modalBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.85)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  langModalContent: {
+    backgroundColor: '#0f172a',
+    borderRadius: 16,
+    padding: 20,
+    width: '100%',
+    maxWidth: 340,
+    borderWidth: 1,
+    borderColor: '#1e293b',
+  },
+  langModalTitle: {
+    fontSize: 17,
+    fontWeight: '800',
+    color: '#f8fafc',
+    marginBottom: 4,
+  },
+  langModalSub: {
+    fontSize: 12,
+    color: '#94a3b8',
+    marginBottom: 12,
+  },
+  langOptionBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#111827',
+    padding: 12,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#1e293b',
+    gap: 12,
+  },
+  langOptionBtnActive: {
+    backgroundColor: '#1e3a8a',
+    borderColor: '#3b82f6',
+  },
+  langOptionFlag: {
+    fontSize: 20,
+  },
+  langOptionName: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#f8fafc',
+  },
+  langOptionNameActive: {
+    color: '#60a5fa',
+  },
+  langOptionEnglish: {
+    fontSize: 11,
+    color: '#64748b',
+  },
+  langOptionCheck: {
+    fontSize: 16,
+    color: '#60a5fa',
+    fontWeight: '800',
+  },
+  langModalCloseBtn: {
+    marginTop: 16,
+    backgroundColor: '#1e293b',
+    paddingVertical: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  langModalCloseText: {
+    color: '#cbd5e1',
+    fontWeight: '600',
+    fontSize: 13,
   },
 });
 

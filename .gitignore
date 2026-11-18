@@ -44,6 +44,8 @@ htmlcov/
 node_modules/
 .expo/
 npm-debug.log*
+apps/mobile/android/
+apps/mobile/ios/
 
 # Local runner logs & pids
 .*.log

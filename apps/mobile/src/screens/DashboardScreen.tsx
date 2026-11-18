@@ -276,119 +276,55 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({ session, onNav
       contentContainerStyle={styles.content}
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => { setRefreshing(true); loadData(); }} tintColor="#3b82f6" />}
     >
-      {/* Feature 1: Project Bhashini Vernacular Selector Bar */}
-      <View style={styles.langBarContainer}>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.langScroll}>
-          {SUPPORTED_LANGUAGES.map((lang) => (
-            <TouchableOpacity
-              key={lang.code}
-              style={[styles.langChip, currentLang === lang.code && styles.langChipActive]}
-              onPress={() => handleSelectLanguage(lang.code)}
-            >
-              <Text style={[styles.langChipText, currentLang === lang.code && styles.langChipTextActive]}>
-                {lang.flag} {lang.nativeName}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-
-        {/* Vernacular Voice Guidance Banner */}
-        <View style={styles.bhashiniBanner}>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.bhashiniBannerTitle}>🗣️ {localizedStrings.shieldActive}</Text>
-            <Text style={styles.bhashiniBannerText}>{localizedStrings.biometricLockGuide}</Text>
-          </View>
-          <TouchableOpacity style={styles.audioVoiceBtn} onPress={handlePlayVoiceGuidance}>
-            <Text style={styles.audioVoiceBtnText}>🔊 Audio</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
       {/* Resident Header */}
       <View style={styles.header}>
         <View>
-          <Text style={styles.greeting}>Identity Shield</Text>
+          <Text style={styles.greeting}>🇮🇳 CITIZEN IDENTITY SHIELD</Text>
           <Text style={styles.userName}>{session?.full_name || 'Resident'}</Text>
         </View>
-        <View style={{ flexDirection: 'row', gap: 6 }}>
-          <TouchableOpacity
-            style={[styles.scanButton, { backgroundColor: '#b91c1c' }]}
-            onPress={() => {
-              setScamResult(null);
-              setScamInputText('');
-              setScamHeaderInput('');
-              setScamModalVisible(true);
-            }}
-          >
-            <Text style={styles.scanButtonText}>🚨 Scam Radar</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.scanButton, { backgroundColor: '#0284c7' }]}
-            onPress={() => {
-              setScanResult(null);
-              setQrInputText('');
-              setQrModalVisible(true);
-            }}
-          >
-            <Text style={styles.scanButtonText}>📷 QR</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.scanButton, scanning && styles.buttonDisabled]}
-            onPress={handleScanNow}
-            disabled={scanning}
-          >
-            {scanning ? (
-              <ActivityIndicator size="small" color="#fff" />
-            ) : (
-              <Text style={styles.scanButtonText}>⚡ Scan</Text>
-            )}
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity
+          style={[styles.headerScanBtn, scanning && styles.buttonDisabled]}
+          onPress={handleScanNow}
+          disabled={scanning}
+          activeOpacity={0.8}
+        >
+          {scanning ? (
+            <ActivityIndicator size="small" color="#fff" />
+          ) : (
+            <Text style={styles.headerScanBtnText}>⚡ Scan Now</Text>
+          )}
+        </TouchableOpacity>
       </View>
 
-      {/* Main Shield Widget */}
-      <View style={[styles.shieldCard, { borderColor: shieldColor }]}>
-        <View style={[styles.shieldBadge, { backgroundColor: `${shieldColor}20` }]}>
-          <Text style={[styles.shieldIcon, { color: shieldColor }]}>🛡️</Text>
-          <Text style={[styles.shieldStatusText, { color: shieldColor }]}>
-            {glance?.shield_status.toUpperCase() || 'SECURE'}
-          </Text>
-        </View>
-        <Text style={styles.shieldTitle}>
-          {glance?.shield_status === 'critical'
-            ? 'Critical Exposure Detected'
-            : glance?.shield_status === 'warning'
-            ? 'Potential Threat Identified'
-            : 'Identity Protected & Secure'}
-        </Text>
-        <Text style={styles.shieldSubtitle}>
-          {glance?.shield_status === 'secure'
-            ? 'No unaddressed breach records or compromised credentials matching your verified identifiers.'
-            : 'Action required: Review detected incidents and complete remediation steps below.'}
-        </Text>
-      </View>
-
-      {/* Feature A: Suraksha Citizen Health Score & Gamified Badges */}
-      <View style={[styles.cardScore, { borderColor: scoreReport.tierColor }]}>
-        <View style={styles.scoreHeaderRow}>
-          <View>
-            <Text style={styles.scoreSubTitle}>SURAKSHA PRIVACY HEALTH</Text>
-            <View style={{ flexDirection: 'row', alignItems: 'baseline', gap: 6 }}>
-              <Text style={[styles.scoreNumber, { color: scoreReport.tierColor }]}>{scoreReport.score}</Text>
-              <Text style={styles.scoreMax}>/ {scoreReport.maxScore}</Text>
-            </View>
+      {/* Hero Privacy Health Card */}
+      <View style={[styles.heroCard, { borderColor: scoreReport.tierColor }]}>
+        <View style={styles.heroTopRow}>
+          <View style={[styles.shieldStatusPill, { backgroundColor: `${shieldColor}20`, borderColor: shieldColor }]}>
+            <View style={[styles.statusDot, { backgroundColor: shieldColor }]} />
+            <Text style={[styles.shieldStatusLabel, { color: shieldColor }]}>
+              {glance?.shield_status === 'critical'
+                ? 'CRITICAL EXPOSURE'
+                : glance?.shield_status === 'warning'
+                ? 'POTENTIAL THREAT'
+                : 'SHIELD ACTIVE & SECURE'}
+            </Text>
           </View>
-          <View style={[styles.scoreTierPill, { backgroundColor: `${scoreReport.tierColor}25`, borderColor: scoreReport.tierColor }]}>
-            <Text style={[styles.scoreTierText, { color: scoreReport.tierColor }]}>{scoreReport.tier}</Text>
+          <View style={[styles.tierPill, { backgroundColor: `${scoreReport.tierColor}20`, borderColor: scoreReport.tierColor }]}>
+            <Text style={[styles.tierPillText, { color: scoreReport.tierColor }]}>{scoreReport.tier}</Text>
           </View>
         </View>
 
-        <Text style={styles.scorePercentileText}>{scoreReport.percentileText}</Text>
+        {/* Center Score Dial Representation */}
+        <View style={styles.scoreDialCenter}>
+          <View style={[styles.dialCircleOuter, { borderColor: scoreReport.tierColor }]}>
+            <Text style={[styles.heroScoreNum, { color: scoreReport.tierColor }]}>{scoreReport.score}</Text>
+            <Text style={styles.heroScoreMax}>/ {scoreReport.maxScore}</Text>
+          </View>
+          <Text style={styles.heroPercentile}>{scoreReport.percentileText}</Text>
+        </View>
 
-        {/* Achievement Badges Row */}
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.badgesScroll}>
+        {/* Badges Carousel / Subtle Row */}
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.heroBadgesRow}>
           {scoreReport.badges.map((b) => (
             <View key={b.id} style={[styles.badgeChip, b.unlocked ? styles.badgeChipUnlocked : styles.badgeChipLocked]}>
               <Text style={styles.badgeIcon}>{b.icon}</Text>
@@ -398,65 +334,72 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({ session, onNav
         </ScrollView>
       </View>
 
-      {/* Feature A.1: Citizen Voice & Market Research Card */}
-      <TouchableOpacity
-        style={styles.researchBannerCard}
-        onPress={() => onNavigate('research')}
-        activeOpacity={0.85}
-      >
-        <View style={styles.researchBannerRow}>
-          <Text style={styles.researchBannerIcon}>🔬</Text>
-          <View style={{ flex: 1 }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-              <Text style={styles.researchBannerTag}>MARKET VALIDATION & RESEARCH</Text>
-              <View style={styles.livePulseDot} />
-            </View>
-            <Text style={styles.researchBannerTitle}>Citizen Cyber Hygiene Audit</Text>
-            <Text style={styles.researchBannerSub}>
-              Take 60s audit • View live national threat metrics & investor data →
-            </Text>
-          </View>
-          <Text style={styles.researchBannerArrow}>→</Text>
-        </View>
-      </TouchableOpacity>
+      {/* Quick Action Pills (2x2 Grid) */}
+      <Text style={styles.sectionHeading}>QUICK ACTIONS</Text>
+      <View style={styles.quickGrid}>
+        <TouchableOpacity
+          style={[styles.quickCard, { borderColor: '#ef4444' }]}
+          onPress={() => {
+            setScamResult(null);
+            setScamInputText('');
+            setScamHeaderInput('');
+            setScamModalVisible(true);
+          }}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.quickIcon}>🚨</Text>
+          <Text style={styles.quickTitle}>Scam Radar</Text>
+          <Text style={styles.quickSub}>Detect Fake CBI / APKs</Text>
+        </TouchableOpacity>
 
-      {/* Feature B: 10-Minute Biometric Temporary Relock Countdown Widget */}
-      <View style={[styles.actionCard, { borderColor: unlockTimerActive ? '#f59e0b' : '#10b981' }]}>
-        <View style={styles.actionHeader}>
-          <Text style={styles.actionIcon}>{unlockTimerActive ? '🔓' : '🔒'}</Text>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.actionTitle}>Aadhaar Biometric Auto-Relock Timer</Text>
-            <Text style={[styles.actionStatus, { color: unlockTimerActive ? '#f59e0b' : '#10b981' }]}>
-              {unlockTimerActive ? 'TEMPORARILY UNLOCKED FOR BANK / KYC' : 'SECURE & LOCKED AGAINST AePS THEFT'}
-            </Text>
-          </View>
-        </View>
+        <TouchableOpacity
+          style={[styles.quickCard, { borderColor: '#38bdf8' }]}
+          onPress={() => {
+            setScanResult(null);
+            setQrInputText('');
+            setQrModalVisible(true);
+          }}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.quickIcon}>📷</Text>
+          <Text style={styles.quickTitle}>Verify QR</Text>
+          <Text style={styles.quickSub}>Offline Pass / UIDAI</Text>
+        </TouchableOpacity>
 
-        {unlockTimerActive ? (
-          <View style={styles.timerActiveBox}>
-            <Text style={styles.timerActiveNotice}>
-              Auto-relock countdown active. Your biometrics will automatically re-lock when timer reaches 00:00.
-            </Text>
-            <Text style={styles.timerClockText}>
-              {Math.floor(unlockSecondsLeft / 60).toString().padStart(2, '0')}:{(unlockSecondsLeft % 60).toString().padStart(2, '0')}
-            </Text>
-            <TouchableOpacity style={styles.relockImmediateBtn} onPress={handleManualRelock}>
-              <Text style={styles.relockImmediateBtnText}>🔒 Relock Biometrics Immediately</Text>
-            </TouchableOpacity>
-          </View>
-        ) : (
-          <View>
-            <Text style={styles.actionDesc}>
-              Visiting an Indian bank or telecom kiosk? Open a 10-minute temporary unlock window with automatic safety re-lock.
-            </Text>
-            <TouchableOpacity style={[styles.actionBtn, { borderColor: '#10b981' }]} onPress={handleStartUnlockTimer}>
-              <Text style={[styles.actionBtnText, { color: '#34d399' }]}>⏱️ Start 10-Minute Temporary Window</Text>
-            </TouchableOpacity>
-          </View>
-        )}
+        <TouchableOpacity
+          style={[styles.quickCard, { borderColor: unlockTimerActive ? '#f59e0b' : '#10b981' }]}
+          onPress={() => {
+            if (unlockTimerActive) {
+              handleManualRelock();
+            } else {
+              handleStartUnlockTimer();
+            }
+          }}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.quickIcon}>{unlockTimerActive ? '🔓' : '⏱️'}</Text>
+          <Text style={styles.quickTitle}>
+            {unlockTimerActive ? 'Relock Now' : 'Auto-Relock'}
+          </Text>
+          <Text style={[styles.quickSub, unlockTimerActive && { color: '#f59e0b', fontWeight: '700' }]}>
+            {unlockTimerActive
+              ? `${Math.floor(unlockSecondsLeft / 60)}:${(unlockSecondsLeft % 60).toString().padStart(2, '0')} Left`
+              : '10-Min KYC Window'}
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.quickCard, { borderColor: '#818cf8' }]}
+          onPress={() => onNavigate('vault')}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.quickIcon}>🇮🇳</Text>
+          <Text style={styles.quickTitle}>Masked Pass</Text>
+          <Text style={styles.quickSub}>UIDAI DPDP Compliant</Text>
+        </TouchableOpacity>
       </View>
 
-      {/* Urgent Breach Alert if present */}
+      {/* Urgent Breach Alert Banner (if present) */}
       {glance?.urgent_alert && (
         <TouchableOpacity
           style={styles.urgentCard}
@@ -472,133 +415,77 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({ session, onNav
         </TouchableOpacity>
       )}
 
-      {/* Metric Cards Grid */}
-      <View style={styles.statsGrid}>
+      {/* Key Metrics 2x2 Grid */}
+      <Text style={styles.sectionHeading}>SECURITY TELEMETRY</Text>
+      <View style={styles.metricsGrid}>
         <TouchableOpacity
-          style={styles.statCard}
+          style={styles.metricCard}
           onPress={() => onNavigate('identities')}
+          activeOpacity={0.8}
         >
-          <Text style={styles.statNumber}>{glance?.active_monitored_count ?? 0}</Text>
-          <Text style={styles.statLabel}>Active Identifiers</Text>
-          <Text style={styles.statLink}>Manage →</Text>
+          <Text style={styles.metricNumber}>{glance?.active_monitored_count ?? 1}</Text>
+          <Text style={styles.metricLabel}>Monitored IDs</Text>
+          <Text style={styles.metricFooter}>Manage →</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.statCard}
+          style={styles.metricCard}
           onPress={() => onNavigate('incidents')}
+          activeOpacity={0.8}
         >
-          <Text style={[styles.statNumber, { color: glance?.active_incidents ? '#ef4444' : '#10b981' }]}>
+          <Text style={[styles.metricNumber, { color: glance?.active_incidents ? '#ef4444' : '#10b981' }]}>
             {glance?.active_incidents ?? 0}
           </Text>
-          <Text style={styles.statLabel}>Active Incidents</Text>
-          <Text style={styles.statLink}>View List →</Text>
+          <Text style={styles.metricLabel}>Threats Detected</Text>
+          <Text style={[styles.metricFooter, { color: glance?.active_incidents ? '#ef4444' : '#10b981' }]}>
+            {glance?.active_incidents ? 'Review Incidents →' : 'Zero Breaches ✓'}
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.metricCard}
+          onPress={() => onNavigate('vault')}
+          activeOpacity={0.8}
+        >
+          <Text style={[styles.metricNumber, { color: '#10b981', fontSize: 18 }]}>
+            {glance?.biometrics_locked ? 'LOCKED' : 'UNLOCKED'}
+          </Text>
+          <Text style={styles.metricLabel}>Biometric Shield</Text>
+          <Text style={styles.metricFooter}>AePS Protection →</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.metricCard}
+          onPress={() => onNavigate('more')}
+          activeOpacity={0.8}
+        >
+          <Text style={[styles.metricNumber, { color: '#38bdf8' }]}>
+            1
+          </Text>
+          <Text style={styles.metricLabel}>Family Protected</Text>
+          <Text style={styles.metricFooter}>Family Hub →</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Aadhaar Biometric Lock Status Card */}
-      <View style={styles.actionCard}>
-        <View style={styles.actionHeader}>
-          <Text style={styles.actionIcon}>🇮🇳</Text>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.actionTitle}>UIDAI Aadhaar Biometric Lock</Text>
-            <Text style={styles.actionStatus}>
-              {glance?.biometrics_locked
-                ? '✅ User Reported Locked via m-Aadhaar'
-                : '⚠️ Biometric Lock Not Confirmed Yet'}
-            </Text>
-          </View>
+      {/* Active Masked ID Card */}
+      <View style={styles.maskedIdCard}>
+        <View style={styles.maskedIdHeader}>
+          <Text style={styles.maskedIdBadge}>GOVERNMENT OF INDIA • MASKED AADHAAR</Text>
+          <Text style={styles.maskedIdStatus}>🔒 VERIFIED</Text>
         </View>
-        <Text style={styles.actionDesc}>
-          Prevent unauthorized authentication by keeping your Aadhaar biometric records locked when not in use.
-        </Text>
-        <TouchableOpacity
-          style={styles.actionBtn}
-          onPress={() => onNavigate('aadhaar')}
-        >
-          <Text style={styles.actionBtnText}>Open Aadhaar & PAN Guide →</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Feature 2: In-App Real-Time Identity Auto-Redactor */}
-      <View style={[styles.actionCard, { borderColor: '#38bdf8' }]}>
-        <View style={styles.actionHeader}>
-          <Text style={styles.actionIcon}>🖼️</Text>
-          <View style={{ flex: 1 }}>
-            <Text style={styles.actionTitle}>In-App Real-Time Canvas Auto-Redactor</Text>
-            <Text style={styles.actionStatus}>UIDAI 2022 Circular & DPDP Act 2023 Compliant</Text>
-          </View>
+        <View style={styles.maskedIdBody}>
+          <Text style={styles.maskedIdNumber}>████  ████  4819</Text>
+          <Text style={styles.maskedIdDesc}>
+            Offline Redacted Pass ready for hotels and rental verification under UIDAI Circular 2022.
+          </Text>
+          <TouchableOpacity
+            style={styles.vaultPassBtn}
+            onPress={() => onNavigate('vault')}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.vaultPassBtnText}>Open Identity Vault & Generate Pass →</Text>
+          </TouchableOpacity>
         </View>
-        <Text style={styles.actionDesc}>
-          Never share an unmasked photocopied card with hotels or rentals. Burns indelible black redaction blocks
-          over the first 8 digits and QR code, stamping a non-reusable purpose watermark.
-        </Text>
-
-        {/* Doc type selector */}
-        <View style={{ flexDirection: 'row', gap: 6, marginBottom: 8 }}>
-          {[
-            { key: 'aadhaar', label: '🇮🇳 Aadhaar' },
-            { key: 'pan', label: '💳 PAN Card' },
-            { key: 'driving_license', label: '🚗 Driving Lic' },
-          ].map((d) => (
-            <TouchableOpacity
-              key={d.key}
-              style={[
-                styles.redactorTab,
-                redactorDocType === d.key && styles.redactorTabActive,
-              ]}
-              onPress={() => handleUpdateRedaction(d.key as any, redactorRecipient)}
-            >
-              <Text style={[styles.redactorTabText, redactorDocType === d.key && styles.redactorTabTextActive]}>
-                {d.label}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
-
-        {/* Redacted Document Visual Canvas Mockup */}
-        <View style={styles.canvasMockBox}>
-          <View style={styles.canvasHeaderBar}>
-            <Text style={styles.canvasHeaderTitle}>
-              {redactorDocType === 'aadhaar' ? 'GOVERNMENT OF INDIA • MASKED AADHAAR' : 'GOVERNMENT IDENTITY CARD'}
-            </Text>
-            <Text style={styles.canvasMaskBadge}>🔒 2 REDACTIONS APPLIED</Text>
-          </View>
-
-          <View style={{ padding: 12 }}>
-            <Text style={{ fontSize: 13, color: '#94a3b8', marginBottom: 2 }}>Resident Name: <Text style={{ color: '#f8fafc', fontWeight: '700' }}>Aarav Sharma</Text></Text>
-
-            {/* Number with black redaction block */}
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginVertical: 8 }}>
-              <View style={styles.blackRedactionBox}>
-                <Text style={styles.blackRedactionText}>████ ████ [REDACTED]</Text>
-              </View>
-              <Text style={{ fontSize: 16, fontWeight: '800', color: '#38bdf8', fontFamily: 'monospace' }}>4819</Text>
-            </View>
-
-            {/* QR with black redaction block */}
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-              <View style={[styles.blackRedactionBox, { paddingVertical: 10, paddingHorizontal: 12 }]}>
-                <Text style={styles.blackRedactionText}>[QR CODE MASKED - UIDAI SEC 47]</Text>
-              </View>
-              <Text style={{ fontSize: 10, color: '#64748b' }}>Photo ID Preserved</Text>
-            </View>
-
-            {/* Purpose Watermark */}
-            <View style={styles.watermarkBannerBox}>
-              <Text style={styles.watermarkBannerText}>{redactedDoc.watermarkText}</Text>
-            </View>
-          </View>
-        </View>
-
-        <TouchableOpacity
-          style={[styles.actionBtn, { backgroundColor: '#0284c7', borderColor: '#38bdf8', marginTop: 10 }]}
-          onPress={() => {
-            antiTamperShield.safeCopyToClipboard(redactedDoc.watermarkText, 'Watermarked Document');
-            Alert.alert('Redacted Document Ready', 'Masked document watermark and Section 47 metadata copied to clipboard.');
-          }}
-        >
-          <Text style={[styles.actionBtnText, { color: '#ffffff' }]}>📋 Copy Redacted Specification</Text>
-        </TouchableOpacity>
       </View>
 
       {/* Compliance / Privacy Guarantee */}
@@ -842,73 +729,245 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 20,
-    marginTop: 8,
+    marginBottom: 16,
+    marginTop: 4,
   },
   greeting: {
-    fontSize: 13,
-    color: '#94a3b8',
-    textTransform: 'uppercase',
-    letterSpacing: 0.8,
+    fontSize: 11,
+    color: '#60a5fa',
+    fontWeight: '800',
+    letterSpacing: 1,
   },
   userName: {
     fontSize: 22,
-    fontWeight: '700',
+    fontWeight: '800',
     color: '#f8fafc',
+    marginTop: 2,
   },
-  scanButton: {
+  headerScanBtn: {
     backgroundColor: '#2563eb',
     paddingHorizontal: 14,
-    paddingVertical: 10,
-    borderRadius: 8,
+    paddingVertical: 9,
+    borderRadius: 10,
     shadowColor: '#2563eb',
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 2,
+    shadowOpacity: 0.35,
+    shadowRadius: 5,
+    elevation: 3,
   },
   buttonDisabled: {
     opacity: 0.6,
   },
-  scanButtonText: {
+  headerScanBtnText: {
     color: '#ffffff',
-    fontWeight: '600',
-    fontSize: 14,
+    fontWeight: '700',
+    fontSize: 13,
   },
-  shieldCard: {
-    backgroundColor: '#111827',
-    borderRadius: 16,
-    padding: 20,
-    borderWidth: 1.5,
-    marginBottom: 16,
-  },
-  shieldBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+  heroCard: {
+    backgroundColor: '#0c1a2f',
     borderRadius: 20,
+    padding: 18,
+    borderWidth: 1.5,
+    marginBottom: 20,
+  },
+  heroTopRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginBottom: 12,
   },
-  shieldIcon: {
-    fontSize: 18,
-    marginRight: 6,
+  shieldStatusPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 16,
+    borderWidth: 1,
+    gap: 6,
   },
-  shieldStatusText: {
-    fontWeight: '700',
-    fontSize: 13,
+  statusDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+  },
+  shieldStatusLabel: {
+    fontSize: 10,
+    fontWeight: '800',
     letterSpacing: 0.6,
   },
-  shieldTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#f8fafc',
+  tierPill: {
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
+  tierPillText: {
+    fontSize: 10,
+    fontWeight: '800',
+    letterSpacing: 0.6,
+  },
+  scoreDialCenter: {
+    alignItems: 'center',
+    marginVertical: 6,
+  },
+  dialCircleOuter: {
+    width: 130,
+    height: 130,
+    borderRadius: 65,
+    borderWidth: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(15, 23, 42, 0.7)',
+    marginBottom: 10,
+  },
+  heroScoreNum: {
+    fontSize: 38,
+    fontWeight: '900',
+    letterSpacing: -1,
+  },
+  heroScoreMax: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#64748b',
+    marginTop: -2,
+  },
+  heroPercentile: {
+    fontSize: 12,
+    color: '#93c5fd',
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  heroBadgesRow: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 14,
+    paddingVertical: 2,
+  },
+  sectionHeading: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: '#64748b',
+    letterSpacing: 1,
+    textTransform: 'uppercase',
+    marginBottom: 10,
+    marginLeft: 2,
+  },
+  quickGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+    marginBottom: 20,
+  },
+  quickCard: {
+    width: '48.5%',
+    backgroundColor: '#111827',
+    borderRadius: 14,
+    padding: 14,
+    borderWidth: 1,
+  },
+  quickIcon: {
+    fontSize: 22,
     marginBottom: 6,
   },
-  shieldSubtitle: {
-    fontSize: 13,
+  quickTitle: {
+    fontSize: 14,
+    fontWeight: '700',
+    color: '#f8fafc',
+    marginBottom: 2,
+  },
+  quickSub: {
+    fontSize: 10,
     color: '#94a3b8',
-    lineHeight: 18,
+    fontWeight: '500',
+  },
+  metricsGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+    marginBottom: 20,
+  },
+  metricCard: {
+    width: '48.5%',
+    backgroundColor: '#111827',
+    borderRadius: 14,
+    padding: 14,
+    borderWidth: 1,
+    borderColor: '#1e293b',
+  },
+  metricNumber: {
+    fontSize: 24,
+    fontWeight: '800',
+    color: '#f8fafc',
+    marginBottom: 2,
+  },
+  metricLabel: {
+    fontSize: 11,
+    color: '#94a3b8',
+    marginBottom: 6,
+    fontWeight: '500',
+  },
+  metricFooter: {
+    fontSize: 11,
+    color: '#38bdf8',
+    fontWeight: '700',
+  },
+  maskedIdCard: {
+    backgroundColor: '#0c1a2f',
+    borderRadius: 16,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#1e3a8a',
+    marginBottom: 20,
+  },
+  maskedIdHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  maskedIdBadge: {
+    fontSize: 9,
+    fontWeight: '800',
+    color: '#60a5fa',
+    letterSpacing: 0.8,
+  },
+  maskedIdStatus: {
+    fontSize: 9,
+    fontWeight: '800',
+    color: '#34d399',
+    backgroundColor: '#064e3b',
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+  },
+  maskedIdBody: {
+    marginTop: 4,
+  },
+  maskedIdNumber: {
+    fontSize: 22,
+    fontWeight: '800',
+    color: '#38bdf8',
+    fontFamily: 'monospace',
+    letterSpacing: 2,
+    marginBottom: 6,
+  },
+  maskedIdDesc: {
+    fontSize: 11,
+    color: '#94a3b8',
+    lineHeight: 16,
+    marginBottom: 12,
+  },
+  vaultPassBtn: {
+    backgroundColor: '#1e293b',
+    paddingVertical: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#38bdf8',
+  },
+  vaultPassBtnText: {
+    color: '#38bdf8',
+    fontWeight: '700',
+    fontSize: 12,
   },
   urgentCard: {
     backgroundColor: '#450a0a',
